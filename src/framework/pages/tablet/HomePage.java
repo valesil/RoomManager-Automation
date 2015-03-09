@@ -4,50 +4,116 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import framework.selenium.SeleniumDriverManager;
 
+/**
+ * 
+ * @author Administrator
+ *
+ */
 public class HomePage {
 	private WebDriver driver;
-	
+	private WebDriverWait wait;
+
 	@FindBy(xpath = "//div[@ng-bind = 'current._title']")
-	WebElement meetingTitleText;
-	@FindBy(xpath = "//div[contains(@class,'timeleft-remaining')]")
-	WebElement timeLeft;
+	WebElement nowTileValue;
+
 	@FindBy(xpath = "//div[@ng-bind='next._title']")
-	WebElement infoNextTile;
-	@FindBy(xpath = "//span[contains(@ng-bind, 'next._start')]")
-	WebElement timeNextStart;
-	@FindBy(xpath ="//span[contains(@ng-bind, 'next._end')]")
-	WebElement timeNextEnd;
-	@FindBy(xpath ="//div[@id='timeline-container']/div")
-	WebElement timelineContainer;
+	WebElement nextTileValue; 
+
 	@FindBy(xpath ="//div[@ng-bind='current._organizer']")
-	WebElement currentOrganizerText;
+	WebElement currentMeetingOrganizerValue;
+    
+	@FindBy(xpath ="//div[@ng-bind='next._organizer']")
+	WebElement nextMeetingOrganizerValue;
+	
+	@FindBy(xpath = "//div[contains(@class,'timeleft-remaining')]")
+	WebElement timeLeftValue;
+
+	@FindBy(xpath = "//span[contains(@ng-bind, 'next._start')]")
+	WebElement timeNextStartValue;
+
+	@FindBy(xpath ="//span[contains(@ng-bind, 'next._end')]")
+	WebElement timeNextEndValue;
+
+	@FindBy(xpath = "//span[@ng-bind ='currentTime']")
+	WebElement currentTimeValue;
+	
+	@FindBy(xpath = "//i[@ng-class = 'resource.icon']")
+	WebElement resourceIcon;
+	
+	@FindBy(xpath = "//div[@ng-bind='resource.name']")
+	WebElement resourceNameValue;
+	
+	@FindBy(xpath = "//div[@ng-bind='resource.quantity']")
+	WebElement resourceQuantityValue;
+	
+	@FindBy(xpath = "//span[@ng-bind = 'room._customDisplayName']")
+	WebElement roomDisplayNameValue;
+	
 	@FindBy(css="div.tile-button-search")
-	WebElement	searchBtn;
+	WebElement searchBtn;
+
 	@FindBy(css="div.tile-button-quick")
 	WebElement settingsBtn;
+
 	@FindBy(css="div.tile-button-schedule")
 	WebElement scheduleBtn;
-	
+
 	public HomePage() {
 		driver = SeleniumDriverManager.getManager().getDriver();
 		PageFactory.initElements(driver, this);
+		wait = SeleniumDriverManager.getManager().getWait();
+	}
+
+	public String getNowTileValue(){
+		wait.until(ExpectedConditions.elementToBeClickable(nowTileValue));
+		//nowTileValue.click();
+		return nowTileValue.getText();
+	}
+
+	public String getTimeLeftValue(){
+		return timeLeftValue.getText();
+	}
+
+	public String getNextTileValue(){
+		wait.until(ExpectedConditions.elementToBeClickable(nextTileValue));
+		//nextTileValue.click();
+		return nextTileValue.getText();
+	}
+
+	public String getNextMeetingOrganizerNameValue(){
+		return nextMeetingOrganizerValue.getText();
 	}
 	
-	public SearchPage searchPageLink() {
+	public String getStartTimeNextMeetingValue(){
+		return timeNextStartValue.getText();
+	}
+	
+	public String getEndTimeNextMeetingValue(){
+		return timeNextEndValue.getText();
+	}
+	
+	public String getRoomDisplayNameValue(){
+		return roomDisplayNameValue.getText();
+	}
+	
+	public SearchPage clickSearchPageLink() {
 		searchBtn.click();
 		return new SearchPage();
 	}
-	
-	public SettingsPage SettingsPageLink() {
+
+	public SettingsPage clickSettingsPageLink() {
 		settingsBtn.click();
 		return new SettingsPage();
 	}
-	
-	public SchedulePage SchedulePageLink() {
+
+	public SchedulePage clickSchedulePageLink() {
 		scheduleBtn.click();
 		return new SchedulePage();
 	}
+
 }
