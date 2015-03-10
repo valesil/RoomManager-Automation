@@ -9,7 +9,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import framework.selenium.SeleniumDriverManager;
 
 /**
- * This class represent the Menu for conference rooms, save and cancel button
+ * This class represents the Menu for conference rooms, Save and Cancel button
  * @author Yesica Acha
  *
  */
@@ -17,19 +17,19 @@ public abstract class AbstractRoomBasePage {
 	protected WebDriver driver;	
 	protected WebDriverWait wait;
 
-	@FindBy(linkText="Room Info") 
+	@FindBy(linkText = "Room Info") 
 	WebElement roomInfoLink;
 
-	@FindBy(linkText="Resource Associations") 
+	@FindBy(linkText = "Resource Associations") 
 	WebElement resourceAssociationsLink;
 
-	@FindBy(linkText="Out of Order Planning") 
+	@FindBy(linkText = "Out of Order Planning") 
 	WebElement outOfOrderPlanningLink;
 
-	@FindBy(xpath="//button[@ng-click='save()']") 
+	@FindBy(xpath = "//button[@ng-click='save()']") 
 	WebElement saveBtn;
 
-	@FindBy(xpath="//button[@ng-click='cancel()']") 
+	@FindBy(xpath = "//button[@ng-click='cancel()']") 
 	WebElement cancelBtn;
 
 	public AbstractRoomBasePage() {
@@ -62,7 +62,4 @@ public abstract class AbstractRoomBasePage {
 		cancelBtn.click();
 		return new ConferenceRoomPage();
 	}
-
-
-
 }
