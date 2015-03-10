@@ -37,16 +37,6 @@ public class CRResourceAssociationsPage extends AbstractRoomBasePage {
 	}
 	
 	/**
-	 * method that gets the atribute in the page 
-	 * @param resourceName
-	 * @return
-	 */
-	public String getNameOfResourceFromAssociatedList(String resourceName) {
-		return driver.findElement(By.
-				xpath("//span[contains(text(),'" + resourceName + "')]")).getText();
-	}
-	
-	/**
 	 * method that allows to change the number of resources
 	 * @param resourceName
 	 * @param value
@@ -66,7 +56,7 @@ public class CRResourceAssociationsPage extends AbstractRoomBasePage {
 	 */
 	public CRResourceAssociationsPage removeResourceFromAssociatedList(String resourceName) {
 		driver.findElement(By.
-				xpath("//div[@class='col-xs-6']/span[contains(text(),'"+resourceName+"')and@class='ng-binding']/ancestor::div[@class='col-xs-6']/following-sibling::div//i[@class='fa fa-minus']")).click();
+				xpath("//div[@class='col-xs-6']/span[contains(text(),'" + resourceName + "')and@class='ng-binding']/ancestor::div[@class='col-xs-6']/following-sibling::div//i[@class='fa fa-minus']")).click();
 		return new CRResourceAssociationsPage();
 	}
 
@@ -77,7 +67,15 @@ public class CRResourceAssociationsPage extends AbstractRoomBasePage {
 	 */
 	public String getResourceAmount(String resourceName) {
 		return driver.findElement(By.
-				xpath("//div[@class='col-xs-6']/span[contains(text(),'"+resourceName+"')and@class='ng-binding']/ancestor::div[@class='col-xs-6']/following-sibling::div/child::input[@type='text']")).getText();
+				xpath("//div[@class='col-xs-6']/span[contains(text(),'" + resourceName + "')and@class='ng-binding']/ancestor::div[@class='col-xs-6']/following-sibling::div/child::input[@type='text']")).getText();
+	}
+	
+	/**
+	 * Method that returns True when a resource is found in room associations page
+	 * @param resourceName
+	 * @return
+	 */
+	public boolean searchResource(String resourceName) {
+		return driver.findElement(By.xpath("//span[contains(text(),'" + resourceName + "')and@class='ng-binding']")).isDisplayed();	
 	}
 }
-	
