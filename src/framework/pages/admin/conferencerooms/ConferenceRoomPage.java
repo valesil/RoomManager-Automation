@@ -1,13 +1,10 @@
 package framework.pages.admin.conferencerooms;
 
-import java.io.IOException;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Action;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 
+import framework.common.UIMethods;
 import framework.pages.admin.AbstractMainMenu;
 
 /**
@@ -16,15 +13,11 @@ import framework.pages.admin.AbstractMainMenu;
  *
  */
 public class ConferenceRoomPage extends AbstractMainMenu {
-	private Actions action = new Actions(driver);
 	@FindBy(id = "roomsGrid")
 	WebElement roomsGrid;
 
-	@FindBy(xpath = "//div/span[2]") //cambiar
-	WebElement roomNameLbl;
-
-	@FindBy(xpath = "//div[3]/input") //cambiar
-	WebElement roomCodeTxtBox;
+	@FindBy(xpath = "selectedRoom.displayName")
+	WebElement roomCodeTxtBox; 
 
 	@FindBy(xpath = "//input[@ng-model='selectedRoom.capacity']")
 	WebElement roomCapacityTxtBox;
@@ -35,69 +28,65 @@ public class ConferenceRoomPage extends AbstractMainMenu {
 	@FindBy(css="button.btn-clear") 
 	WebElement cancelBtn;
 
-	public RoomInfoPage doubleClickOverRoomName() throws InterruptedException {
-		doubleClick(roomNameLbl);
+	UIMethods UI = new UIMethods();
+
+	/**
+	 * Click over a Room 
+	 * @param displayName is the display name of a Room
+	 * @return
+	 */
+	public RoomInfoPage doubleClickOverRoomName(String displayName) {
+		UI.doubleClick(driver.findElement(By.xpath("//span[contains(text(),'"+displayName+"')and@class='ng-binding']")));
 		return new RoomInfoPage();
 	}
 
-	public void doubleClick(WebElement webElement) {
-		action.doubleClick(roomNameLbl);
-		action.perform();
+	/**
+	 * Get the display name of a Room
+	 * @param displayName
+	 * @return 
+	 */
+	public String getRoomDisplayName(String roomName) {
+		return driver.findElement(By.xpath("//span[contains(text(),'" +
+				roomName + "')and@class='ng-binding']")).getText();
 	}
 
 	/**
-	 * 
-	 * @param displayName
+	 * get the room code of specific room
+	 * @param displayName is the display Name of a Room 
 	 * @return
-	 * @throws IOException
 	 */
-	public String getRoomName(String displayName) throws IOException {
-		return getRoomNameAux(displayName);
-	}
-
-	public String getRoomCode() {
-		doubleClick(roomNameLbl);
+	public String getRoomCode(String displayName) {
+		UI.doubleClick(driver.findElement(By.xpath("//span[contains(text(),'"+displayName+"')and@class='ng-binding']")));
 		return roomCodeTxtBox.getAttribute("value");
 	}
 
-	public String getRoomCapacity() {
-		doubleClick(roomNameLbl);
+	/**
+	 * get the room capacity of specific Room
+	 * @param displayName
+	 * @return display name of room
+	 */
+	public String getRoomCapacity(String displayName) {
+		UI.doubleClick(driver.findElement(By.xpath("//span[contains(text(),'"+displayName+"')and@class='ng-binding']")));
 		return roomCapacityTxtBox.getAttribute("value");
 	}
 
-	public String getRoomLocation() {
-		doubleClick(roomNameLbl);
+	/**
+	 * get the room location of specific room
+	 * @param displayName
+	 * @return the room location
+	 */
+	public String getRoomLocation(String displayName) {
+		UI.doubleClick(driver.findElement(By.xpath("//span[contains(text(),'"+displayName+"')and@class='ng-binding']")));
 		return RoomLocationCmbBox.getText();
 	}
 
+	/**
+	 * Click on cancel button
+	 * @return
+	 */
 	public ConferenceRoomPage clickCancelButton() {
 		cancelBtn.click();
 		return new ConferenceRoomPage();
-	}
-
-	public String getRoomNameAux(String roomName) throws IOException {
-		return driver.findElement(By.xpath("//span[contains(text(),'" + roomName + "')and@class='ng-binding']")).getText();
-	}
-
-	public String getListRooms() {
-		return driver.findElement(By.xpath("//div[@ng-class='col.colIndex()' and @class='ngHeaderCell ng-scope col2 colt2']")).getText();
-	}
-
-	public void dragAndDropResourceHeader(String resourceHeader) {
-		(new Actions(driver)).dragAndDrop(driver.findElement(By.cssSelector(".ngHeaderText.ng-binding.colt4")), 
-				driver.findElement(By.cssSelector(".ngTopPanel.ng-scope"))).perform();
-	}
-
-	public void dragAndDrop(String resourceDisplayName) {
-		WebElement elementToMove = driver.findElement(By.xpath("//div[@class='ngHeaderSortColumn customHeaderClass']//div[contains(text(),'"+resourceDisplayName+"')]"));
-		WebElement moveToElement = driver.findElement(By.xpath("//div[@class='ngGroupPanel']"));
-        Actions dragAndDrop = new Actions(driver);
-        Action action = dragAndDrop.dragAndDrop(elementToMove, moveToElement).build();
-        action.perform();
-	}
-
-	public boolean searchResourceInTableHeader(String resourceName) {
-		return driver.findElement(By.xpath("//div[@class='ngHeaderScroller']//div[contains(text(),'" + resourceName + "')]")).isDisplayed();
 	}
 
 }
