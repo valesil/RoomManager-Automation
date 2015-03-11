@@ -1,5 +1,7 @@
 package framework.pages.tablet;
 
+import static framework.common.AppConfigConstants.BROWSER;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
@@ -10,6 +12,7 @@ import org.openqa.selenium.support.PageFactory;
 import framework.selenium.SeleniumDriverManager;
 
 /**
+ * This class contains all locators of the schedule page and contain methods to use each one
  * 
  * @author Asael Calizaya
  *
@@ -17,65 +20,53 @@ import framework.selenium.SeleniumDriverManager;
 public class SchedulePage {
 	private WebDriver driver;
 	
-	@FindBy(xpath = "//legend/div[1]/span[2]") //cambiar
+	@FindBy(xpath = "//span[contains(text(), 'Scheduler')]")
 	WebElement titleSchedulerLbl;
 	
 	@FindBy(id = "txtOrganizer")
 	WebElement organizerTxtBox;
 	
-	@FindBy(xpath = "//small[@ng-show='formErrors.organizer']")
+	@FindBy(xpath = "//small[@ng-show = 'formErrors.organizer']")
 	WebElement errorMessageOrganizer;
 	
 	@FindBy(id = "txtSubject")
 	WebElement subjectTxtBox;
 	
-	@FindBy(xpath = "//small[@ng-show='formErrors.title']")
+	@FindBy(xpath = "//small[@ng-show = 'formErrors.title']")
 	WebElement errorMessageSubject;
 	
 	@FindBy(id = "txtBody")
 	WebElement bodyTxtBox;
 	
-	@FindBy(xpath = "//small[@ng-show='formErrors.attendeesUnSet']")
+	@FindBy(xpath = "//small[@ng-show = 'formErrors.attendeesUnSet']")
 	WebElement errorMessageAttendee;
 	
-	@FindBy(xpath = "//input[@placeholder='Press enter or semicolon to confirm']")
+	@FindBy(xpath = "//input[@placeholder = 'Press enter or semicolon to confirm']")
 	WebElement attendeesTxtBox;
 	
-	@FindBy(xpath = "//input[@ng-change='startTimeChanged()']")
+	@FindBy(xpath = "//input[@ng-change = 'startTimeChanged()']")
 	WebElement startTimeTxtBox;
 	
-	@FindBy(xpath = "//input[@type='time'and@ng-change='endTimeChanged()']")
+	@FindBy(xpath = "//input[@type = 'time'and@ng-change='endTimeChanged()']")
 	WebElement endTimeTxtBox;
 	
-	@FindBy(xpath = "//button[@ng-click='createMeeting()']")
+	@FindBy(xpath = "//button[@ng-click = 'createMeeting()']")
 	WebElement createBtn;
 	
-	@FindBy(xpath = "//button[@ng-click='cancelMeeting()']")
+	@FindBy(xpath = "//button[@ng-click = 'cancelMeeting()']")
 	WebElement removeBtn;
 	
-	@FindBy(xpath = "//button[@ng-click='updateMeeting()']")
+	@FindBy(xpath = "//button[@ng-click = 'updateMeeting()']")
 	WebElement updateBtn;
 	
-	@FindBy(css = "css=div.currenttime")
+	@FindBy(css = "div.currenttime")
 	WebElement currentTimeLine;
 	
-	@FindBy(xpath = "//span[@ng-click='goToSearch()']")
+	@FindBy(xpath = "//span[@ng-click = 'goToSearch()']")
 	WebElement searchBtn;
 	
-	@FindBy(xpath = "//span[@ng-click='goBack()']")
+	@FindBy(xpath = "//span[@ng-click = 'goBack()']")
 	WebElement backBtn;
-	
-	@FindBy(xpath = "//div[contains(text(),'Meeting successfully created')]")
-	WebElement successfullCreatedMessagePopUp;
-	
-	@FindBy(xpath = "//div[contains(text(),'Meeting successfully removed')]")
-	WebElement successfullRemovedMessagePopUp;
-	
-	@FindBy(xpath = "//div[contains(text(),'Exist a conflict with another meeting')]")
-	WebElement errorMessagePopUp;
-	
-	@FindBy(xpath = "//div[contains(text(),'Meeting successfully updated')]")
-	WebElement successfullUpdatedMessagePopUp;
 	
 	public SchedulePage() {
 		driver = SeleniumDriverManager.getManager().getDriver();
@@ -107,9 +98,51 @@ public class SchedulePage {
 		return this;
 	}
 	
-	public SchedulePage setStartTimeDate(String startTime) {
-		startTimeTxtBox.clear();
+	private void setStartTime(String startTime) {
+		startTimeTxtBox.click();
+		startTimeTxtBox.sendKeys(Keys.BACK_SPACE);
+		startTimeTxtBox.sendKeys(Keys.ARROW_LEFT);
+		startTimeTxtBox.sendKeys(Keys.BACK_SPACE);
+		startTimeTxtBox.sendKeys(Keys.ARROW_LEFT);
+		startTimeTxtBox.sendKeys(Keys.BACK_SPACE);
 		startTimeTxtBox.sendKeys(startTime);
+		startTimeTxtBox.sendKeys(Keys.ARROW_UP);
+	}
+	
+	private void setEndTime(String endTime) {
+		endTimeTxtBox.click();
+		endTimeTxtBox.sendKeys(Keys.BACK_SPACE);
+		endTimeTxtBox.sendKeys(Keys.ARROW_LEFT);
+		endTimeTxtBox.sendKeys(Keys.BACK_SPACE);
+		endTimeTxtBox.sendKeys(Keys.ARROW_LEFT);
+		endTimeTxtBox.sendKeys(Keys.BACK_SPACE);
+		endTimeTxtBox.sendKeys(endTime);
+		endTimeTxtBox.sendKeys(Keys.ARROW_UP);
+	}
+	
+	public SchedulePage setStartTimeDate(String startTime) {
+		if(BROWSER.equalsIgnoreCase("ie")) {
+			startTimeTxtBox.clear();
+			startTimeTxtBox.sendKeys(startTime);			
+		} else if (BROWSER.equalsIgnoreCase("firefox")) {
+			startTimeTxtBox.clear();
+			startTimeTxtBox.sendKeys(startTime);
+		} else {
+			setStartTime(startTime);
+		}
+		return this;
+	}
+	
+	public SchedulePage setEndTimeDate(String endTime) {
+		if(BROWSER.equalsIgnoreCase("ie")) {
+			endTimeTxtBox.clear();
+			endTimeTxtBox.sendKeys(endTime);			
+		} else if (BROWSER.equalsIgnoreCase("firefox")) {
+			endTimeTxtBox.clear();
+			endTimeTxtBox.sendKeys(endTime);
+		} else {
+			setEndTime(endTime);
+		}
 		return this;
 	}
 	
@@ -133,28 +166,6 @@ public class SchedulePage {
 		return new HomePage();
 	}
 	
-	public SchedulePage setEndTimeDate(String endTime) {
-		endTimeTxtBox.clear();
-		endTimeTxtBox.sendKeys(endTime);
-		return this;
-	}
-
-	public boolean getSuccessfulCreatedMessagePopUp() {
-		return successfullCreatedMessagePopUp.isEnabled();
-	}
-	
-	public boolean getSuccessfulRemovedMessagePopUp() {
-		return successfullRemovedMessagePopUp.isEnabled();
-	}
-	
-	public boolean getSuccessfulUpdatedMessagePopUp() {
-		return successfullUpdatedMessagePopUp.isEnabled();
-	}
-	
-	public boolean getErrorMessagePopUp() {
-		return errorMessagePopUp.isEnabled();
-	}
-	
 	public String getErrorMessageOrganizerLabel() {
 		return errorMessageOrganizer.getText();
 	}
@@ -171,13 +182,17 @@ public class SchedulePage {
 		return titleSchedulerLbl.getText();
 	}
 	
-	public String getMeetingCreated(String nameMeeting) {
+	public String getNameMeetingCreated(String nameMeeting) {
 		return driver.findElement(By.xpath("//span[contains(text(),'" + nameMeeting + "')]")).getText();
 	}
 	
-	public SchedulePage clickOnMeetingToUpdate(String nameMeeting) {
+	public SchedulePage clickOverMeetingCreated(String nameMeeting) {
 		driver.findElement(By.xpath("//span[contains(text(),'" + nameMeeting + "')]")).click();
 		return this;
+	}
+	
+	public String getEmailAttedee(String emailAttendee) {
+		return driver.findElement(By.xpath("//span[contains(text(),'" + emailAttendee + "')]")).getText();
 	}
 	
 	public String getNameSubject() {
@@ -192,4 +207,7 @@ public class SchedulePage {
 		return bodyTxtBox.getAttribute("value");
 	}
 	
+	public String getMessagePopUp(String message) {
+		return driver.findElement(By.xpath("//div[contains(text(),'" + message + "')]")).getText();
+	}
 }
