@@ -1,0 +1,8 @@
+<suite name="OutOfOrderSuite">
+ 	<test name = "OutOfOrderTests">
+		<classes>
+ 			<class name="tests.admin.outoforderplanning.StartTest" />
+ 			<class name="tests.admin.outoforderplanning.OutOfOrderNotCreatedIfEndDateOccursBeforeStartDate" />
+ 		</classes>
+	</test>
+</suite>

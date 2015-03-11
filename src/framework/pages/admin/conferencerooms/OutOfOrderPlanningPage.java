@@ -103,6 +103,7 @@ public class OutOfOrderPlanningPage extends AbstractRoomBasePage {
 	 */
 	private void setDateWithCalendar(String date, String dateSelector) {
 
+
 		//to click the calendar button next to date textBox
 		clickCalendarElementBtn("calendarBtn", dateSelector);
 
@@ -197,7 +198,6 @@ public class OutOfOrderPlanningPage extends AbstractRoomBasePage {
 	 */
 	private void setTimeTxtBox (String selector, String time, String timeSelector) {
 		WebElement timeTxtBox = findDateElement(selector, timeSelector);
-		timeTxtBox.click();
 		uiMethods.doubleClick(timeTxtBox);
 		timeTxtBox.sendKeys(time);
 	}
@@ -327,7 +327,7 @@ public class OutOfOrderPlanningPage extends AbstractRoomBasePage {
 	 * @throws ParseException
 	 */
 	public OutOfOrderPlanningPage setOutOfOrderPeriodInformation (String startingDate, String finishingDate, 
-			String startingTime, String finishingTime, String title, String description) throws ParseException {
+			String startingTime, String finishingTime, String title, String description) {
 		setStartDateWithCalendar(startingDate);
 		setEndDateWithCalendar(finishingDate);
 		setTitleTxtBox(title);
@@ -336,6 +336,21 @@ public class OutOfOrderPlanningPage extends AbstractRoomBasePage {
 		setStartTime(startingTime);
 		selectEmailNotificationChkBox();
 		return this;
+	}
+
+	/**
+	 * This method verifies if an error message is displayed
+	 * @return
+	 */
+	public boolean errorMessageIsPresent() {
+		boolean result = false;
+		try {
+			driver.findElement(By.xpath("//small[contains(text(),' ')]"));
+			result =  true;
+		} catch(Exception e){
+			result =  false;
+		}
+		return result;
 	}
 
 }
