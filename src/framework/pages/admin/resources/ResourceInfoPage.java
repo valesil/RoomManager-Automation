@@ -3,57 +3,55 @@ package framework.pages.admin.resources;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import framework.common.UIMethods;
 import framework.selenium.SeleniumDriverManager;
 
-public class ResourceInfoPage extends AbstractResourceBasePage {	
+/**
+ * @author Marco Llano
+ *
+ */
+public class ResourcesInfoPage extends AbstractResourceBasePage {	
+	UIMethods uiMethod = new UIMethods();
 	
-	public ResourceInfoPage() {		
+	public ResourcesInfoPage() {		
 		driver = SeleniumDriverManager.getManager().getDriver();
 		wait = SeleniumDriverManager.getManager().getWait();
 		PageFactory.initElements(driver, this);
 	}
 	
-	public void setResourceName(String resourceName) {
-		wait.until(ExpectedConditions.visibilityOf(resourceNameTextbox));
-		resourceNameTextbox.clear();
-		resourceNameTextbox.sendKeys(resourceName);
+	//Main method to create or edit a resource
+	public ResourcesPage createEditResource(String resourceName, String resourceDisplayName, String resourceDescription,
+											String iconTitle) {
+		setResourceName(resourceName);
+		setResourceDisplayName(resourceDisplayName);
+		setResourceDescription(resourceDescription);
+		clickResourceIcon();
+		setResourceIcon(iconTitle);		
+		return clickSaveResourceBtn();
 	}
 	
-	public void setResourceDisplayName(String resourceDisplayName) {
-		resourceDisplayNameTextbox.clear();
-		resourceDisplayNameTextbox.sendKeys(resourceDisplayName);
-	}
-	
-	public void setResourceDescription(String resourceDescription) {
-		resourceDescriptionTextbox.clear();
-		resourceDescriptionTextbox.sendKeys(resourceDescription);
-	}
-	
+	/**
+	 * Below methods for assertions, The first verify if a resource name exist in resourceInfoPage
+	 */
 	public String getResourceNameFromResourceInfoPage() {
-		wait.until(ExpectedConditions.visibilityOf(resourceNameTextbox));
-		return resourceNameTextbox.getAttribute("value");
+		wait.until(ExpectedConditions.visibilityOf(resourceNameTxtBox));
+		return resourceNameTxtBox.getText();
 	}
 	
-	public String getResourceNameFromResourcePage() {
-		wait.until(ExpectedConditions.visibilityOf(resourceNameTextbox));
-		return resourceNameTextbox.getText();
-	}
-	
+	//This method return the text from resource display name from resourceInfoPage
 	public String getResourceDisplayName() {
-		return resourceDisplayNameTextbox.getAttribute("value");
+		return resourceDisplayNameTxtBox.getAttribute("value");
 	}
 	
+	//This method return the text from resource description from resourceInfoPage
 	public String getResourceDescription() {
-		return resourceDescriptionTextbox.getAttribute("value");
+		return resourceDescriptionTxtBox.getAttribute("value");
 	}
 	
-	public String getResourceIcon(String iconTitle) {
-		return driver.findElement(By.xpath(".//*[@id='resourcesGrid']/descendant::*/span[@class='fa " +
-				iconTitle + "']")).getAttribute("class");
-	}
-	
-	public ResourcesPage clickSaveResourceBtn() {
-		saveResourceBtn.click();
-		return new ResourcesPage();
+	//This method return the resource icon from resourceInfoPage
+	public boolean getResourceIcon(String iconTitle) {
+		By resourceIcon = By.xpath(".//*[@id='resourcesGrid']/descendant::*/span[@class='fa " +
+				iconTitle + "']");
+		return uiMethod.isElementPresent(resourceIcon);
 	}
 }

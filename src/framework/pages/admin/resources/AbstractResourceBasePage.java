@@ -10,30 +10,29 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
 import framework.selenium.SeleniumDriverManager;
 
 /**
- * @author administrator
+ * @author Marco Llano
  *
  */
 public class AbstractResourceBasePage {
 	protected WebDriver driver;
 	protected WebDriverWait wait;
 
-	@FindBy(xpath = "(//input[@type='text'])[3]") 
-	WebElement resourceNameTextbox;
+	@FindBy(xpath = "//div[@class='input-control text']/input[@ng-model='resource.name']") 
+	WebElement resourceNameTxtBox;
 	
-	@FindBy(xpath = "(//input[@type='text'])[4]") 
-	WebElement resourceDisplayNameTextbox;
+	@FindBy(xpath = "//div[@class='input-control text']/input[@ng-model='resource.customName']") 
+	WebElement resourceDisplayNameTxtBox;
 	
-	@FindBy(xpath = "//div[3]/div[2]/button") 
+	@FindBy(xpath = "//button[@ng-click='save()']") 
 	WebElement saveResourceBtn;
 	
-	@FindBy(xpath = "//textarea") 
-	WebElement resourceDescriptionTextbox;
+	@FindBy(xpath = "//div[@class='input-control text']/textarea[@ng-model='resource.description']") 
+	WebElement resourceDescriptionTxtBox;
 	
-	@FindBy(xpath = ".//*[@id='convert']") 
+	@FindBy(id = "convert") 
 	WebElement resourceOpenIconBtn;
 	
 	public AbstractResourceBasePage() {		
@@ -42,17 +41,23 @@ public class AbstractResourceBasePage {
 		PageFactory.initElements(driver, this);
 	}
 	
+	/**
+	 * Required methods to create or edit a resource
+	 */
 	public void setResourceName(String resourceName) {
-		wait.until(ExpectedConditions.visibilityOf(resourceNameTextbox));
-		resourceNameTextbox.sendKeys(resourceName);
+		wait.until(ExpectedConditions.visibilityOf(resourceNameTxtBox));
+		resourceNameTxtBox.clear();
+		resourceNameTxtBox.sendKeys(resourceName);
 	}
 	
 	public void setResourceDisplayName(String resourceDisplayName) {
-		resourceDisplayNameTextbox.sendKeys(resourceDisplayName);
+		resourceDisplayNameTxtBox.clear();
+		resourceDisplayNameTxtBox.sendKeys(resourceDisplayName);
 	}
 	
 	public void setResourceDescription(String resourceDescription) {
-		resourceDescriptionTextbox.sendKeys(resourceDescription);
+		resourceDescriptionTxtBox.clear();
+		resourceDescriptionTxtBox.sendKeys(resourceDescription);
 	}
 	
 	public void setResourceIcon(String iconTitle) {
@@ -60,6 +65,7 @@ public class AbstractResourceBasePage {
 	}
 	
 	public void clickResourceIcon() {
+		wait.until(ExpectedConditions.elementToBeClickable(resourceOpenIconBtn));
 		resourceOpenIconBtn.click();
 	}
 	
