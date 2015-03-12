@@ -50,16 +50,16 @@ public class SchedulePage {
 	@FindBy(xpath = "//input[@type = 'time'and@ng-change='endTimeChanged()']")
 	WebElement endTimeTxtBox;
 	
-	@FindBy(xpath = "//button[@ng-click = 'createMeeting()']")
+	@FindBy(xpath = "//span[contains(text(),'Create')]")
 	WebElement createBtn;
 	
-	@FindBy(xpath = "//button[@ng-click = 'cancelMeeting()']")
+	@FindBy(xpath = "//span[contains(text(),'Remove')]]")
 	WebElement removeBtn;
 	
-	@FindBy(xpath = "//button[@ng-click = 'updateMeeting()']")
+	@FindBy(xpath = "//span[contains(text(),'Update')]")
 	WebElement updateBtn;
 	
-	@FindBy(css = "div.currenttime")
+	@FindBy(css = "css=div.currenttime")
 	WebElement currentTimeLine;
 	
 	@FindBy(xpath = "//span[@ng-click = 'goToSearch()']")
@@ -67,6 +67,15 @@ public class SchedulePage {
 	
 	@FindBy(xpath = "//span[@ng-click = 'goBack()']")
 	WebElement backBtn;
+	
+	@FindBy(xpath = "//input[@ng-model='dialog.credentials.username']")
+	WebElement userNameTxt;
+	
+	@FindBy(xpath = "//input[@ng-model='dialog.credentials.password']")
+	WebElement passwordTxt;
+	
+	@FindBy(xpath = "//button[@ng-click='dialog.ok()']")
+	WebElement okBtn;
 	
 	public SchedulePage() {
 		driver = SeleniumDriverManager.getManager().getDriver();
@@ -98,7 +107,11 @@ public class SchedulePage {
 		return this;
 	}
 	
-	private void setStartTime(String startTime) {
+	/**
+	 * This method is to set the start time of a meeting on Chrome
+	 * @param startTime
+	 */
+	private void setStartTime(String startTime, String meridian) {
 		startTimeTxtBox.click();
 		startTimeTxtBox.sendKeys(Keys.BACK_SPACE);
 		startTimeTxtBox.sendKeys(Keys.ARROW_LEFT);
@@ -106,10 +119,18 @@ public class SchedulePage {
 		startTimeTxtBox.sendKeys(Keys.ARROW_LEFT);
 		startTimeTxtBox.sendKeys(Keys.BACK_SPACE);
 		startTimeTxtBox.sendKeys(startTime);
-		startTimeTxtBox.sendKeys(Keys.ARROW_UP);
+		if(meridian == "am") {
+			startTimeTxtBox.sendKeys(Keys.ARROW_UP);
+		} else {
+			startTimeTxtBox.sendKeys(Keys.ARROW_DOWN);
+		}
 	}
 	
-	private void setEndTime(String endTime) {
+	/**
+	 * This method is to set the end time of a meeting on Chrome
+	 * @param endTime
+	 */
+	private void setEndTime(String endTime, String meridian) {
 		endTimeTxtBox.click();
 		endTimeTxtBox.sendKeys(Keys.BACK_SPACE);
 		endTimeTxtBox.sendKeys(Keys.ARROW_LEFT);
@@ -117,10 +138,14 @@ public class SchedulePage {
 		endTimeTxtBox.sendKeys(Keys.ARROW_LEFT);
 		endTimeTxtBox.sendKeys(Keys.BACK_SPACE);
 		endTimeTxtBox.sendKeys(endTime);
-		endTimeTxtBox.sendKeys(Keys.ARROW_UP);
+		if(meridian == "am") {
+			endTimeTxtBox.sendKeys(Keys.ARROW_UP);
+		} else {
+			endTimeTxtBox.sendKeys(Keys.ARROW_DOWN);
+		}
 	}
 	
-	public SchedulePage setStartTimeDate(String startTime) {
+	public SchedulePage setStartTimeDate(String startTime, String meridian) {
 		if(BROWSER.equalsIgnoreCase("ie")) {
 			startTimeTxtBox.clear();
 			startTimeTxtBox.sendKeys(startTime);			
@@ -128,12 +153,12 @@ public class SchedulePage {
 			startTimeTxtBox.clear();
 			startTimeTxtBox.sendKeys(startTime);
 		} else {
-			setStartTime(startTime);
+			setStartTime(startTime, meridian);
 		}
 		return this;
 	}
 	
-	public SchedulePage setEndTimeDate(String endTime) {
+	public SchedulePage setEndTimeDate(String endTime, String meridian) {
 		if(BROWSER.equalsIgnoreCase("ie")) {
 			endTimeTxtBox.clear();
 			endTimeTxtBox.sendKeys(endTime);			
@@ -141,7 +166,7 @@ public class SchedulePage {
 			endTimeTxtBox.clear();
 			endTimeTxtBox.sendKeys(endTime);
 		} else {
-			setEndTime(endTime);
+			setEndTime(endTime, meridian);
 		}
 		return this;
 	}
@@ -209,5 +234,29 @@ public class SchedulePage {
 	
 	public String getMessagePopUp(String message) {
 		return driver.findElement(By.xpath("//div[contains(text(),'" + message + "')]")).getText();
+	}
+	
+	public SchedulePage setUserName(String name) {
+		userNameTxt.clear();
+		userNameTxt.sendKeys(name);
+		return this;
+	}
+	
+	public SchedulePage setPassword(String password) {
+		passwordTxt.clear();
+		passwordTxt.sendKeys(password);
+		return this;
+	}
+	
+	public SchedulePage clickOkButton() {
+		okBtn.click();
+		return this;
+	}
+	
+	public SchedulePage setCredentials(String name, String password) {
+		setUserName(name);
+		setPassword(password);
+		clickOkButton();
+		return this;
 	}
 }
