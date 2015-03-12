@@ -1,0 +1,16 @@
+{
+	"browser":
+	{
+		"navigator":"chrome",
+		"urlAdmin":"http://172.20.208.177:4042/admin"
+		"urlTablet":"http://172.20.208.177:4042/tablet"
+	},
+	"confDriver":
+	{
+		"chrome":"\\lib\\BrowserDriver\\chromedriver.exe",
+		"ie":"\\lib\\BrowserDriver\\IEDriverServer.exe",
+		"implicitWait":"15",
+		"explicitWait":"15",
+		"webDriverWait_Sleep":"100"
+	}
+}
