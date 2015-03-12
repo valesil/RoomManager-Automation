@@ -5,36 +5,14 @@ import org.openqa.selenium.By;
 public class CRResourceAssociationsPage extends AbstractRoomBasePage {
 
 	/**
-	 * Enable Disable Button can be clicked to enable or disable a room 
-	 * @param roomName
-	 * @return the same page
-	 */
-	public CRResourceAssociationsPage clickEnableDisableBtn(String roomName) {
-		driver.findElement(By.xpath("//span[contains(text(),'" + roomName +
-				"')]//ancestor::div[@ng-click='row.toggleSelected($event)']//span")).click();
-		return new CRResourceAssociationsPage();
-	}
-
-	/**
-	 * Method that allows to get the state of the room if it is enable or disable
-	 * @param roomName
-	 * @return true or false if the button is enabled or disabled
-	 */
-	public boolean stateEnableDisableBtn(String roomName) {
-		return driver.findElement(By.xpath("//span[contains(text(),'" + roomName +
-				"')]//ancestor::div[@ng-click='row.toggleSelected($event)']//span")).isEnabled();
-	}
-
-	/**
-	 * button located in Resource Associations Page that allows to add an available resource to 
-	 * be associated to the room
+	 * button that allows to add an available resource to be associated to the room
 	 * @param resourceName
 	 * @return the same page
 	 */
 	public CRResourceAssociationsPage clickAddResourceToARoom(String resourceName) {
 		driver.findElement(By.xpath("//span[contains(text(),'" + resourceName +
 				"')]/parent::div/following-sibling::div/button")).click();
-		return new CRResourceAssociationsPage();
+		return this;
 	}
 
 	/**
@@ -45,12 +23,11 @@ public class CRResourceAssociationsPage extends AbstractRoomBasePage {
 	 */
 	public CRResourceAssociationsPage changeValueForResourceFromAssociatedList(String resourceName,
 			String value) {
-		String locator = "//div[@class='col-xs-6']/span[contains(text(),'" + resourceName + 
-				"')and@class='ng-binding']/ancestor::div[@class='col-xs-6']"
-				+ "/following-sibling::div/child::input[@type='text']"; 
+		String locator = "//span[contains(text(),'" + resourceName + 
+				"')]/ancestor::div/following-sibling::div/input"; 
 		driver.findElement(By.xpath(locator)).clear();
 		driver.findElement(By.xpath(locator)).sendKeys(value);
-		return new CRResourceAssociationsPage();
+		return this;
 	}
 
 	/**
@@ -59,10 +36,9 @@ public class CRResourceAssociationsPage extends AbstractRoomBasePage {
 	 * @return the same page 
 	 */
 	public CRResourceAssociationsPage removeResourceFromAssociatedList(String resourceName) {
-		driver.findElement(By.xpath("//div[@class='col-xs-6']/span[contains(text(),'" 
-				+ resourceName + "')and@class='ng-binding']/ancestor::div[@class='col-xs-6']"
-						+ "/following-sibling::div//i[@class='fa fa-minus']")).click();
-		return new CRResourceAssociationsPage();
+		driver.findElement(By.xpath("//span[contains(text(),'" + resourceName + 
+				"')]/ancestor::div/following-sibling::div//i[@class='fa fa-minus']")).click();
+		return this;
 	}
 
 	/**
@@ -71,11 +47,20 @@ public class CRResourceAssociationsPage extends AbstractRoomBasePage {
 	 * @return
 	 */
 	public String getResourceAmount(String resourceName) {
-		return driver.findElement(By.xpath("//div[@class='col-xs-6']/span[contains(text(),'" 
-				+ resourceName + "')and@class='ng-binding']/ancestor::div[@class='col-xs-6']"
-				+ "/following-sibling::div/child::input[@type='text']")).getText();
+		return driver.findElement(By.xpath("//span[contains(text(),'" + resourceName + 
+				"')]/ancestor::div/following-sibling::div/input")).getText();
 	}
-
+	
+	/**
+	 * boolean method that returns true or false when locates a resource
+	 * @param resourceName
+	 * @return
+	 */
+	public boolean searchResourcequantity(String resourceName) {
+		return driver.findElement(By.xpath("//span[contains(text(),'" + resourceName + 
+				"')]/ancestor::div/following-sibling::div/input")).isDisplayed();
+	}
+	
 	/**
 	 * Method that returns True when a resource is found in room associations page
 	 * @param resourceName
