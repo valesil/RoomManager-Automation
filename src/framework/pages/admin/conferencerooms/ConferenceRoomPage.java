@@ -8,7 +8,7 @@ import framework.common.UIMethods;
 import framework.pages.admin.AbstractMainMenu;
 
 /**
- * 
+ * This class represents Conference room page
  * @author Ruben Blanco
  *
  */
@@ -16,16 +16,16 @@ public class ConferenceRoomPage extends AbstractMainMenu {
 	@FindBy(id = "roomsGrid")
 	WebElement roomsGrid;
 
-	@FindBy(xpath = "selectedRoom.displayName")
+	@FindBy(xpath = "//input[@ng-model='selectedRoom.code']")
 	WebElement roomCodeTxtBox; 
 
 	@FindBy(xpath = "//input[@ng-model='selectedRoom.capacity']")
 	WebElement roomCapacityTxtBox;
 
 	@FindBy(xpath = "//div[@id='s2id_autogen1']")
-	WebElement RoomLocationCmbBox;
+	WebElement roomLocationCmbBox;
 
-	@FindBy(css="button.btn-clear") 
+	@FindBy(css = "button.btn-clear") 
 	WebElement cancelBtn;
 
 	UIMethods UI = new UIMethods();
@@ -36,7 +36,8 @@ public class ConferenceRoomPage extends AbstractMainMenu {
 	 * @return
 	 */
 	public RoomInfoPage doubleClickOverRoomName(String displayName) {
-		UI.doubleClick(driver.findElement(By.xpath("//span[contains(text(),'"+displayName+"')and@class='ng-binding']")));
+		UI.doubleClick(driver.findElement(By.xpath("//span[contains(text(),'" 
+				+ displayName + "')and@class='ng-binding']")));
 		return new RoomInfoPage();
 	}
 
@@ -46,8 +47,8 @@ public class ConferenceRoomPage extends AbstractMainMenu {
 	 * @return 
 	 */
 	public String getRoomDisplayName(String roomName) {
-		return driver.findElement(By.xpath("//span[contains(text(),'" +
-				roomName + "')and@class='ng-binding']")).getText();
+		return driver.findElement(By.xpath("//span[contains(text(),'" 
+				+ roomName + "')and@class='ng-binding']")).getText();
 	}
 
 	/**
@@ -56,7 +57,8 @@ public class ConferenceRoomPage extends AbstractMainMenu {
 	 * @return
 	 */
 	public String getRoomCode(String displayName) {
-		UI.doubleClick(driver.findElement(By.xpath("//span[contains(text(),'"+displayName+"')and@class='ng-binding']")));
+		UI.doubleClick(driver.findElement(By.xpath("//span[contains(text(),'" 
+				+ displayName + "')and@class='ng-binding']")));
 		return roomCodeTxtBox.getAttribute("value");
 	}
 
@@ -66,7 +68,8 @@ public class ConferenceRoomPage extends AbstractMainMenu {
 	 * @return display name of room
 	 */
 	public String getRoomCapacity(String displayName) {
-		UI.doubleClick(driver.findElement(By.xpath("//span[contains(text(),'"+displayName+"')and@class='ng-binding']")));
+		UI.doubleClick(driver.findElement(By.xpath("//span[contains(text(),'" 
+				+ displayName + "')and@class='ng-binding']")));
 		return roomCapacityTxtBox.getAttribute("value");
 	}
 
@@ -76,8 +79,9 @@ public class ConferenceRoomPage extends AbstractMainMenu {
 	 * @return the room location
 	 */
 	public String getRoomLocation(String displayName) {
-		UI.doubleClick(driver.findElement(By.xpath("//span[contains(text(),'"+displayName+"')and@class='ng-binding']")));
-		return RoomLocationCmbBox.getText();
+		UI.doubleClick(driver.findElement(By.xpath("//span[contains(text(),'" 
+				+ displayName + "')and@class='ng-binding']")));
+		return roomLocationCmbBox.getText();
 	}
 
 	/**

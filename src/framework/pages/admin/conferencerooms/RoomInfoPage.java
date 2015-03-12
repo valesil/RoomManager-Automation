@@ -3,8 +3,13 @@ package framework.pages.admin.conferencerooms;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
+/**
+ * This class represents Room Info page
+ * @author Ruben Blanco
+ *
+ */
 public class RoomInfoPage extends AbstractRoomBasePage{
-	@FindBy(xpath="(//input[@type='text'])[4]") //cambiar
+	@FindBy(xpath = "//input[@ng-model='selectedRoom.customDisplayName']") 
 	WebElement displayNameTxtBox;
 	
 	@FindBy(xpath = "//input[@ng-model='selectedRoom.code']")
@@ -13,14 +18,14 @@ public class RoomInfoPage extends AbstractRoomBasePage{
 	@FindBy(xpath = "//input[@ng-model='selectedRoom.capacity']")
 	WebElement roomCapacityTxtBox;
 
-	@FindBy(css="button.info") 
+	@FindBy(css = "button.info") 
 	WebElement saveBtn;
 	
 	@FindBy(xpath = "//div[@id='s2id_autogen1']")
 	WebElement locationCmbBox;
 
 	/**
-	 * 
+	 * This method sets the display Name of a room
 	 * @param newDisplayName
 	 * @return RoomInfoPage object
 	 */
@@ -31,7 +36,7 @@ public class RoomInfoPage extends AbstractRoomBasePage{
 	}
 	
 	/**
-	 * 
+	 * This method sets the code of a room
 	 * @param roomCode is the code of a Room
 	 * @return
 	 */
@@ -42,7 +47,7 @@ public class RoomInfoPage extends AbstractRoomBasePage{
 	}
 	
 	/**
-	 * 
+	 * This method sets the location of a room
 	 * @param location
 	 * @return
 	 */
@@ -53,13 +58,13 @@ public class RoomInfoPage extends AbstractRoomBasePage{
 	}
 	
 	/**
-	 * 
+	 * This method sets the room's capacity
 	 * @param Amount is the capacity of a Room
 	 * @return RoomInfoPageObject
 	 */
-	public RoomInfoPage setRoomCapacity(String Amount) {
+	public RoomInfoPage setRoomCapacity(String roomCapacity) {
 		roomCapacityTxtBox.clear();
-		roomCapacityTxtBox.sendKeys(Amount);
+		roomCapacityTxtBox.sendKeys(roomCapacity);
 		return new RoomInfoPage();
 	}
 }

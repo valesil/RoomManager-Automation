@@ -44,7 +44,7 @@ public abstract class AbstractMainMenu {
 	WebElement tabletsLink;
 	
 	/**
-	 * COnstructor
+	 * Constructor
 	 */
 	public AbstractMainMenu() {
 		driver = SeleniumDriverManager.getManager().getDriver();
@@ -57,9 +57,6 @@ public abstract class AbstractMainMenu {
 		return new HomeAdminPage();
 	}
 	
-	/**
-	 * This method only clicked this link 
-	 */
 	public void clickImpersonationLink() {
 		impersonationLink.click();
 	}

@@ -1,5 +1,7 @@
 package framework.pages.admin;
 
+import static framework.common.AppConfigConstants.URL_ADMIN;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -9,7 +11,7 @@ import framework.selenium.SeleniumDriverManager;
 
 /**
  * 
- * @author Administrator
+ * @author Ruben Blanco
  *
  */
 public class LoginPage {
@@ -17,20 +19,19 @@ public class LoginPage {
 	@FindBy(xpath = "//button") 
 	WebElement signinBtn;
 
-	private String baseUrl = "http://172.20.208.177:4046/admin/#/login";
 	private WebDriver driver;
 
 	/**
-	 * This constructor initialize the driver and wait
+	 * This constructor initialize the driver and waits
 	 */
 	public LoginPage() {		
 		driver = SeleniumDriverManager.getManager().getDriver();
-		driver.get(baseUrl);
+		driver.get(URL_ADMIN);
 		PageFactory.initElements(driver, this);
 	}
 
 	/**
-	 * This method is to click on signin link
+	 * This method clicks on signin link
 	 * @return
 	 */
 	public HomeAdminPage clickSigninLink() {		

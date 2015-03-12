@@ -2,7 +2,7 @@ package framework.pages.admin;
 
 /**
  * 
- * @author Administrator
+ * @author Ruben Blanco
  *
  */
 public class HomeAdminPage extends AbstractMainMenu {
