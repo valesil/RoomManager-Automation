@@ -2,6 +2,11 @@ package framework.pages.admin.conferencerooms;
 
 import org.openqa.selenium.By;
 
+/**
+ * 
+ * @author Carlos Guevara
+ *
+ */
 public class CRResourceAssociationsPage extends AbstractRoomBasePage {
 
 	/**
