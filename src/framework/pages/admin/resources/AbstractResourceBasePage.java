@@ -44,29 +44,42 @@ public class AbstractResourceBasePage {
 	/**
 	 * Required methods to create or edit a resource
 	 */
-	public void setResourceName(String resourceName) {
+	public ResourceInfoPage setResourceName(String resourceName) {
 		wait.until(ExpectedConditions.visibilityOf(resourceNameTxtBox));
 		resourceNameTxtBox.clear();
 		resourceNameTxtBox.sendKeys(resourceName);
+		return new ResourceInfoPage();
 	}
 	
-	public void setResourceDisplayName(String resourceDisplayName) {
+	public ResourceInfoPage setResourceDisplayName(String resourceDisplayName) {
 		resourceDisplayNameTxtBox.clear();
 		resourceDisplayNameTxtBox.sendKeys(resourceDisplayName);
+		return new ResourceInfoPage();
 	}
 	
-	public void setResourceDescription(String resourceDescription) {
+	public ResourceInfoPage setResourceDescription(String resourceDescription) {
 		resourceDescriptionTxtBox.clear();
 		resourceDescriptionTxtBox.sendKeys(resourceDescription);
+		return new ResourceInfoPage();
 	}
 	
-	public void setResourceIcon(String iconTitle) {
-		driver.findElement(By.xpath("//button[@value='" + iconTitle +"']")).click();;
+	public ResourceInfoPage selectResourceIcon(String iconTitle) {
+		By icon = By.xpath("//button[@value='" + iconTitle +"']"); 
+		wait.until(ExpectedConditions.elementToBeClickable(icon));
+		driver.findElement(icon).click();
+		return new ResourceInfoPage();
 	}
 	
-	public void clickResourceIcon() {
+	public ResourceInfoPage clickPreviusNextIconPageBtn(String direction) {
+		By iconButton = By.xpath("//button[@class='btn btn-primary btn-" + direction + "']");
+		driver.findElement(iconButton).click();
+		return new ResourceInfoPage();
+	}
+	
+	public ResourceInfoPage clickResourceIcon() {
 		wait.until(ExpectedConditions.elementToBeClickable(resourceOpenIconBtn));
 		resourceOpenIconBtn.click();
+		return new ResourceInfoPage();
 	}
 	
 	public ResourcesPage clickSaveResourceBtn() {
