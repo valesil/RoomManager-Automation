@@ -57,9 +57,17 @@ public abstract class AbstractRoomBasePage {
 		saveBtn.click();
 		return new ConferenceRoomPage();
 	}
+	
+	public Object clickSaveWithErrorBtn(){
+		saveBtn.click();
+		return this;
+	}
 
 	public ConferenceRoomPage clickCancelBtn(){
 		cancelBtn.click();
 		return new ConferenceRoomPage();
 	}
+
+
+
 }
