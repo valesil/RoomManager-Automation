@@ -1,6 +1,3 @@
-/**
- * 
- */
 package framework.pages.admin.resources;
 
 import org.openqa.selenium.By;
@@ -42,7 +39,9 @@ public class AbstractResourceBasePage {
 	}
 	
 	/**
-	 * Required methods to create or edit a resource
+	 * [ML]This method receives a resource name, then set this value into resource name field in resource info page
+	 * @param resourceName
+	 * @return
 	 */
 	public ResourceInfoPage setResourceName(String resourceName) {
 		wait.until(ExpectedConditions.visibilityOf(resourceNameTxtBox));
@@ -51,18 +50,35 @@ public class AbstractResourceBasePage {
 		return new ResourceInfoPage();
 	}
 	
+	/**
+	 * [ML]This method receives a resource display name, then set this value into resource display name field in
+	 *  resource info page
+	 * @param resourceDisplayName
+	 * @return the current page
+	 */
 	public ResourceInfoPage setResourceDisplayName(String resourceDisplayName) {
 		resourceDisplayNameTxtBox.clear();
 		resourceDisplayNameTxtBox.sendKeys(resourceDisplayName);
 		return new ResourceInfoPage();
 	}
 	
+	/**
+	 * [ML]This method receives a resource description, then set this value into resource description field in 
+	 * resource info page
+	 * @param resourceDescription
+	 * @return the current page
+	 */
 	public ResourceInfoPage setResourceDescription(String resourceDescription) {
 		resourceDescriptionTxtBox.clear();
 		resourceDescriptionTxtBox.sendKeys(resourceDescription);
 		return new ResourceInfoPage();
 	}
 	
+	/**
+	 * [ML]This method receives a resource icon value, then set click on icon button
+	 * @param iconTitle
+	 * @return the current page
+	 */
 	public ResourceInfoPage selectResourceIcon(String iconTitle) {
 		By icon = By.xpath("//button[@value='" + iconTitle +"']"); 
 		wait.until(ExpectedConditions.elementToBeClickable(icon));
@@ -70,18 +86,32 @@ public class AbstractResourceBasePage {
 		return new ResourceInfoPage();
 	}
 	
+	/**
+	 * [ML]This method receives a direction text [previous,next], then click on button belong to direction
+	 * to search for an icon name.
+	 * @param direction
+	 * @return
+	 */
 	public ResourceInfoPage clickPreviusNextIconPageBtn(String direction) {
 		By iconButton = By.xpath("//button[@class='btn btn-primary btn-" + direction + "']");
 		driver.findElement(iconButton).click();
 		return new ResourceInfoPage();
 	}
 	
+	/**
+	 * [ML]This method click on found icon from selectResourceIcon method
+	 * @return
+	 */
 	public ResourceInfoPage clickResourceIcon() {
 		wait.until(ExpectedConditions.elementToBeClickable(resourceOpenIconBtn));
 		resourceOpenIconBtn.click();
 		return new ResourceInfoPage();
 	}
 	
+	/**
+	 * [ML]This method click on save button if a resource is created or edited.
+	 * @return
+	 */
 	public ResourcesPage clickSaveResourceBtn() {
 		saveResourceBtn.click();
 		return new ResourcesPage();

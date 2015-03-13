@@ -7,6 +7,10 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import framework.common.UIMethods;
 import framework.pages.admin.AbstractMainMenu;
 
+/**
+ * @author Marco Llano
+ *
+ */
 public class ResourcesPage extends AbstractMainMenu{
 	UIMethods uiMethod = new UIMethods();
 	@FindBy(xpath = "//div[@class='pull-left']/button[@ng-click='addResourceDialog()']") 
@@ -18,7 +22,10 @@ public class ResourcesPage extends AbstractMainMenu{
 	@FindBy(id = "btnRemove")
 	WebElement removeBtn;
 
-	//This method click on "+Add" resource button	
+	/**
+	 * [ML]Click on "+Add" resource button	
+	 * @return
+	 */
 	public ResourceInfoPage clickAddResourceBtn() {
 		wait.until(ExpectedConditions.elementToBeClickable(addResourceBtn));
 		addResourceBtn.click();
@@ -26,22 +33,26 @@ public class ResourcesPage extends AbstractMainMenu{
 	}
 
 	/**
-	 * This method makes the double click action in a given resource
-	 * @throws InterruptedException 
+	 * [ML]Double click action in a given resource name from ResourcesPage
+	 * @param resourceNameToSearch
+	 * @return
+	 * @throws InterruptedException
 	 */
 	public ResourceInfoPage openResourceInfoPage(String resourceNameToSearch) throws InterruptedException {	
-		uiMethod.waitForMaskDesappears();
+		waitForMaskDesappears();
 		WebElement resourceName = driver.findElement(By.xpath("//span[contains(text(),'" + resourceNameToSearch + "')]"));
 		uiMethod.doubleClick(resourceName); //This is the method that is skipped.
 		return new ResourceInfoPage();
 	}		
 	
 	/**
-	 * Required method to delete resource
-	 * @throws InterruptedException 
-	 */	
+	 * [ML]Selects a resource from ResourcesPage by click, according to the name given in parameter
+	 * @param resource
+	 * @return
+	 * @throws InterruptedException
+	 */
 	public ResourcesPage selectResourceCheckbox(String resource) throws InterruptedException {
-		uiMethod.waitForMaskDesappears();
+		waitForMaskDesappears();
 		By resourceName = By.xpath("//*[@id='resourcesGrid']/descendant::*/span[contains(text(),'" 
 				+ resource + "')]");
 		if (uiMethod.isElementPresent(resourceName)) {
@@ -50,6 +61,10 @@ public class ResourcesPage extends AbstractMainMenu{
 		return this;
 	}
 	
+	/**
+	 * [ML]Click on "remove" resource button
+	 * @return
+	 */
 	public DeleteResourcePage clickRemoveBtn() {
 		wait.until(ExpectedConditions.elementToBeClickable(removeBtn));
 		removeBtn.click();
@@ -57,15 +72,21 @@ public class ResourcesPage extends AbstractMainMenu{
 	}	
 
 	/**
-	 * Below are the methods for assertions, the first return the resource displayName from ResourcesPage
+	 * [ML]Returns resource displayName from ResourcesPage
+	 * @param resourceDisplayName
+	 * @return
 	 */
 	public boolean isResourceDisplayNameDisplayedInResourcesPage(String resourceDisplayName) {
 		By resourceDisplayNameInResourcePage = By.xpath(".//*[@id='resourcesGrid']/descendant::*/span[contains(text(),'"
 				+ resourceDisplayName + "')]");		
 		return uiMethod.isElementPresent(resourceDisplayNameInResourcePage);
 	}
-
-	/*This method returns resource name from resource page*/
+	
+	/**
+	 * [ML]Returns resource name from resource page
+	 * @param resourceName
+	 * @return
+	 */	
 	public boolean isResourceNameDisplayedInResourcesPage(String resourceName) {
 		By resourceNameInPage = By.xpath("//div[@id='resourcesGrid']/div[2]/descendant::*/span[contains(text(),'"
 				+ resourceName + "')]");

@@ -1,6 +1,3 @@
-/**
- * 
- */
 package framework.pages.admin.resources;
 
 import org.openqa.selenium.WebElement;
@@ -27,6 +24,10 @@ public class DeleteResourcePage extends AbstractResourceBasePage {
 		PageFactory.initElements(driver, this);
 	}
 
+	/**
+	 * [ML]This is the button used for confirm to delete a resource
+	 * @return
+	 */
 	public ResourcesPage clickConfirmRemoveBtn() {
 		wait.until(ExpectedConditions.elementToBeClickable(confirmRemoveBtn));
 		confirmRemoveBtn.click();
