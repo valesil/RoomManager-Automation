@@ -21,6 +21,4 @@ public final class AppConfigConstants {
 																	"explicitWait"));
 	public static final int WEBDRIVERWAIT_SLEEP = Integer.parseInt(value.readJsonFile("confDriver",
 																	"webDriverWait_Sleep"));
-	public static final String EXCEL_PATH = value.readJsonFile("ExternalFile", "excelPath");
-	public static final String EXCEL_INPUT_DATA = value.readJsonFile("ExternalFile", "excelInputData");
 }
