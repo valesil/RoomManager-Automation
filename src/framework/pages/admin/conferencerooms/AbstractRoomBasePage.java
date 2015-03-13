@@ -1,9 +1,11 @@
 package framework.pages.admin.conferencerooms;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import framework.selenium.SeleniumDriverManager;
@@ -31,6 +33,9 @@ public abstract class AbstractRoomBasePage {
 
 	@FindBy(xpath = "//button[@ng-click='cancel()']") 
 	WebElement cancelBtn;
+	
+	@FindBy(xpath = "//div[@class='toast-message']")
+	WebElement messagePopUp;
 
 	public AbstractRoomBasePage() {
 		driver = SeleniumDriverManager.getManager().getDriver();
@@ -55,6 +60,7 @@ public abstract class AbstractRoomBasePage {
 
 	public ConferenceRoomPage clickSaveBtn(){
 		saveBtn.click();
+		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//div[@class='toast-message']")));
 		return new ConferenceRoomPage();
 	}
 	
