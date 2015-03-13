@@ -13,22 +13,10 @@ import framework.pages.admin.AbstractMainMenu;
  *
  */
 public class ConferenceRoomPage extends AbstractMainMenu {
+	UIMethods UI = new UIMethods();
+
 	@FindBy(id = "roomsGrid")
 	WebElement roomsGrid;
-
-	@FindBy(xpath = "//input[@ng-model='selectedRoom.code']")
-	WebElement roomCodeTxtBox; 
-
-	@FindBy(xpath = "//input[@ng-model='selectedRoom.capacity']")
-	WebElement roomCapacityTxtBox;
-
-	@FindBy(xpath = "//div[@id='s2id_autogen1']")
-	WebElement roomLocationCmbBox;
-
-	@FindBy(css = "button.btn-clear") 
-	WebElement cancelBtn;
-
-	UIMethods UI = new UIMethods();
 
 	/**
 	 * Click over a Room 
@@ -52,45 +40,16 @@ public class ConferenceRoomPage extends AbstractMainMenu {
 	}
 
 	/**
-	 * get the room code of specific room
-	 * @param displayName is the display Name of a Room 
+	 * [YA]This method returns the icon is displayed in Out Of Order Column when an Out Of Order Period
+	 * is established
+	 * @param roomDisplayName
 	 * @return
 	 */
-	public String getRoomCode(String displayName) {
-		UI.doubleClick(driver.findElement(By.xpath("//span[contains(text(),'" 
-				+ displayName + "')and@class='ng-binding']")));
-		return roomCodeTxtBox.getAttribute("value");
-	}
-
-	/**
-	 * get the room capacity of specific Room
-	 * @param displayName
-	 * @return display name of room
-	 */
-	public String getRoomCapacity(String displayName) {
-		UI.doubleClick(driver.findElement(By.xpath("//span[contains(text(),'" 
-				+ displayName + "')and@class='ng-binding']")));
-		return roomCapacityTxtBox.getAttribute("value");
-	}
-
-	/**
-	 * get the room location of specific room
-	 * @param displayName
-	 * @return the room location
-	 */
-	public String getRoomLocation(String displayName) {
-		UI.doubleClick(driver.findElement(By.xpath("//span[contains(text(),'" 
-				+ displayName + "')and@class='ng-binding']")));
-		return roomLocationCmbBox.getText();
-	}
-
-	/**
-	 * Click on cancel button
-	 * @return
-	 */
-	public ConferenceRoomPage clickCancelButton() {
-		cancelBtn.click();
-		return new ConferenceRoomPage();
+	public String getOutOfOrderIcon(String roomDisplayName) {
+		WebElement outOfOrderIcon = driver.findElement(By.xpath("//span[contains(text(),'" + roomDisplayName 
+				+ "')]//ancestor::div[@ng-click='row.toggleSelected($event)']//out-of-order-icon//span"));
+		System.out.println(outOfOrderIcon.getAttribute("class"));
+		return outOfOrderIcon.getAttribute("class");
 	}
 
 }

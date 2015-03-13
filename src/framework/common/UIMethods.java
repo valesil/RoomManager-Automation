@@ -21,7 +21,7 @@ public class UIMethods {
 	}
 	
 	public void doubleClick(WebElement webElement) {
-		action.doubleClick();
+		action.doubleClick(webElement);
 		action.perform();
 	}
 }
