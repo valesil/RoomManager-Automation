@@ -33,9 +33,12 @@ public class OutOfOrderPlanningPage extends AbstractRoomBasePage {
 
 	@FindBy(xpath = "//span[contains(text(),'Send email notification')]")
 	WebElement emailNotificationChkBox;
+	
+	@FindBy(xpath = "//small[contains(text(),' ')]")
+	WebElement errorMessageLbl;
 
 	/**
-	 * This method set the title for the Out Of Order Planning Period
+	 *[YA]This method set the title for the Out Of Order Planning Period
 	 * @param title
 	 * @return
 	 */
@@ -46,7 +49,7 @@ public class OutOfOrderPlanningPage extends AbstractRoomBasePage {
 	}
 
 	/**
-	 * This method set the description for the Out Of Order Planning Period
+	 *[YA]This method set the description for the Out Of Order Planning Period
 	 * @param description
 	 * @return
 	 */
@@ -57,7 +60,7 @@ public class OutOfOrderPlanningPage extends AbstractRoomBasePage {
 	} 
 
 	/**
-	 * This method select a checkBox to send an email notification to attendees
+	 *[YA]This method select a checkBox to send an email notification to attendees
 	 *  that have a meeting scheduled when an out of order period is established
 	 * @return
 	 */
@@ -67,7 +70,7 @@ public class OutOfOrderPlanningPage extends AbstractRoomBasePage {
 	}
 
 	/**
-	 * This method clicks the activation button (calendar or clock) to confirm an out of order period
+	 *[YA]This method clicks the activation button (calendar or clock) to confirm an out of order period
 	 * @return
 	 */
 	public OutOfOrderPlanningPage clickActivationBtn() {
@@ -76,7 +79,7 @@ public class OutOfOrderPlanningPage extends AbstractRoomBasePage {
 	}
 
 	/**
-	 * This method sets a start date (DD-MM-YYYY)
+	 *[YA]This method sets a start date (DD-MM-YYYY)
 	 * @param date
 	 * @return
 	 * @throws ParseException
@@ -87,7 +90,7 @@ public class OutOfOrderPlanningPage extends AbstractRoomBasePage {
 	}
 
 	/**
-	 * This method sets an end date (DD-MM-YYYY)
+	 *[YA]This method sets an end date (DD-MM-YYYY)
 	 * @param date
 	 * @return
 	 */
@@ -97,12 +100,11 @@ public class OutOfOrderPlanningPage extends AbstractRoomBasePage {
 	}
 
 	/**
-	 * This method sets a date (start or end) in the application using the calendar (DD-MM-YYYY)
+	 *[YA]This method sets a date (start or end) in the application using the calendar (DD-MM-YYYY)
 	 * @param date
 	 * @param dateSelector
 	 */
 	private void setDateWithCalendar(String date, String dateSelector) {
-
 
 		//to click the calendar button next to date textBox
 		clickCalendarElementBtn("calendarBtn", dateSelector);
@@ -114,17 +116,18 @@ public class OutOfOrderPlanningPage extends AbstractRoomBasePage {
 		clickCalendarElementBtn("datePickerBtn", dateSelector);
 
 		//to click date's year button
-		clickCalendarElementBtn(timeManager.getYear(date), dateSelector);
-
+		clickCalendarElementBtn(timeManager.getDateElement(date, "year"), dateSelector);
+		
 		//to click date's month button
-		clickCalendarElementBtn(timeManager.getMonth(date), dateSelector);
-
+		clickCalendarElementBtn(timeManager.getDateElement(date, "month"), dateSelector);
+		
 		//to click date's day button
-		clickCalendarElementBtn(timeManager.getDay(date), dateSelector);
+		clickCalendarElementBtn(timeManager.getDateElement(date, "day"), dateSelector);
+		
 	}
 
 	/**
-	 * This method clicks on an element of the calendar (any day, month, year, todayBtn, 
+	 *[YA]This method clicks on an element of the calendar (any day, month, year, todayBtn, 
 	 * cancelBtn, clearBtn, etc)
 	 * @param calendarElement
 	 * @param dateSelector
@@ -157,7 +160,7 @@ public class OutOfOrderPlanningPage extends AbstractRoomBasePage {
 	}
 
 	/**
-	 * This method set a star time (HH:MM AM/PM)for out of order planning period
+	 *[YA]This method set a star time (HH:MM AM/PM)for out of order planning period
 	 * @param startTime
 	 * @return
 	 */
@@ -167,31 +170,33 @@ public class OutOfOrderPlanningPage extends AbstractRoomBasePage {
 	}
 
 	/**
-	 * This method set an end time (HH:MM AM/PM) for out of order planning period
-	 * @param finishingTime
+	 *[YA]This method set an end time (HH:MM AM/PM) for out of order planning period
+	 * @param endTime
 	 * @return
 	 */
-	public OutOfOrderPlanningPage setEndTime (String finishingTime) {
-		setTime(finishingTime, "to");
+	public OutOfOrderPlanningPage setEndTime (String endTime) {
+		setTime(endTime, "to");
 		return this;
 	}
 
 	/**
-	 * This method sets a time (start or end) for out of order planning period
+	 *[YA]This method sets a time (start or end) for out of order planning period
 	 * @param time
 	 * @param timeSelector
 	 */
-	private void setTime (String time, String timeSelector) {
-		String hours = timeManager.getHour(time);
-		String minute = timeManager.getMinute(time);
-		String meridian = timeManager.getMeridian(time);
+	private void setTime (String modifierValue, String timeSelector) {
+		int minutesToAdd = Integer.parseInt(modifierValue);
+		String time = TimeManager.getTime(minutesToAdd);
+		String hours = timeManager.getTimeElement(time,"hours");
+		String minutes = timeManager.getTimeElement(time, "minutes");
+		String meridian = timeManager.getTimeElement(time,"meridian");
 		setTimeTxtBox("hours", hours, timeSelector);
-		setTimeTxtBox("minutes", minute, timeSelector);
+		setTimeTxtBox("minutes", minutes, timeSelector);
 		clickMeridianBtn(meridian, timeSelector);		
 	}
 
 	/**
-	 * This method set the time (hours or minutes) in the corresponding textBox
+	 *[YA]This method set the time (hours or minutes) in the corresponding textBox
 	 * @param selector
 	 * @param time
 	 * @param timeSelector
@@ -203,7 +208,7 @@ public class OutOfOrderPlanningPage extends AbstractRoomBasePage {
 	}
 
 	/**
-	 * This method sets the meridian (AM or PM)for the out of order time
+	 *[YA]This method sets the meridian (AM or PM)for the out of order time
 	 * @param meridian
 	 * @param timeSelector
 	 */
@@ -215,7 +220,7 @@ public class OutOfOrderPlanningPage extends AbstractRoomBasePage {
 	}
 
 	/**
-	 * This method finds hoursTxtBox, minutesTxtBox, or meridianTxtBox based on the parameters
+	 *[YA]This method finds hoursTxtBox, minutesTxtBox, or meridianTxtBox based on the parameters
 	 * @param element
 	 * @param timeSelector
 	 * @return
@@ -233,7 +238,7 @@ public class OutOfOrderPlanningPage extends AbstractRoomBasePage {
 	}
 
 	/**
-	 * This method clicks the arrow to increment hours in start time
+	 *[YA]This method clicks the arrow to increment hours in start time
 	 * @return
 	 */
 	public OutOfOrderPlanningPage clickFromIncrementHoursBtn() {
@@ -242,7 +247,7 @@ public class OutOfOrderPlanningPage extends AbstractRoomBasePage {
 	}
 
 	/**
-	 * This method clicks the arrow to decrement hours in start time
+	 *[YA]This method clicks the arrow to decrement hours in start time
 	 * @return
 	 */
 	public OutOfOrderPlanningPage clickFromDecrementHoursBtn() {
@@ -251,7 +256,7 @@ public class OutOfOrderPlanningPage extends AbstractRoomBasePage {
 	}
 
 	/**
-	 * This method clicks the arrow to increment minutes in start time
+	 *[YA]This method clicks the arrow to increment minutes in start time
 	 * @return
 	 */
 	public OutOfOrderPlanningPage clickFromIncrementMinutesBtn() {
@@ -260,7 +265,7 @@ public class OutOfOrderPlanningPage extends AbstractRoomBasePage {
 	}
 
 	/**
-	 * This method clicks the arrow to decrement minutes in start time
+	 * [YA]This method clicks the arrow to decrement minutes in start time
 	 */
 	public OutOfOrderPlanningPage clickFromDecrementMinutesBtn() {
 		clickArrowBtn("from", "decrementMinutes");
@@ -268,7 +273,7 @@ public class OutOfOrderPlanningPage extends AbstractRoomBasePage {
 	}
 
 	/**
-	 * This method clicks the arrow to increment hours in end time
+	 * [YA]This method clicks the arrow to increment hours in end time
 	 * @return
 	 */
 	public OutOfOrderPlanningPage clickToIncrementHoursBtn() {
@@ -277,7 +282,7 @@ public class OutOfOrderPlanningPage extends AbstractRoomBasePage {
 	}
 
 	/**
-	 * This method clicks the arrow to increment hours in end time
+	 * [YA]This method clicks the arrow to increment hours in end time
 	 * @return
 	 */
 	public OutOfOrderPlanningPage clickToDecrementHoursBtn() {
@@ -286,7 +291,7 @@ public class OutOfOrderPlanningPage extends AbstractRoomBasePage {
 	}
 
 	/**
-	 * This method clicks the arrow to increment minutes in end time
+	 * [YA]This method clicks the arrow to increment minutes in end time
 	 * @return
 	 */
 	public OutOfOrderPlanningPage clickToIncrementMinutesBtn() {
@@ -295,7 +300,7 @@ public class OutOfOrderPlanningPage extends AbstractRoomBasePage {
 	}
 
 	/**
-	 * This method clicks the arrow to decrement minutes in end time
+	 * [YA]This method clicks the arrow to decrement minutes in end time
 	 */
 	public OutOfOrderPlanningPage clickToDecrementMinutesBtn() {
 		clickArrowBtn("to", "decrementMinutes");
@@ -303,7 +308,7 @@ public class OutOfOrderPlanningPage extends AbstractRoomBasePage {
 	}
 
 	/**
-	 * This method clicks an arrow to change hours or minutes 
+	 * [YA]This method clicks an arrow to change hours or minutes 
 	 * @param timeSelector
 	 * @param action
 	 * @return
@@ -316,7 +321,7 @@ public class OutOfOrderPlanningPage extends AbstractRoomBasePage {
 	}
 
 	/**
-	 * This method sets all the information for an Out Of Order Period to be created
+	 * [YA]This method sets all the information for an Out Of Order Period to be created
 	 * @param startingDate
 	 * @param finishingDate
 	 * @param startingTime
@@ -339,18 +344,18 @@ public class OutOfOrderPlanningPage extends AbstractRoomBasePage {
 	}
 
 	/**
-	 * This method verifies if an error message is displayed
+	 * [YA]This method verifies if an error message is displayed
 	 * @return
 	 */
 	public boolean errorMessageIsPresent() {
-		boolean result = false;
-		try {
-			driver.findElement(By.xpath("//small[contains(text(),' ')]"));
-			result =  true;
-		} catch(Exception e){
-			result =  false;
-		}
-		return result;
+		return errorMessageLbl.isDisplayed();
 	}
 
+	/**
+	 * [YA]This method gets the text of an error message
+	 * @return
+	 */
+	public String getErrorMessage() {
+		return errorMessageLbl.getText();
+	}
 }
