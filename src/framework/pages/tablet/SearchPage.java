@@ -15,6 +15,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Wait;
 
 import framework.selenium.SeleniumDriverManager;
 
@@ -27,12 +29,17 @@ public class SearchPage {
 
 	//declare the instance of Selenium Webdriver
 	private WebDriver driver;
+	private Wait wait;
+	
 
 	@FindBy(xpath = "//span[@ng-click='goBack()']")
 	WebElement backBtn;
 
 	@FindBy(xpath = "//span[contains(text(),'Advanced')]")
 	WebElement advancedBtn;
+	
+	@FindBy(xpath = "//button[@ng-click='clear()']")
+	WebElement clearBtn;
 
 	@FindBy(id = "txtRoomName")
 	WebElement roomNameTxtBox;
@@ -43,19 +50,21 @@ public class SearchPage {
 	@FindBy(id = "listLocation")
 	WebElement locationCmbBox;
 
-	@FindBy(xpath = "//div[@class='row v-space ng-scope']/div/child::div[@class='pull-left ng-scope']/parent::div[@class='col-xs-12']")
+	@FindBy(xpath = "//div[@class='row v-space ng-scope']/div[@class='col-xs-12']/following-sibling::div")
 	WebElement listResources;
 
 	@FindBy(xpath = "//span[@ng-bind='currentTime']")
 	WebElement dateLabel;
-
+	
 	public SearchPage() {
 		this.driver = SeleniumDriverManager.getManager().getDriver();
 		PageFactory.initElements(driver, this);
+		wait=SeleniumDriverManager.getManager().getWait();
 	}
 
-	public void clickClearBtn() {
-
+	public SearchPage clickClearBtn() {
+		clearBtn.click();
+		return new SearchPage();
 	}
 
 	public HomePage clickBackBtn() {
@@ -63,30 +72,44 @@ public class SearchPage {
 		return new HomePage();
 	}
 
-	public void clickAdvancedBtn() throws InterruptedException {
+	@SuppressWarnings("unchecked")
+	public SearchPage clickCollapseAdvancedBtn() {
 		advancedBtn.click();
-		Thread.sleep(300);
+		wait.until(ExpectedConditions.elementToBeClickable(locationCmbBox));
+		return new SearchPage();
+	}
+	public SearchPage clickHiddenAdvancedBtn() {
+		advancedBtn.click();
+		return new SearchPage();
 	}
 
-	public void setName(String strName) {
+	public SearchPage setName(String strName) {
 		roomNameTxtBox.sendKeys(strName);
+		return new SearchPage();
 	}
 
-	public void setMinimumCap(String strMinimumCap) {
+	public SearchPage setMinimumCap(String strMinimumCap) {
 		minimumCapacityTxtBox.clear();
 		minimumCapacityTxtBox.sendKeys(strMinimumCap);  
+		return new SearchPage();
+	}
+	
+	public boolean isEmptyMinimumCap() {
+		return minimumCapacityTxtBox.getAttribute("value").isEmpty();
 	}
 
-	public void setlocation(String strLocation) {
-		locationCmbBox.sendKeys(strLocation);  
+	public SearchPage setLocation(String strLocation) {
+		locationCmbBox.sendKeys(strLocation); 
+		return new SearchPage();
 	}
 
-	public void search(String strName,String strMinimumCap,String strLocation) throws InterruptedException
+	public SearchPage search(String strName,String strMinimumCap,String strLocation) throws InterruptedException
 	{
-		clickAdvancedBtn();
+		clickCollapseAdvancedBtn();
 		setName(strName);
 		setMinimumCap(strMinimumCap);
-		setlocation(strLocation);
+		setLocation(strLocation);
+		return new SearchPage();
 	}
 
 	public Boolean filtersArePresent(){
@@ -98,8 +121,7 @@ public class SearchPage {
 	}
 
 	public Boolean dateArePresent(){
-		Calendar ca1 = Calendar.getInstance();
-		Date d = new java.util.Date(ca1.getTimeInMillis());
+		Date d = new java.util.Date(Calendar.getInstance().getTimeInMillis());
 		String date=new SimpleDateFormat("MMMM d YYY").format(d).toString();
 		return dateLabel.getText().replace("th","")
 				.replace("st","")
@@ -107,26 +129,26 @@ public class SearchPage {
 				.equals(date);
 	}
 
-	public SchedulePage selectRoom(String name) throws InterruptedException {
-		driver.findElement(By.xpath("//button[contains(text(),'"+name+"')and@class='ng-scope']")).click();
-		Thread.sleep(300);
+	public SchedulePage selectRoom(String roomName) {
+		driver.findElement(By.xpath("//button[contains(text(),'"+roomName+"')and@class='ng-scope']")).click();
 		return new SchedulePage();
 	}
 
-	public void selectResource(String name) {
-		driver.findElement(By.xpath("//div[contains(text(),'"+name+"')and@class='ng-binding']/preceding-sibling::div")).click();
+	public SearchPage selectResource(String resourceName) {
+		driver.findElement(By.xpath("//div[contains(text(),'"+resourceName+"')and@class='ng-binding']/preceding-sibling::div")).click();
+		return new SearchPage();
 	}
 
 	public boolean roomsInList(LinkedList<String> names) {
-		boolean allInList=false;
+		boolean allInList=true;
 		while(!names.isEmpty()) {
 			allInList=driver.findElement(By.xpath("//button[contains(text(),'"+names.remove(0)+"')and@class='ng-scope']")).isDisplayed();
 		}
 		return allInList;
 	}
 
-	public boolean resourceIsSelected(String name) {
-		return driver.findElement(By.xpath("//div[contains(text(),'"+name+"')and@class='ng-binding']/preceding-sibling::div")).isSelected();
+	public boolean resourceIsSelected(String resourceName) {
+		return driver.findElement(By.xpath("//div[contains(text(),'"+resourceName+"')and@class='ng-binding']/preceding-sibling::div")).isSelected();
 	}
 
 	public boolean resourcesAreSelected(LinkedList<String> names) {
@@ -144,8 +166,8 @@ public class SearchPage {
 		}
 		return allInList;	
 	}
-
-	public boolean allResourcesAreClean() {
+	
+	public boolean allFiltersAreCleaned() {
 		return roomNameTxtBox.getText().equals("")
 				&&minimumCapacityTxtBox.getText().equals("")
 				&&!locationCmbBox.isSelected();

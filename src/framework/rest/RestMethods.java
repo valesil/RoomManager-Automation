@@ -15,14 +15,13 @@ public class RestMethods {
 	private String lineReader;
 	private String output="";
 	private String urlpath= "http://172.20.208.177:4055/";
-	public RestMethods(String type,String request) {
+	
+	public String restMethods(String type,String request) {
 		try {
-
 			URL url = new URL(urlpath+request);
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 			conn.setRequestMethod(type);
 			conn.setRequestProperty("Accept", "application/json");
-
 			if (conn.getResponseCode() != 200) {
 				throw new RuntimeException("Failed : HTTP error code : "
 						+ conn.getResponseCode());
@@ -43,11 +42,12 @@ public class RestMethods {
 			e.printStackTrace();
 
 		}
+		return output;
 	}
-	
-	public LinkedList <String> responseNum(String condition){
+
+	public LinkedList <String> responseNum(String type,String request, String condition){
 		LinkedList <String> list= new LinkedList <String>();
-		JSONArray jsonResponse = new JSONArray(output);
+		JSONArray jsonResponse = new JSONArray(restMethods(type,request));
 		int iterator=0;
 		while(iterator<jsonResponse.length()){
 			list.add(""+jsonResponse.getJSONObject(iterator).getInt(condition)+"");
@@ -55,9 +55,21 @@ public class RestMethods {
 		}
 		return list; 
 	}
-	public LinkedList <String> response(String condition){
+	
+	public LinkedList <String> responseBool(String type,String request, String condition){
 		LinkedList <String> list= new LinkedList <String>();
-		JSONArray jsonResponse = new JSONArray(output);
+		JSONArray jsonResponse = new JSONArray(restMethods(type,request));
+		int iterator=0;
+		while(iterator<jsonResponse.length()){
+			list.add(""+jsonResponse.getJSONObject(iterator).getBoolean(condition)+"");
+			iterator++;
+		}
+		return list; 
+	}
+	
+	public LinkedList <String> responseString(String type,String request, String condition){
+		LinkedList <String> list= new LinkedList <String>();
+		JSONArray jsonResponse = new JSONArray(restMethods(type,request));
 		int iterator=0;
 		while(iterator<jsonResponse.length()){
 			list.add(jsonResponse.getJSONObject(iterator).getString(condition));
@@ -66,41 +78,39 @@ public class RestMethods {
 		return list; 
 	}
 	
-	public LinkedList <String> getAllResources(){
-		return response("customName");
-	}
-	
-	public LinkedList <String> getAllRooms(){
-		return response("displayName");
-	}
-	
-	public LinkedList <String> getByNumeric(String type,String condition){
+	public LinkedList <String> responseJSON(String type,String request, String condition){
 		LinkedList <String> list= new LinkedList <String>();
-		LinkedList <String> listRoomConds=responseNum(type);
-		LinkedList <String> listRoomNames=response("displayName");
+		JSONArray jsonResponse = new JSONArray(restMethods(type,request));
 		int iterator=0;
-		while(iterator<listRoomNames.size()){
-			if(listRoomConds.get(iterator).equals(condition)){
-				list.add(listRoomNames.get(iterator));
-			}
+		while(iterator<jsonResponse.length()){
+			list.add(jsonResponse.getJSONObject(iterator).toString());
 			iterator++;
 		}
-		System.out.println(list.toString());
-		return list;
-	}
-	public LinkedList <String> getByString(String type,String condition){
-		LinkedList <String> list= new LinkedList <String>();
-		LinkedList <String> listRoomConds=response(type);
-		LinkedList <String> listRoomNames=response("displayName");
-		int iterator=0;
-		while(iterator<listRoomNames.size()){
-			if(listRoomConds.get(iterator).equals(condition)){
-				list.add(listRoomNames.get(iterator));
-			}
-			iterator++;
-		}
-		System.out.println(list.toString());
-		return list;
+		return list; 
 	}
 	
+	public String findAttributeValue(String feature, String attributeName, String attributeValue){
+		LinkedList <String> listNames=responseString("GET",feature,attributeName);
+		LinkedList <String> listCondition=responseString("GET",feature,"_id");
+		for(int iterator=0;iterator<listNames.size();iterator++){
+			if(listNames.get(iterator).equals(attributeValue)){
+				
+				return listCondition.get(iterator);
+			}
+		}
+		return null;
+	}
+	
+	public LinkedList <String> mergeLists(LinkedList <String> list1,LinkedList <String> list2){
+		LinkedList <String> list= new LinkedList <String>();
+		for(int iter1=0;iter1<list1.size();iter1++){
+			for(int iter2=0;iter2<list2.size();iter2++){
+				if(list1.get(iter1).equals(list2.get(iter2))){
+					list.add(list1.get(iter1));
+				}
+			}
+		}
+		return list;
+	}
+
 }
