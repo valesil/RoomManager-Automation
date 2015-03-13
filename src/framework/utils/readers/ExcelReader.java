@@ -10,6 +10,7 @@ import java.util.Map;
 import jxl.Sheet;
 import jxl.Workbook;
 import jxl.read.biff.BiffException;
+import static framework.common.AppConfigConstants.EXCEL_PATH;
 
 /**
  * 
@@ -26,7 +27,7 @@ public class ExcelReader {
 	 * @throws IOException
 	 */
 	public ExcelReader(String path) throws BiffException, IOException {
-		workBook = Workbook.getWorkbook(new File(path));
+		workBook = Workbook.getWorkbook(new File(System.getProperty("user.dir")+ EXCEL_PATH + path));
 	}
 
 	/**
