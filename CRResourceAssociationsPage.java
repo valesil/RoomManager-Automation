@@ -10,7 +10,7 @@ import org.openqa.selenium.By;
 public class CRResourceAssociationsPage extends AbstractRoomBasePage {
 
 	/**
-	 * button that allows to add an available resource to be associated to the room
+	 * [CG]button that allows to add an available resource to be associated to the room
 	 * @param resourceName
 	 * @return the same page
 	 */
@@ -21,7 +21,7 @@ public class CRResourceAssociationsPage extends AbstractRoomBasePage {
 	}
 
 	/**
-	 * method that allows to change the number of resources
+	 * [CG]method that allows to change the number of resources associated to a room
 	 * @param resourceName
 	 * @param value
 	 * @return the same page
@@ -36,7 +36,7 @@ public class CRResourceAssociationsPage extends AbstractRoomBasePage {
 	}
 
 	/**
-	 * method that removes one resource associated to a room
+	 * [CG]method that removes one resource associated to a room
 	 * @param resourceName
 	 * @return the same page 
 	 */
@@ -47,17 +47,17 @@ public class CRResourceAssociationsPage extends AbstractRoomBasePage {
 	}
 
 	/**
-	 * method that returns the quantity of a resource associated to a room
+	 * [CG]method that returns the quantity of a resource associated to a room
 	 * @param resourceName
 	 * @return
 	 */
 	public String getResourceAmount(String resourceName) {
 		return driver.findElement(By.xpath("//span[contains(text(),'" + resourceName + 
-				"')]/ancestor::div/following-sibling::div/input")).getText();
+				"')]/ancestor::div/following-sibling::div/input")).getAttribute("value");
 	}
 	
 	/**
-	 * boolean method that returns true or false when locates a resource
+	 * [CG]boolean method that returns true or false when locates a resource
 	 * @param resourceName
 	 * @return
 	 */
@@ -67,12 +67,18 @@ public class CRResourceAssociationsPage extends AbstractRoomBasePage {
 	}
 	
 	/**
-	 * Method that returns True when a resource is found in room associations page
+	 * [CG]Method that returns True when it finds a resource associated to a room
 	 * @param resourceName
 	 * @return
 	 */
 	public boolean searchResource(String resourceName) {
-		return driver.findElement(By.xpath("//span[contains(text(),'" + resourceName +
+		try {
+			return driver.findElement(By.xpath("//span[contains(text(),'" + resourceName +
 				"')and@class='ng-binding']")).isDisplayed();	
+		}
+		catch (Exception e) {
+			return false;
+		}
 	}
+
 }
