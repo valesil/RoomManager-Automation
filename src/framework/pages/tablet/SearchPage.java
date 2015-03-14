@@ -27,10 +27,9 @@ import framework.selenium.SeleniumDriverManager;
  */
 public class SearchPage {
 
-	//declare the instance of Selenium Webdriver
 	private WebDriver driver;
+	@SuppressWarnings("rawtypes")
 	private Wait wait;
-	
 
 	@FindBy(xpath = "//span[@ng-click='goBack()']")
 	WebElement backBtn;
@@ -64,7 +63,7 @@ public class SearchPage {
 
 	public SearchPage clickClearBtn() {
 		clearBtn.click();
-		return new SearchPage();
+		return this;
 	}
 
 	public HomePage clickBackBtn() {
@@ -76,22 +75,22 @@ public class SearchPage {
 	public SearchPage clickCollapseAdvancedBtn() {
 		advancedBtn.click();
 		wait.until(ExpectedConditions.elementToBeClickable(locationCmbBox));
-		return new SearchPage();
+		return this;
 	}
 	public SearchPage clickHiddenAdvancedBtn() {
 		advancedBtn.click();
-		return new SearchPage();
+		return this;
 	}
 
 	public SearchPage setName(String strName) {
 		roomNameTxtBox.sendKeys(strName);
-		return new SearchPage();
+		return this;
 	}
 
 	public SearchPage setMinimumCap(String strMinimumCap) {
 		minimumCapacityTxtBox.clear();
 		minimumCapacityTxtBox.sendKeys(strMinimumCap);  
-		return new SearchPage();
+		return this;
 	}
 	
 	public boolean isEmptyMinimumCap() {
@@ -100,18 +99,16 @@ public class SearchPage {
 
 	public SearchPage setLocation(String strLocation) {
 		locationCmbBox.sendKeys(strLocation); 
-		return new SearchPage();
+		return this;
 	}
 
-	public SearchPage search(String strName,String strMinimumCap,String strLocation) throws InterruptedException
-	{
-		clickCollapseAdvancedBtn();
-		setName(strName);
-		setMinimumCap(strMinimumCap);
-		setLocation(strLocation);
-		return new SearchPage();
+	public SearchPage search(String strName,String strMinimumCap,String strLocation){
+		return clickCollapseAdvancedBtn()
+		.setName(strName)
+		.setMinimumCap(strMinimumCap)
+		.setLocation(strLocation);
 	}
-
+	
 	public Boolean filtersArePresent(){
 		return locationCmbBox.isDisplayed()&&
 				minimumCapacityTxtBox.isDisplayed()&&
@@ -120,41 +117,42 @@ public class SearchPage {
 
 	}
 
-	public Boolean dateArePresent(){
+	public Boolean dateIsPresent(){
 		Date d = new java.util.Date(Calendar.getInstance().getTimeInMillis());
 		String date=new SimpleDateFormat("MMMM d YYY").format(d).toString();
-		return dateLabel.getText().replace("th","")
-				.replace("st","")
-				.replace("nd","")
-				.equals(date);
+		return dateLabel.getText().replace("th","").replace("st","").replace("nd","").equals(date);
 	}
 
 	public SchedulePage selectRoom(String roomName) {
-		driver.findElement(By.xpath("//button[contains(text(),'"+roomName+"')and@class='ng-scope']")).click();
+		driver.findElement(By.xpath("//button[contains(text(),'" + roomName + "')and@class='ng-scope']")).click();
 		return new SchedulePage();
 	}
 
 	public SearchPage selectResource(String resourceName) {
-		driver.findElement(By.xpath("//div[contains(text(),'"+resourceName+"')and@class='ng-binding']/preceding-sibling::div")).click();
-		return new SearchPage();
+		driver.findElement(By.xpath("//div[contains(text(),'" + resourceName + 
+				"')and@class='ng-binding']/preceding-sibling::div")).click();
+		return this;
 	}
 
 	public boolean roomsInList(LinkedList<String> names) {
 		boolean allInList=true;
 		while(!names.isEmpty()) {
-			allInList=driver.findElement(By.xpath("//button[contains(text(),'"+names.remove(0)+"')and@class='ng-scope']")).isDisplayed();
+			allInList=driver.findElement(By.xpath("//button[contains(text(),'" + 
+					  names.remove(0) + "')and@class='ng-scope']")).isDisplayed();
 		}
 		return allInList;
 	}
 
 	public boolean resourceIsSelected(String resourceName) {
-		return driver.findElement(By.xpath("//div[contains(text(),'"+resourceName+"')and@class='ng-binding']/preceding-sibling::div")).isSelected();
+		return driver.findElement(By.xpath("//div[contains(text(),'" + 
+			   resourceName + "')and@class='ng-binding']/preceding-sibling::div")).isSelected();
 	}
 
 	public boolean resourcesAreSelected(LinkedList<String> names) {
 		boolean allSelectedInList=false;
 		while(!names.isEmpty()) {
-			allSelectedInList=driver.findElement(By.xpath("//div[contains(text(),'"+names.remove(0)+"')and@class='ng-binding']/preceding-sibling::div")).isSelected();
+			allSelectedInList=driver.findElement(By.xpath("//div[contains(text(),'" + 
+							  names.remove(0) + "')and@class='ng-binding']/preceding-sibling::div")).isSelected();
 		}
 		return allSelectedInList;	
 	}
@@ -162,11 +160,16 @@ public class SearchPage {
 	public boolean resourcesInList(LinkedList<String> names) {
 		boolean allInList=false;
 		while(!names.isEmpty()) {
-			allInList=driver.findElement(By.xpath("//div[contains(text(),'"+names.remove(0)+"')and@class='ng-binding']/preceding-sibling::div")).isDisplayed();
+			allInList=driver.findElement(By.xpath("//div[contains(text(),'" + 
+					  names.remove(0) + "')and@class='ng-binding']/preceding-sibling::div")).isDisplayed();
 		}
 		return allInList;	
 	}
 	
+	/**
+	 * [JC] allFiltersAreCleaned
+	 * @return a boolean answer true if all elements of search are cleaned(without information)
+	 */
 	public boolean allFiltersAreCleaned() {
 		return roomNameTxtBox.getText().equals("")
 				&&minimumCapacityTxtBox.getText().equals("")
