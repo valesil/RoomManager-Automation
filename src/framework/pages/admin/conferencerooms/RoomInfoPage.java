@@ -3,6 +3,8 @@ package framework.pages.admin.conferencerooms;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
+import framework.common.UIMethods;
+
 /**
  * This class represents Room Info page
  * @author Ruben Blanco
@@ -17,12 +19,11 @@ public class RoomInfoPage extends AbstractRoomBasePage{
 	
 	@FindBy(xpath = "//input[@ng-model='selectedRoom.capacity']")
 	WebElement roomCapacityTxtBox;
-
-	@FindBy(css = "button.info") 
-	WebElement saveBtn;
 	
 	@FindBy(xpath = "//div[@id='s2id_autogen1']")
 	WebElement locationCmbBox;
+	
+	UIMethods UI = new UIMethods();
 
 	/**
 	 * This method sets the display Name of a room
@@ -44,6 +45,33 @@ public class RoomInfoPage extends AbstractRoomBasePage{
 		roomCodeTxtBox.clear();
 		roomCodeTxtBox.sendKeys(roomCode);
 		return new RoomInfoPage();
+	}
+	
+	/**
+	 * get the room code of specific room
+	 * @param displayName is the display Name of a Room 
+	 * @return
+	 */
+	public String getRoomCode() {
+		return roomCodeTxtBox.getAttribute("value");
+	}
+	
+	/**
+	 * get the room capacity of specific Room
+	 * @param displayName
+	 * @return display name of room
+	 */
+	public String getRoomCapacity() {
+		return roomCapacityTxtBox.getAttribute("value");
+	}
+
+	/**
+	 * get the room location of specific room
+	 * @param displayName
+	 * @return the room location
+	 */
+	public String getRoomLocation() {
+		return locationCmbBox.getText();
 	}
 	
 	/**

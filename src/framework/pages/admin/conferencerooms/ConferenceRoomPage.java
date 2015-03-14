@@ -1,8 +1,6 @@
 package framework.pages.admin.conferencerooms;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
 
 import framework.common.UIMethods;
 import framework.pages.admin.AbstractMainMenu;
@@ -13,10 +11,8 @@ import framework.pages.admin.AbstractMainMenu;
  *
  */
 public class ConferenceRoomPage extends AbstractMainMenu {
+	
 	UIMethods UI = new UIMethods();
-
-	@FindBy(id = "roomsGrid")
-	WebElement roomsGrid;
 
 	/**
 	 * Click over a Room 
@@ -38,18 +34,4 @@ public class ConferenceRoomPage extends AbstractMainMenu {
 		return driver.findElement(By.xpath("//span[contains(text(),'" 
 				+ roomName + "')and@class='ng-binding']")).getText();
 	}
-
-	/**
-	 * [YA]This method returns the icon is displayed in Out Of Order Column when an Out Of Order Period
-	 * is established
-	 * @param roomDisplayName
-	 * @return
-	 */
-	public String getOutOfOrderIcon(String roomDisplayName) {
-		WebElement outOfOrderIcon = driver.findElement(By.xpath("//span[contains(text(),'" + roomDisplayName 
-				+ "')]//ancestor::div[@ng-click='row.toggleSelected($event)']//out-of-order-icon//span"));
-		System.out.println(outOfOrderIcon.getAttribute("class"));
-		return outOfOrderIcon.getAttribute("class");
-	}
-
 }
