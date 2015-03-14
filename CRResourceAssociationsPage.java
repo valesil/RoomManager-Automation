@@ -10,7 +10,7 @@ import org.openqa.selenium.By;
 public class CRResourceAssociationsPage extends AbstractRoomBasePage {
 
 	/**
-	 * [CG]button that allows to add an available resource to be associated to the room
+	 * [CG]Button that allows to add an available resource to be associated to the room
 	 * @param resourceName
 	 * @return the same page
 	 */
@@ -21,7 +21,7 @@ public class CRResourceAssociationsPage extends AbstractRoomBasePage {
 	}
 
 	/**
-	 * [CG]method that allows to change the number of resources associated to a room
+	 * [CG]Method that allows to change the number of resources associated to a room
 	 * @param resourceName
 	 * @param value
 	 * @return the same page
@@ -36,7 +36,7 @@ public class CRResourceAssociationsPage extends AbstractRoomBasePage {
 	}
 
 	/**
-	 * [CG]method that removes one resource associated to a room
+	 * [CG]Method that removes one resource associated to a room
 	 * @param resourceName
 	 * @return the same page 
 	 */
@@ -47,7 +47,7 @@ public class CRResourceAssociationsPage extends AbstractRoomBasePage {
 	}
 
 	/**
-	 * [CG]method that returns the quantity of a resource associated to a room
+	 * [CG]Method that returns the quantity of a resource associated to a room
 	 * @param resourceName
 	 * @return
 	 */
@@ -57,7 +57,7 @@ public class CRResourceAssociationsPage extends AbstractRoomBasePage {
 	}
 	
 	/**
-	 * [CG]boolean method that returns true or false when locates a resource
+	 * [CG]Boolean method that returns true or false when locates a resource
 	 * @param resourceName
 	 * @return
 	 */
@@ -80,5 +80,4 @@ public class CRResourceAssociationsPage extends AbstractRoomBasePage {
 			return false;
 		}
 	}
-
 }
