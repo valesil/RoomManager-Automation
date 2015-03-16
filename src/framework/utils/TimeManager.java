@@ -6,7 +6,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 
 /**
- * 
+ * This class manage Time elements: hours, minutes, meridian 
  * @author Eliana Navia
  *
  */
@@ -47,21 +47,45 @@ public class TimeManager {
 	}
 
 	/**
+	 * [EN] This method return the current time.
+	 * @return current time format HH:mm
+	 */
+	public static String getCurrentTime() {
+		calendar.setTime(new Date());
+		return dateToString(calendar.getTime(), "HH:mm");
+	}
+	/**
 	 * [YA]This element returns a time element: hours, minutes or meridian
 	 * @param time: time to split
 	 * @param element: hours, minutes or meridian
 	 * @return time element
 	 */
-	public String getTimeElement(String time, String element) {
+	public static String getTimeElement(String time, String element) {
 		String[] splittedTime = time.split(" ");
 		String[] timeElement = splittedTime[0].split(":");
+		String[] meridian = splittedTime[1].split(" ");
 		switch(element) {	
 		case "hours": return Integer.parseInt(timeElement[0]) + "";
 		case "minutes": return timeElement[1];
-		default : return splittedTime[1];
+		case "meridian": return meridian[0];
+		default : return splittedTime[0];
 		}
 	}
-	
+
+	/**
+	 * [EN]This methods split a string in hours and minutes.
+	 * @param strDate HH:mm
+	 * @param parameter hour,minute
+	 * @return integer of hours and minutes
+	 */
+	public static int getTimeElementInt(String strDate, String parameter) {
+		String[] dataArray = strDate.split(":");
+		int value = (parameter.equalsIgnoreCase("hour")) ? 
+				Integer.parseInt(dataArray[0]): 
+				Integer.parseInt(dataArray[1]);
+				return value;
+	}
+
 	/**
 	 * [YA]This method returns the following methods of a date: year, month or day
 	 * @param date: Date to split
@@ -75,6 +99,4 @@ public class TimeManager {
 		default : return date.split("/")[2];
 		}
 	}
-
-
 }

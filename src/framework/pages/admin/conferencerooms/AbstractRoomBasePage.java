@@ -31,7 +31,7 @@ public abstract class AbstractRoomBasePage {
 
 	@FindBy(xpath = "//button[@ng-click='cancel()']") 
 	WebElement cancelBtn;
-
+	
 	public AbstractRoomBasePage() {
 		driver = SeleniumDriverManager.getManager().getDriver();
 		wait = SeleniumDriverManager.getManager().getWait();
@@ -67,7 +67,4 @@ public abstract class AbstractRoomBasePage {
 		cancelBtn.click();
 		return new ConferenceRoomPage();
 	}
-
-
-
 }

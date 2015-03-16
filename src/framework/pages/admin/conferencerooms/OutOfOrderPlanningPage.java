@@ -73,7 +73,7 @@ public class OutOfOrderPlanningPage extends AbstractRoomBasePage {
 	 *[YA]This method clicks the activation button (calendar or clock) to confirm an out of order period
 	 * @return
 	 */
-	public OutOfOrderPlanningPage clickActivationBtn() {
+	private OutOfOrderPlanningPage clickActivationBtn() {
 		activationBtn.click();
 		return this;
 	}
@@ -331,14 +331,14 @@ public class OutOfOrderPlanningPage extends AbstractRoomBasePage {
 	 * @return
 	 * @throws ParseException
 	 */
-	public OutOfOrderPlanningPage setOutOfOrderPeriodInformation (String startingDate, String finishingDate, 
-			String startingTime, String finishingTime, String title, String description) {
-		setStartDateWithCalendar(startingDate);
-		setEndDateWithCalendar(finishingDate);
+	public OutOfOrderPlanningPage setOutOfOrderPeriodInformation (String startDate, String endDate, 
+			String startTime, String endTime, String title, String description) {
+		setStartDateWithCalendar(startDate);
+		setEndDateWithCalendar(endDate);
 		setTitleTxtBox(title);
 		setDescriptionTxtBox(description);
-		setEndTime(finishingTime);
-		setStartTime(startingTime);
+		setEndTime(endTime);
+		setStartTime(startTime);
 		selectEmailNotificationChkBox();
 		return this;
 	}
@@ -358,4 +358,20 @@ public class OutOfOrderPlanningPage extends AbstractRoomBasePage {
 	public String getErrorMessage() {
 		return errorMessageLbl.getText();
 	}
+	
+	public OutOfOrderPlanningPage changeOutOfOrderStatusToActivated(){
+		if(emailNotificationChkBox.getAttribute("class").contains("text-disabled-color")) {
+			clickActivationBtn();
+		}
+		return this;
+	}
+	
+	public OutOfOrderPlanningPage changeOutOfOrderStatusToDesactivated(){
+		if(!emailNotificationChkBox.getAttribute("class").contains("text-disabled-color")) {
+			clickActivationBtn();
+		}
+		return this;
+	}
+	
+	
 }
