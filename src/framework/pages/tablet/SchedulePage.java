@@ -1,7 +1,6 @@
 package framework.pages.tablet;
 
 import static framework.common.AppConfigConstants.BROWSER;
-import static framework.utils.TimeManager.getTimeElement;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
@@ -9,6 +8,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import framework.selenium.SeleniumDriverManager;
@@ -22,73 +22,76 @@ import framework.selenium.SeleniumDriverManager;
 public class SchedulePage {
 	private WebDriver driver;
 	private WebDriverWait wait;
-
-	@FindBy(xpath = "//span[contains(text(), 'Scheduler')]")
+	
+	@FindBy(xpath = "//span[contains(text(),'Scheduler')]")
 	WebElement titleSchedulerLbl;
-
+	
 	@FindBy(id = "txtOrganizer")
 	WebElement organizerTxtBox;
-
-	@FindBy(xpath = "//small[@ng-show = 'formErrors.organizer']")
-	WebElement errorMessageOrganizer;
-
+	
+	@FindBy(xpath = "//small[@ng-show='formErrors.organizer']")
+	WebElement errorMessageOrganizerLbl;
+	
 	@FindBy(id = "txtSubject")
 	WebElement subjectTxtBox;
-
-	@FindBy(xpath = "//small[@ng-show = 'formErrors.title']")
-	WebElement errorMessageSubject;
-
+	
+	@FindBy(xpath = "//small[@ng-show='formErrors.title']")
+	WebElement errorMessageSubjectLbl;
+	
 	@FindBy(id = "txtBody")
 	WebElement bodyTxtBox;
-
-	@FindBy(xpath = "//small[@ng-show = 'formErrors.attendeesUnSet']")
-	WebElement errorMessageAttendee;
-
-	@FindBy(xpath = "//input[@placeholder = 'Press enter or semicolon to confirm']")
+	
+	@FindBy(xpath = "//small[@ng-show='formErrors.attendeesUnSet']")
+	WebElement errorMessageAttendeeLbl;
+	
+	@FindBy(xpath = "//input[@placeholder='Press enter or semicolon to confirm']")
 	WebElement attendeesTxtBox;
-
-	@FindBy(xpath = "//input[@ng-change = 'startTimeChanged()']")
+	
+	@FindBy(xpath = "//input[@ng-change='startTimeChanged()']")
 	WebElement startTimeTxtBox;
-
-	@FindBy(xpath = "//input[@type = 'time'and@ng-change='endTimeChanged()']")
+	
+	@FindBy(xpath = "//input[@type='time'and@ng-change='endTimeChanged()']")
 	WebElement endTimeTxtBox;
-
+	
 	@FindBy(xpath = "//span[contains(text(),'Create')]")
 	WebElement createBtn;
-
+	
 	@FindBy(xpath = "//button/span[contains(text(),'Remove')]")
 	WebElement removeBtn;
-
-	@FindBy(xpath = "//button/span[contains(text(),'Update')]")
+	
+	@FindBy(xpath = "//span[contains(text(),'Update')]")
 	WebElement updateBtn;
-
+	
 	@FindBy(css = "css=div.currenttime")
 	WebElement currentTimeLine;
-
-	@FindBy(xpath = "//span[@ng-click = 'goToSearch()']")
+	
+	@FindBy(xpath = "//span[@ng-click='goToSearch()']")
 	WebElement searchBtn;
-
+	
 	@FindBy(xpath = "//button[@ng-click='goBack()']")
 	WebElement backBtn;
-
+	
 	@FindBy(xpath = "//input[@ng-model='dialog.credentials.username']")
 	WebElement userNameTxt;
-
+	
 	@FindBy(xpath = "//input[@ng-model='dialog.credentials.password']")
 	WebElement passwordTxt;
-
+	
 	@FindBy(xpath = "//button[@ng-click='dialog.ok()']")
 	WebElement okBtn;
-
+	
+	@FindBy(xpath = "//button/span[contains(text(),'Cancel')]")
+	WebElement cancelBtn;
+	
 	/**
 	 * [AC] Get the driver and the wait to use that in this class
 	 */
 	public SchedulePage() {
 		driver = SeleniumDriverManager.getManager().getDriver();
-		PageFactory.initElements(driver, this);
 		wait = SeleniumDriverManager.getManager().getWait();
+		PageFactory.initElements(driver, this);
 	}
-
+	
 	/**
 	 * [AC] Clear the content of the textBox and set the new value to an organizer
 	 * @param organizer: new value to set
@@ -99,7 +102,7 @@ public class SchedulePage {
 		organizerTxtBox.sendKeys(organizer);
 		return this;
 	}
-
+	
 	/**
 	 * [AC] Clear the content of the textBox and set the new value to the subject
 	 * @param subject
@@ -110,7 +113,7 @@ public class SchedulePage {
 		subjectTxtBox.sendKeys(subject);
 		return this;
 	}
-
+	
 	/**
 	 * [AC] Clear the content of the textBox, set the new value and press enter
 	 * to the attendee value
@@ -123,7 +126,7 @@ public class SchedulePage {
 		attendeesTxtBox.sendKeys(Keys.ENTER);
 		return this;
 	}
-
+	
 	/**
 	 * [AC] Clear the content of the textBox and set the new value to the body
 	 * @param textBody
@@ -134,7 +137,7 @@ public class SchedulePage {
 		bodyTxtBox.sendKeys(textBody);
 		return this;
 	}
-
+	
 	/**
 	 * [AC] This method is to set the start time of a meeting on Chrome
 	 * @param startTime
@@ -153,7 +156,7 @@ public class SchedulePage {
 			startTimeTxtBox.sendKeys(Keys.ARROW_DOWN);
 		}
 	}
-
+	
 	/**
 	 * [AC] This method is to set the end time of a meeting on Chrome
 	 * @param endTime
@@ -172,7 +175,7 @@ public class SchedulePage {
 			endTimeTxtBox.sendKeys(Keys.ARROW_DOWN);
 		}
 	}
-
+	
 	/**
 	 * [AC] Verify what browser is used, and according to that, chose the option to
 	 * set startTime of a meeting 
@@ -192,7 +195,7 @@ public class SchedulePage {
 		}
 		return this;
 	}
-
+	
 	/**
 	 * [AC] Verify what browser is used, and according to that, chose the option to 
 	 * set endTime of a meeting
@@ -212,16 +215,17 @@ public class SchedulePage {
 		}
 		return this;
 	}
-
+	
 	/**
 	 * [AC] This method click on Create button
 	 * @return
 	 */
 	public SchedulePage clickCreateBtn() {
+		wait.until(ExpectedConditions.elementToBeClickable(createBtn));
 		createBtn.click();
 		return this;
 	}
-
+	
 	/**
 	 * [AC] This method click on Remove button
 	 * @return
@@ -230,7 +234,7 @@ public class SchedulePage {
 		removeBtn.click();
 		return this;
 	}
-
+	
 	/**
 	 * [AC] This method click on Update button
 	 * @return
@@ -239,49 +243,58 @@ public class SchedulePage {
 		updateBtn.click();
 		return this;
 	}
-
+	
 	/**
 	 * [AC] This method click on back button
 	 * @return
 	 */
 	public HomePage clickBackBtn() {
+		wait.until(ExpectedConditions.elementToBeClickable(backBtn));
 		backBtn.click();
 		return new HomePage();
 	}
-
+	
 	/**
 	 * [AC] This method get the value of a label from organizer
 	 * @return
 	 */
+	public String getErrorMessageOrganizerLbl() {
+		return errorMessageOrganizerLbl.getText();
 	}
-
+	
 	/**
 	 * [AC] This method get the value of a label from subject 
 	 * @return
 	 */
+	public String getErrorMessageSubjectLbl() {
+		return errorMessageSubjectLbl.getText();
 	}
-
+	
 	/**
 	 * [AC] This method get the value of a label from attendee
 	 * @return
 	 */
+	public String getErrorMessageAttendeeLbl() {
+		return errorMessageAttendeeLbl.getText();
 	}
 	
 	/**
 	 * [AC] This method get the value of a label from title page
 	 * @return
 	 */
+	public String getTitleOfPageValue() {
 		return titleSchedulerLbl.getText();
 	}
-
+	
 	/**
 	 * [AC] This method search a meeting and return the name of that
 	 * @param nameMeeting: name of a meeting to search
 	 * @return
 	 */
+	public String getNameMeetingCreatedValue(String nameMeeting) {
 		return driver.findElement(By.xpath("//span[contains(text(),'" + nameMeeting + "')]")).getText();
 	}
-
+	
 	/**
 	 * [AC] This method search a meeting and click over that
 	 * @param nameMeeting
@@ -291,61 +304,74 @@ public class SchedulePage {
 		driver.findElement(By.xpath("//span[contains(text(),'" + nameMeeting + "')]")).click();
 		return this;
 	}
-
+	
 	/**
 	 * [AC] This method search for a attendee and return his value
 	 * @param emailAttendee
 	 * @return
 	 */
+	public String getEmailAttendeeValue(String emailAttendee) {
 		return driver.findElement(By.xpath("//span[contains(text(),'" + emailAttendee + "')]")).getText();
 	}
-
+	
 	/**
 	 * [AC] This method obtains the value of the textBox from subject
 	 * @return
 	 */
+	public String getNameSubjectValue() {
 		return subjectTxtBox.getAttribute("value");
 	}
-
+	
 	/**
 	 * [AC] This method obtains the value of the textBox from organizer
 	 * @return
 	 */
+	public String getNameOrganizerValue() {
 		return organizerTxtBox.getAttribute("value");
 	}
-
+	
 	/**
 	 * [AC] This method obtains the value of the textBox from body
 	 * @return
 	 */
+	public String getTextBodyValue() {
 		return bodyTxtBox.getAttribute("value");
 	}
-
-	public String getMessagePopUp(String message) {
+	
+	/**
 	 * [AC] This method is to found the message pop up that appears after do something
+	 * @param message
+	 * @return
+	 */
+	public String getMessagePopUpValue(String message) {
+		WebElement messageLbl = driver.findElement(By.xpath("//div[contains(text(),'" + message + "')]"));
+		wait.until(ExpectedConditions.visibilityOf(messageLbl));
+		return messageLbl.getText();
 	}
-
+	
 	/**
 	 * [AC]This method clear and set the new value to user name textBox
 	 * @param name
 	 * @return
 	 */
+	public SchedulePage setUserNameTxtBox(String name) {
 		userNameTxt.clear();
 		userNameTxt.sendKeys(name);
 		return this;
 	}
-
+	
 	/**
 	 * [AC] This method clear and set the new value to password textBox
 	 * @param password
 	 * @return
 	 */
+	public SchedulePage setPasswordTxtBox(String password) {
 		wait.until(ExpectedConditions.visibilityOf(passwordTxt));
 		passwordTxt.clear();
 		passwordTxt.sendKeys(password);
 		return this;
 	}
-
+	
 	/**
 	 * [AC] This method click on Ok button
 	 * @return
@@ -354,28 +380,13 @@ public class SchedulePage {
 		okBtn.click();
 		return this;
 	}
-
-		return clickOkButton();
+	
 	/**
 	 * [AC] This method click on Cancel button
-	 * @param startTime hh:mm a
-	 * @param endTime  hh:mm a
-	 * @param attendees
 	 * @return
 	 */
 	public SchedulePage clickCancelButton() {
 		cancelBtn.click();
 		return this;
-		String to = getTimeElement(endTime, "endTime");
-		String fromMeridian = getTimeElement(startTime, "meridian");
-		String toMeridian = getTimeElement(startTime, "meridian");
-		
-		setOrganizerTxtBox(organizer);
-		setSubjectTxtBox(subject);
-		setStartTime(from, fromMeridian);
-		setEndTime(to, toMeridian);
-		setAttendeeTxtBox(attendees);
-		return clickCreateBtn();
-
 	}
 }
