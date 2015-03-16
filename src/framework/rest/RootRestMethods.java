@@ -7,9 +7,9 @@ import framework.rest.RestMethods;
 public class RootRestMethods {
 
 	/** [J.C]
-	 * @return This method get all rooms in existence in a LinkedList  <String> 
+	 * @return This method get all rooms in existence in a LinkedList <String> 
 	 */
-	public static LinkedList  <String> getAllRooms() {
+	public static LinkedList <String> getAllRooms() {
 		RestMethods getRooms = new RestMethods(); 
 		return getRooms.response("rooms", "displayName", "String"); 
 	}
@@ -20,34 +20,42 @@ public class RootRestMethods {
 	public static void CreateAssociatedResource(String roomName, String fileJSON) {
 		RestMethods getRoomID = new RestMethods(); 
 		RestMethods createAssociatedResource = new RestMethods();
-		String roomID = getRoomID.findAttributeValue("rooms", "String", "displayName", roomName, "_id");
+		String roomID = getRoomID.findAttributeValue
+				("rooms", "String", "displayName", roomName, "_id");
 		String resourceAssociated = "rooms/" + roomID + "/resources";
 		createAssociatedResource.postAndPutMethod(resourceAssociated,fileJSON);
 	}
 
 	/** [J.C]
-	 * @return This method return a names of Associated resources to a Room in a LinkedList  <String> 
+	 * @return This method return a names of Associated resources to a Room in a 
+	 * LinkedList <String> 
+	 * 
 	 */
 	public static LinkedList <String> getNamesAssociatedResources(String roomName) {
 		LinkedList <String> listResourcesRoomIds, listAllIdResources;
-		LinkedList <String> listNames = new LinkedList  <String>(); 
+		LinkedList <String> listNames = new LinkedList <String>(); 
 		RestMethods getResourcesID = new RestMethods();
 		RestMethods getRoomID = new RestMethods(); 
-		String roomID = getRoomID.findAttributeValue("rooms", "String", "displayName", roomName, "_id");
+		String roomID = getRoomID.findAttributeValue("rooms", "String", 
+				"displayName", roomName, "_id");
 		String resourceAssociated = "rooms/" + roomID + "/resources";
-		listResourcesRoomIds = getResourcesID.response(resourceAssociated, "resourceId", "String");
+		listResourcesRoomIds = getResourcesID.
+				response(resourceAssociated, "resourceId", "String");
 		listAllIdResources = getAllIdResources();
 		for(int pos = 0; pos<listResourcesRoomIds.size(); pos ++){
 			for(int iterator = 0; iterator < listAllIdResources.size(); iterator ++ ){
 				if(listResourcesRoomIds.get(pos).equals(listAllIdResources.get(iterator))){
-					listNames.add(getRoomID
-							.findAttributeValue("resources", "String", "_id", listResourcesRoomIds.get(pos), "customName"));
-					System.out.println(listNames.get(pos));
+					listNames.add(getRoomID.findAttributeValue("resources", 
+							"String", "_id", listResourcesRoomIds.get(pos), "customName"));
 				}
 			}
 		}
 		return listNames;
 	}
+
+	/** [J.C]
+	 * @return This method return Name of rooms in a LinkedList <String> 
+	 */
 	public static LinkedList <String> getRoomsByName(String Criteria){
 		LinkedList <String> listAllRooms = getAllRooms();
 		LinkedList <String> listRooms = new LinkedList <String>(); 
@@ -59,36 +67,36 @@ public class RootRestMethods {
 	}
 
 	/** [J.C]
-	 * @return This method return a names of resources in a LinkedList  <String> 
+	 * @return This method return id of resources in a LinkedList <String> 
 	 */
-	public static LinkedList  <String> getAllIdResources() {
+	public static LinkedList <String> getAllIdResources() {
 		RestMethods getResources = new RestMethods(); 
 		return getResources.response("resources", "_id", "String"); 
 	}
 
 	/** [J.C]
-	 * @return This method return a names of resources in a LinkedList  <String> 
+	 * @return This method return name of resources in a LinkedList <String> 
 	 */
-	public static LinkedList  <String> getAllNameResources() {
+	public static LinkedList <String> getAllNameResources() {
 		RestMethods getResources = new RestMethods(); 
 		return getResources.response("resources", "customName", "String"); 
 	}
 
 	/** [J.C]
-	 * @return This method delete a resource
+	 * @return This method delete a resource give a name
 	 */
 	public static void deleteResource(String resourceName) {
 		RestMethods getResourceID = new RestMethods(); 
 		RestMethods deleteResource = new RestMethods(); 
-		deleteResource.getAndDeleteMethods("DELETE", "resources/" 
-				+ getResourceID.findAttributeValue("resources", "String", "name", resourceName, "_id")); 
+		deleteResource.getAndDeleteMethods("DELETE", "resources/" + getResourceID
+				.findAttributeValue("resources", "String", "name", resourceName, "_id")); 
 	}
 
 	/** [J.C]
 	 * @return This method delete all resources
 	 */
 	public static void deleteResources(){
-		LinkedList  <String> listNames = getAllNameResources(); 
+		LinkedList <String> listNames = getAllNameResources(); 
 		for(int iterator = 0; iterator < listNames.size(); iterator ++ ){
 			deleteResource(listNames.get(iterator)); 
 		}
@@ -103,13 +111,14 @@ public class RootRestMethods {
 		RestMethods getResourceAssociatedID = new RestMethods(); 
 		RestMethods deleteAssociatedResource = new RestMethods(); 
 		String resourceID = getResourceID.findAttributeValue
-							("resources", "String", "name", resourceName, "_id");
-		String roomID = getRoomID.findAttributeValue("rooms", "String", "displayName", roomName, "_id");
+				("resources", "String", "name", resourceName, "_id");
+		String roomID = getRoomID.findAttributeValue("rooms", "String", 
+				"displayName", roomName, "_id");
 		String resourcesAssociated = "rooms/" + roomID + "/resources";
 		String resourceAssociatedID = getResourceAssociatedID.findAttributeValue
-									 (resourcesAssociated, "String", "resourceId", resourceID, "_id");
+				(resourcesAssociated, "String", "resourceId", resourceID, "_id");
 		deleteAssociatedResource.getAndDeleteMethods
-								("DELETE", resourcesAssociated + "/" + resourceAssociatedID); 
+		("DELETE", resourcesAssociated + "/" + resourceAssociatedID); 
 	}
 
 	/** [J.C]
@@ -118,12 +127,15 @@ public class RootRestMethods {
 	public static String getOutOfOrderInfo(String roomName, String title, String attribute){
 		RestMethods getRoomID = new RestMethods(); 
 		RestMethods getoutOfOrderInfo = new RestMethods(); 
-		String roomID = getRoomID.findAttributeValue("rooms", "String", "displayName", roomName, "_id"); 
+		String roomID = getRoomID.findAttributeValue("rooms", "String", 
+				"displayName", roomName, "_id"); 
 		String outOfOrders = "rooms/" + roomID + "/out-of-orders"; 
 		if(attribute=="sendEmail"){
-			return getoutOfOrderInfo.findAttributeValue(outOfOrders, "Boolean", "title", title, attribute);
+			return getoutOfOrderInfo.findAttributeValue(outOfOrders, "Boolean", 
+					"title", title, attribute);
 		}
-		return getoutOfOrderInfo.findAttributeValue(outOfOrders, "String", "title", title, attribute);
+		return getoutOfOrderInfo.findAttributeValue(outOfOrders, "String", 
+				"title", title, attribute);
 	}
 
 	/** [J.C]
@@ -154,38 +166,51 @@ public class RootRestMethods {
 		RestMethods getRoomID = new RestMethods(); 
 		RestMethods getoutOfOrderID = new RestMethods(); 
 		RestMethods deleteOutOfOrder =  new RestMethods(); 
-		String roomID = getRoomID.findAttributeValue("rooms", "String", "displayName", roomName, "_id"); 
+		String roomID = getRoomID.findAttributeValue("rooms", "String", 
+				"displayName", roomName, "_id"); 
 		String outOfOrders = "rooms/" + roomID + "/out-of-orders"; 
 		String outOfOrderID = getoutOfOrderID.findAttributeValue
-							 (outOfOrders, "String", "title", title, "_id"); 
+				(outOfOrders, "String", "title", title, "_id"); 
 		deleteOutOfOrder.getAndDeleteMethods("DELETE", outOfOrders + "/" + outOfOrderID); 
 	}
 
 	/** [J.C]
 	 * @return This method delete An OutOfOrder
 	 */
-	public static void deleteMeeting(String roomName, String meetingTitle){
+	public static void deleteMeeting(String roomName, String meetingSubject){
 		RestMethods getServicesID = new RestMethods();
 		RestMethods getRoomID = new RestMethods();
 		RestMethods getMeetingID = new RestMethods();
 		RestMethods deleteMeeting = new RestMethods();
-		String serviceID = getServicesID.findAttributeValue("services", "String","type", "exchange", "_id"); 
-		String roomID = getRoomID.findAttributeValue("rooms","String", "displayName", roomName, "_id");
+		String serviceID = getServicesID.findAttributeValue("services", "String",
+				"type", "exchange", "_id"); 
+		String roomID = getRoomID.findAttributeValue("rooms","String", "displayName", 
+				roomName, "_id");
 		String meetings = "services/" + serviceID + "/rooms/" + roomID + "/meetings";
-		String meetingID = getMeetingID.findAttributeValue(meetings, "String", "title", meetingTitle, "_id"); 
+		String meetingID = getMeetingID.findAttributeValue(meetings, "String", "title", 
+				meetingSubject, "_id"); 
 		System.out.println(meetings + "/" + meetingID);
 		deleteMeeting.getAndDeleteMethods("DELETE", meetings + "/" + meetingID); 
 	}
 
 	/** [J.C]
-	 * @return This method obtain a list of elements by condition
+	 * * 
+	 * @param feature : Refers to the feature (i.e. rooms, resources, etc.)
+	 * @param attribute : Refers to the attribute of feature 
+	 * (i.e. If feature is rooms, attribute could be _id)
+	 * @param attributeValue : Refers to the value of attribute 
+	 * (i.e. If attribute is displayName,attributeValue could be Room 1)
+	 * @param attributeSearched : Refers to the attribute of feature that you search
+	 * (i.e. If feature is rooms, attribute could be _id)
+	 * @return This method obtain a list of elements by condition selected
 	 */
-	public static LinkedList  <String> getListByNumeric(String feature, String attribute, 
+	public static LinkedList <String> getListByNumeric(String feature, String attribute, 
 			String attributeValue, String attributeSearched){
 		RestMethods restConds = new RestMethods(); 
-		LinkedList  <String> list =  new LinkedList  <String>(); 
-		LinkedList  <String> listAttributes = restConds.response(feature,"Int", attribute); 
-		LinkedList  <String> listAttSearched = restConds.response(feature,"String", attributeSearched);
+		LinkedList <String> list =  new LinkedList <String>(); 
+		LinkedList <String> listAttributes = restConds.response(feature,"Int", attribute); 
+		LinkedList <String> listAttSearched = restConds.response(feature,"String", 
+				attributeSearched);
 		for(int iterator = 0; iterator < listAttSearched.size(); iterator ++ ){
 			if(listAttributes.get(iterator).equals(attributeValue)){
 				list.add(listAttSearched.get(iterator)); 
@@ -195,14 +220,23 @@ public class RootRestMethods {
 	}
 
 	/** [J.C]
-	 * @return This method obtain a list of elements by condition
+	 * * 
+	 * @param feature : Refers to the feature (i.e. rooms, resources, etc.)
+	 * @param attribute : Refers to the attribute of feature 
+	 * (i.e. If feature is rooms, attribute could be _id)
+	 * @param attributeValue : Refers to the value of attribute 
+	 * (i.e. If attribute is displayName,attributeValue could be Room 1)
+	 * @param attributeSearched : Refers to the attribute of feature that you search
+	 * (i.e. If feature is rooms, attribute could be _id)
+	 * @return This method obtain a list of elements by condition selected
 	 */
-	public static LinkedList  <String> getListByString(String feature, String attribute, 
+	public static LinkedList <String> getListByString(String feature, String attribute, 
 			String attributeValue, String attributeSearched){
 		RestMethods restConds = new RestMethods(); 
-		LinkedList  <String> list =  new LinkedList  <String>(); 
-		LinkedList  <String> listAttributes = restConds.response(feature,"String", attribute); 
-		LinkedList  <String> listAttSearched = restConds.response(feature,"String", attributeSearched);
+		LinkedList <String> list =  new LinkedList <String>(); 
+		LinkedList <String> listAttributes = restConds.response(feature,"String", attribute); 
+		LinkedList <String> listAttSearched = restConds.response(feature,"String", 
+				attributeSearched);
 		for(int iterator = 0; iterator < listAttSearched.size(); iterator ++ ){
 			if(listAttributes.get(iterator).equals(attributeValue)){
 				list.add(listAttSearched.get(iterator)); 
@@ -214,7 +248,8 @@ public class RootRestMethods {
 	/** [J.C]
 	 * @return This method obtain a list of common elements between two lists
 	 */
-	public static LinkedList <String> mergeLists(LinkedList <String> list1, LinkedList <String> list2){
+	public static LinkedList <String> mergeLists(LinkedList <String> list1, 
+			LinkedList <String> list2){
 		LinkedList <String> list = new LinkedList <String>();
 		for(int iter1 = 0;iter1 < list1.size();iter1 ++ ){
 			for(int iter2 = 0;iter2 < list2.size();iter2 ++ ){

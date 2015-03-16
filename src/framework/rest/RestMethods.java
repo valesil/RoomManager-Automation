@@ -22,7 +22,7 @@ public class RestMethods {
 	/** [J.C]
 	 * @param type:  Type of method, can be GET or DELETE
 	 * @param request: the path of the url used for the request to REST API
-	 * @return This method can be used for DELETE or GET methods to obtain or delete some information
+	 * @return This method is used for DELETE or GET methods to obtain or delete some information
 	 */
 	public String getAndDeleteMethods(String type, String request) {
 		try {
@@ -135,7 +135,8 @@ public class RestMethods {
 	 * (i.e. If feature is rooms, attribute could be _id)
 	 * @return return the value of attributeSearched
 	 */
-	public String findAttributeValue(String feature, String dataType, String attributeName, String attributeValue, String attributeSearched){
+	public String findAttributeValue(String feature, String dataType, String attributeName,
+			String attributeValue, String attributeSearched){
 		LinkedList <String> listNames = response(feature, attributeName, dataType);
 		LinkedList <String> listCondition = response(feature, attributeSearched,dataType);
 		for(int iterator = 0;iterator < listNames.size();iterator ++ ){
