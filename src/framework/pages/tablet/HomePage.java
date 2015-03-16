@@ -73,7 +73,7 @@ public class HomePage {
 		wait = SeleniumDriverManager.getManager().getWait();
 	}
 
-	public void getHome(){
+	public void getHome() {
 		driver.get(URL_TABLET_HOME);
 	}
 	
