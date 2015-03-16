@@ -26,10 +26,10 @@ public class ResourcesPage extends AbstractMainMenu{
 	 * [ML]Click on "+Add" resource button	
 	 * @return
 	 */
-	public ResourceInfoPage clickAddResourceBtn() {
+	public NewResourcePage clickAddResourceBtn() {
 		wait.until(ExpectedConditions.elementToBeClickable(addResourceBtn));
 		addResourceBtn.click();
-		return new ResourceInfoPage();
+		return new NewResourcePage();
 	}
 
 	/**
