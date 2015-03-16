@@ -8,6 +8,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import framework.selenium.SeleniumDriverManager;
 
@@ -19,41 +21,42 @@ import framework.selenium.SeleniumDriverManager;
  */
 public class SchedulePage {
 	private WebDriver driver;
+	private WebDriverWait wait;
 	
-	@FindBy(xpath = "//span[contains(text(), 'Scheduler')]")
+	@FindBy(xpath = "//span[contains(text(),'Scheduler')]")
 	WebElement titleSchedulerLbl;
 	
 	@FindBy(id = "txtOrganizer")
 	WebElement organizerTxtBox;
 	
-	@FindBy(xpath = "//small[@ng-show = 'formErrors.organizer']")
-	WebElement errorMessageOrganizer;
+	@FindBy(xpath = "//small[@ng-show='formErrors.organizer']")
+	WebElement errorMessageOrganizerLbl;
 	
 	@FindBy(id = "txtSubject")
 	WebElement subjectTxtBox;
 	
-	@FindBy(xpath = "//small[@ng-show = 'formErrors.title']")
-	WebElement errorMessageSubject;
+	@FindBy(xpath = "//small[@ng-show='formErrors.title']")
+	WebElement errorMessageSubjectLbl;
 	
 	@FindBy(id = "txtBody")
 	WebElement bodyTxtBox;
 	
-	@FindBy(xpath = "//small[@ng-show = 'formErrors.attendeesUnSet']")
-	WebElement errorMessageAttendee;
+	@FindBy(xpath = "//small[@ng-show='formErrors.attendeesUnSet']")
+	WebElement errorMessageAttendeeLbl;
 	
-	@FindBy(xpath = "//input[@placeholder = 'Press enter or semicolon to confirm']")
+	@FindBy(xpath = "//input[@placeholder='Press enter or semicolon to confirm']")
 	WebElement attendeesTxtBox;
 	
-	@FindBy(xpath = "//input[@ng-change = 'startTimeChanged()']")
+	@FindBy(xpath = "//input[@ng-change='startTimeChanged()']")
 	WebElement startTimeTxtBox;
 	
-	@FindBy(xpath = "//input[@type = 'time'and@ng-change='endTimeChanged()']")
+	@FindBy(xpath = "//input[@type='time'and@ng-change='endTimeChanged()']")
 	WebElement endTimeTxtBox;
 	
 	@FindBy(xpath = "//span[contains(text(),'Create')]")
 	WebElement createBtn;
 	
-	@FindBy(xpath = "//span[contains(text(),'Remove')]]")
+	@FindBy(xpath = "//button/span[contains(text(),'Remove')]")
 	WebElement removeBtn;
 	
 	@FindBy(xpath = "//span[contains(text(),'Update')]")
@@ -62,10 +65,10 @@ public class SchedulePage {
 	@FindBy(css = "css=div.currenttime")
 	WebElement currentTimeLine;
 	
-	@FindBy(xpath = "//span[@ng-click = 'goToSearch()']")
+	@FindBy(xpath = "//span[@ng-click='goToSearch()']")
 	WebElement searchBtn;
 	
-	@FindBy(xpath = "//span[@ng-click = 'goBack()']")
+	@FindBy(xpath = "//span[@ng-click='goBack()']")
 	WebElement backBtn;
 	
 	@FindBy(xpath = "//input[@ng-model='dialog.credentials.username']")
@@ -77,8 +80,12 @@ public class SchedulePage {
 	@FindBy(xpath = "//button[@ng-click='dialog.ok()']")
 	WebElement okBtn;
 	
+	@FindBy(xpath = "//button/span[contains(text(),'Cancel')]")
+	WebElement cancelBtn;
+	
 	public SchedulePage() {
 		driver = SeleniumDriverManager.getManager().getDriver();
+		wait = SeleniumDriverManager.getManager().getWait();
 		PageFactory.initElements(driver, this);
 	}
 	
@@ -172,6 +179,7 @@ public class SchedulePage {
 	}
 	
 	public SchedulePage clickCreateBtn() {
+		wait.until(ExpectedConditions.elementToBeClickable(createBtn));
 		createBtn.click();
 		return this;
 	}
@@ -187,27 +195,28 @@ public class SchedulePage {
 	}
 	
 	public HomePage clickBackBtn() {
+		wait.until(ExpectedConditions.elementToBeClickable(backBtn));
 		backBtn.click();
 		return new HomePage();
 	}
 	
-	public String getErrorMessageOrganizerLabel() {
-		return errorMessageOrganizer.getText();
+	public String getErrorMessageOrganizerLbl() {
+		return errorMessageOrganizerLbl.getText();
 	}
 	
-	public String getErrorMessageSubjectLabel() {
-		return errorMessageSubject.getText();
+	public String getErrorMessageSubjectLbl() {
+		return errorMessageSubjectLbl.getText();
 	}
 	
-	public String getErrorMessageAttendeeLabel() {
-		return errorMessageAttendee.getText();
+	public String getErrorMessageAttendeeLbl() {
+		return errorMessageAttendeeLbl.getText();
 	}
 
-	public String getTitleOfPage() {
+	public String getTitleOfPageValue() {
 		return titleSchedulerLbl.getText();
 	}
 	
-	public String getNameMeetingCreated(String nameMeeting) {
+	public String getNameMeetingCreatedValue(String nameMeeting) {
 		return driver.findElement(By.xpath("//span[contains(text(),'" + nameMeeting + "')]")).getText();
 	}
 	
@@ -216,33 +225,40 @@ public class SchedulePage {
 		return this;
 	}
 	
-	public String getEmailAttedee(String emailAttendee) {
+	public String getEmailAttendeeValue(String emailAttendee) {
 		return driver.findElement(By.xpath("//span[contains(text(),'" + emailAttendee + "')]")).getText();
 	}
 	
-	public String getNameSubject() {
+	public String getNameSubjectValue() {
 		return subjectTxtBox.getAttribute("value");
 	}
 	
-	public String getNameOrganizer() {
+	public String getNameOrganizerValue() {
 		return organizerTxtBox.getAttribute("value");
 	}
 	
-	public String getTextBody() {
+	public String getTextBodyValue() {
 		return bodyTxtBox.getAttribute("value");
 	}
 	
-	public String getMessagePopUp(String message) {
-		return driver.findElement(By.xpath("//div[contains(text(),'" + message + "')]")).getText();
+	/**
+	 * This method is to found the message pop up that appears after do something
+	 * @param message
+	 * @return
+	 */
+	public String getMessagePopUpValue(String message) {
+		WebElement messageLbl = driver.findElement(By.xpath("//div[contains(text(),'" + message + "')]"));
+		wait.until(ExpectedConditions.visibilityOf(messageLbl));
+		return messageLbl.getText();
 	}
 	
-	public SchedulePage setUserName(String name) {
+	public SchedulePage setUserNameTxtBox(String name) {
 		userNameTxt.clear();
 		userNameTxt.sendKeys(name);
 		return this;
 	}
 	
-	public SchedulePage setPassword(String password) {
+	public SchedulePage setPasswordTxtBox(String password) {
 		passwordTxt.clear();
 		passwordTxt.sendKeys(password);
 		return this;
@@ -253,10 +269,20 @@ public class SchedulePage {
 		return this;
 	}
 	
-	public SchedulePage setCredentials(String name, String password) {
-		setUserName(name);
-		setPassword(password);
-		clickOkButton();
+	public SchedulePage clickCancelButton() {
+		cancelBtn.click();
 		return this;
+	}
+	
+	/**
+	 * This method is to set credentials to can create a meeting
+	 * @param name
+	 * @param password
+	 * @return
+	 */
+	public SchedulePage setCredentials(String name, String password) {
+		setUserNameTxtBox(name);
+		setPasswordTxtBox(password);
+		return clickOkButton();
 	}
 }
