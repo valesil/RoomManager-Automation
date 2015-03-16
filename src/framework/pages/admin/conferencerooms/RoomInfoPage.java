@@ -1,5 +1,6 @@
 package framework.pages.admin.conferencerooms;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
@@ -20,7 +21,7 @@ public class RoomInfoPage extends AbstractRoomBasePage{
 	@FindBy(xpath = "//input[@ng-model='selectedRoom.capacity']")
 	WebElement roomCapacityTxtBox;
 	
-	@FindBy(xpath = "//div[@id='s2id_autogen1']")
+	@FindBy(xpath = "//span[@class='select2-chosen']")
 	WebElement locationCmbBox;
 	
 	UIMethods UI = new UIMethods();
@@ -82,6 +83,8 @@ public class RoomInfoPage extends AbstractRoomBasePage{
 	public RoomInfoPage setLocation(String location) {
 		locationCmbBox.click();
 		locationCmbBox.sendKeys(location);
+		driver.findElement(By.xpath("//span[contains(text(),'"+location
+				+"')and@class='select2-match']")).click();
 		return new RoomInfoPage();
 	}
 	

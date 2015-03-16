@@ -38,5 +38,4 @@ public class LoginPage {
 		signinBtn.click();
 		return new HomeAdminPage();
 	}
-
 }
