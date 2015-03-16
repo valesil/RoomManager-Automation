@@ -23,4 +23,5 @@ public final class AppConfigConstants {
 																	"webDriverWait_Sleep"));
 	public static final String EXCEL_PATH = value.readJsonFile("ExternalFile", "excelPath");
 	public static final String EXCEL_INPUT_DATA = value.readJsonFile("ExternalFile", "excelInputData");
+	public static final String URL_REST = value.readJsonFile("browser", "urlRest");
 }

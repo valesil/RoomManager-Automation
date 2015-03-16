@@ -55,11 +55,14 @@ public class TimeManager {
 	public String getTimeElement(String time, String element) {
 		String[] splittedTime = time.split(" ");
 		String[] timeElement = splittedTime[0].split(":");
+		String elementValue = null;
 		switch(element) {	
-		case "hours": return Integer.parseInt(timeElement[0]) + "";
-		case "minutes": return timeElement[1];
-		default : return splittedTime[1];
+		case "hours": elementValue = Integer.parseInt(timeElement[0]) + "";
+		case "minutes": elementValue = timeElement[1];
+		case "meridian": elementValue = splittedTime[1];
+		default: break;
 		}
+		return elementValue;
 	}
 	
 	/**
@@ -69,11 +72,21 @@ public class TimeManager {
 	 * @return date element
 	 */
 	public String getDateElement(String date, String element) {
+		String dateElement = null;
 		switch(element) {
-		case "year": return date.split("/")[0];
-		case "month": return date.split("/")[1];
-		default : return date.split("/")[2];
+		case "year": dateElement = date.split("/")[0];
+		case "month": dateElement = date.split("/")[1];
+		case "day" : dateElement = date.split("/")[2];
 		}
+		return dateElement;
+	}
+	
+	public String getCurrentDate(String formatter) {
+		return dateToString(new Date(),formatter);
+	}
+	
+	public void main (String[] args){
+		System.out.println(getCurrentDate("MMMM d YYY"));
 	}
 
 

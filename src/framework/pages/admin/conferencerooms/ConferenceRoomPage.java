@@ -79,6 +79,28 @@ public class ConferenceRoomPage extends AbstractMainMenu {
 		}
 		return messageDisplayed;
 	}
+	/**
+	 * [YA] This method returns the text of the message displayed after creating or updating an Out Of Order Period
+	 * @return
+	 */
+	public String getMessageValue() {
+		wait.until(ExpectedConditions.visibilityOf(messagePopUp));
+		messagePopUp.click();
+		return messagePopUp.getText();
+		
+	}
+	
+	/**
+	 * [YA]This method verifies if a message is displayed and clicks on the message to make it disappear.
+	 * @return
+	 */
+	public boolean messageIsPresent() {
+		boolean messageDisplayed = messagePopUp.isDisplayed();
+		if (messageDisplayed == true) {
+			messagePopUp.click();
+		}
+		return messageDisplayed;
+	}
 	
 	/**
 	 * [YA] This method returns the text of the message displayed after creating or updating an Out Of Order Period
