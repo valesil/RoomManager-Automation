@@ -32,9 +32,6 @@ public abstract class AbstractRoomBasePage {
 	@FindBy(xpath = "//button[@ng-click='cancel()']") 
 	WebElement cancelBtn;
 	
-	@FindBy(xpath = "//div[@class='toast-message']")
-	WebElement messagePopUp;
-
 	public AbstractRoomBasePage() {
 		driver = SeleniumDriverManager.getManager().getDriver();
 		wait = SeleniumDriverManager.getManager().getWait();
