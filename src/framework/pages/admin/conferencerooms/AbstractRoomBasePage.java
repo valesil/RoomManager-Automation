@@ -1,11 +1,9 @@
 package framework.pages.admin.conferencerooms;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import framework.selenium.SeleniumDriverManager;
@@ -60,7 +58,6 @@ public abstract class AbstractRoomBasePage {
 
 	public ConferenceRoomPage clickSaveBtn(){
 		saveBtn.click();
-		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//div[@class='toast-message']")));
 		return new ConferenceRoomPage();
 	}
 	
@@ -73,7 +70,4 @@ public abstract class AbstractRoomBasePage {
 		cancelBtn.click();
 		return new ConferenceRoomPage();
 	}
-
-
-
 }
