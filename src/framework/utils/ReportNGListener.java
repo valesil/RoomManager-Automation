@@ -22,13 +22,11 @@ public class ReportNGListener implements ITestListener {
 	@Override
 	public void onTestStart(ITestResult result) {
 		// TODO Auto-generated method stub
-
 	}
 	
 	@Override
 	public void onTestSuccess(ITestResult result) {
 		// TODO Auto-generated method stub
-
 	}
 	
 	@Override
@@ -40,11 +38,10 @@ public class ReportNGListener implements ITestListener {
 				.format(new GregorianCalendar().getTime()) + ".png"; 
 			File scrFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
 			FileUtils.copyFile(scrFile, new File(filePath + failureImageFileName)); 
-
 			String userDirector = System.getProperty("user.dir") + "/screenshots/"; 
-			Reporter.log("<a href=\"" + userDirector + failureImageFileName + "\"><img src=\"file:///" 
-					+ userDirector + failureImageFileName + "\" alt=\"\"" 
-					+ "height='100' width='100'/> " + "<br />"); 
+			Reporter.log("<a href=\"" + userDirector + failureImageFileName 
+					+ "\"><img src=\"file:///" + userDirector + failureImageFileName 
+					+ "\" alt=\"\"" + "height='100' width='100'/> " + "<br />"); 
 			Reporter.setCurrentTestResult(null); 
 		} catch (IOException e1) {
 			e1.printStackTrace();
@@ -54,18 +51,18 @@ public class ReportNGListener implements ITestListener {
 	@Override
 	public void onTestSkipped(ITestResult result) {
 		// TODO Auto-generated method stub
-
 	}
+	
 	@Override
 	public void onTestFailedButWithinSuccessPercentage(ITestResult result) {
 		// TODO Auto-generated method stub
-
 	}
+	
 	@Override
 	public void onStart(ITestContext context) {
 		// TODO Auto-generated method stub
-
 	}
+	
 	@Override
 	public void onFinish(ITestContext context) {
 		// TODO Auto-generated method stub
