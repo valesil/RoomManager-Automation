@@ -20,7 +20,7 @@ public class PostConditions {
 	private List<Map<String, String>> expectedMessages;
 	
 	/**
-	 * This method is to initialize the listMaps to read from the excel
+	 * [AC] This method is to initialize the listMaps to read from the excel
 	 */
 	public PostConditions() {
 		schedule = new SchedulePage();
@@ -35,7 +35,7 @@ public class PostConditions {
 	}
 	
 	/**
-	 * This class delete a meeting
+	 * [AC] This class delete a meeting
 	 * @param nameMeeting: name of meeting to delete
 	 * @return: This page, to use the same method repeated times
 	 */

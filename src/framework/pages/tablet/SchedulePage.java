@@ -84,7 +84,7 @@ public class SchedulePage {
 	WebElement cancelBtn;
 	
 	/**
-	 * Get the driver and the wait to use that in this class
+	 * [AC] Get the driver and the wait to use that in this class
 	 */
 	public SchedulePage() {
 		driver = SeleniumDriverManager.getManager().getDriver();
@@ -93,7 +93,7 @@ public class SchedulePage {
 	}
 	
 	/**
-	 * Clear the content of the textBox and set the new value to an organizer
+	 * [AC] Clear the content of the textBox and set the new value to an organizer
 	 * @param organizer: new value to set
 	 * @return
 	 */
@@ -104,7 +104,7 @@ public class SchedulePage {
 	}
 	
 	/**
-	 * Clear the content of the textBox and set the new value to the subject
+	 * [AC] Clear the content of the textBox and set the new value to the subject
 	 * @param subject
 	 * @return
 	 */
@@ -115,7 +115,7 @@ public class SchedulePage {
 	}
 	
 	/**
-	 * Clear the content of the textBox, set the new value and press enter
+	 * [AC] Clear the content of the textBox, set the new value and press enter
 	 * to the attendee value
 	 * @param attendiee
 	 * @return
@@ -128,7 +128,7 @@ public class SchedulePage {
 	}
 	
 	/**
-	 * Clear the content of the textBox and set the new value to the body
+	 * [AC] Clear the content of the textBox and set the new value to the body
 	 * @param textBody
 	 * @return
 	 */
@@ -139,7 +139,7 @@ public class SchedulePage {
 	}
 	
 	/**
-	 * This method is to set the start time of a meeting on Chrome
+	 * [AC] This method is to set the start time of a meeting on Chrome
 	 * @param startTime
 	 */
 	private void setStartTime(String startTime, String meridian) {
@@ -158,7 +158,7 @@ public class SchedulePage {
 	}
 	
 	/**
-	 * This method is to set the end time of a meeting on Chrome
+	 * [AC] This method is to set the end time of a meeting on Chrome
 	 * @param endTime
 	 */
 	private void setEndTime(String endTime, String meridian) {
@@ -177,7 +177,7 @@ public class SchedulePage {
 	}
 	
 	/**
-	 * Verify what browser is used, and according to that, chose the option to
+	 * [AC] Verify what browser is used, and according to that, chose the option to
 	 * set startTime of a meeting 
 	 * @param startTime
 	 * @param meridian
@@ -197,7 +197,7 @@ public class SchedulePage {
 	}
 	
 	/**
-	 * Verify what browser is used, and according to that, chose the option to 
+	 * [AC] Verify what browser is used, and according to that, chose the option to 
 	 * set endTime of a meeting
 	 * @param endTime
 	 * @param meridian
@@ -217,7 +217,7 @@ public class SchedulePage {
 	}
 	
 	/**
-	 * This method click on Create button
+	 * [AC] This method click on Create button
 	 * @return
 	 */
 	public SchedulePage clickCreateBtn() {
@@ -227,7 +227,7 @@ public class SchedulePage {
 	}
 	
 	/**
-	 * This method click on Remove button
+	 * [AC] This method click on Remove button
 	 * @return
 	 */
 	public SchedulePage clickRemoveBtn() {
@@ -236,7 +236,7 @@ public class SchedulePage {
 	}
 	
 	/**
-	 * This method click on Update button
+	 * [AC] This method click on Update button
 	 * @return
 	 */
 	public SchedulePage clickUpdateBtn() {
@@ -245,7 +245,7 @@ public class SchedulePage {
 	}
 	
 	/**
-	 * This method click on back button
+	 * [AC] This method click on back button
 	 * @return
 	 */
 	public HomePage clickBackBtn() {
@@ -255,7 +255,7 @@ public class SchedulePage {
 	}
 	
 	/**
-	 * This method get the value of a label from organizer
+	 * [AC] This method get the value of a label from organizer
 	 * @return
 	 */
 	public String getErrorMessageOrganizerLbl() {
@@ -263,7 +263,7 @@ public class SchedulePage {
 	}
 	
 	/**
-	 * This method get the value of a label from subject 
+	 * [AC] This method get the value of a label from subject 
 	 * @return
 	 */
 	public String getErrorMessageSubjectLbl() {
@@ -271,7 +271,7 @@ public class SchedulePage {
 	}
 	
 	/**
-	 * This method get the value of a label from attendee
+	 * [AC] This method get the value of a label from attendee
 	 * @return
 	 */
 	public String getErrorMessageAttendeeLbl() {
@@ -279,7 +279,7 @@ public class SchedulePage {
 	}
 	
 	/**
-	 * This method get the value of a label from title page
+	 * [AC] This method get the value of a label from title page
 	 * @return
 	 */
 	public String getTitleOfPageValue() {
@@ -287,7 +287,7 @@ public class SchedulePage {
 	}
 	
 	/**
-	 * This method search a meeting and return the name of that
+	 * [AC] This method search a meeting and return the name of that
 	 * @param nameMeeting: name of a meeting to search
 	 * @return
 	 */
@@ -296,7 +296,7 @@ public class SchedulePage {
 	}
 	
 	/**
-	 * This method search a meeting and click over that
+	 * [AC] This method search a meeting and click over that
 	 * @param nameMeeting
 	 * @return
 	 */
@@ -306,7 +306,7 @@ public class SchedulePage {
 	}
 	
 	/**
-	 * This method search for a attendee and return his value
+	 * [AC] This method search for a attendee and return his value
 	 * @param emailAttendee
 	 * @return
 	 */
@@ -315,7 +315,7 @@ public class SchedulePage {
 	}
 	
 	/**
-	 * This method obtains the value of the textBox from subject
+	 * [AC] This method obtains the value of the textBox from subject
 	 * @return
 	 */
 	public String getNameSubjectValue() {
@@ -323,7 +323,7 @@ public class SchedulePage {
 	}
 	
 	/**
-	 * This method obtains the value of the textBox from organizer
+	 * [AC] This method obtains the value of the textBox from organizer
 	 * @return
 	 */
 	public String getNameOrganizerValue() {
@@ -331,7 +331,7 @@ public class SchedulePage {
 	}
 	
 	/**
-	 * This method obtains the value of the textBox from body
+	 * [AC] This method obtains the value of the textBox from body
 	 * @return
 	 */
 	public String getTextBodyValue() {
@@ -339,7 +339,7 @@ public class SchedulePage {
 	}
 	
 	/**
-	 * This method is to found the message pop up that appears after do something
+	 * [AC] This method is to found the message pop up that appears after do something
 	 * @param message
 	 * @return
 	 */
@@ -350,7 +350,7 @@ public class SchedulePage {
 	}
 	
 	/**
-	 * This method clear and set the new value to user name textBox
+	 * [AC]This method clear and set the new value to user name textBox
 	 * @param name
 	 * @return
 	 */
@@ -361,7 +361,7 @@ public class SchedulePage {
 	}
 	
 	/**
-	 * this method clear and set the new value to password textBox
+	 * [AC] This method clear and set the new value to password textBox
 	 * @param password
 	 * @return
 	 */
@@ -373,7 +373,7 @@ public class SchedulePage {
 	}
 	
 	/**
-	 * This method click on Ok button
+	 * [AC] This method click on Ok button
 	 * @return
 	 */
 	public SchedulePage clickOkButton() {
@@ -382,7 +382,7 @@ public class SchedulePage {
 	}
 	
 	/**
-	 * This method click on Cancel button
+	 * [AC] This method click on Cancel button
 	 * @return
 	 */
 	public SchedulePage clickCancelButton() {

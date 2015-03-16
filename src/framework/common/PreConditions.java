@@ -21,7 +21,7 @@ public class PreConditions {
 	List<Map<String, String>> expectedMessages;
 	
 	/**
-	 * This method is to initialize the listMaps to read from the excel
+	 * [AC] This method is to initialize the listMaps to read from the excel
 	 */
 	public PreConditions() {
 		home = new HomePage();
@@ -36,39 +36,7 @@ public class PreConditions {
 	}
 	
 	/**
-	 * This method is to create a single meeting
-	 * @return: A String with the name of the meeting created
-	 */
-	public String createMeetingSuccessfully() {
-		String organizer = meetingData.get(0).get("Organizer");
-		String subject = meetingData.get(0).get("Subject");
-		String startTime = meetingData.get(0).get("Start time");
-		String meridianStart = meetingData.get(0).get("MeridanStart");
-		String endTime = meetingData.get(0).get("End time");
-		String meridianEnd = meetingData.get(0).get("MeridianEnd");
-		String attendee = meetingData.get(0).get("Attendee");
-		String body = meetingData.get(0).get("Body");
-		String password = meetingData.get(0).get("Password");
-		String expectedMessage = expectedMessages.get(0).get("Message");
-		home
-			.clickSchedulePageLink()
-			.setOrganizerTxtBox(organizer)
-			.setSubjectTxtBox(subject)
-			.setStartTimeDate(startTime, meridianStart)
-			.setEndTimeDate(endTime, meridianEnd)
-			.setAttendeeTxtBox(attendee)
-			.setBodyTxtBox(body)
-			.clickCreateBtn()
-			.setPasswordTxtBox(password)
-			.clickOkButton()
-			.getMessagePopUpValue(expectedMessage);
-		SchedulePage schedule = new SchedulePage();
-		schedule.clickBackBtn();
-		return subject;
-	}
-	
-	/**
-	 * This method is to create more than one meetings, depends of the data in the excel file 
+	 * [AC] This method is to create more than one meetings, depends of the data in the excel file 
 	 * @param amountOfMeetings
 	 * @return: All name of meetings created on this method
 	 */
