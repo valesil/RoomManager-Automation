@@ -1,7 +1,10 @@
 package framework.pages.admin.conferencerooms;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+
+import framework.common.UIMethods;
 
 /**
  * This class represents Room Info page
@@ -17,15 +20,14 @@ public class RoomInfoPage extends AbstractRoomBasePage{
 	
 	@FindBy(xpath = "//input[@ng-model='selectedRoom.capacity']")
 	WebElement roomCapacityTxtBox;
-
-	@FindBy(css = "button.info") 
-	WebElement saveBtn;
 	
-	@FindBy(xpath = "//div[@id='s2id_autogen1']")
+	@FindBy(xpath = "//span[@class='select2-chosen']")
 	WebElement locationCmbBox;
+	
+	UIMethods UI = new UIMethods();
 
 	/**
-	 * This method sets the display Name of a room
+	 * [RB]This method sets the display Name of a room
 	 * @param newDisplayName
 	 * @return RoomInfoPage object
 	 */
@@ -36,7 +38,7 @@ public class RoomInfoPage extends AbstractRoomBasePage{
 	}
 	
 	/**
-	 * This method sets the code of a room
+	 * [RB]This method sets the code of a room
 	 * @param roomCode is the code of a Room
 	 * @return
 	 */
@@ -47,18 +49,47 @@ public class RoomInfoPage extends AbstractRoomBasePage{
 	}
 	
 	/**
-	 * This method sets the location of a room
+	 * [RB]get the room code of specific room
+	 * @param displayName is the display Name of a Room 
+	 * @return
+	 */
+	public String getRoomCode() {
+		return roomCodeTxtBox.getAttribute("value");
+	}
+	
+	/**
+	 * [RB]get the room capacity of specific Room
+	 * @param displayName
+	 * @return display name of room
+	 */
+	public String getRoomCapacity() {
+		return roomCapacityTxtBox.getAttribute("value");
+	}
+
+	/**
+	 * [RB]get the room location of specific rooms
+	 * @param displayName
+	 * @return the room location
+	 */
+	public String getRoomLocation() {
+		return locationCmbBox.getText();
+	}
+	
+	/**
+	 * [RB]This method sets the location of a room
 	 * @param location
 	 * @return
 	 */
 	public RoomInfoPage setLocation(String location) {
 		locationCmbBox.click();
 		locationCmbBox.sendKeys(location);
+		driver.findElement(By.xpath("//span[contains(text(),'" + location
+				+ "')and@class='select2-match']")).click();
 		return new RoomInfoPage();
 	}
 	
 	/**
-	 * This method sets the room's capacity
+	 * [RB]This method sets the room's capacity
 	 * @param Amount is the capacity of a Room
 	 * @return RoomInfoPageObject
 	 */
