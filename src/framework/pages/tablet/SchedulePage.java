@@ -389,4 +389,42 @@ public class SchedulePage {
 		cancelBtn.click();
 		return this;
 	}
+	
+	/**
+	 * [EN] This method confirm the credentials inserted by the user
+	 * @param name
+	 * @param password
+	 * @return
+	 */
+	public SchedulePage confirmCredentials(String name, String password) {
+		setUserNameTxtBox(name);
+		setPasswordTxtBox(password);
+		return clickOkButton();
+	}
+
+	/**
+	 * [EN] This method setting the values to created a meeting.
+	 * @param organizer
+	 * @param subject
+	 * @param startTime hh:mm a
+	 * @param endTime  hh:mm a
+	 * @param attendees
+	 * @return
+	 */
+	public SchedulePage createMeeting(String organizer, String subject, String startTime, 
+			String endTime, String attendees) {
+
+		String from = getTimeElement(startTime, "time");
+		String toMeridian = getTimeElement(startTime, "meridian");
+
+		String to = getTimeElement(endTime, "time");
+		String fromMeridian = getTimeElement(startTime, "meridian");
+
+		setOrganizerTxtBox(organizer);
+		setSubjectTxtBox(subject);
+		setStartTime(from, fromMeridian);
+		setEndTime(to, toMeridian);
+		setAttendeeTxtBox(attendees);
+		return clickCreateBtn();
+	}
 }
