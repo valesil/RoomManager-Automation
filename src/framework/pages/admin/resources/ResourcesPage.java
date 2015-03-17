@@ -11,7 +11,7 @@ import framework.pages.admin.AbstractMainMenu;
  * @author Marco Llano
  *
  */
-public class ResourcesPage extends AbstractMainMenu{
+public class ResourcePage extends AbstractMainMenu{
 	UIMethods uiMethod = new UIMethods();
 	@FindBy(xpath = "//div[@class='pull-left']/button[@ng-click='addResourceDialog()']") 
 	WebElement addResourceBtn;
@@ -26,10 +26,10 @@ public class ResourcesPage extends AbstractMainMenu{
 	 * [ML]Click on "+Add" resource button	
 	 * @return
 	 */
-	public NewResourcePage clickAddResourceBtn() {
+	public ResourceCreatePage clickAddResourceBtn() {
 		wait.until(ExpectedConditions.elementToBeClickable(addResourceBtn));
 		addResourceBtn.click();
-		return new NewResourcePage();
+		return new ResourceCreatePage();
 	}
 
 	/**
@@ -51,7 +51,7 @@ public class ResourcesPage extends AbstractMainMenu{
 	 * @return
 	 * @throws InterruptedException
 	 */
-	public ResourcesPage selectResourceCheckbox(String resource) throws InterruptedException {
+	public ResourcePage selectResourceCheckbox(String resource) throws InterruptedException {
 		waitForMaskDesappears();
 		By resourceName = By.xpath("//*[@id='resourcesGrid']/descendant::*/span[contains(text(),'" 
 				+ resource + "')]");
@@ -65,10 +65,10 @@ public class ResourcesPage extends AbstractMainMenu{
 	 * [ML]Click on "remove" resource button
 	 * @return
 	 */
-	public DeleteResourcePage clickRemoveBtn() {
+	public ResourceDeletePage clickRemoveBtn() {
 		wait.until(ExpectedConditions.elementToBeClickable(removeBtn));
 		removeBtn.click();
-		return new DeleteResourcePage();
+		return new ResourceDeletePage();
 	}	
 
 	/**

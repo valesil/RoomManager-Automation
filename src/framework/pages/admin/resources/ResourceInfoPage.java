@@ -10,7 +10,7 @@ import framework.selenium.SeleniumDriverManager;
  * @author Marco Llano
  *
  */
-public class ResourceInfoPage extends AbstractResourceBasePage {	
+public class ResourceInfoPage extends ResourceBaseAbstractPage {	
 	UIMethods uiMethod = new UIMethods();
 
 	public ResourceInfoPage() {		
