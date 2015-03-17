@@ -25,9 +25,9 @@ public class ResourceDeletePage extends ResourceBaseAbstractPage {
 	 * [ML]This is the button used for confirm to delete a resource
 	 * @return
 	 */
-	public ResourcePage clickConfirmRemoveBtn() {
+	public ResourcesPage clickConfirmRemoveBtn() {
 		wait.until(ExpectedConditions.elementToBeClickable(confirmRemoveBtn));
 		confirmRemoveBtn.click();
-		return new ResourcePage();
+		return new ResourcesPage();
 	}
 }

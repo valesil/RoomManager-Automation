@@ -50,8 +50,7 @@ public class ResourceInfoPage extends ResourceBaseAbstractPage {
 	 * @return
 	 */
 	public boolean getResourceIcon(String iconTitle) {
-		By resourceIcon = By.xpath(".//*[@id='resourcesGrid']/descendant::*/span[@class='fa " +
-				iconTitle + "']");
-		return uiMethod.isElementPresent(resourceIcon);
+		return driver.findElement(By.xpath(".//*[@id='resourcesGrid']/descendant::*/span[@class='fa " +
+				iconTitle + "']")).isDisplayed();
 	}
 }

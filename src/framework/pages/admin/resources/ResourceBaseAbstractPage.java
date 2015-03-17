@@ -112,8 +112,8 @@ public class ResourceBaseAbstractPage {
 	 * [ML]This method click on save button if a resource is created or edited.
 	 * @return
 	 */
-	public ResourcePage clickSaveResourceBtn() {
+	public ResourcesPage clickSaveResourceBtn() {
 		saveResourceBtn.click();
-		return new ResourcePage();
+		return new ResourcesPage();
 	}
 }
