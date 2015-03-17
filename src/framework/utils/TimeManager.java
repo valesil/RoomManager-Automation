@@ -58,13 +58,16 @@ public class TimeManager {
 		String elementValue = null;
 		switch(element) {	
 		case "hours": elementValue = Integer.parseInt(timeElement[0]) + "";
+		break;
 		case "minutes": elementValue = timeElement[1];
+		break;
 		case "meridian": elementValue = splittedTime[1];
+		break;
 		default: break;
 		}
 		return elementValue;
 	}
-	
+
 	/**
 	 * [YA]This method returns the following methods of a date: year, month or day
 	 * @param date: Date to split
@@ -75,19 +78,22 @@ public class TimeManager {
 		String dateElement = null;
 		switch(element) {
 		case "year": dateElement = date.split("/")[0];
+		break;
 		case "month": dateElement = date.split("/")[1];
+		break;
 		case "day" : dateElement = date.split("/")[2];
+		break;
+		default : break;
 		}
 		return dateElement;
 	}
-	
+
+	/**
+	 * [YA] This method returns the current date in any format
+	 * @param formatter: format for current date
+	 * @return
+	 */
 	public String getCurrentDate(String formatter) {
 		return dateToString(new Date(),formatter);
 	}
-	
-	public void main (String[] args){
-		System.out.println(getCurrentDate("MMMM d YYY"));
-	}
-
-
 }
