@@ -58,7 +58,7 @@ public class HomePage {
 	@FindBy(xpath = "//span[@ng-bind='room._customDisplayName']")
 	WebElement roomDisplayNameLbl;
 	
-	@FindBy(css = "div.tile-button-search")
+	@FindBy(xpath = "//div[@ng-click='goToSearch()']")
 	WebElement searchBtn;
 
 	@FindBy(css = "div.tile-button-quick")
@@ -108,17 +108,18 @@ public class HomePage {
 		return roomDisplayNameLbl.getText();
 	}
 	
-	public SearchPage clickSearchPageLink() {
+	public SearchPage clickSearchPageBtn() {
+		wait.until(ExpectedConditions.elementToBeClickable(searchBtn));
 		searchBtn.click();
 		return new SearchPage();
 	}
 
-	public SettingsPage clickSettingsPageLink() {
+	public SettingsPage clickSettingsPageBtn() {
 		settingsBtn.click();
 		return new SettingsPage();
 	}
 
-	public SchedulePage clickSchedulePageLink() {
+	public SchedulePage clickSchedulePageBtn() {
 		wait.until(ExpectedConditions.elementToBeClickable(scheduleBtn));
 		scheduleBtn.click();
 		return new SchedulePage();

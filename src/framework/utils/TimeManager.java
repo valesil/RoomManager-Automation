@@ -105,3 +105,4 @@ public class TimeManager {
 	public static String getCurrentDate(String formatter) {
 		return dateToString(new Date(),formatter);
 	}
+}

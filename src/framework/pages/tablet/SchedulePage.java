@@ -395,7 +395,6 @@ public class SchedulePage {
 		return this;
 	}
 
-
 	/**
 	 * [EN] This method confirm the credentials inserted by the user
 	 * @param name
@@ -415,10 +414,11 @@ public class SchedulePage {
 	 * @param startTime hh:mm a
 	 * @param endTime  hh:mm a
 	 * @param attendees
+	 * @param bodyMeeting
 	 * @return
 	 */
 	public SchedulePage createMeeting(String organizer, String subject, String startTime, 
-			String endTime, String attendees) {
+			String endTime, String attendees, String bodyMeeting) {
 
 		String from = getTimeElement(startTime, "hourMin");
 		String toMeridian = getTimeElement(startTime, "meridian");
@@ -431,6 +431,7 @@ public class SchedulePage {
 		setStartTime(from, fromMeridian);
 		setEndTime(to, toMeridian);
 		setAttendeeTxtBox(attendees);
+		setBodyTxtBox(bodyMeeting);
 		return clickCreateBtn();
 	}
 }
