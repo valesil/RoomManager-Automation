@@ -8,6 +8,7 @@ import java.util.GregorianCalendar;
 /**
  * This class manage Time elements: hours, minutes, meridian 
  * @author Eliana Navia
+ *
  */
 public class TimeManager {
 
