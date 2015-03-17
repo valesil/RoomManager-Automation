@@ -13,9 +13,9 @@ import framework.pages.admin.AbstractMainMenu;
  * @author Ruben Blanco
  *
  */
-public class ConferenceRoomPage extends AbstractMainMenu {
+public class RoomsPage extends AbstractMainMenu {
 	UIMethods UI = new UIMethods();
-
+	
 	@FindBy(id = "roomsGrid")
 	WebElement roomsGrid;
 	
@@ -23,7 +23,7 @@ public class ConferenceRoomPage extends AbstractMainMenu {
 	WebElement messagePopUp;
 
 	/**
-	 * Click over a Room 
+	 * [RB]Click over Room 
 	 * @param displayName is the display name of a Room
 	 * @return
 	 */
@@ -34,13 +34,24 @@ public class ConferenceRoomPage extends AbstractMainMenu {
 	}
 
 	/**
-	 * Get the display name of a Room
+	 * [RB]Get the display name of a Room
 	 * @param displayName
 	 * @return 
 	 */
 	public String getRoomDisplayName(String roomName) {
 		return driver.findElement(By.xpath("//span[contains(text(),'" 
 				+ roomName + "')and@class='ng-binding']")).getText();
+	}
+	
+	/**
+	 * [RB]This method disables a selected room
+	 * @param roomDisplayName
+	 * @return ConferenceRoomPage object
+	 */
+	public Object enableDisableIcon(String roomDisplayName) {
+		driver.findElement(By.xpath("//span[contains(text(),'"+roomDisplayName
+				+ "')]//ancestor::div[@ng-click='row.toggleSelected($event)']//span")).click();
+		return this;
 	}
 
 	/**
@@ -52,8 +63,8 @@ public class ConferenceRoomPage extends AbstractMainMenu {
 	public String getOutOfOrderIcon(String roomDisplayName) {
 		wait.until(ExpectedConditions.visibilityOf(messagePopUp));
 		messagePopUp.click();
-		WebElement outOfOrderIcon = driver.findElement(By.xpath("//span[contains(text(),'" + roomDisplayName 
-				+ "')]//ancestor::div[@ng-click='row.toggleSelected($event)']//out-of-order-icon//span"));
+		WebElement outOfOrderIcon = driver.findElement(By.xpath("//span[contains(text(),'" 
+		+ roomDisplayName + "')]//ancestor::div[@ng-click='row.toggleSelected($event)']//out-of-order-icon//span"));
 		return outOfOrderIcon.getAttribute("class");
 	}
 	
@@ -68,6 +79,7 @@ public class ConferenceRoomPage extends AbstractMainMenu {
 		}
 		return messageDisplayed;
 	}
+	
 	/**
 	 * [YA] This method returns the text of the message displayed after creating or updating an Out Of Order Period
 	 * @return
@@ -75,8 +87,6 @@ public class ConferenceRoomPage extends AbstractMainMenu {
 	public String getMessageValue() {
 		wait.until(ExpectedConditions.visibilityOf(messagePopUp));
 		messagePopUp.click();
-		return messagePopUp.getText();
-		
+		return messagePopUp.getText();		
 	}
-
 }
