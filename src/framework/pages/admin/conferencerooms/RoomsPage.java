@@ -15,10 +15,10 @@ import framework.pages.admin.AbstractMainMenu;
  */
 public class RoomsPage extends AbstractMainMenu {
 	UIMethods UI = new UIMethods();
-	
+
 	@FindBy(id = "roomsGrid")
 	WebElement roomsGrid;
-	
+
 	@FindBy (xpath = "//div[@class='toast-message']/div")
 	WebElement messagePopUp;
 
@@ -55,8 +55,8 @@ public class RoomsPage extends AbstractMainMenu {
 	}
 
 	/**
-	 * [YA]This method returns the icon is displayed in Out Of Order Column when an Out Of Order Period
-	 * is established
+	 * [YA]This method returns the icon is displayed in Out Of Order Column when an Out Of Order 
+	 * Period is established
 	 * @param roomDisplayName
 	 * @return
 	 */
@@ -64,12 +64,14 @@ public class RoomsPage extends AbstractMainMenu {
 		wait.until(ExpectedConditions.visibilityOf(messagePopUp));
 		messagePopUp.click();
 		WebElement outOfOrderIcon = driver.findElement(By.xpath("//span[contains(text(),'" 
-		+ roomDisplayName + "')]//ancestor::div[@ng-click='row.toggleSelected($event)']//out-of-order-icon//span"));
+				+ roomDisplayName + "')]//ancestor::div[@ng-click='row.toggleSelected($event)']"
+				+ "//out-of-order-icon//span"));
 		return outOfOrderIcon.getAttribute("class");
 	}
-	
+
 	/**
-	 * [YA]This method verifies if a message is displayed and clicks on the message to make it disappear.
+	 * [YA]This method verifies if a message is displayed and clicks on the message to make it 
+	 * disappear.
 	 * @return
 	 */
 	public boolean messageIsPresent() {
@@ -81,12 +83,13 @@ public class RoomsPage extends AbstractMainMenu {
 	}
 	
 	/**
-	 * [YA] This method returns the text of the message displayed after creating or updating an Out Of Order Period
+	 * [YA] This method returns the text of the message displayed after creating or updating an 
+	 * Out Of Order Period
 	 * @return
 	 */
 	public String getMessageValue() {
 		wait.until(ExpectedConditions.visibilityOf(messagePopUp));
 		messagePopUp.click();
-		return messagePopUp.getText();		
+		return messagePopUp.getText();
 	}
 }
