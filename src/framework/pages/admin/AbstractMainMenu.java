@@ -1,26 +1,23 @@
 package framework.pages.admin;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import framework.common.UIMethods;
+
 import framework.pages.admin.conferencerooms.ConferenceRoomPage;
 import framework.pages.admin.resources.ResourcesPage;
 import framework.selenium.SeleniumDriverManager;
 
 /**
- * This class contains the main menu
+ * This class contains the main menu of Admin page
  * @author Ruben Blanco
  *
  */
 public abstract class AbstractMainMenu {
 	protected WebDriver driver;	
 	protected WebDriverWait wait;
-	UIMethods uiMethod = new UIMethods();
 	
 	@FindBy(linkText = "Room Manager") 
 	WebElement homeLink;
@@ -46,7 +43,9 @@ public abstract class AbstractMainMenu {
 	@FindBy(linkText = "Tablets") 
 	WebElement tabletsLink;
 	
-	
+	/**
+	 * Constructor
+	 */
 	public AbstractMainMenu() {
 		driver = SeleniumDriverManager.getManager().getDriver();
 		wait = SeleniumDriverManager.getManager().getWait();
@@ -63,13 +62,11 @@ public abstract class AbstractMainMenu {
 	}
 	
 	public ConferenceRoomPage clickConferenceRoomsLink() {
-		waitForMaskDesappears();
 		conferenceRoomsLink.click();
 		return new ConferenceRoomPage();
 	}
 	
 	public ResourcesPage clickResourcesLink() {
-		waitForMaskDesappears();
 		resourcesLink.click();
 		return new ResourcesPage();
 	}
@@ -90,8 +87,4 @@ public abstract class AbstractMainMenu {
 		tabletsLink.click();
 	}
 	
-	public AbstractMainMenu waitForMaskDesappears() {
-		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//div[@ng-class='{in: animate}']")));
-		return this;
-	}
 }
