@@ -4,6 +4,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import framework.selenium.SeleniumDriverManager;
@@ -13,7 +14,7 @@ import framework.selenium.SeleniumDriverManager;
  * @author Yesica Acha
  *
  */
-public abstract class AbstractRoomBasePage {
+public abstract class RoomBaseAbstractPage {
 	protected WebDriver driver;	
 	protected WebDriverWait wait;
 
@@ -32,7 +33,10 @@ public abstract class AbstractRoomBasePage {
 	@FindBy(xpath = "//button[@ng-click='cancel()']") 
 	WebElement cancelBtn;
 	
-	public AbstractRoomBasePage() {
+	@FindBy(xpath = "//small[contains(text(),' ')]")
+	WebElement errorMessageLbl;
+
+	public RoomBaseAbstractPage() {
 		driver = SeleniumDriverManager.getManager().getDriver();
 		wait = SeleniumDriverManager.getManager().getWait();
 		PageFactory.initElements(driver, this);
@@ -43,28 +47,43 @@ public abstract class AbstractRoomBasePage {
 		return new RoomInfoPage();
 	}
 
-	public CRResourceAssociationsPage clickResourceAssociationsLink(){
+	public RoomResourceAssociationsPage clickResourceAssociationsLink(){
 		resourceAssociationsLink.click();
-		return new CRResourceAssociationsPage();
+		return new RoomResourceAssociationsPage();
 	}
 
-	public OutOfOrderPlanningPage clickOutOfOrderPlanningLink(){
+	public RoomOutOfOrderPlanningPage clickOutOfOrderPlanningLink(){
 		outOfOrderPlanningLink.click();
-		return new OutOfOrderPlanningPage();
+		return new RoomOutOfOrderPlanningPage();
 	}
 
-	public ConferenceRoomPage clickSaveBtn(){
-		saveBtn.click();
-		return new ConferenceRoomPage();
+	public RoomPage clickCancelBtn(){
+		cancelBtn.click();
+		return new RoomPage();
 	}
 	
+	public RoomPage clickSaveBtn(){
+		saveBtn.click();
+		return new RoomPage();
+	}
+
+	/**
+	 * [YA] This method clicks Save button when an error message is expected and 
+	 * it should stay in the same page
+	 * @param errorMessage
+	 * @return
+	 */
 	public Object clickSaveWithErrorBtn(){
 		saveBtn.click();
+		wait.until(ExpectedConditions.visibilityOf(errorMessageLbl));
 		return this;
 	}
 
-	public ConferenceRoomPage clickCancelBtn(){
-		cancelBtn.click();
-		return new ConferenceRoomPage();
+	/**
+	 * [YA]This method verifies if any error message is displayed
+	 * @return
+	 */
+	public boolean isErrorMessagePresent() {
+		return errorMessageLbl.isDisplayed();
 	}
 }
