@@ -42,8 +42,19 @@ public class TimeManager {
 	 * @param value: minutes to add or subtract
 	 * @return date as a String
 	 */
-	public static String getTime(int value) {
+	public static String getTime12h(int value) {
 		return dateToString(getNewTime(value), "hh:mm a");
+	}
+
+	/**
+	 * [EN]This method returns a new time as a String based on current time 
+	 * and minutes to add/subtract
+	 * It calls two methods: dateToString() and getNewTime
+	 * @param value: minutes to add or subtract
+	 * @return date as a String in format HH:mm
+	 */
+	public static String getTime24h(int value) {
+		return dateToString(getNewTime(value), "HH:mm");
 	}
 
 	/**
@@ -54,6 +65,7 @@ public class TimeManager {
 		calendar.setTime(new Date());
 		return dateToString(calendar.getTime(), "HH:mm");
 	}
+
 	/**
 	 * [YA]This element returns a time element: hours, minutes or meridian
 	 * @param time: time to split
@@ -82,7 +94,7 @@ public class TimeManager {
 		String[] dataArray = strDate.split(":");
 		int value = (parameter.equalsIgnoreCase("hour")) ? 
 				Integer.parseInt(dataArray[0]): 
-				Integer.parseInt(dataArray[1]);
+					Integer.parseInt(dataArray[1]);
 				return value;
 	}
 

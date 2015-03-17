@@ -46,7 +46,7 @@ public class HomePage {
 	@FindBy(xpath = "//span[@ng-bind='currentTime']")
 	WebElement currentTimeLbl;
 	
-	@FindBy(xpath = "//i[@ng-class='resource.icon']")
+	@FindBy(xpath = "//div[@ng-class='resource.icon']")
 	WebElement resourceIcon;
 	
 	@FindBy(xpath = "//div[@ng-bind='resource.name']")
@@ -64,7 +64,7 @@ public class HomePage {
 	@FindBy(css = "div.tile-button-quick")
 	WebElement settingsBtn;
 
-	@FindBy(css = "div.tile-button-schedule")
+	@FindBy(xpath = "//div[@ng-click='goToSchedule()']")
 	WebElement scheduleBtn;
 
 	public HomePage() {
@@ -73,7 +73,7 @@ public class HomePage {
 		wait = SeleniumDriverManager.getManager().getWait();
 	}
 
-	public void getHome() {
+	public void getHome(){
 		driver.get(URL_TABLET_HOME);
 	}
 	
@@ -119,7 +119,7 @@ public class HomePage {
 	}
 
 	public SchedulePage clickSchedulePageLink() {
-		wait.until(ExpectedConditions.elementToBeClickable(nextTileLbl));
+		wait.until(ExpectedConditions.elementToBeClickable(scheduleBtn));
 		scheduleBtn.click();
 		return new SchedulePage();
 	}
