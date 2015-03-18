@@ -2,6 +2,7 @@ package framework.pages.tablet;
 
 import static framework.common.AppConfigConstants.URL_TABLET_HOME;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -66,6 +67,9 @@ public class HomePage {
 
 	@FindBy(xpath = "//div[@ng-click='goToSchedule()']")
 	WebElement scheduleBtn;
+	
+	@FindBy(xpath = "//span[@ng-bind = 'room._code']")
+	WebElement roomCodeValueLbl;
 
 	public HomePage() {
 		driver = SeleniumDriverManager.getManager().getDriver();
@@ -123,5 +127,50 @@ public class HomePage {
 		wait.until(ExpectedConditions.elementToBeClickable(scheduleBtn));
 		scheduleBtn.click();
 		return new SchedulePage();
+	}
+	
+	/**
+	 * [RB]This method gets the room code of selected room
+	 * @return 
+	 */
+	public String getRoomCode() {
+		return roomCodeValueLbl.getText();
+	}
+
+	/**
+	 * [RB]This method verifies if an associated resource (display name and quantity
+	 * is displayed in the tablet home page)
+	 * @param resourceName
+	 * @param amount
+	 * @return
+	 */
+	public boolean VerifyResourceIsAsociated(String resourceName, String amount) {
+		//this condition call other methods to verify if a elements are present in the tablet
+		if (isAmountDisplayed(amount)&&isResourceNameDisplayed(resourceName))
+			return true;
+		else
+			return false;
+	}
+
+	/**
+	 * [RB]This method verifies the display name of an associated resource
+	 * is displayed in the tablet home page
+	 * @param amount
+	 * @return
+	 */
+	private boolean isAmountDisplayed(String amount) {
+		return driver.findElement(By.xpath("//div[contains(text(),'"+amount+
+				"')and@ng-bind='resource.quantity']")).isDisplayed();
+	}
+	
+	/**
+	 * [RB]This method verifies the quantity of an associated resource
+	 * is displayed in the tablet home page
+	 * @param resourceDisplayName
+	 * @return
+	 */
+	private boolean isResourceNameDisplayed(String resourceDisplayName) {
+		return driver.findElement(By.xpath("//div[contains(text(),'"+resourceDisplayName+
+				"')and@ng-bind='resource.name']")).isDisplayed();
 	}
 }
