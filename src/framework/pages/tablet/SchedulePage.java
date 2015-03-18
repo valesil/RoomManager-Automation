@@ -70,7 +70,7 @@ public class SchedulePage {
 	@FindBy(xpath = "//span[contains(text(),'Update')]")
 	WebElement updateBtn;
 	
-	@FindBy(css = "css=div.currenttime")
+	@FindBy(xpath = "//div[@class='currenttime']")
 	WebElement currentTimeLine;
 	
 	@FindBy(xpath = "//span[@ng-click='goToSearch()']")
@@ -102,7 +102,7 @@ public class SchedulePage {
 	
 	/**
 	 * [AC] Clear the content of the textBox and set the new value to an organizer
-	 * @param organizer: new value to set
+	 * @param organizer
 	 * @return
 	 */
 	public SchedulePage setOrganizerTxtBox(String organizer) {
@@ -277,42 +277,10 @@ public class SchedulePage {
 		searchBtn.click();
 		return new SearchPage();
 	}
-	
-	/**
-	 * [AC] This method get the value of a label from organizer
-	 * @return
-	 */
-	public String getErrorMessageOrganizerLbl() {
-		return errorMessageOrganizerLbl.getText();
-	}
-	
-	/**
-	 * [AC] This method get the value of a label from subject 
-	 * @return
-	 */
-	public String getErrorMessageSubjectLbl() {
-		return errorMessageSubjectLbl.getText();
-	}
-	
-	/**
-	 * [AC] This method get the value of a label from attendee
-	 * @return
-	 */
-	public String getErrorMessageAttendeeLbl() {
-		return errorMessageAttendeeLbl.getText();
-	}
-	
-	/**
-	 * [AC] This method get the value of a label from title page
-	 * @return
-	 */
-	public String getTitleOfPageValue() {
-		return titleSchedulerLbl.getText();
-	}
-	
+
 	/**
 	 * [AC] This method search a meeting and return the name of that
-	 * @param nameMeeting: name of a meeting to search
+	 * @param nameMeeting
 	 * @return
 	 */
 	public String getNameMeetingCreatedValue(String nameMeeting) {
@@ -373,6 +341,10 @@ public class SchedulePage {
 		return messageLbl.isDisplayed();
 	}
 	
+	private boolean getAnyErrorMessageLbl(String message) {
+		return driver.findElement(By.xpath("//small[contains(text(),'" + message + "')]")).isDisplayed();
+	}
+	
 	/**
 	 * [AC] This method gets the successfully message when meeting is created  
 	 * @return boolean
@@ -401,7 +373,7 @@ public class SchedulePage {
 	 * [AC] This method gets the error message when something bad happens
 	 * @return boolean
 	 */
-	public boolean isMessageOfErrorIsDisplayed() {
+	public boolean isMessageOfErrorDisplayed() {
 		return getMessagePopUpValue(MEETING_ERROR);
 	}
 	
@@ -409,24 +381,24 @@ public class SchedulePage {
 	 * [AC] This method gets the error label when does not put a subject
 	 * @return
 	 */
-	public boolean isErrorSubjectIsDisplayed() {
-		return getMessagePopUpValue(MEETING_SUBJECT_REQUIERED);
+	public boolean isErrorSubjectDisplayed() {
+		return getAnyErrorMessageLbl(MEETING_SUBJECT_REQUIERED);
 	}
 	
 	/**
 	 * [AC] This method gets the error label when does not put a organizer
 	 * @return
 	 */
-	public boolean isErrorOrganizerIsDisplayed() {
-		return getMessagePopUpValue(MEETING_ORGANIZER_REQUIRED);
+	public boolean isErrorOrganizerDisplayed() {
+		return getAnyErrorMessageLbl(MEETING_ORGANIZER_REQUIRED);
 	}
 	
 	/**
 	 * [AC] This method gets the error label when does not put attendees
 	 * @return
 	 */
-	public boolean isErrorAttendeeIsDisplayed() {
-		return getMessagePopUpValue(MEETING_ATTENDEES_REQUIRED);
+	public boolean isErrorAttendeeDisplayed() {
+		return getAnyErrorMessageLbl(MEETING_ATTENDEES_REQUIRED);
 	}
 	
 	/**
@@ -472,7 +444,7 @@ public class SchedulePage {
 	
 	/**
 	 * [YA]This method verifies Out Of Order is displayed in Scheduler's Timeline
-	 * @param title: Out Of Order's Title
+	 * @param title
 	 * @return
 	 */
 	public boolean isOutOfOrderBoxDisplayed(String title) {
@@ -509,5 +481,23 @@ public class SchedulePage {
 		setAttendeeTxtBox(attendees);
 		setBodyTxtBox(body);
 		return clickCreateBtn();
+	}
+	
+	/**
+	 * [JC] This method verify if the label scheduler is displayed
+	 * @return
+	 */
+	public boolean schedulerlblIsDisplayed() {
+		return titleSchedulerLbl.isDisplayed();
+	}
+	
+	/**
+	 * [JC] This method verify return the current date
+	 * @return
+	 */
+	public String getTimeLineDate(){
+		String time = currentTimeLine.getAttribute("title").replace("th","").replace("st","")
+		.replace("nd","").replace("Current time: ","");
+		return time;
 	}
 }
