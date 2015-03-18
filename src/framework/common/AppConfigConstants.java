@@ -2,11 +2,7 @@ package framework.common;
 
 import framework.utils.readers.JsonReader;
 
-/**
- * 
- * @author Asael Calizaya
- *
- */
+
 public final class AppConfigConstants {
 	private static JsonReader value = new JsonReader();
 	
@@ -21,7 +17,10 @@ public final class AppConfigConstants {
 																	"explicitWait"));
 	public static final int WEBDRIVERWAIT_SLEEP = Integer.parseInt(value.readJsonFile("confDriver",
 																	"webDriverWait_Sleep"));
+																	
 	public static final String EXCEL_PATH = value.readJsonFile("ExternalFile", "excelPath");
 	public static final String EXCEL_INPUT_DATA = value.readJsonFile("ExternalFile", "excelInputData");
 	public static final String URL_REST = value.readJsonFile("browser", "urlRest");
+	public static final String URL_TABLET_HOME = value.readJsonFile("browser", "urlHome");
+
 }
