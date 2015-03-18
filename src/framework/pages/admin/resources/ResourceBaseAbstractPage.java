@@ -13,7 +13,7 @@ import framework.selenium.SeleniumDriverManager;
  * @author Marco Llano
  *
  */
-public class AbstractResourceBasePage {
+public class ResourceBaseAbstractPage {
 	protected WebDriver driver;
 	protected WebDriverWait wait;
 
@@ -32,7 +32,7 @@ public class AbstractResourceBasePage {
 	@FindBy(id = "convert") 
 	WebElement resourceOpenIconBtn;
 	
-	public AbstractResourceBasePage() {		
+	public ResourceBaseAbstractPage() {		
 		driver = SeleniumDriverManager.getManager().getDriver();
 		wait = SeleniumDriverManager.getManager().getWait();
 		PageFactory.initElements(driver, this);

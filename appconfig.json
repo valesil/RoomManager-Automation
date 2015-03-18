@@ -4,7 +4,8 @@
 		"navigator":"chrome",
 		"urlRest":"http://172.20.208.177:4042/",
 		"urlAdmin":"http://172.20.208.177:4042/admin",
-		"urlTablet":"http://172.20.208.177:4042/tablet"
+		"urlTablet":"http://172.20.208.177:4042/tablet",
+		"urlTabletHome":"http://172.20.208.177:4042/tablet/#/home"
 	},
 	"confDriver":
 	{

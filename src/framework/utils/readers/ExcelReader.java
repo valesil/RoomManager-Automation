@@ -23,8 +23,6 @@ public class ExcelReader {
 	/**
 	 * This method sets the path when the file is available
 	 * @param path
-	 * @throws BiffException
-	 * @throws IOException
 	 */
 	public ExcelReader(String path) {
 		try {
