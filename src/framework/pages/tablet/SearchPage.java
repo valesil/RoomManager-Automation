@@ -175,5 +175,9 @@ public class SearchPage {
 				&&minimumCapacityTxtBox.getText().equals("")
 				&&!locationCmbBox.isSelected();
 	}
+	
+	public boolean isOutOfOrderBoxDisplayed(String title){
+		return driver.findElement(By.xpath("//div[contains(text(),'" + title + "')]")).isDisplayed();
+	}
 }
 
