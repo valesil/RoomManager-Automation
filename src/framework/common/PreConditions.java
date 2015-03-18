@@ -22,7 +22,7 @@ public class PreConditions {
 	HomePage home;
 
 	/**
-	 * [AC] This method is to initialize the listMaps to read from the excel
+	 * [AC] This method initializes the listMaps to read from the excel
 	 */
 	public PreConditions() {
 		schedulePage = new SchedulePage();
@@ -30,14 +30,14 @@ public class PreConditions {
 		try {
 			excelReader = new ExcelReader(EXCEL_INPUT_DATA);
 		} catch (Exception e) {
-			System.out.println("Error on Precondions: " + e.getMessage());
+			System.out.println("Error on Preconditions: " + e.getMessage());
 			e.printStackTrace();
 		}
-		meetingData = excelReader.getMapValues("Meetings");
+		meetingData = excelReader.getMapValues("MeetingData");
 	}
 
 	/**
-	 * [AC] This method is to create more than one meetings, depends of the data in the excel file 
+	 * [AC] This method creates more than one meetings, depends of the data in the excel file 
 	 * @param amountOfMeetings
 	 * @return: All name of meetings created on this method
 	 */
@@ -51,7 +51,7 @@ public class PreConditions {
 			String attendee = meetingData.get(i).get("Attendee");
 			String body = meetingData.get(i).get("Body");
 			String password = meetingData.get(i).get("Password");
-			home.clickSchedulePageLink();
+			home.clickSchedulePageBtn();
 			schedulePage
 			.createMeeting(organizer, subject[i], startTime, endTime, attendee, body)		
 			.confirmCredentials(password)

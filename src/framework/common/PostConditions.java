@@ -26,10 +26,10 @@ public class PostConditions {
 		try {
 			excelReader = new ExcelReader(EXCEL_INPUT_DATA);
 		} catch (Exception e) {
-			System.out.println("Error on Precondions: " + e.getMessage());
+			System.out.println("Error on Preconditions: " + e.getMessage());
 			e.printStackTrace();
 		}
-		meetingData = excelReader.getMapValues("Meetings");
+		meetingData = excelReader.getMapValues("MeetingData");
 	}
 	
 	/**
