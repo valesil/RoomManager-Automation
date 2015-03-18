@@ -11,11 +11,9 @@ import static framework.common.MessageConstants.MEETING_UPDATED;
 import static framework.utils.TimeManager.getTimeElement;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -477,7 +475,7 @@ public class SchedulePage {
 	 * @param title: Out Of Order's Title
 	 * @return
 	 */
-	public boolean isOutOfOrderPresent(String title) {
+	public boolean isOutOfOrderBoxDisplayed(String title) {
 		return driver.findElement(By.xpath("//span[contains(text(),'" + title + "')]")).isDisplayed();
 		
 	}
