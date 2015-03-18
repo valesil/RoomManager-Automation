@@ -147,7 +147,7 @@ public class SchedulePage {
 	}
 	
 	/**
-	 * [AC] This method is to set the start time of a meeting on Chrome
+	 * [AC] This method sets the start time of a meeting on Chrome
 	 * @param startTime
 	 */
 	private void setStartTime(String startTime, String meridian) {
@@ -166,7 +166,7 @@ public class SchedulePage {
 	}
 	
 	/**
-	 * [AC] This method is to set the end time of a meeting on Chrome
+	 * [AC] This method sets the end time of a meeting on Chrome
 	 * @param endTime
 	 */
 	private void setEndTime(String endTime, String meridian) {

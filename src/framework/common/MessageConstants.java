@@ -8,7 +8,7 @@ package framework.common;
 public final class MessageConstants {
 	
 	//The following messages are for Out Of Order
-	public static final String OUT_OF_ORDER_CREATED = "Out of order was created successfully";
+	public static final String OUT_OF_ORDER_SUCCESSFULLY_CREATED = "Out of order was created successfully";
 	public static final String OUT_OF_ORDER_DEACTIVATED = "Out of order was deactivated";
 	public static final String OUT_OF_ORDER_IN_THE_PAST = "Cannot establish out of order as an past event";
 	public static final String TO_GRATER_THAN_FROM = "field must be greater than";
