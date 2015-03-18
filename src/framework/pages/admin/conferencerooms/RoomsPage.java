@@ -15,15 +15,15 @@ import framework.pages.admin.AbstractMainMenu;
  */
 public class RoomsPage extends AbstractMainMenu {
 	UIMethods UI = new UIMethods();
-	
+
 	@FindBy(id = "roomsGrid")
 	WebElement roomsGrid;
-	
+
 	@FindBy (xpath = "//div[@class='toast-message']/div")
 	WebElement messagePopUp;
 
 	/**
-	 * Click over Room 
+	 * [RB]Click over Room 
 	 * @param displayName is the display name of a Room
 	 * @return
 	 */
@@ -34,7 +34,7 @@ public class RoomsPage extends AbstractMainMenu {
 	}
 
 	/**
-	 * Get the display name of a Room
+	 * [RB]Get the display name of a Room
 	 * @param displayName
 	 * @return 
 	 */
@@ -42,9 +42,9 @@ public class RoomsPage extends AbstractMainMenu {
 		return driver.findElement(By.xpath("//span[contains(text(),'" 
 				+ roomName + "')and@class='ng-binding']")).getText();
 	}
-	
+
 	/**
-	 * This method disables a selected room
+	 * [RB]This method disables a selected room
 	 * @param roomDisplayName
 	 * @return ConferenceRoomPage object
 	 */
@@ -63,11 +63,12 @@ public class RoomsPage extends AbstractMainMenu {
 	public String getOutOfOrderIcon(String roomDisplayName) {
 		wait.until(ExpectedConditions.visibilityOf(messagePopUp));
 		messagePopUp.click();
-		WebElement outOfOrderIcon = driver.findElement(By.xpath("//span[contains(text(),'" + roomDisplayName 
-				+ "')]//ancestor::div[@ng-click='row.toggleSelected($event)']//out-of-order-icon//span"));
+		WebElement outOfOrderIcon = driver.findElement(By.xpath("//span[contains(text(),'" 
+				+ roomDisplayName + "')]//ancestor::div[@ng-click='row.toggleSelected($event)']"
+				+ "//out-of-order-icon//span"));
 		return outOfOrderIcon.getAttribute("class");
 	}
-	
+
 	/**
 	 * [YA]This method verifies if a message is displayed and clicks on the message to make it disappear.
 	 * @return
@@ -79,7 +80,7 @@ public class RoomsPage extends AbstractMainMenu {
 		}
 		return messageDisplayed;
 	}
-	
+
 	/**
 	 * [YA] This method returns the text of the message displayed after creating or updating an Out Of Order Period
 	 * @return
@@ -88,6 +89,6 @@ public class RoomsPage extends AbstractMainMenu {
 		wait.until(ExpectedConditions.visibilityOf(messagePopUp));
 		messagePopUp.click();
 		return messagePopUp.getText();
-		
+
 	}
 }
