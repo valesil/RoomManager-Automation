@@ -74,10 +74,11 @@ public class HomePage {
 	}
 
 	/**
-	 * [EN]this method return the url of home.
+	 * [EN]this method set the page with home url.
 	 */
-	public void getHome(){
+	public HomePage getHome(){
 		driver.get(URL_TABLET_HOME);
+		return this;
 	}
 	
 	/**
