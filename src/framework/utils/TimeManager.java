@@ -6,7 +6,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 
 /**
- * 
+ * This class manage Time elements: hours, minutes, meridian 
  * @author Eliana Navia
  *
  */
@@ -40,19 +40,19 @@ public class TimeManager {
 	 * [YA]This method returns a new time as a String based on current time and minutes to add/subtract
 	 * It calls two methods: dateToString() and getNewTime
 	 * @param value: minutes to add or subtract
-	 * @return date as a String
+	 * @return date as a String with any format
 	 */
-	public static String getTime(int value) {
-		return dateToString(getNewTime(value), "hh:mm a");
+	public static String getTime(int value, String formatter) {
+		return dateToString(getNewTime(value), formatter);
 	}
-
+	
 	/**
 	 * [YA]This element returns a time element: hours, minutes or meridian
-	 * @param time: time to split
+	 * @param time: time to split hh:mm a
 	 * @param element: hours, minutes or meridian
 	 * @return time element
 	 */
-	public String getTimeElement(String time, String element) {
+	public static String getTimeElement(String time, String element) {
 		String[] splittedTime = time.split(" ");
 		String[] timeElement = splittedTime[0].split(":");
 		String elementValue = null;
@@ -62,6 +62,15 @@ public class TimeManager {
 		case "minutes": elementValue = timeElement[1];
 		break;
 		case "meridian": elementValue = splittedTime[1];
+		break;
+		
+		//This case set the hour to 24 h format
+		case "Hour": elementValue = (splittedTime[1].equals("pm")) ?  
+				(Integer.parseInt(timeElement[0]) + 12) + "" : Integer.parseInt(timeElement[0]) + "";
+		break;
+		
+		//This case set the value to hh:mm
+		case "hourMin": elementValue = splittedTime[0];
 		break;
 		default: break;
 		}
@@ -74,7 +83,7 @@ public class TimeManager {
 	 * @param Element: year, month or day
 	 * @return date element
 	 */
-	public String getDateElement(String date, String element) {
+	public static String getDateElement(String date, String element) {
 		String dateElement = null;
 		switch(element) {
 		case "year": dateElement = date.split("/")[0];
@@ -89,11 +98,11 @@ public class TimeManager {
 	}
 
 	/**
-	 * [YA] This method returns the current date in any format
-	 * @param formatter: format for current date
+	 * [YA] This method returns the current date or time in any format
+	 * @param formatter: format for current date or time
 	 * @return
 	 */
-	public String getCurrentDate(String formatter) {
+	public static String getCurrentDate(String formatter) {
 		return dateToString(new Date(),formatter);
 	}
 }

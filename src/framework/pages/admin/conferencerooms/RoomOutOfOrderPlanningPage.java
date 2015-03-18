@@ -1,7 +1,11 @@
 package framework.pages.admin.conferencerooms;
 
+import static framework.common.MessageConstants.OUT_OF_ORDER_IN_THE_PAST;
+import static framework.common.MessageConstants.TO_GRATER_THAN_FROM;
+import static framework.common.MessageConstants.OUT_OF_ORDER_SHOULD_HAVE_A_TITLE;
+
 import java.text.ParseException;
-import static framework.common.MessageConstants.END_DATE_BEFORE_START_DATE;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -379,7 +383,26 @@ public class RoomOutOfOrderPlanningPage extends RoomBaseAbstractPage {
 	 * is displayed
 	 * @return boolean
 	 */
-	public boolean isErrorToGreaterThanFromCorrect() {
-		return isErrorMessageCorrect(END_DATE_BEFORE_START_DATE);
+	public boolean isToGreaterThanFromErrorDisplayed() {
+		return isErrorMessageCorrect(TO_GRATER_THAN_FROM);
 	}
+	
+	/**
+	 * [YA]This method verifies that a message that says: "Cannot establish out of order as a past event"
+	 * is displayed
+	 * @return boolean
+	 */
+	public boolean isOutOfOrderInThePastErrorDisplayed() {
+		return isErrorMessageCorrect(OUT_OF_ORDER_IN_THE_PAST);
+	}
+	
+	/**
+	 * [YA]This method verifies that a message that says: "Cannot establish out of order as a past event"
+	 * is displayed
+	 * @return boolean
+	 */
+	public boolean isOutOfOrderShouldHaveTitleErrorDisplayed() {
+		return isErrorMessageCorrect(OUT_OF_ORDER_SHOULD_HAVE_A_TITLE);
+	}
+	
 }
