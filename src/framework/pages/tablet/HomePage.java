@@ -62,7 +62,7 @@ public class HomePage {
 	@FindBy(xpath = "//div[@ng-click='goToSearch()']")
 	WebElement searchBtn;
 
-	@FindBy(css = "div.tile-button-quick")
+	@FindBy(xpath = "//div[@ng-click='goToSettings()']")
 	WebElement settingsBtn;
 
 	@FindBy(xpath = "//div[@ng-click='goToSchedule()']")
@@ -77,52 +77,96 @@ public class HomePage {
 		wait = SeleniumDriverManager.getManager().getWait();
 	}
 
-	public void getHome(){
+	/**
+	 * [EN]this method set the page with home url.
+	 */
+	public HomePage getHome(){
 		driver.get(URL_TABLET_HOME);
+		return this;
 	}
 	
+	/**
+	 * [EN] Return the value of {Now} tile
+	 * @return String it could be meeting subject or Available
+	 */
 	public String getNowTileLbl() {
 		wait.until(ExpectedConditions.elementToBeClickable(nowTileLbl));
 		return nowTileLbl.getText();
 	}
 
+	/**
+	 * [EN] Return the value of time left on {Now} tape
+	 * @return String 
+	 */
 	public String getTimeLeftLbl() {
 		return timeLeftLbl.getText();
 	}
 
+	/**
+	 * [EN] Return the value of {Next} tile
+	 * @return String it could be next meeting subject or End of day
+	 */
 	public String getNextTileLbl() {
 		wait.until(ExpectedConditions.elementToBeClickable(nextTileLbl));
 		return nextTileLbl.getText();
 	}
 
+	/**
+	 * [EN] Return the value of next meeting organizer that is displayed on {Next} tile.
+	 * @return String
+	 */
 	public String getNextMeetingOrganizerNameLbl() {
 		return nextMeetingOrganizerLbl.getText();
 	}
 	
+	/**
+	 * [EN] Return start time of next meeting set in the room that is displayed on {Next} tile.
+	 * @return
+	 */
 	public String getStartTimeNextMeetingLbl() {
 		return timeNextStartLbl.getText();
 	}
 	
+	/**
+	 * [EN] Return end time of next meeting set in the room that is displayed on {Next} tile.
+	 * @return
+	 */
 	public String getEndTimeNextMeetingLbl() {
 		return timeNextEndLbl.getText();
 	}
 	
+	/**
+	 * [EN]Return display name of the room displayed on the top of the main window.
+	 * @return
+	 */
 	public String getRoomDisplayNameLbl() {
 		wait.until(ExpectedConditions.visibilityOf(roomDisplayNameLbl));
 		return roomDisplayNameLbl.getText();
 	}
 	
+	/**
+	 * [EN] Return Search page when {Search} button is clicked.
+	 * @return
+	 */
 	public SearchPage clickSearchPageBtn() {
 		wait.until(ExpectedConditions.elementToBeClickable(searchBtn));
 		searchBtn.click();
 		return new SearchPage();
 	}
 
+	/**
+	 * [EN] Return Setting page when {Setting} button is clicked.
+	 * @return
+	 */
 	public SettingsPage clickSettingsPageBtn() {
 		settingsBtn.click();
 		return new SettingsPage();
 	}
 
+	/**
+	 * [EN] Return Schedule page when {Schedule} button is clicked.
+	 * @return
+	 */
 	public SchedulePage clickSchedulePageBtn() {
 		wait.until(ExpectedConditions.elementToBeClickable(scheduleBtn));
 		scheduleBtn.click();

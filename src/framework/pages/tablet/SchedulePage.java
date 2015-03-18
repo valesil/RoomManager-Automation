@@ -70,7 +70,7 @@ public class SchedulePage {
 	@FindBy(xpath = "//span[contains(text(),'Update')]")
 	WebElement updateBtn;
 	
-	@FindBy(xpath = "//div[@class='currenttime']")
+	@FindBy(css = "css=div.currenttime")
 	WebElement currentTimeLine;
 	
 	@FindBy(xpath = "//span[@ng-click='goToSearch()']")
@@ -102,7 +102,7 @@ public class SchedulePage {
 	
 	/**
 	 * [AC] Clear the content of the textBox and set the new value to an organizer
-	 * @param organizer
+	 * @param organizer: new value to set
 	 * @return
 	 */
 	public SchedulePage setOrganizerTxtBox(String organizer) {
@@ -277,10 +277,18 @@ public class SchedulePage {
 		searchBtn.click();
 		return new SearchPage();
 	}
-
+	
+	/**
+	 * [AC] This method get the value of a label from title page
+	 * @return
+	 */
+	public String getTitleOfPageValue() {
+		return titleSchedulerLbl.getText();
+	}
+	
 	/**
 	 * [AC] This method search a meeting and return the name of that
-	 * @param nameMeeting
+	 * @param nameMeeting: name of a meeting to search
 	 * @return
 	 */
 	public String getNameMeetingCreatedValue(String nameMeeting) {
@@ -444,7 +452,7 @@ public class SchedulePage {
 	
 	/**
 	 * [YA]This method verifies Out Of Order is displayed in Scheduler's Timeline
-	 * @param title
+	 * @param title: Out Of Order's Title
 	 * @return
 	 */
 	public boolean isOutOfOrderBoxDisplayed(String title) {
@@ -452,6 +460,21 @@ public class SchedulePage {
 		
 	}
 	
+	/**
+	 * [EN] 
+	 * @return start time value displayed on "From" text box.
+	 */
+	public String getStartTimeTxtBoxValue(){
+		return endTimeTxtBox.getAttribute("value");
+	}
+	
+	/**
+	 * [EN]
+	 * @return end time value displayed on "To" text box.
+	 */
+	public String getEndTimeTxtBoxValue(){
+		return endTimeTxtBox.getAttribute("value");
+	}
 	/**
 	 * [EN] This method confirm the credentials inserted by the user
 	 * @param name
@@ -470,6 +493,7 @@ public class SchedulePage {
 	 * @param startTime hh:mm a
 	 * @param endTime  hh:mm a
 	 * @param attendees
+	 * @param attendees
 	 * @return
 	 */
 	public SchedulePage createMeeting(String organizer, String subject, String startTime, 
@@ -481,23 +505,5 @@ public class SchedulePage {
 		setAttendeeTxtBox(attendees);
 		setBodyTxtBox(body);
 		return clickCreateBtn();
-	}
-	
-	/**
-	 * [JC] This method verify if the label scheduler is displayed
-	 * @return
-	 */
-	public boolean schedulerlblIsDisplayed() {
-		return titleSchedulerLbl.isDisplayed();
-	}
-	
-	/**
-	 * [JC] This method verify return the current date
-	 * @return
-	 */
-	public String getTimeLineDate(){
-		String time = currentTimeLine.getAttribute("title").replace("th","").replace("st","")
-		.replace("nd","").replace("Current time: ","");
-		return time;
 	}
 }
