@@ -7,7 +7,6 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import framework.common.UIMethods;
 import framework.pages.admin.conferencerooms.ConferenceRoomPage;
 import framework.pages.admin.resources.ResourcesPage;
 import framework.selenium.SeleniumDriverManager;
@@ -20,7 +19,6 @@ import framework.selenium.SeleniumDriverManager;
 public abstract class AbstractMainMenu {
 	protected WebDriver driver;	
 	protected WebDriverWait wait;
-	UIMethods uiMethod = new UIMethods();
 	
 	@FindBy(linkText = "Room Manager") 
 	WebElement homeLink;
@@ -63,13 +61,13 @@ public abstract class AbstractMainMenu {
 	}
 	
 	public ConferenceRoomPage clickConferenceRoomsLink() {
-		waitForMaskDesappears();
+		waitForMaskDisappears();
 		conferenceRoomsLink.click();
 		return new ConferenceRoomPage();
 	}
 	
 	public ResourcesPage clickResourcesLink() {
-		waitForMaskDesappears();
+		waitForMaskDisappears();
 		resourcesLink.click();
 		return new ResourcesPage();
 	}
@@ -90,7 +88,7 @@ public abstract class AbstractMainMenu {
 		tabletsLink.click();
 	}
 	
-	public AbstractMainMenu waitForMaskDesappears() {
+	public AbstractMainMenu waitForMaskDisappears() {
 		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//div[@ng-class='{in: animate}']")));
 		return this;
 	}

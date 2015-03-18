@@ -10,7 +10,7 @@ import framework.selenium.SeleniumDriverManager;
  * @author Marco Llano
  *
  */
-public class ResourceInfoPage extends AbstractResourceBasePage {	
+public class ResourceInfoPage extends ResourceBaseAbstractPage {	
 	UIMethods uiMethod = new UIMethods();
 
 	public ResourceInfoPage() {		
@@ -50,8 +50,7 @@ public class ResourceInfoPage extends AbstractResourceBasePage {
 	 * @return
 	 */
 	public boolean getResourceIcon(String iconTitle) {
-		By resourceIcon = By.xpath(".//*[@id='resourcesGrid']/descendant::*/span[@class='fa " +
-				iconTitle + "']");
-		return uiMethod.isElementPresent(resourceIcon);
+		return driver.findElement(By.xpath(".//*[@id='resourcesGrid']/descendant::*/span[@class='fa " +
+				iconTitle + "']")).isDisplayed();
 	}
 }
