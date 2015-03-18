@@ -38,9 +38,8 @@ public class ReportNGListener implements ITestListener {
 				.format(new GregorianCalendar().getTime()) + ".png"; 
 			File scrFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
 			FileUtils.copyFile(scrFile, new File(filePath + failureImageFileName)); 
-			String userDirector = System.getProperty("user.dir") + "/screenshots/"; 
-			Reporter.log("<a href=\"" + userDirector + failureImageFileName 
-					+ "\"><img src=\"file:///" + userDirector + failureImageFileName 
+			Reporter.log("<a href=\"" + filePath + failureImageFileName 
+					+ "\"><img src=\"file:///" + filePath + failureImageFileName 
 					+ "\" alt=\"\"" + "height='100' width='100'/> " + "<br />"); 
 			Reporter.setCurrentTestResult(null); 
 		} catch (IOException e1) {

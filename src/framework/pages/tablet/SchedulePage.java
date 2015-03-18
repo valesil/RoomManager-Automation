@@ -3,9 +3,11 @@ package framework.pages.tablet;
 import static framework.common.AppConfigConstants.BROWSER;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -83,6 +85,9 @@ public class SchedulePage {
 	@FindBy(xpath = "//button/span[contains(text(),'Cancel')]")
 	WebElement cancelBtn;
 	
+	/**
+	 * [AC] Get the driver and the wait to use that in this class
+	 */
 	/**
 	 * [AC] Get the driver and the wait to use that in this class
 	 */
@@ -388,5 +393,45 @@ public class SchedulePage {
 	public SchedulePage clickCancelButton() {
 		cancelBtn.click();
 		return this;
+	}
+
+	/**
+	 * [EN] This method confirm the credentials inserted by the user
+	 * @param name
+	 * @param password
+	 * @return
+	 */
+	public SchedulePage confirmCredentials(String name, String password) {
+		setUserNameTxtBox(name);
+		setPasswordTxtBox(password);
+		return clickOkButton();
+	}
+
+	/**
+	 * [EN] This method setting the values to created a meeting.
+	 * @param organizer
+	 * @param subject
+	 * @param startTime hh:mm a
+	 * @param endTime  hh:mm a
+	 * @param attendees
+	 * @param bodyMeeting
+	 * @return
+	 */
+	public SchedulePage createMeeting(String organizer, String subject, String startTime, 
+			String endTime, String attendees, String bodyMeeting) {
+
+		String from = getTimeElement(startTime, "hourMin");
+		String toMeridian = getTimeElement(startTime, "meridian");
+
+		String to = getTimeElement(endTime, "hourMin");
+		String fromMeridian = getTimeElement(startTime, "meridian");
+
+		setOrganizerTxtBox(organizer);
+		setSubjectTxtBox(subject);
+		setStartTime(from, fromMeridian);
+		setEndTime(to, toMeridian);
+		setAttendeeTxtBox(attendees);
+		setBodyTxtBox(bodyMeeting);
+		return clickCreateBtn();
 	}
 }

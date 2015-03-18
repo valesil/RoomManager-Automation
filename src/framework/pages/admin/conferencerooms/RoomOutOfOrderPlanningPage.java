@@ -1,7 +1,11 @@
 package framework.pages.admin.conferencerooms;
 
+import static framework.common.MessageConstants.OUT_OF_ORDER_IN_THE_PAST;
+import static framework.common.MessageConstants.TO_GRATER_THAN_FROM;
+import static framework.common.MessageConstants.OUT_OF_ORDER_SHOULD_HAVE_A_TITLE;
+
 import java.text.ParseException;
-import static framework.common.MessageConstants.END_DATE_BEFORE_START_DATE;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -116,13 +120,13 @@ public class RoomOutOfOrderPlanningPage extends RoomBaseAbstractPage {
 		clickCalendarElementBtn("datePickerBtn", dateSelector);
 
 		//to click date's year button
-		clickCalendarElementBtn(timeManager.getDateElement(date, "year"), dateSelector);
+		clickCalendarElementBtn(TimeManager.getDateElement(date, "year"), dateSelector);
 
 		//to click date's month button
-		clickCalendarElementBtn(timeManager.getDateElement(date, "month"), dateSelector);
+		clickCalendarElementBtn(TimeManager.getDateElement(date, "month"), dateSelector);
 
 		//to click date's day button
-		clickCalendarElementBtn(timeManager.getDateElement(date, "day"), dateSelector);
+		clickCalendarElementBtn(TimeManager.getDateElement(date, "day"), dateSelector);
 
 	}
 
@@ -186,10 +190,10 @@ public class RoomOutOfOrderPlanningPage extends RoomBaseAbstractPage {
 	 */
 	private void setTime (String modifierValue, String timeSelector) {
 		int minutesToAdd = Integer.parseInt(modifierValue);
-		String time = TimeManager.getTime(minutesToAdd);
-		String hours = timeManager.getTimeElement(time,"hours");
-		String minutes = timeManager.getTimeElement(time, "minutes");
-		String meridian = timeManager.getTimeElement(time,"meridian");
+		String time = TimeManager.getTime(minutesToAdd, "hh:mm a");
+		String hours = TimeManager.getTimeElement(time,"hours");
+		String minutes = TimeManager.getTimeElement(time, "minutes");
+		String meridian = TimeManager.getTimeElement(time,"meridian");
 		setTimeTxtBox("hours", hours, timeSelector);
 		setTimeTxtBox("minutes", minutes, timeSelector);
 		clickMeridianBtn(meridian, timeSelector);		
@@ -379,7 +383,26 @@ public class RoomOutOfOrderPlanningPage extends RoomBaseAbstractPage {
 	 * is displayed
 	 * @return boolean
 	 */
-	public boolean isErrorToGreaterThanFromCorrect() {
-		return isErrorMessageCorrect(END_DATE_BEFORE_START_DATE);
+	public boolean isToGreaterThanFromErrorDisplayed() {
+		return isErrorMessageCorrect(TO_GRATER_THAN_FROM);
 	}
+	
+	/**
+	 * [YA]This method verifies that a message that says: "Cannot establish out of order as a past event"
+	 * is displayed
+	 * @return boolean
+	 */
+	public boolean isOutOfOrderInThePastErrorDisplayed() {
+		return isErrorMessageCorrect(OUT_OF_ORDER_IN_THE_PAST);
+	}
+	
+	/**
+	 * [YA]This method verifies that a message that says: "Cannot establish out of order as a past event"
+	 * is displayed
+	 * @return boolean
+	 */
+	public boolean isOutOfOrderShouldHaveTitleErrorDisplayed() {
+		return isErrorMessageCorrect(OUT_OF_ORDER_SHOULD_HAVE_A_TITLE);
+	}
+	
 }

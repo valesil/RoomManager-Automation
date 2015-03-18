@@ -57,14 +57,14 @@ public abstract class RoomBaseAbstractPage {
 		return new RoomOutOfOrderPlanningPage();
 	}
 
-	public RoomPage clickCancelBtn(){
+	public RoomsPage clickCancelBtn(){
 		cancelBtn.click();
-		return new RoomPage();
+		return new RoomsPage();
 	}
 	
-	public RoomPage clickSaveBtn(){
+	public RoomsPage clickSaveBtn(){
 		saveBtn.click();
-		return new RoomPage();
+		return new RoomsPage();
 	}
 
 	/**
