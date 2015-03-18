@@ -70,7 +70,7 @@ public class SchedulePage {
 	@FindBy(xpath = "//span[contains(text(),'Update')]")
 	WebElement updateBtn;
 	
-	@FindBy(css = "css=div.currenttime")
+	@FindBy(xpath = "//div[@class='currenttime']")
 	WebElement currentTimeLine;
 	
 	@FindBy(xpath = "//span[@ng-click='goToSearch()']")
@@ -277,15 +277,7 @@ public class SchedulePage {
 		searchBtn.click();
 		return new SearchPage();
 	}
-	
-	/**
-	 * [AC] This method get the value of a label from title page
-	 * @return
-	 */
-	public String getTitleOfPageValue() {
-		return titleSchedulerLbl.getText();
-	}
-	
+
 	/**
 	 * [AC] This method search a meeting and return the name of that
 	 * @param nameMeeting
@@ -489,5 +481,23 @@ public class SchedulePage {
 		setAttendeeTxtBox(attendees);
 		setBodyTxtBox(body);
 		return clickCreateBtn();
+	}
+	
+	/**
+	 * [JC] This method verify if the label scheduler is displayed
+	 * @return
+	 */
+	public boolean schedulerlblIsDisplayed() {
+		return titleSchedulerLbl.isDisplayed();
+	}
+	
+	/**
+	 * [JC] This method verify return the current date
+	 * @return
+	 */
+	public String getTimeLineDate(){
+		String time = currentTimeLine.getAttribute("title").replace("th","").replace("st","")
+		.replace("nd","").replace("Current time: ","");
+		return time;
 	}
 }
