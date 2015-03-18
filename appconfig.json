@@ -3,8 +3,8 @@
 	{
 		"navigator":"chrome",
 		"urlRest":"http://172.20.208.177:4042/",
-		"urlAdmin":"http://172.20.208.177:4042/admin"
-		"urlTablet":"http://172.20.208.177:4042/tablet"
+		"urlAdmin":"http://172.20.208.177:4042/admin",
+		"urlTablet":"http://172.20.208.177:4042/tablet",
 		"urlHome":"http://172.20.208.177:4042/tablet/#/home"
 	},
 	"confDriver":
