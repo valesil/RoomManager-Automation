@@ -11,19 +11,19 @@ import framework.common.UIMethods;
  * @author Ruben Blanco
  *
  */
-public class RoomInfoPage extends AbstractRoomBasePage{
+public class RoomInfoPage extends RoomBaseAbstractPage{
 	@FindBy(xpath = "//input[@ng-model='selectedRoom.customDisplayName']") 
 	WebElement displayNameTxtBox;
-	
+
 	@FindBy(xpath = "//input[@ng-model='selectedRoom.code']")
 	WebElement roomCodeTxtBox;
-	
+
 	@FindBy(xpath = "//input[@ng-model='selectedRoom.capacity']")
 	WebElement roomCapacityTxtBox;
-	
+
 	@FindBy(xpath = "//span[@class='select2-chosen']")
 	WebElement locationCmbBox;
-	
+
 	UIMethods UI = new UIMethods();
 
 	/**
@@ -36,7 +36,7 @@ public class RoomInfoPage extends AbstractRoomBasePage{
 		displayNameTxtBox.sendKeys(newDisplayName);	
 		return this;
 	}
-	
+
 	/**
 	 * [RB]This method sets the code of a room
 	 * @param roomCode is the code of a Room
@@ -47,7 +47,7 @@ public class RoomInfoPage extends AbstractRoomBasePage{
 		roomCodeTxtBox.sendKeys(roomCode);
 		return new RoomInfoPage();
 	}
-	
+
 	/**
 	 * [RB]get the room code of specific room
 	 * @param displayName is the display Name of a Room 
@@ -56,7 +56,7 @@ public class RoomInfoPage extends AbstractRoomBasePage{
 	public String getRoomCode() {
 		return roomCodeTxtBox.getAttribute("value");
 	}
-	
+
 	/**
 	 * [RB]get the room capacity of specific Room
 	 * @param displayName
@@ -67,14 +67,14 @@ public class RoomInfoPage extends AbstractRoomBasePage{
 	}
 
 	/**
-	 * [RB]get the room location of specific rooms
+	 * [RB]get the room location of specific room
 	 * @param displayName
 	 * @return the room location
 	 */
 	public String getRoomLocation() {
 		return locationCmbBox.getText();
 	}
-	
+
 	/**
 	 * [RB]This method sets the location of a room
 	 * @param location
@@ -87,7 +87,7 @@ public class RoomInfoPage extends AbstractRoomBasePage{
 				+ "')and@class='select2-match']")).click();
 		return new RoomInfoPage();
 	}
-	
+
 	/**
 	 * [RB]This method sets the room's capacity
 	 * @param Amount is the capacity of a Room

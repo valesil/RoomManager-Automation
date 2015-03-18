@@ -42,7 +42,7 @@ public class RoomsPage extends AbstractMainMenu {
 		return driver.findElement(By.xpath("//span[contains(text(),'" 
 				+ roomName + "')and@class='ng-binding']")).getText();
 	}
-	
+
 	/**
 	 * [RB]This method disables a selected room
 	 * @param roomDisplayName
@@ -50,13 +50,13 @@ public class RoomsPage extends AbstractMainMenu {
 	 */
 	public Object enableDisableIcon(String roomDisplayName) {
 		driver.findElement(By.xpath("//span[contains(text(),'"+roomDisplayName
-				+ "')]//ancestor::div[@ng-click='row.toggleSelected($event)']//span")).click();
+				+"')]//ancestor::div[@ng-click='row.toggleSelected($event)']//span")).click();
 		return this;
 	}
 
 	/**
-	 * [YA]This method returns the icon is displayed in Out Of Order Column when an Out Of Order 
-	 * Period is established
+	 * [YA]This method returns the icon is displayed in Out Of Order Column when an Out Of Order Period
+	 * is established
 	 * @param roomDisplayName
 	 * @return
 	 */
@@ -70,8 +70,7 @@ public class RoomsPage extends AbstractMainMenu {
 	}
 
 	/**
-	 * [YA]This method verifies if a message is displayed and clicks on the message to make it 
-	 * disappear.
+	 * [YA]This method verifies if a message is displayed and clicks on the message to make it disappear.
 	 * @return
 	 */
 	public boolean messageIsPresent() {
@@ -81,15 +80,15 @@ public class RoomsPage extends AbstractMainMenu {
 		}
 		return messageDisplayed;
 	}
-	
+
 	/**
-	 * [YA] This method returns the text of the message displayed after creating or updating an 
-	 * Out Of Order Period
+	 * [YA] This method returns the text of the message displayed after creating or updating an Out Of Order Period
 	 * @return
 	 */
 	public String getMessageValue() {
 		wait.until(ExpectedConditions.visibilityOf(messagePopUp));
 		messagePopUp.click();
 		return messagePopUp.getText();
+
 	}
 }
