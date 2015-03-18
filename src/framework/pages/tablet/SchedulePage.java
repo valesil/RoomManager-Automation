@@ -96,9 +96,6 @@ public class SchedulePage {
 	/**
 	 * [AC] Get the driver and the wait to use that in this class
 	 */
-	/**
-	 * [AC] Get the driver and the wait to use that in this class
-	 */
 	public SchedulePage() {
 		driver = SeleniumDriverManager.getManager().getDriver();
 		wait = SeleniumDriverManager.getManager().getWait();
