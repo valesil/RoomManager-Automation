@@ -1,6 +1,14 @@
 package framework.pages.tablet;
 
 import static framework.common.AppConfigConstants.BROWSER;
+import static framework.common.MessageConstants.MEETING_ATTENDEES_REQUIRED;
+import static framework.common.MessageConstants.MEETING_CREATED;
+import static framework.common.MessageConstants.MEETING_ERROR;
+import static framework.common.MessageConstants.MEETING_ORGANIZER_REQUIRED;
+import static framework.common.MessageConstants.MEETING_REMOVED;
+import static framework.common.MessageConstants.MEETING_SUBJECT_REQUIERED;
+import static framework.common.MessageConstants.MEETING_UPDATED;
+import static framework.utils.TimeManager.getTimeElement;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
@@ -183,7 +191,10 @@ public class SchedulePage {
 	 * @param meridian
 	 * @return
 	 */
-	public SchedulePage setStartTimeDate(String startTime, String meridian) {
+	public SchedulePage setStartTimeDate(String startTime) {
+		String from = getTimeElement(startTime, "hours");
+		from = from + ":"+ getTimeElement(startTime, "minutes");
+		String fromMeridian = getTimeElement(startTime, "meridian");		
 		if(BROWSER.equalsIgnoreCase("ie")) {
 			startTimeTxtBox.clear();
 			startTimeTxtBox.sendKeys(startTime);			
@@ -191,7 +202,7 @@ public class SchedulePage {
 			startTimeTxtBox.clear();
 			startTimeTxtBox.sendKeys(startTime);
 		} else {
-			setStartTime(startTime, meridian);
+			setStartTime(startTime, fromMeridian);
 		}
 		return this;
 	}
@@ -203,7 +214,10 @@ public class SchedulePage {
 	 * @param meridian
 	 * @return
 	 */
-	public SchedulePage setEndTimeDate(String endTime, String meridian) {
+	public SchedulePage setEndTimeDate(String endTime) {
+		String to = getTimeElement(endTime, "hours");
+		to = to + ":"+ getTimeElement(endTime, "minutes");
+		String toMeridian = getTimeElement(endTime, "meridian");
 		if(BROWSER.equalsIgnoreCase("ie")) {
 			endTimeTxtBox.clear();
 			endTimeTxtBox.sendKeys(endTime);			
@@ -211,13 +225,13 @@ public class SchedulePage {
 			endTimeTxtBox.clear();
 			endTimeTxtBox.sendKeys(endTime);
 		} else {
-			setEndTime(endTime, meridian);
+			setEndTime(endTime, toMeridian);
 		}
 		return this;
 	}
 	
 	/**
-	 * [AC] This method click on Create button
+	 * [AC] This method clicks on Create button
 	 * @return
 	 */
 	public SchedulePage clickCreateBtn() {
@@ -227,7 +241,7 @@ public class SchedulePage {
 	}
 	
 	/**
-	 * [AC] This method click on Remove button
+	 * [AC] This method clicks on Remove button
 	 * @return
 	 */
 	public SchedulePage clickRemoveBtn() {
@@ -236,7 +250,7 @@ public class SchedulePage {
 	}
 	
 	/**
-	 * [AC] This method click on Update button
+	 * [AC] This method clicks on Update button
 	 * @return
 	 */
 	public SchedulePage clickUpdateBtn() {
@@ -245,13 +259,23 @@ public class SchedulePage {
 	}
 	
 	/**
-	 * [AC] This method click on back button
+	 * [AC] This method clicks on back button
 	 * @return
 	 */
 	public HomePage clickBackBtn() {
 		wait.until(ExpectedConditions.elementToBeClickable(backBtn));
 		backBtn.click();
 		return new HomePage();
+	}
+	
+	/**
+	 * [AC] This method clicks on search page
+	 * @return
+	 */
+	public SearchPage clickSearchBtn() {
+		wait.until(ExpectedConditions.elementToBeClickable(searchBtn));
+		searchBtn.click();
+		return new SearchPage();
 	}
 	
 	/**
@@ -339,14 +363,70 @@ public class SchedulePage {
 	}
 	
 	/**
-	 * [AC] This method is to found the message pop up that appears after do something
+	 * [AC] This method founds the message pop up that appears after do something
 	 * @param message
 	 * @return
 	 */
-	public String getMessagePopUpValue(String message) {
+	private boolean getMessagePopUpValue(String message) {
 		WebElement messageLbl = driver.findElement(By.xpath("//div[contains(text(),'" + message + "')]"));
 		wait.until(ExpectedConditions.visibilityOf(messageLbl));
-		return messageLbl.getText();
+		return messageLbl.isDisplayed();
+	}
+	
+	/**
+	 * [AC] This method gets the successfully message when meeting is created  
+	 * @return boolean
+	 */
+	public boolean isMessageMeetingCreatedDisplayed() {
+		return getMessagePopUpValue(MEETING_CREATED);
+	}
+	
+	/**
+	 * [AC] This method gets the successfully message when meeting is updated
+	 * @return boolean
+	 */
+	public boolean isMessageMeetingUpdatedDisplayed() {
+		return getMessagePopUpValue(MEETING_UPDATED);
+	}
+	
+	/**
+	 * [AC] This method gets the successfully message when meeting is deleted
+	 * @return boolean
+	 */
+	public boolean isMessageMeetingDeletedDisplayed() {
+		return getMessagePopUpValue(MEETING_REMOVED);
+	}
+	
+	/**
+	 * [AC] This method gets the error message when something bad happens
+	 * @return boolean
+	 */
+	public boolean isMessageOfErrorIsDisplayed() {
+		return getMessagePopUpValue(MEETING_ERROR);
+	}
+	
+	/**
+	 * [AC] This method gets the error label when does not put a subject
+	 * @return
+	 */
+	public boolean isErrorSubjectIsDisplayed() {
+		return getMessagePopUpValue(MEETING_SUBJECT_REQUIERED);
+	}
+	
+	/**
+	 * [AC] This method gets the error label when does not put a organizer
+	 * @return
+	 */
+	public boolean isErrorOrganizerIsDisplayed() {
+		return getMessagePopUpValue(MEETING_ORGANIZER_REQUIRED);
+	}
+	
+	/**
+	 * [AC] This method gets the error label when does not put attendees
+	 * @return
+	 */
+	public boolean isErrorAttendeeIsDisplayed() {
+		return getMessagePopUpValue(MEETING_ATTENDEES_REQUIRED);
 	}
 	
 	/**
@@ -388,5 +468,46 @@ public class SchedulePage {
 	public SchedulePage clickCancelButton() {
 		cancelBtn.click();
 		return this;
+	}
+	
+	/**
+	 * [YA]This method verifies Out Of Order is displayed in Scheduler's Timeline
+	 * @param title: Out Of Order's Title
+	 * @return
+	 */
+	public boolean isOutOfOrderPresent(String title) {
+		return driver.findElement(By.xpath("//span[contains(text(),'" + title + "')]")).isDisplayed();
+		
+	}
+	
+	/**
+	 * [EN] This method confirm the credentials inserted by the user
+	 * @param name
+	 * @param password
+	 * @return
+	 */
+	public SchedulePage confirmCredentials(String password) {
+		setPasswordTxtBox(password);
+		return clickOkButton();
+	}
+
+	/**
+	 * [EN] This method setting the values to created a meeting.
+	 * @param organizer
+	 * @param subject
+	 * @param startTime hh:mm a
+	 * @param endTime  hh:mm a
+	 * @param attendees
+	 * @return
+	 */
+	public SchedulePage createMeeting(String organizer, String subject, String startTime, 
+			String endTime, String attendees, String body) {
+		setOrganizerTxtBox(organizer);
+		setSubjectTxtBox(subject);
+		setStartTimeDate(startTime);
+		setEndTimeDate(endTime);
+		setAttendeeTxtBox(attendees);
+		setBodyTxtBox(body);
+		return clickCreateBtn();
 	}
 }
