@@ -3,16 +3,16 @@
 	{
 		"navigator":"chrome",
 		"urlRest":"http://172.20.208.177:4042/",
-		"urlAdmin":"http://172.20.208.177:4042/admin"
+		"urlAdmin":"http://172.20.208.177:4042/admin",
 		"urlTablet":"http://172.20.208.177:4042/tablet"
 	},
 	"confDriver":
 	{
 		"chrome":"\\lib\\BrowserDriver\\chromedriver.exe",
 		"ie":"\\lib\\BrowserDriver\\IEDriverServer.exe",
-		"implicitWait":"15",
-		"explicitWait":"15",
-		"webDriverWait_Sleep":"100"
+		"implicitWait":"3",
+		"explicitWait":"1",
+		"webDriverWait_Sleep":"10"
 	},
 	"ExternalFile":
 	{

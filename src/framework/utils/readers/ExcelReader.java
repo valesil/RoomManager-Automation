@@ -26,9 +26,14 @@ public class ExcelReader {
 	 * @throws BiffException
 	 * @throws IOException
 	 */
-	public ExcelReader(String path) throws BiffException, IOException {
-		workBook = Workbook.getWorkbook(new File(System.getProperty("user.dir") + EXCEL_PATH + path));
+	public ExcelReader(String path) {
+		try {
+			workBook = Workbook.getWorkbook(new File(System.getProperty("user.dir") + EXCEL_PATH + path));
+		} catch (BiffException | IOException e) {
+			e.printStackTrace();
+		}
 	}
+
 
 	/**
 	 * This method reads a excel file

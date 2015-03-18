@@ -11,7 +11,7 @@ import framework.common.UIMethods;
  * @author Ruben Blanco
  *
  */
-public class RoomInfoPage extends AbstractRoomBasePage{
+public class RoomInfoPage extends RoomBaseAbstractPage{
 	@FindBy(xpath = "//input[@ng-model='selectedRoom.customDisplayName']") 
 	WebElement displayNameTxtBox;
 	

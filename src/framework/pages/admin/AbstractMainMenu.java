@@ -7,8 +7,9 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
 import framework.common.UIMethods;
-import framework.pages.admin.conferencerooms.ConferenceRoomPage;
+import framework.pages.admin.conferencerooms.RoomsPage;
 import framework.pages.admin.resources.ResourcesPage;
 import framework.selenium.SeleniumDriverManager;
 
@@ -62,10 +63,10 @@ public abstract class AbstractMainMenu {
 		impersonationLink.click();
 	}
 	
-	public ConferenceRoomPage clickConferenceRoomsLink() {
+	public RoomsPage clickConferenceRoomsLink() {
 		waitForMaskDesappears();
 		conferenceRoomsLink.click();
-		return new ConferenceRoomPage();
+		return new RoomsPage();
 	}
 	
 	public ResourcesPage clickResourcesLink() {
@@ -91,7 +92,8 @@ public abstract class AbstractMainMenu {
 	}
 	
 	public AbstractMainMenu waitForMaskDesappears() {
-		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//div[@ng-class='{in: animate}']")));
+		wait.until(ExpectedConditions.invisibilityOfElementLocated(
+				By.xpath("//div[@ng-class='{in: animate}']")));
 		return this;
 	}
 }

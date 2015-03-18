@@ -17,7 +17,6 @@ public class PostConditions {
 	private SchedulePage schedule;
 	private ExcelReader excelReader;
 	private List<Map<String, String>> meetingData;
-	private List<Map<String, String>> expectedMessages;
 	
 	/**
 	 * [AC] This method is to initialize the listMaps to read from the excel
@@ -27,11 +26,10 @@ public class PostConditions {
 		try {
 			excelReader = new ExcelReader(EXCEL_INPUT_DATA);
 		} catch (Exception e) {
-			System.out.println("Error on Precondions: " + e.getMessage());
+			System.out.println("Error on Preconditions: " + e.getMessage());
 			e.printStackTrace();
 		}
-		expectedMessages = excelReader.getMapValues("ExpectedMessages");
-		meetingData = excelReader.getMapValues("Meetings");
+		meetingData = excelReader.getMapValues("MeetingData");
 	}
 	
 	/**
@@ -41,13 +39,12 @@ public class PostConditions {
 	 */
 	public PostConditions deleteMeeting(String nameMeeting) {
 		String password = meetingData.get(0).get("Password");
-		String expectedMessage = expectedMessages.get(1).get("Message");
 		schedule
 				.clickOverMeetingCreated(nameMeeting)
 				.clickRemoveBtn()
 				.setPasswordTxtBox(password)
 				.clickOkButton()
-				.getMessagePopUpValue(expectedMessage);
+				.isMessageMeetingDeletedDisplayed();
 		return this;
 	}
 	
