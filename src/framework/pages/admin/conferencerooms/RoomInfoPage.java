@@ -11,7 +11,7 @@ import framework.common.UIMethods;
  * @author Ruben Blanco
  *
  */
-public class RoomInfoPage extends AbstractRoomBasePage{
+public class RoomInfoPage extends RoomBaseAbstractPage{
 	@FindBy(xpath = "//input[@ng-model='selectedRoom.customDisplayName']") 
 	WebElement displayNameTxtBox;
 	
@@ -27,7 +27,7 @@ public class RoomInfoPage extends AbstractRoomBasePage{
 	UIMethods UI = new UIMethods();
 
 	/**
-	 * [RB]This method sets the display Name of a room
+	 * This method sets the display Name of a room
 	 * @param newDisplayName
 	 * @return RoomInfoPage object
 	 */
@@ -38,7 +38,7 @@ public class RoomInfoPage extends AbstractRoomBasePage{
 	}
 	
 	/**
-	 * [RB]This method sets the code of a room
+	 * This method sets the code of a room
 	 * @param roomCode is the code of a Room
 	 * @return
 	 */
@@ -49,7 +49,7 @@ public class RoomInfoPage extends AbstractRoomBasePage{
 	}
 	
 	/**
-	 * [RB]get the room code of specific room
+	 * get the room code of specific room
 	 * @param displayName is the display Name of a Room 
 	 * @return
 	 */
@@ -58,7 +58,7 @@ public class RoomInfoPage extends AbstractRoomBasePage{
 	}
 	
 	/**
-	 * [RB]get the room capacity of specific Room
+	 * get the room capacity of specific Room
 	 * @param displayName
 	 * @return display name of room
 	 */
@@ -67,7 +67,7 @@ public class RoomInfoPage extends AbstractRoomBasePage{
 	}
 
 	/**
-	 * [RB]get the room location of specific rooms
+	 * get the room location of specific room
 	 * @param displayName
 	 * @return the room location
 	 */
@@ -76,20 +76,20 @@ public class RoomInfoPage extends AbstractRoomBasePage{
 	}
 	
 	/**
-	 * [RB]This method sets the location of a room
+	 * This method sets the location of a room
 	 * @param location
 	 * @return
 	 */
 	public RoomInfoPage setLocation(String location) {
 		locationCmbBox.click();
 		locationCmbBox.sendKeys(location);
-		driver.findElement(By.xpath("//span[contains(text(),'" + location
-				+ "')and@class='select2-match']")).click();
+		driver.findElement(By.xpath("//span[contains(text(),'"+location
+				+"')and@class='select2-match']")).click();
 		return new RoomInfoPage();
 	}
 	
 	/**
-	 * [RB]This method sets the room's capacity
+	 * This method sets the room's capacity
 	 * @param Amount is the capacity of a Room
 	 * @return RoomInfoPageObject
 	 */
