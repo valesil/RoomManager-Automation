@@ -26,10 +26,10 @@ public class ResourcesPage extends AbstractMainMenu{
 	 * [ML]Click on "+Add" resource button	
 	 * @return
 	 */
-	public ResourceInfoPage clickAddResourceBtn() {
+	public ResourceCreatePage clickAddResourceBtn() {
 		wait.until(ExpectedConditions.elementToBeClickable(addResourceBtn));
 		addResourceBtn.click();
-		return new ResourceInfoPage();
+		return new ResourceCreatePage();
 	}
 
 	/**
@@ -39,9 +39,9 @@ public class ResourcesPage extends AbstractMainMenu{
 	 * @throws InterruptedException
 	 */
 	public ResourceInfoPage openResourceInfoPage(String resourceNameToSearch) throws InterruptedException {	
-		waitForMaskDesappears();
+		waitForMaskDisappears();
 		WebElement resourceName = driver.findElement(By.xpath("//span[contains(text(),'" + resourceNameToSearch + "')]"));
-		uiMethod.doubleClick(resourceName); //This is the method that is skipped.
+		uiMethod.doubleClick(resourceName);
 		return new ResourceInfoPage();
 	}		
 	
@@ -50,13 +50,13 @@ public class ResourcesPage extends AbstractMainMenu{
 	 * @param resource
 	 * @return
 	 * @throws InterruptedException
-	 */
+	 */	
 	public ResourcesPage selectResourceCheckbox(String resource) throws InterruptedException {
-		waitForMaskDesappears();
-		By resourceName = By.xpath("//*[@id='resourcesGrid']/descendant::*/span[contains(text(),'" 
-				+ resource + "')]");
-		if (uiMethod.isElementPresent(resourceName)) {
-			driver.findElement(resourceName).click();
+		waitForMaskDisappears();
+		WebElement resourceName = driver.findElement(By.xpath("//*[@id='resourcesGrid']/descendant::"
+				+ "*/span[contains(text(),'" + resource + "')]"));
+		if (resourceName.isDisplayed()) {
+			resourceName.click();
 		}		
 		return this;
 	}
@@ -65,10 +65,10 @@ public class ResourcesPage extends AbstractMainMenu{
 	 * [ML]Click on "remove" resource button
 	 * @return
 	 */
-	public DeleteResourcePage clickRemoveBtn() {
+	public ResourceDeletePage clickRemoveBtn() {
 		wait.until(ExpectedConditions.elementToBeClickable(removeBtn));
 		removeBtn.click();
-		return new DeleteResourcePage();
+		return new ResourceDeletePage();
 	}	
 
 	/**
@@ -77,9 +77,8 @@ public class ResourcesPage extends AbstractMainMenu{
 	 * @return
 	 */
 	public boolean isResourceDisplayNameDisplayedInResourcesPage(String resourceDisplayName) {
-		By resourceDisplayNameInResourcePage = By.xpath(".//*[@id='resourcesGrid']/descendant::*/span[contains(text(),'"
-				+ resourceDisplayName + "')]");		
-		return uiMethod.isElementPresent(resourceDisplayNameInResourcePage);
+		return driver.findElement(By.xpath(".//*[@id='resourcesGrid']/descendant::*/span[contains(text(),'"
+				+ resourceDisplayName + "')]")).isDisplayed();		
 	}
 	
 	/**
@@ -88,8 +87,7 @@ public class ResourcesPage extends AbstractMainMenu{
 	 * @return
 	 */	
 	public boolean isResourceNameDisplayedInResourcesPage(String resourceName) {
-		By resourceNameInPage = By.xpath("//div[@id='resourcesGrid']/div[2]/descendant::*/span[contains(text(),'"
-				+ resourceName + "')]");
-		return uiMethod.isElementPresent(resourceNameInPage);
+		return driver.findElement(By.xpath("//div[@id='resourcesGrid']/div[2]/descendant::*/span[contains(text(),'"
+				+ resourceName + "')]")).isDisplayed();
 	}	
 }

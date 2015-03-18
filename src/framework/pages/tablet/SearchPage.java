@@ -175,5 +175,14 @@ public class SearchPage {
 				&&minimumCapacityTxtBox.getText().equals("")
 				&&!locationCmbBox.isSelected();
 	}
+	
+	/**
+	 * This method verifies if an Out Of Order is displayed in Search timeline
+	 * @param title: Out Of Order Title
+	 * @return
+	 */
+	public boolean isOutOfOrderBoxDisplayed(String title){
+		return driver.findElement(By.xpath("//div[contains(text(),'" + title + "')]")).isDisplayed();
+	}
 }
 
