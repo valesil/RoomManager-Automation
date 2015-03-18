@@ -10,12 +10,12 @@ import framework.selenium.SeleniumDriverManager;
  * @author Marco Llano
  *
  */
-public class DeleteResourcePage extends AbstractResourceBasePage {
+public class ResourceDeletePage extends ResourceBaseAbstractPage {
 	@FindBy(css = "button.info")
 	WebElement confirmRemoveBtn;
 
 
-	public DeleteResourcePage() {		
+	public ResourceDeletePage() {		
 		driver = SeleniumDriverManager.getManager().getDriver();
 		wait = SeleniumDriverManager.getManager().getWait();
 		PageFactory.initElements(driver, this);
