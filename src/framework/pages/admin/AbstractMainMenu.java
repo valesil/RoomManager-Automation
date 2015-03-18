@@ -64,13 +64,13 @@ public abstract class AbstractMainMenu {
 	}
 	
 	public RoomsPage clickConferenceRoomsLink() {
-		waitForMaskDesappears();
+		waitForMaskDisappears();
 		conferenceRoomsLink.click();
 		return new RoomsPage();
 	}
 	
 	public ResourcesPage clickResourcesLink() {
-		waitForMaskDesappears();
+		waitForMaskDisappears();
 		resourcesLink.click();
 		return new ResourcesPage();
 	}
@@ -91,7 +91,7 @@ public abstract class AbstractMainMenu {
 		tabletsLink.click();
 	}
 	
-	public AbstractMainMenu waitForMaskDesappears() {
+	public AbstractMainMenu waitForMaskDisappears() {
 		wait.until(ExpectedConditions.invisibilityOfElementLocated(
 				By.xpath("//div[@ng-class='{in: animate}']")));
 		return this;
