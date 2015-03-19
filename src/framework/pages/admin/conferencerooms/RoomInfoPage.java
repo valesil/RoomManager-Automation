@@ -105,15 +105,17 @@ public class RoomInfoPage extends RoomBaseAbstractPage{
 	}
 	
 	/**
-	 * [ML]Return error message for display name when empty value is inserted
+	 * [ML]This method gets error message from RoomInfoPage when blank text is 
+	 * inserted into room display name 
+	 * @return error message for display name when empty value is inserted
 	 */
 	public String getErrorMessageDisplayName() {
 		return errorDisplayName.getText();
 	}
 	
 	/**
-	 * [ML]Return room display name
-	 * @return
+	 * [ML]This method gets the room display name from RoomInfoPage
+	 * @return room display name
 	 */
 	public String getRoomDisplayName() {
 		return roomDisplayNameTxtBox.getAttribute("value");

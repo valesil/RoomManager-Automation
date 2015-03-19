@@ -39,7 +39,6 @@ public class LoginPage {
 
 	/**
 	 * [ML]This method close browser
-	 * @return
 	 */
 	public void CloseWindow() {
 		driver.quit();
