@@ -1,7 +1,6 @@
 package framework.pages.tablet;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -38,18 +37,11 @@ public class SettingsPage {
 	}
 	
 	/**
-	 * [EN] This method verify if setting title is displayed in the main window of the page
+	 * [EN] This method verifies if setting title is displayed in the main window of the page.
 	 * @return
 	 */
-	public boolean isDisplayedSettingsTitlelbl() {
-		boolean present;
-		try {			
-			present = SettingsTitleLbl.isDisplayed();
-		} catch (NoSuchElementException ex) {
-			present = false;
-			ex.getMessage();
-		}
-		return present;
+	public boolean isSettingsTitlelblDisplayed() {	
+			return SettingsTitleLbl.isDisplayed();
 	}
 	
 	public void quit(){

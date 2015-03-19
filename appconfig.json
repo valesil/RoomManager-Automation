@@ -2,11 +2,11 @@
 	"browser":
 	{
 		"navigator":"chrome",
-		"urlAdmin":"http://172.20.208.177:4043/admin",
-		"urlTablet":"http://172.20.208.177:4043/tablet",
-		"urlTabletHome":"http://172.20.208.177:4043/tablet/#/home",
-		"urlAdminHome":"http://172.20.208.177:4043/admin/#/admin",
-		"urlRest":"http://172.20.208.177:4043/"
+		"urlAdmin":"http://172.20.208.177:404/admin",
+		"urlTablet":"http://172.20.208.177:404/tablet",
+		"urlTabletHome":"http://172.20.208.177:404/tablet/#/home",
+		"urlAdminHome":"http://172.20.208.177:404/admin/#/admin",
+		"urlRest":"http://172.20.208.177:404/"
 	},
 	"confDriver":
 	{

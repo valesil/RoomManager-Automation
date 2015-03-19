@@ -11,7 +11,6 @@ import java.util.Date;
 import java.util.LinkedList;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -290,24 +289,17 @@ public class SearchPage {
 	 * @param title: Out Of Order Title
 	 * @return
 	 */
-	public boolean isOutOfOrderBoxDisplayed(String title){
+	public boolean isOutOfOrderBoxDisplayed(String title) {
 		By outOfOrderBoxLocator = By.xpath("//div[contains(text(),'" + title + "')]");
 		return uiMethods.isElementPresent(outOfOrderBoxLocator);
 	}
 	
 	/**
-	 * [EN] This method verify if the search title label is displayed in the page
+	 * [EN] This method verifies if the search title label is displayed in the page
 	 * @return
 	 */
-	public boolean isDisplayedSearchTitlelbl() {
-		boolean present;
-		try {			
-			present = searchTitleLbl.isDisplayed();
-		} catch (NoSuchElementException ex) {
-			present = false;
-			ex.getMessage();
-		}
-		return present;
+	public boolean isSearchTitlelblDisplayed() {			
+			return searchTitleLbl.isDisplayed();
 	}
 }
 

@@ -26,7 +26,7 @@ public class UIMethods {
 		action.doubleClick(webElement);
 		action.perform();
 	}
-	
+
 	public boolean isElementPresent(By element) {
 		boolean present;
 		try {			
