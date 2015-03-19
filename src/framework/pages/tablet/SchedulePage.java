@@ -8,6 +8,7 @@ import static framework.common.MessageConstants.MEETING_ORGANIZER_REQUIRED;
 import static framework.common.MessageConstants.MEETING_REMOVED;
 import static framework.common.MessageConstants.MEETING_SUBJECT_REQUIERED;
 import static framework.common.MessageConstants.MEETING_UPDATED;
+import static framework.common.MessageConstants.MEETING_TIME_STARTEND;
 import static framework.utils.TimeManager.getTimeElement;
 
 import org.openqa.selenium.By;
@@ -19,6 +20,7 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import framework.common.UIMethods;
 import framework.selenium.SeleniumDriverManager;
 
 /**
@@ -30,6 +32,7 @@ import framework.selenium.SeleniumDriverManager;
 public class SchedulePage {
 	private WebDriver driver;
 	private WebDriverWait wait;
+	UIMethods uIMethods = new UIMethods();
 	
 	@FindBy(xpath = "//span[contains(text(),'Scheduler')]")
 	WebElement titleSchedulerLbl;
@@ -70,7 +73,7 @@ public class SchedulePage {
 	@FindBy(xpath = "//span[contains(text(),'Update')]")
 	WebElement updateBtn;
 	
-	@FindBy(xpath = "//div[@class='currenttime']")
+	@FindBy(css = "css=div.currenttime")
 	WebElement currentTimeLine;
 	
 	@FindBy(xpath = "//span[@ng-click='goToSearch()']")
@@ -102,7 +105,7 @@ public class SchedulePage {
 	
 	/**
 	 * [AC] Clear the content of the textBox and set the new value to an organizer
-	 * @param organizer
+	 * @param organizer: new value to set
 	 * @return
 	 */
 	public SchedulePage setOrganizerTxtBox(String organizer) {
@@ -277,10 +280,18 @@ public class SchedulePage {
 		searchBtn.click();
 		return new SearchPage();
 	}
-
+	
+	/**
+	 * [AC] This method get the value of a label from title page
+	 * @return
+	 */
+	public String getTitleOfPageValue() {
+		return titleSchedulerLbl.getText();
+	}
+	
 	/**
 	 * [AC] This method search a meeting and return the name of that
-	 * @param nameMeeting
+	 * @param nameMeeting: name of a meeting to search
 	 * @return
 	 */
 	public String getNameMeetingCreatedValue(String nameMeeting) {
@@ -370,6 +381,14 @@ public class SchedulePage {
 	}
 	
 	/**
+	 * [JC] This method gets the error message when start time is less than end time
+	 * @return boolean
+	 */
+	public boolean isMessageOfTimeErrorDisplayed() {
+		return getAnyErrorMessageLbl(MEETING_TIME_STARTEND);
+	}
+
+	/**
 	 * [AC] This method gets the error message when something bad happens
 	 * @return boolean
 	 */
@@ -444,12 +463,12 @@ public class SchedulePage {
 	
 	/**
 	 * [YA]This method verifies Out Of Order is displayed in Scheduler's Timeline
-	 * @param title
+	 * @param title: Out Of Order's Title
 	 * @return
 	 */
 	public boolean isOutOfOrderBoxDisplayed(String title) {
-		return driver.findElement(By.xpath("//span[contains(text(),'" + title + "')]")).isDisplayed();
-		
+		By outOfORderBoxLocator = By.xpath("//span[contains(text(),'" + title + "')]");
+		return uIMethods.isElementPresent(outOfORderBoxLocator);	
 	}
 	
 	/**
@@ -464,22 +483,39 @@ public class SchedulePage {
 	}
 
 	/**
+	 * [EN] Return start time value of a meeting selected
+	 * @return start time value displayed on "From" text box.
+	 */
+	public String getStartTimeTxtBoxValue() {
+		return startTimeTxtBox.getAttribute("value");
+	}
+	
+	/**
+	 * [EN] Return end time value of a meeting selected
+	 * @return end time value displayed on "To" text box.
+	 */
+	public String getEndTimeTxtBoxValue() {
+		return endTimeTxtBox.getAttribute("value");
+	}
+	
+	/**
 	 * [EN] This method setting the values to created a meeting.
 	 * @param organizer
 	 * @param subject
 	 * @param startTime hh:mm a
 	 * @param endTime  hh:mm a
 	 * @param attendees
+	 * @param bodyMeeting
 	 * @return
 	 */
 	public SchedulePage createMeeting(String organizer, String subject, String startTime, 
-			String endTime, String attendees, String body) {
+			String endTime, String attendees, String bodyMeeting) {
 		setOrganizerTxtBox(organizer);
 		setSubjectTxtBox(subject);
 		setStartTimeDate(startTime);
 		setEndTimeDate(endTime);
 		setAttendeeTxtBox(attendees);
-		setBodyTxtBox(body);
+		setBodyTxtBox(bodyMeeting);
 		return clickCreateBtn();
 	}
 	
@@ -499,5 +535,15 @@ public class SchedulePage {
 		String time = currentTimeLine.getAttribute("title").replace("th","").replace("st","")
 		.replace("nd","").replace("Current time: ","");
 		return time;
+	}
+	
+	/**
+	 * [YA]This method verifies if Meeting Box is present
+	 * @param nameMeeting
+	 * @return
+	 */
+	public boolean isMeetingBoxDisplayed(String nameMeeting) {
+		By meetingBoxLocator = By.xpath("//span[contains(text(),'" + nameMeeting + "')]");
+		return uIMethods.isElementPresent(meetingBoxLocator);
 	}
 }
