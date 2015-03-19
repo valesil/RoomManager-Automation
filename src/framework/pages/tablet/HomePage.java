@@ -10,6 +10,7 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import framework.common.UIMethods;
 import framework.selenium.SeleniumDriverManager;
 
 /**
@@ -83,7 +84,7 @@ public class HomePage {
 	/**
 	 * [EN]this method set the page with home url.
 	 */
-	public HomePage getHome(){
+	public HomePage getHome() {
 		driver.get(URL_TABLET_HOME);
 		return this;
 	}
