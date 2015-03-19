@@ -2,10 +2,10 @@
 	"browser":
 	{
 		"navigator":"chrome",
-		"urlAdmin":"http://172.20.208.177:4042/admin",
-		"urlTablet":"http://172.20.208.177:4042/tablet",
-		"urlTabletHome":"http://172.20.208.177:4042/tablet/#/home",
-		"urlRest":"http://172.20.208.177:4042/"
+		"urlRest":"http://172.20.208.177:4044/",
+		"urlAdmin":"http://172.20.208.177:4044/admin",
+		"urlTablet":"http://172.20.208.177:4044/tablet",
+		"urlTabletHome":"http://172.20.208.177:4044/tablet/#/home"
 	},
 	"confDriver":
 	{
