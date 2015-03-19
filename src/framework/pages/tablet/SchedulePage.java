@@ -20,6 +20,7 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import framework.common.UIMethods;
 import framework.selenium.SeleniumDriverManager;
 
 /**
@@ -31,6 +32,7 @@ import framework.selenium.SeleniumDriverManager;
 public class SchedulePage {
 	private WebDriver driver;
 	private WebDriverWait wait;
+	UIMethods uIMethods = new UIMethods();
 	
 	@FindBy(xpath = "//span[contains(text(),'Scheduler')]")
 	WebElement titleSchedulerLbl;
@@ -457,8 +459,8 @@ public class SchedulePage {
 	 * @return
 	 */
 	public boolean isOutOfOrderBoxDisplayed(String title) {
-		return driver.findElement(By.xpath("//span[contains(text(),'" + title + "')]")).isDisplayed();
-		
+		By outOfORderBoxLocator = By.xpath("//span[contains(text(),'" + title + "')]");
+		return uIMethods.isElementPresent(outOfORderBoxLocator);	
 	}
 	
 	/**
@@ -508,5 +510,15 @@ public class SchedulePage {
 		String time = currentTimeLine.getAttribute("title").replace("th","").replace("st","")
 		.replace("nd","").replace("Current time: ","");
 		return time;
+	}
+	
+	/**
+	 * [YA]This method verifies if Meeting Box is present
+	 * @param nameMeeting
+	 * @return
+	 */
+	public boolean isMeetingBoxDisplayed(String nameMeeting) {
+		By meetingBoxLocator = By.xpath("//span[contains(text(),'" + nameMeeting + "')]");
+		return uIMethods.isElementPresent(meetingBoxLocator);
 	}
 }
