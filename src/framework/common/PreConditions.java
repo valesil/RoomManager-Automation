@@ -37,7 +37,17 @@ public class PreConditions {
 		meetingData = excelReader.getMapValues("MeetingData");
 	}	
 	
-	public void createMeeting(String organizer, String subject, String startTime, String endTime,
+	/**
+	 * [AC] This method creates a meeting
+	 * @param organizer
+	 * @param subject
+	 * @param startTime
+	 * @param endTime
+	 * @param attendee
+	 * @param body
+	 * @param password
+	 */
+	public void createMeetingWithAllDataFromExcel(String organizer, String subject, String startTime, String endTime,
 			String attendee, String body, String password) {
 		HomePage home = new HomePage();
 		home.clickSchedulePageBtn()
@@ -56,7 +66,6 @@ public class PreConditions {
 	 * [AC] This method creates more than one meetings, depends of the data in the excel file 
 	 * @param amountOfMeetings
 	 * @return: All name of meetings created on this method
-	 * @throws InterruptedException 
 	 */
 	public String[] createMeetingsSuccessfully(int amountOfMeetings) {
 		String[] subject = new String[amountOfMeetings];
