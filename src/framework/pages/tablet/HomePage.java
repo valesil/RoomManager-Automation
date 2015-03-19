@@ -10,6 +10,7 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import framework.common.UIMethods;
 import framework.selenium.SeleniumDriverManager;
 
 /**
@@ -77,8 +78,9 @@ public class HomePage {
 		wait = SeleniumDriverManager.getManager().getWait();
 	}
 
-	public void getHome(){
+	public HomePage getHome(){
 		driver.get(URL_TABLET_HOME);
+		return this;
 	}
 	
 	public String getNowTileLbl() {
@@ -172,5 +174,13 @@ public class HomePage {
 	private boolean isResourceNameDisplayed(String resourceDisplayName) {
 		return driver.findElement(By.xpath("//div[contains(text(),'"+resourceDisplayName+
 				"')and@ng-bind='resource.name']")).isDisplayed();
+	}
+	
+	public SchedulePage clickSchedulePageBtnWithSleep() throws InterruptedException {
+		//UIMethods uiMethods = new UIMethods();
+		wait.until(ExpectedConditions.elementToBeClickable(scheduleBtn));
+		//Thread.sleep(2000);
+		scheduleBtn.click();
+		return new SchedulePage();
 	}
 }
