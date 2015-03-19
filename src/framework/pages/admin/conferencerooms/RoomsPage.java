@@ -98,7 +98,7 @@ public class RoomsPage extends AbstractMainMenu {
 	}
 	
 	/**
-	 * [YA]This method verifies if a message is correct
+	 * [YA]This method that verifies if a message is correct
 	 * @return boolean
 	 */
 	private boolean isMessageCorrect(String message) {
@@ -113,5 +113,52 @@ public class RoomsPage extends AbstractMainMenu {
 	 */
 	public boolean isOutOfOrderSuccessfullyCreatedMessageDisplayed() {
 		return isMessageCorrect(OUT_OF_ORDER_SUCCESSFULLY_CREATED);
+	}
+	
+	/**
+	 * [CG]Method that returns true when the search of a resource in the top of conference rooms 
+	 * page icons is successful  
+	 * @param resourceName
+	 * @return
+	 */
+	public boolean searchResource(String resourceName) {
+		return driver.findElement(By.xpath("//span[contains(text(),'" + resourceName 
+				+ "')and@class='ng-binding']")).isDisplayed();	
+	}
+
+	/**
+	 * [CG]Method that clicks the resource icon in the top of rooms page
+	 * @param resourceName
+	 * @return
+	 */
+	public RoomsPage clickResourceIcon(String resourceName) {
+		waitForMaskDisappears();
+		driver.findElement(By.xpath("//span[contains(text(),'" + resourceName 
+				+ "')and@class='ng-binding']")).click();
+		return this;
+	}
+	
+	/**
+	 * [CG]Method that returns true when the search of a resource in the top of rooms table 
+	 * header is successful
+	 * @param resourceName
+	 * @return
+	 */
+	public boolean isResourcePresentInTableHeader(String resourceName) {
+		String locator = "//div[@class='ngHeaderScroller']//div[contains(text(),'" 
+				+ resourceName + "')]";
+		wait.until(ExpectedConditions.textToBePresentInElementLocated(By.xpath(locator), 
+				resourceName));
+		return driver.findElement(By.xpath(locator)).isDisplayed();
+	}
+
+	/**
+	 * [CG]Method that allows to get the state of the room if it is enable or disable
+	 * @param roomName
+	 * @return true or false if the button is enabled or disabled
+	 */
+	public boolean stateEnableDisableBtn(String roomName) {
+		return driver.findElement(By.xpath("//span[contains(text(),'" + roomName +
+				"')]//ancestor::div[@ng-click='row.toggleSelected($event)']//span")).isEnabled();
 	}
 }
