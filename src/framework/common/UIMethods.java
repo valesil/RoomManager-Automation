@@ -37,4 +37,8 @@ public class UIMethods {
 		}
 		return present;
 	}
+	
+	public void refresh() {
+		driver.navigate().refresh();
+	}
 }
