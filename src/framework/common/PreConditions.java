@@ -8,6 +8,7 @@ import java.util.Map;
 
 import framework.pages.tablet.HomePage;
 import framework.pages.tablet.SchedulePage;
+import framework.utils.TimeManager;
 import framework.utils.readers.ExcelReader;
 
 /**
@@ -34,6 +35,31 @@ public class PreConditions {
 			e.printStackTrace();
 		}
 		meetingData = excelReader.getMapValues("MeetingData");
+	}	
+	
+	/**
+	 * [AC] This method creates a meeting
+	 * @param organizer
+	 * @param subject
+	 * @param startTime
+	 * @param endTime
+	 * @param attendee
+	 * @param body
+	 * @param password
+	 */
+	public void createMeetingWithAllDataFromExcel(String organizer, String subject, String startTime, String endTime,
+			String attendee, String body, String password) {
+		HomePage home = new HomePage();
+		home.clickSchedulePageBtn()
+			.setOrganizerTxtBox(organizer)
+			.setSubjectTxtBox(subject)
+			.setStartTimeDate(startTime)
+			.setEndTimeDate(endTime)
+			.setAttendeeTxtBox(attendee)
+			.setBodyTxtBox(body)
+			.clickCreateBtn()
+			.confirmCredentials(password)
+			.isMessageMeetingCreatedDisplayed();
 	}
 
 	/**
@@ -41,8 +67,9 @@ public class PreConditions {
 	 * @param amountOfMeetings
 	 * @return: All name of meetings created on this method
 	 */
-	public String[] createMeetingSuccessfully(int amountOfMeetings) {
+	public String[] createMeetingsSuccessfully(int amountOfMeetings) {
 		String[] subject = new String[amountOfMeetings];
+		home.clickSchedulePageBtn();
 		for (int i = 0; i < amountOfMeetings; i++) {
 			String organizer = meetingData.get(i).get("Organizer");
 			subject[i] = meetingData.get(i).get("Subject");
@@ -51,13 +78,12 @@ public class PreConditions {
 			String attendee = meetingData.get(i).get("Attendee");
 			String body = meetingData.get(i).get("Body");
 			String password = meetingData.get(i).get("Password");
-			home.clickSchedulePageBtn();
 			schedulePage
 			.createMeeting(organizer, subject[i], startTime, endTime, attendee, body)		
 			.confirmCredentials(password)
 			.isMessageMeetingCreatedDisplayed();
-			schedulePage.clickBackBtn();
 		}
+		schedulePage.clickBackBtn();
 		return subject;
 	}
 
@@ -114,5 +140,26 @@ public class PreConditions {
 	public String getRoomDisplayName() {
 		String roomDisplayName = meetingData.get(0).get("Room");
 		return roomDisplayName;
+	}
+	
+	/**
+	 * [YA]This method creates a meeting 
+	 * @param organizer: Organizer name
+	 * @param subject: Meeting's subject
+	 * @param starTimeMinutes: Minutes to add or subtract to current time to get startTime
+	 * @param endTimeMinutes: Minutes to add or subtract to current time to get endTime
+	 * @param attendee: Attendees for the meeting
+	 * @param body: Meeting's body message
+	 * @param password: Organizer's password
+	 * @throws InterruptedException 
+	 */
+	public void createMeeting(String organizer, String subject, String starTimeMinutes,
+			String endTimeMinutes, String attendee, String body, String password) {
+			
+		String startTime = TimeManager.getTime(Integer.parseInt(starTimeMinutes), "hh:mm a");
+		String endTime = TimeManager.getTime(Integer.parseInt(endTimeMinutes), "hh:mm a");
+			home.clickSchedulePageBtn()
+			.createMeeting(organizer, subject, startTime, endTime, attendee, body)		
+			.confirmCredentials(password).isMessageMeetingCreatedDisplayed();
 	}
 }

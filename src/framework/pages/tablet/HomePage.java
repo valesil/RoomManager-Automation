@@ -73,6 +73,9 @@ public class HomePage {
 	
 	@FindBy(xpath = "//span[@ng-bind = 'room._code']")
 	WebElement roomCodeValueLbl;
+	
+	@FindBy(id = "timeline-container")
+	WebElement timelineContainer;
 
 	public HomePage() {
 		driver = SeleniumDriverManager.getManager().getDriver();
@@ -83,7 +86,7 @@ public class HomePage {
 	/**
 	 * [EN]this method set the page with home url.
 	 */
-	public HomePage getHome(){
+	public HomePage getHome() {
 		driver.get(URL_TABLET_HOME);
 		return this;
 	}
@@ -241,5 +244,15 @@ public class HomePage {
 		String time = currentTimeLine.getAttribute("title").replace("th","").replace("st","")
 		.replace("nd","").replace("Current time: ","");
 		return time;
+	}
+	
+	/**
+	 * [YA] This method clicks Schedule button and waits until timeline is displayed
+	 * @return
+	 */
+	public SchedulePage clickScheduleBtn() {
+		wait.until(ExpectedConditions.visibilityOf(timelineContainer));
+		scheduleBtn.click();
+		return new SchedulePage();
 	}
 }
