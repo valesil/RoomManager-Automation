@@ -43,7 +43,7 @@ public class PreConditions {
 	 * @return: All name of meetings created on this method
 	 * @throws InterruptedException 
 	 */
-	public String[] createMeetingSuccessfully(int amountOfMeetings) throws InterruptedException {
+	public String[] createMeetingSuccessfully(int amountOfMeetings) {
 		String[] subject = new String[amountOfMeetings];
 		for (int i = 0; i < amountOfMeetings; i++) {
 			String organizer = meetingData.get(i).get("Organizer");
@@ -130,7 +130,7 @@ public class PreConditions {
 	 * @throws InterruptedException 
 	 */
 	public void createMeeting(String organizer, String subject, String starTimeMinutes,
-			String endTimeMinutes, String attendee, String body, String password) throws InterruptedException {
+			String endTimeMinutes, String attendee, String body, String password) {
 			
 		String startTime = TimeManager.getTime(Integer.parseInt(starTimeMinutes), "hh:mm a");
 		String endTime = TimeManager.getTime(Integer.parseInt(endTimeMinutes), "hh:mm a");
