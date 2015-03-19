@@ -521,7 +521,7 @@ public class SchedulePage {
 	 * [JC] This method verify if the label scheduler is displayed
 	 * @return
 	 */
-	public boolean schedulerlblIsDisplayed() {
+	public boolean isDisplayedSchedulerlbl() {
 		return titleSchedulerLbl.isDisplayed();
 	}
 	

@@ -51,7 +51,7 @@ public class PreConditions {
 			String attendee = meetingData.get(i).get("Attendee");
 			String body = meetingData.get(i).get("Body");
 			String password = meetingData.get(i).get("Password");
-			home.clickSchedulePageBtn();
+			home.clickScheduleBtn();
 			schedulePage
 			.createMeeting(organizer, subject[i], startTime, endTime, attendee, body)		
 			.confirmCredentials(password)
