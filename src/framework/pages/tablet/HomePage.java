@@ -44,6 +44,9 @@ public class HomePage {
 	@FindBy(xpath = "//span[contains(@ng-bind,'next._end')]")
 	WebElement timeNextEndLbl;
 
+	@FindBy(xpath = "//div[@class='currenttime']")
+	WebElement currentTimeLine;
+	
 	@FindBy(xpath = "//span[@ng-bind='currentTime']")
 	WebElement currentTimeLbl;
 	
@@ -174,6 +177,14 @@ public class HomePage {
 	}
 	
 	/**
+	 * [JC] This method return a new SchedulePage
+	 * @return
+	 */
+	public SchedulePage clickNowTileLbl() {
+		nowTileLbl.click();
+		return new SchedulePage();
+	}
+	/**
 	 * [RB]This method gets the room code of selected room
 	 * @return 
 	 */
@@ -216,5 +227,19 @@ public class HomePage {
 	private boolean isResourceNameDisplayed(String resourceDisplayName) {
 		return driver.findElement(By.xpath("//div[contains(text(),'"+resourceDisplayName+
 				"')and@ng-bind='resource.name']")).isDisplayed();
+	}
+
+	public boolean homePageIsDisplayed() {
+		return scheduleBtn.isDisplayed();
+	}
+	
+	/**
+	 * [JC] This method verify return the current date
+	 * @return
+	 */
+	public String getTimeLineDate(){
+		String time = currentTimeLine.getAttribute("title").replace("th","").replace("st","")
+		.replace("nd","").replace("Current time: ","");
+		return time;
 	}
 }
