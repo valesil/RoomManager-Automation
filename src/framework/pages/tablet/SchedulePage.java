@@ -494,7 +494,7 @@ public class SchedulePage {
 	 * @param startTime hh:mm a
 	 * @param endTime  hh:mm a
 	 * @param attendees
-	 * @param attendees
+	 * @param bodyMeeting
 	 * @return
 	 */
 	public SchedulePage createMeeting(String organizer, String subject, String startTime, 
