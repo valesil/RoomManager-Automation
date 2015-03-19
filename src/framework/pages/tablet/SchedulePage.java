@@ -464,6 +464,22 @@ public class SchedulePage {
 	}
 
 	/**
+	 * [EN] Return start time value of a meeting selected
+	 * @return start time value displayed on "From" text box.
+	 */
+	public String getStartTimeTxtBoxValue(){
+		return startTimeTxtBox.getAttribute("value");
+	}
+	
+	/**
+	 * [EN] Return end time value of a meeting selected
+	 * @return end time value displayed on "To" text box.
+	 */
+	public String getEndTimeTxtBoxValue(){
+		return endTimeTxtBox.getAttribute("value");
+	}
+	
+	/**
 	 * [EN] This method setting the values to created a meeting.
 	 * @param organizer
 	 * @param subject
