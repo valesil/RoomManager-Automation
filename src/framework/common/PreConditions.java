@@ -34,6 +34,21 @@ public class PreConditions {
 			e.printStackTrace();
 		}
 		meetingData = excelReader.getMapValues("MeetingData");
+	}	
+	
+	public void createMeeting(String organizer, String subject, String startTime, String endTime,
+			String attendee, String body, String password) {
+		HomePage home = new HomePage();
+		home.clickSchedulePageBtn()
+			.setOrganizerTxtBox(organizer)
+			.setSubjectTxtBox(subject)
+			.setStartTimeDate(startTime)
+			.setEndTimeDate(endTime)
+			.setAttendeeTxtBox(attendee)
+			.setBodyTxtBox(body)
+			.clickCreateBtn()
+			.confirmCredentials(password)
+			.isMessageMeetingCreatedDisplayed();
 	}
 
 	/**
@@ -41,8 +56,9 @@ public class PreConditions {
 	 * @param amountOfMeetings
 	 * @return: All name of meetings created on this method
 	 */
-	public String[] createMeetingSuccessfully(int amountOfMeetings) {
+	public String[] createMeetingsSuccessfully(int amountOfMeetings) {
 		String[] subject = new String[amountOfMeetings];
+		home.clickSchedulePageBtn();
 		for (int i = 0; i < amountOfMeetings; i++) {
 			String organizer = meetingData.get(i).get("Organizer");
 			subject[i] = meetingData.get(i).get("Subject");
@@ -51,13 +67,12 @@ public class PreConditions {
 			String attendee = meetingData.get(i).get("Attendee");
 			String body = meetingData.get(i).get("Body");
 			String password = meetingData.get(i).get("Password");
-			home.clickSchedulePageBtn();
 			schedulePage
 			.createMeeting(organizer, subject[i], startTime, endTime, attendee, body)		
 			.confirmCredentials(password)
 			.isMessageMeetingCreatedDisplayed();
-			schedulePage.clickBackBtn();
 		}
+		schedulePage.clickBackBtn();
 		return subject;
 	}
 

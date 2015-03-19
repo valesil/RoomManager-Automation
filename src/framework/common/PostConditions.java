@@ -37,6 +37,8 @@ public class PostConditions {
 	 * @param nameMeeting: name of meeting to delete
 	 * @return: This page, to use the same method repeated times
 	 */
+	
+	//refactorizar
 	public PostConditions deleteMeeting(String nameMeeting) {
 		String password = meetingData.get(0).get("Password");
 		schedule
