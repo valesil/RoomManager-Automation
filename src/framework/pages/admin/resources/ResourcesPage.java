@@ -44,7 +44,7 @@ public class ResourcesPage extends AbstractMainMenu{
 		uiMethod.doubleClick(resourceName);
 		return new ResourceInfoPage();
 	}		
-	
+
 	/**
 	 * [ML]Selects a resource from ResourcesPage by click, according to the name given in parameter
 	 * @param resource
@@ -60,7 +60,7 @@ public class ResourcesPage extends AbstractMainMenu{
 		}		
 		return this;
 	}
-	
+
 	/**
 	 * [ML]Click on "remove" resource button
 	 * @return
@@ -80,7 +80,7 @@ public class ResourcesPage extends AbstractMainMenu{
 		return driver.findElement(By.xpath(".//*[@id='resourcesGrid']/descendant::*/span[contains(text(),'"
 				+ resourceDisplayName + "')]")).isDisplayed();		
 	}
-	
+
 	/**
 	 * [ML]Returns resource name from resource page
 	 * @param resourceName
@@ -89,5 +89,52 @@ public class ResourcesPage extends AbstractMainMenu{
 	public boolean isResourceNameDisplayedInResourcesPage(String resourceName) {
 		return driver.findElement(By.xpath("//div[@id='resourcesGrid']/div[2]/descendant::*/span[contains(text(),'"
 				+ resourceName + "')]")).isDisplayed();
-	}	
+	}
+
+	/**
+	 * [CG]Method that returns true if the number of resources send is found in "Total Items Value"
+	 * Label
+	 * @param value
+	 * @return
+	 * @throws InterruptedException
+	 */
+	public boolean searchTotalItemsValue(String value) throws InterruptedException {
+		String locator = "//span[contains(text(),'Total Items: " + value + "')]";
+		wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath(locator)));
+		return driver.findElement(By.xpath(locator)).isDisplayed();
+	}
+
+	/**
+	 * [CG]Method that returns true if the number of resources send is found in "Selected Items 
+	 * Value" Label 
+	 * @param value
+	 * @return
+	 * @throws InterruptedException
+	 */
+	public boolean searchSelectedItemsValue(String value) throws InterruptedException {
+		String locator = "//span[contains(text(),'Selected Items: " + value + "')]";
+		wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath(locator)));
+		return driver.findElement(By.xpath(locator)).isDisplayed();
+	}
+
+	/**
+	 * [CG]Method that clicks "Select All Resources" Checkbox 
+	 */
+	public void clickSelectAllResources() {
+		driver.findElement(By.xpath("//input[@ng-model='allSelected']")).click();
+	}
+
+	/**
+	 * [CG]Method that clicks "previous triangle icon" to see the previous resources
+	 */
+	public void clickPreviousTriangleIcon() {
+		driver.findElement(By.xpath("//div[@class='ngPagerFirstTriangle ngPagerPrevTriangle']")).click();
+	}
+	
+	/**
+	 * [CG]Method that clicks "Next triangle icon" to see the previous resources
+	 */
+	public void clickNextTriangleIcon() {
+		driver.findElement(By.xpath("//div[@class='ngPagerLastTriangle ngPagerNextTriangle']")).click();
+	}
 }
