@@ -76,7 +76,7 @@ public class HomePage {
 
 	@FindBy(xpath = "//span[@ng-bind = 'room._code']")
 	WebElement roomCodeLbl;
-
+	
 	public HomePage() {
 		driver = SeleniumDriverManager.getManager().getDriver();
 		PageFactory.initElements(driver, this);
@@ -169,16 +169,6 @@ public class HomePage {
 		return new SettingsPage();
 	}
 
-	/** 
-	 * [YA] This method clicks Schedule button and waits until timeline is displayed 
-	 * @return 
-	 */ 
-	public SchedulePage clickScheduleBtn() { 
-		wait.until(ExpectedConditions.visibilityOf(timelineContainer)); 
-		scheduleBtn.click(); 
-		return new SchedulePage(); 
-	} 
-
 	/**
 	 * [RB]This method gets the room code of selected room
 	 * @return 
@@ -238,16 +228,17 @@ public class HomePage {
 				.replace("nd","").replace("Current time: ","");
 		return time;
 	}
-
+	
 	/**
-	 * [EN] This method clicks the time line container displayed in the bottom of main window
-	 * @return Schedule Page
+	 * [YA] This method clicks Schedule button and waits until timeline is displayed
+	 * @return
 	 */
-	public SchedulePage clickTimelineContainer() {
-		timelineContainer.click();
+	public SchedulePage clickScheduleBtn() {
+		wait.until(ExpectedConditions.visibilityOf(timelineContainer));
+		scheduleBtn.click();
 		return new SchedulePage();
 	}
-
+		
 	/**
 	 * [EN] Return the current time displayed in the top of main window.
 	 * @return
