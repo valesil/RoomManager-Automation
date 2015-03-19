@@ -264,4 +264,13 @@ public class HomePage {
 		nowTileLbl.click();
 		return new SchedulePage();
 	}
+	
+	/**
+	 * [EN] This method clicks the time line container displayed in the bottom of main window
+	 * @return Schedule Page
+	 */
+	public SchedulePage clickTimelineContainer() {
+		timelineContainer.click();
+		return new SchedulePage();
+	}
 }
