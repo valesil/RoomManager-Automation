@@ -22,4 +22,5 @@ public final class MessageConstants {
 	public static final String MEETING_SUBJECT_REQUIERED = "Subject is required";
 	public static final String MEETING_ORGANIZER_REQUIRED = "Organizer is required";
 	public static final String MEETING_ATTENDEES_REQUIRED = "Attendees are required";
+	public static final String MEETING_TIME_STARTEND = "Start time must be smaller than end time";
 }

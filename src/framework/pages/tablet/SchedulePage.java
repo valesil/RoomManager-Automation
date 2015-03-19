@@ -8,6 +8,7 @@ import static framework.common.MessageConstants.MEETING_ORGANIZER_REQUIRED;
 import static framework.common.MessageConstants.MEETING_REMOVED;
 import static framework.common.MessageConstants.MEETING_SUBJECT_REQUIERED;
 import static framework.common.MessageConstants.MEETING_UPDATED;
+import static framework.common.MessageConstants.MEETING_TIME_STARTEND;
 import static framework.utils.TimeManager.getTimeElement;
 
 import org.openqa.selenium.By;
@@ -369,6 +370,14 @@ public class SchedulePage {
 		return getMessagePopUpValue(MEETING_REMOVED);
 	}
 	
+	/**
+	 * [JC] This method gets the error message when start time is less than end time
+	 * @return boolean
+	 */
+	public boolean isMessageOfTimeErrorDisplayed() {
+		return getAnyErrorMessageLbl(MEETING_TIME_STARTEND);
+	}
+
 	/**
 	 * [AC] This method gets the error message when something bad happens
 	 * @return boolean
