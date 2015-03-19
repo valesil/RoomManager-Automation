@@ -484,7 +484,7 @@ public class SchedulePage {
 	 * [EN] Return start time value of a meeting selected
 	 * @return start time value displayed on "From" text box.
 	 */
-	public String getStartTimeTxtBoxValue(){
+	public String getStartTimeTxtBoxValue() {
 		return startTimeTxtBox.getAttribute("value");
 	}
 	
@@ -492,7 +492,7 @@ public class SchedulePage {
 	 * [EN] Return end time value of a meeting selected
 	 * @return end time value displayed on "To" text box.
 	 */
-	public String getEndTimeTxtBoxValue(){
+	public String getEndTimeTxtBoxValue() {
 		return endTimeTxtBox.getAttribute("value");
 	}
 	
@@ -507,13 +507,13 @@ public class SchedulePage {
 	 * @return
 	 */
 	public SchedulePage createMeeting(String organizer, String subject, String startTime, 
-			String endTime, String attendees, String body) {
+			String endTime, String attendees, String bodyMeeting) {
 		setOrganizerTxtBox(organizer);
 		setSubjectTxtBox(subject);
 		setStartTimeDate(startTime);
 		setEndTimeDate(endTime);
 		setAttendeeTxtBox(attendees);
-		setBodyTxtBox(body);
+		setBodyTxtBox(bodyMeeting);
 		return clickCreateBtn();
 	}
 	
