@@ -73,7 +73,7 @@ public class SchedulePage {
 	@FindBy(xpath = "//span[contains(text(),'Update')]")
 	WebElement updateBtn;
 	
-	@FindBy(xpath = "//div[@class='currenttime']")
+	@FindBy(css = "css=div.currenttime")
 	WebElement currentTimeLine;
 	
 	@FindBy(xpath = "//span[@ng-click='goToSearch()']")
@@ -105,7 +105,7 @@ public class SchedulePage {
 	
 	/**
 	 * [AC] Clear the content of the textBox and set the new value to an organizer
-	 * @param organizer
+	 * @param organizer: new value to set
 	 * @return
 	 */
 	public SchedulePage setOrganizerTxtBox(String organizer) {
@@ -280,10 +280,18 @@ public class SchedulePage {
 		searchBtn.click();
 		return new SearchPage();
 	}
-
+	
+	/**
+	 * [AC] This method get the value of a label from title page
+	 * @return
+	 */
+	public String getTitleOfPageValue() {
+		return titleSchedulerLbl.getText();
+	}
+	
 	/**
 	 * [AC] This method search a meeting and return the name of that
-	 * @param nameMeeting
+	 * @param nameMeeting: name of a meeting to search
 	 * @return
 	 */
 	public String getNameMeetingCreatedValue(String nameMeeting) {
@@ -455,7 +463,7 @@ public class SchedulePage {
 	
 	/**
 	 * [YA]This method verifies Out Of Order is displayed in Scheduler's Timeline
-	 * @param title
+	 * @param title: Out Of Order's Title
 	 * @return
 	 */
 	public boolean isOutOfOrderBoxDisplayed(String title) {
@@ -475,22 +483,39 @@ public class SchedulePage {
 	}
 
 	/**
+	 * [EN] Return start time value of a meeting selected
+	 * @return start time value displayed on "From" text box.
+	 */
+	public String getStartTimeTxtBoxValue() {
+		return startTimeTxtBox.getAttribute("value");
+	}
+	
+	/**
+	 * [EN] Return end time value of a meeting selected
+	 * @return end time value displayed on "To" text box.
+	 */
+	public String getEndTimeTxtBoxValue() {
+		return endTimeTxtBox.getAttribute("value");
+	}
+	
+	/**
 	 * [EN] This method setting the values to created a meeting.
 	 * @param organizer
 	 * @param subject
 	 * @param startTime hh:mm a
 	 * @param endTime  hh:mm a
 	 * @param attendees
+	 * @param bodyMeeting
 	 * @return
 	 */
 	public SchedulePage createMeeting(String organizer, String subject, String startTime, 
-			String endTime, String attendees, String body) {
+			String endTime, String attendees, String bodyMeeting) {
 		setOrganizerTxtBox(organizer);
 		setSubjectTxtBox(subject);
 		setStartTimeDate(startTime);
 		setEndTimeDate(endTime);
 		setAttendeeTxtBox(attendees);
-		setBodyTxtBox(body);
+		setBodyTxtBox(bodyMeeting);
 		return clickCreateBtn();
 	}
 	
