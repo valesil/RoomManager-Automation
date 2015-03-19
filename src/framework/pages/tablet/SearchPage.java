@@ -19,6 +19,7 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Wait;
 
+import framework.common.UIMethods;
 import framework.selenium.SeleniumDriverManager;
 
 /**
@@ -31,6 +32,7 @@ public class SearchPage {
 	private WebDriver driver;
 	@SuppressWarnings("rawtypes")
 	private Wait wait;
+	UIMethods uiMethods = new UIMethods();
 
 	@FindBy(xpath = "//span[@ng-click='goBack()']")
 	WebElement backBtn;
@@ -289,7 +291,8 @@ public class SearchPage {
 	 * @return
 	 */
 	public boolean isOutOfOrderBoxDisplayed(String title){
-		return driver.findElement(By.xpath("//div[contains(text(),'" + title + "')]")).isDisplayed();
+		By outOfOrderBoxLocator = By.xpath("//div[contains(text(),'" + title + "')]");
+		return uiMethods.isElementPresent(outOfOrderBoxLocator);
 	}
 	
 	/**

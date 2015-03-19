@@ -184,10 +184,10 @@ public class HomePage {
 	 * @param amount
 	 * @return
 	 */
-	public boolean isAssociatedResource(String resourceName, String amount) {
+	public boolean isResourceAssociated(String resourceName, String amount) {
 		
 		//this condition call other methods to verify if a elements are present in the tablet
-		if (isDisplayedResourceQuantity(amount)&&isDisplayedResourceName(resourceName))
+		if (isResourceQuantityDisplayed(amount)&&isResourceNameDisplayed(resourceName))
 			return true;
 		else
 			return false;
@@ -199,7 +199,7 @@ public class HomePage {
 	 * @param amount
 	 * @return
 	 */
-	private boolean isDisplayedResourceQuantity(String amount) {
+	private boolean isResourceQuantityDisplayed(String amount) {
 		return driver.findElement(By.xpath("//div[contains(text(),'"+ amount +
 				"')and@ng-bind='resource.quantity']")).isDisplayed();
 	}
@@ -210,12 +210,12 @@ public class HomePage {
 	 * @param resourceDisplayName
 	 * @return
 	 */
-	private boolean isDisplayedResourceName(String resourceDisplayName) {
+	private boolean isResourceNameDisplayed(String resourceDisplayName) {
 		return driver.findElement(By.xpath("//div[contains(text(),'"+resourceDisplayName+
 				"')and@ng-bind='resource.name']")).isDisplayed();
 	}
 
-	public boolean isDisplayedHomePage() {
+	public boolean isHomePageDisplayed() {
 		return scheduleBtn.isDisplayed();
 	}
 
