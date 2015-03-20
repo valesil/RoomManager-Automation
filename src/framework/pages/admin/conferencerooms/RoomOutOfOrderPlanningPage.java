@@ -405,4 +405,5 @@ public class RoomOutOfOrderPlanningPage extends RoomBaseAbstractPage {
 		return isErrorMessageCorrect(OUT_OF_ORDER_SHOULD_HAVE_A_TITLE);
 	}
 	
+
 }

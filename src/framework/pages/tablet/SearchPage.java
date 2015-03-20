@@ -282,13 +282,24 @@ public class SearchPage {
 	}
 	
 	/**
-	 * [YA]This method verifies if an Out Of Order is displayed in Search timeline
+	 * [YA]This method verifies if an Out Of Order is displayed
 	 * @param title: Out Of Order Title
 	 * @return
 	 */
-	public boolean isOutOfOrderBoxDisplayed(String title){
-		By outOfOrderBoxLocator = By.xpath("//div[contains(text(),'" + title + "')]");
-		return uiMethods.isElementPresent(outOfOrderBoxLocator);
+	public boolean isOutOfOrderBoxDisplayed(String title) {
+		return isMeetingBoxDisplayed(title);
 	}
+	
+	/**
+	 * [YA]This method verifies if a Meeting BOx is displayed
+	 * @param meetingSubject: Meeting Subject
+	 * @return
+	 */
+	public boolean isMeetingBoxDisplayed(String meetingSubject) {
+		By outOfOrderBoxLocator = By.xpath("//div[contains(text(),'" + meetingSubject + "')]");
+		return uiMethods.isElementPresent(outOfOrderBoxLocator); 
+	}
+	
+	
 }
 

@@ -102,8 +102,8 @@ public class RoomsPage extends AbstractMainMenu {
 	 * @return boolean
 	 */
 	private boolean isMessageCorrect(String message) {
-		return driver.findElement(By.xpath("//div[contains(text(),'" 
-				+ message + "')]")).isDisplayed();
+		return UI.isElementPresent(By.xpath("//div[contains(text(),'" 
+				+ message + "')]"));
 	}
 	
 	/**
@@ -160,5 +160,11 @@ public class RoomsPage extends AbstractMainMenu {
 	public boolean stateEnableDisableBtn(String roomName) {
 		return driver.findElement(By.xpath("//span[contains(text(),'" + roomName +
 				"')]//ancestor::div[@ng-click='row.toggleSelected($event)']//span")).isEnabled();
+	}
+	
+	public RoomsPage waitForMessage() {
+		wait.until(ExpectedConditions.visibilityOf(messagePopUp));
+		messagePopUp.click();
+		return this;
 	}
 }

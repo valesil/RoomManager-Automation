@@ -10,6 +10,7 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import framework.common.UIMethods;
 import framework.selenium.SeleniumDriverManager;
 
 /**
@@ -22,6 +23,7 @@ import framework.selenium.SeleniumDriverManager;
 public class HomePage {
 	private WebDriver driver;
 	private WebDriverWait wait;
+	UIMethods uiMethods = new UIMethods();
 
 	@FindBy(xpath = "//div[@ng-bind='current._title']")
 	WebElement nowTileLbl;
@@ -254,5 +256,14 @@ public class HomePage {
 		wait.until(ExpectedConditions.visibilityOf(timelineContainer));
 		scheduleBtn.click();
 		return new SchedulePage();
+	}
+	
+	/**
+	 * [YA] This method verifies if timeline container is displayed
+	 * @return
+	 */
+	public boolean isTimelineContainerPresent() {
+		By timelineContainerLocator = By.id("timeline-container");
+		return uiMethods.isElementPresent(timelineContainerLocator);
 	}
 }

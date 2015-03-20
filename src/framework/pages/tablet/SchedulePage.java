@@ -22,6 +22,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import framework.common.UIMethods;
 import framework.selenium.SeleniumDriverManager;
+import framework.utils.TimeManager;
 
 /**
  * Description: This class contains all locators of the schedule page and contain
@@ -462,16 +463,6 @@ public class SchedulePage {
 	}
 	
 	/**
-	 * [YA]This method verifies Out Of Order is displayed in Scheduler's Timeline
-	 * @param title: Out Of Order's Title
-	 * @return
-	 */
-	public boolean isOutOfOrderBoxDisplayed(String title) {
-		By outOfORderBoxLocator = By.xpath("//span[contains(text(),'" + title + "')]");
-		return uIMethods.isElementPresent(outOfORderBoxLocator);	
-	}
-	
-	/**
 	 * [EN] This method confirm the credentials inserted by the user
 	 * @param name
 	 * @param password
@@ -545,5 +536,53 @@ public class SchedulePage {
 	public boolean isMeetingBoxDisplayed(String nameMeeting) {
 		By meetingBoxLocator = By.xpath("//span[contains(text(),'" + nameMeeting + "')]");
 		return uIMethods.isElementPresent(meetingBoxLocator);
+	}
+	
+	/**
+	 * [YA]This method verifies Out Of Order is displayed in Scheduler's Timeline
+	 * @param title: Out Of Order's Title
+	 * @return
+	 */
+	public boolean isOutOfOrderBoxDisplayed(String title) {
+		return isMeetingBoxDisplayed(title);	
+	}
+	
+	/**
+	 * [YA]This method creates a meeting with required information adding minutes to current time
+	 * @param organizer: Organizer name
+	 * @param subject: Meeting's subject
+	 * @param starTimeMinutes: Minutes to add or subtract to current time to get startTime
+	 * @param endTimeMinutes: Minutes to add or subtract to current time to get endTime
+	 * @param attendee: Attendees for the meeting
+	 * @param password: Organizer's password
+	 * @throws InterruptedException 
+	 */
+	public SchedulePage createMeetingRequiredInformation(String organizer, String subject, String starTimeMinutes,
+			String endTimeMinutes, String attendee, String password) {
+		String startTime = TimeManager.getTime(Integer.parseInt(starTimeMinutes), "hh:mm a");
+		String endTime = TimeManager.getTime(Integer.parseInt(endTimeMinutes), "hh:mm a");
+		setOrganizerTxtBox(organizer);
+		setSubjectTxtBox(subject);
+		setStartTimeDate(startTime);
+		setEndTimeDate(endTime);
+		setAttendeeTxtBox(attendee);	
+		clickCreateBtn();
+		confirmCredentials(password).isMessageMeetingCreatedDisplayed();
+		return this;
+	}
+	
+	/**
+	 * [AC] This method deletes a meeting
+	 * @param nameMeeting: name of meeting to delete
+	 * @param password: Organizer's password
+	 * @return: This page, to use the same method repeated times
+	 */
+	public SchedulePage deleteMeeting(String nameMeeting, String password) {
+		clickOverMeetingCreated(nameMeeting);
+		clickRemoveBtn();
+		setPasswordTxtBox(password);
+		clickOkButton();
+		isMessageMeetingDeletedDisplayed();
+		return this;
 	}
 }

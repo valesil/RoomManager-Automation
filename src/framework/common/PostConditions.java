@@ -5,6 +5,7 @@ import static framework.common.AppConfigConstants.EXCEL_INPUT_DATA;
 import java.util.List;
 import java.util.Map;
 
+import framework.pages.tablet.HomePage;
 import framework.pages.tablet.SchedulePage;
 import framework.utils.readers.ExcelReader;
 
@@ -17,6 +18,7 @@ public class PostConditions {
 	private SchedulePage schedule;
 	private ExcelReader excelReader;
 	private List<Map<String, String>> meetingData;
+	HomePage home = new HomePage();
 	
 	/**
 	 * [AC] This method is to initialize the listMaps to read from the excel
@@ -37,17 +39,14 @@ public class PostConditions {
 	 * @param nameMeeting: name of meeting to delete
 	 * @return: This page, to use the same method repeated times
 	 */
-	public PostConditions deleteMeeting(String nameMeeting, String password) {
-		schedule
-				.clickOverMeetingCreated(nameMeeting)
-				.clickRemoveBtn()
-				.setPasswordTxtBox(password)
-				.clickOkButton()
-				.isMessageMeetingDeletedDisplayed();
-		return this;
+	public SchedulePage deleteMeetingFromHome(String nameMeeting, String password) {
+		home.getHome().clickScheduleBtn()
+		.deleteMeeting(nameMeeting, password);
+		return new SchedulePage();
 	}
 	
 	public void goHome() {
 		schedule.clickBackBtn();
 	}
+	
 }
