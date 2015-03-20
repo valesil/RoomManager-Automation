@@ -31,6 +31,7 @@ public class SearchPage {
 	private WebDriver driver;
 	@SuppressWarnings("rawtypes")
 	private Wait wait;
+	UIMethods uiMethods = new UIMethods();
 
 	@FindBy(xpath = "//span[@ng-click='goBack()']")
 	WebElement backBtn;
@@ -59,10 +60,13 @@ public class SearchPage {
 	@FindBy(xpath = "//div[@class='currenttime']")
 	WebElement timeLine;
 	
+	@FindBy(xpath = "//span[contains(text(),'Search')]")
+	WebElement searchLbl;
+	
 	public SearchPage() {
 		this.driver = SeleniumDriverManager.getManager().getDriver();
 		PageFactory.initElements(driver, this);
-		wait=SeleniumDriverManager.getManager().getWait();
+		wait = SeleniumDriverManager.getManager().getWait();
 	}
 	
 	/**
@@ -285,9 +289,17 @@ public class SearchPage {
 	 * @param title: Out Of Order Title
 	 * @return
 	 */
-	public boolean isOutOfOrderBoxDisplayed(String title){
+	public boolean isOutOfOrderBoxDisplayed(String title) {
 		By outOfOrderBoxLocator = By.xpath("//div[contains(text(),'" + title + "')]");
 		return UIMethods.isElementPresent(outOfOrderBoxLocator);
+	}
+	
+	/**
+	 * [EN] This method verifies if the search title label is displayed in the page
+	 * @return
+	 */
+	public boolean isSearchLblDisplayed() {			
+			return searchLbl.isDisplayed();
 	}
 }
 
