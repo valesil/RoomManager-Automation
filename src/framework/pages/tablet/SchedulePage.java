@@ -7,8 +7,8 @@ import static framework.common.MessageConstants.MEETING_ERROR;
 import static framework.common.MessageConstants.MEETING_ORGANIZER_REQUIRED;
 import static framework.common.MessageConstants.MEETING_REMOVED;
 import static framework.common.MessageConstants.MEETING_SUBJECT_REQUIERED;
-import static framework.common.MessageConstants.MEETING_UPDATED;
 import static framework.common.MessageConstants.MEETING_TIME_STARTEND;
+import static framework.common.MessageConstants.MEETING_UPDATED;
 import static framework.utils.TimeManager.getTimeElement;
 
 import org.openqa.selenium.By;
@@ -506,50 +506,20 @@ public class SchedulePage {
 	 * @param endTime  hh:mm a
 	 * @param attendees
 	 * @param bodyMeeting
-	 * @param password
 	 * @return
 	 */
 	public SchedulePage createMeeting(String organizer, String subject, String startTime, 
-			String endTime, String attendees, String bodyMeeting, String password) {
+			String endTime, String attendees, String bodyMeeting) {
 		setOrganizerTxtBox(organizer);
 		setSubjectTxtBox(subject);
 		setStartTimeDate(startTime);
 		setEndTimeDate(endTime);
 		setAttendeeTxtBox(attendees);
 		setBodyTxtBox(bodyMeeting);
-		clickCreateBtn();
-		confirmCredentials(password);
-		isMessageMeetingCreatedDisplayed();
-		return this;
+		return clickCreateBtn();
 	}
 
-	/**
-	 * [EN] Overload of createMetting method, where body meeting is optional.
-	 * @param organizer
-	 * @param subject
-	 * @param minutesFrom minutes number to add/subtract of current time to set in {From} text box.
-	 * @param minutesTo minutes number to add/subtract of current time to set in {To} text box.
-	 * @param attendee
-	 * @param password
-	 * @return
-	 */
-	public SchedulePage createMeeting(String organizer, String subject, int minutesFrom, 
-			int minutesTo, String attendee, String password) {
-
-		String startTime = TimeManager.getTime(minutesFrom, "hh:mm a");
-		String endTime = TimeManager.getTime(minutesTo, "hh:mm a");
-
-		setOrganizerTxtBox(organizer);
-		setSubjectTxtBox(subject);
-		setStartTimeDate(startTime);
-		setEndTimeDate(endTime);
-		setAttendeeTxtBox(attendee);
-		clickCreateBtn();	
-		confirmCredentials(password);
-		isMessageMeetingCreatedDisplayed();
-		return this;
-	}
-
+	
 	/**
 	 * [JC] This method verify if the label scheduler is displayed
 	 * @return

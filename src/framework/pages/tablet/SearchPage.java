@@ -115,8 +115,8 @@ public class SearchPage {
 	 * @return true or false
 	 */
 	public boolean roomIsDiplayed(String roomDisplayName) {
-		return driver.findElement(By.xpath("//button[contains(text(),'" + roomDisplayName 
-				+ "')and@class='ng-scope']")).isDisplayed();
+		return UIMethods.isElementPresent(By.xpath("//button[contains(text(),'" + roomDisplayName 
+				+ "')and@class='ng-scope']"));
 	}
 
 	/**
