@@ -14,20 +14,15 @@ import framework.selenium.SeleniumDriverManager;
  *
  */
 public class UIMethods {
-	private WebDriver driver;	
-	private Actions action;
+	static WebDriver driver = SeleniumDriverManager.getManager().getDriver();	
 
-	public UIMethods() {
-		driver = SeleniumDriverManager.getManager().getDriver();
-		action = new Actions(driver);
-	}
-
-	public void doubleClick(WebElement webElement) {
+	public static void doubleClick(WebElement webElement) {
+		Actions action = new Actions(driver);
 		action.doubleClick(webElement);
 		action.perform();
 	}
-	
-	public boolean isElementPresent(By element) {
+
+	public static boolean isElementPresent(By element) {
 		boolean present;
 		try {			
 			driver.findElement(element);
@@ -38,7 +33,7 @@ public class UIMethods {
 		return present;
 	}
 	
-	public void refresh() {
+	public static void refresh() {
 		driver.navigate().refresh();
 	}
 }

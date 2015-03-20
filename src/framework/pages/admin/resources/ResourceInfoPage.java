@@ -1,6 +1,8 @@
 package framework.pages.admin.resources;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import framework.common.UIMethods;
@@ -12,7 +14,9 @@ import framework.selenium.SeleniumDriverManager;
  */
 public class ResourceInfoPage extends ResourceBaseAbstractPage {	
 	UIMethods uiMethod = new UIMethods();
-
+	@FindBy(linkText = "Resource Associations") 
+	WebElement resourceAssociationsLink;
+	
 	public ResourceInfoPage() {		
 		driver = SeleniumDriverManager.getManager().getDriver();
 		wait = SeleniumDriverManager.getManager().getWait();
@@ -52,5 +56,14 @@ public class ResourceInfoPage extends ResourceBaseAbstractPage {
 	public boolean getResourceIcon(String iconTitle) {
 		return driver.findElement(By.xpath(".//*[@id='resourcesGrid']/descendant::*/span[@class='fa " +
 				iconTitle + "']")).isDisplayed();
+	}
+
+	/**
+	 * [ML]Click in resourceAssociationLink
+	 * @return ResourceAssociationPage
+	 */
+	public ResourceAssociationsPage clickResourceAssociationLink() {
+		resourceAssociationsLink.click();
+		return new ResourceAssociationsPage();
 	}
 }

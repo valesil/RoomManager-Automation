@@ -1,9 +1,13 @@
 package framework.pages.admin.resources;
 
+import static framework.common.UIMethods.doubleClick;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+
 import framework.common.UIMethods;
 import framework.pages.admin.AbstractMainMenu;
 
@@ -12,7 +16,7 @@ import framework.pages.admin.AbstractMainMenu;
  *
  */
 public class ResourcesPage extends AbstractMainMenu{
-	UIMethods uiMethod = new UIMethods();
+	
 	@FindBy(xpath = "//div[@class='pull-left']/button[@ng-click='addResourceDialog()']") 
 	WebElement addResourceBtn;
 
@@ -21,7 +25,20 @@ public class ResourcesPage extends AbstractMainMenu{
 
 	@FindBy(id = "btnRemove")
 	WebElement removeBtn;
-
+	
+	@FindBy(xpath = "//div[@class='ngPagerLastTriangle']")
+	WebElement lastPageBtn;
+	
+	@FindBy(xpath = "//div[@class='ngPagerFirstTriangle ngPagerPrevTriangle']")
+	WebElement previousPageBtn;
+	
+	@FindBy(xpath = "//div[@class='ngPagerLastTriangle ngPagerNextTriangle']")
+	WebElement nextPageBtn;
+	
+	public ResourcesPage() {
+		PageFactory.initElements(driver, this);
+	}
+	
 	/**
 	 * [ML]Click on "+Add" resource button	
 	 * @return
@@ -41,7 +58,7 @@ public class ResourcesPage extends AbstractMainMenu{
 	public ResourceInfoPage openResourceInfoPage(String resourceNameToSearch) throws InterruptedException {	
 		waitForMaskDisappears();
 		WebElement resourceName = driver.findElement(By.xpath("//span[contains(text(),'" + resourceNameToSearch + "')]"));
-		uiMethod.doubleClick(resourceName);
+		doubleClick(resourceName);
 		return new ResourceInfoPage();
 	}		
 
@@ -87,8 +104,9 @@ public class ResourcesPage extends AbstractMainMenu{
 	 * @return
 	 */	
 	public boolean isResourceNameDisplayedInResourcesPage(String resourceName) {
-		return driver.findElement(By.xpath("//div[@id='resourcesGrid']/div[2]/descendant::*/span[contains(text(),'"
-				+ resourceName + "')]")).isDisplayed();
+		By resource = By.xpath("//div[@id='resourcesGrid']/div[2]/descendant::*/span[contains(text(),'"
+				+ resourceName + "')]");
+		return UIMethods.isElementPresent(resource);
 	}
 
 	/**
@@ -128,13 +146,20 @@ public class ResourcesPage extends AbstractMainMenu{
 	 * [CG]Method that clicks "previous triangle icon" to see the previous resources
 	 */
 	public void clickPreviousTriangleIcon() {
-		driver.findElement(By.xpath("//div[@class='ngPagerFirstTriangle ngPagerPrevTriangle']")).click();
+		previousPageBtn.click();
 	}
 	
 	/**
-	 * [CG]Method that clicks "Next triangle icon" to see the previous resources
+	 * [CG]Method that clicks "Next triangle icon" to see the next resources
 	 */
 	public void clickNextTriangleIcon() {
-		driver.findElement(By.xpath("//div[@class='ngPagerLastTriangle ngPagerNextTriangle']")).click();
+		nextPageBtn.click();
+	}
+	
+	/**
+	 * [CG]Method that clicks "Last Page triangle icon" to see the last resources
+	 */
+	public void clickLastPageTriangleIcon() {
+		lastPageBtn.click();
 	}
 }

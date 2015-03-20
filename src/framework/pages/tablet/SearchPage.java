@@ -60,10 +60,13 @@ public class SearchPage {
 	@FindBy(xpath = "//div[@class='currenttime']")
 	WebElement timeLine;
 	
+	@FindBy(xpath = "//span[contains(text(),'Search')]")
+	WebElement searchLbl;
+	
 	public SearchPage() {
 		this.driver = SeleniumDriverManager.getManager().getDriver();
 		PageFactory.initElements(driver, this);
-		wait=SeleniumDriverManager.getManager().getWait();
+		wait = SeleniumDriverManager.getManager().getWait();
 	}
 	
 	/**
@@ -112,8 +115,8 @@ public class SearchPage {
 	 * @return true or false
 	 */
 	public boolean roomIsDiplayed(String roomDisplayName) {
-		return driver.findElement(By.xpath("//button[contains(text(),'" + roomDisplayName 
-				+ "')and@class='ng-scope']")).isDisplayed();
+		return UIMethods.isElementPresent(By.xpath("//button[contains(text(),'" + roomDisplayName 
+				+ "')and@class='ng-scope']"));
 	}
 
 	/**
@@ -286,9 +289,17 @@ public class SearchPage {
 	 * @param title: Out Of Order Title
 	 * @return
 	 */
-	public boolean isOutOfOrderBoxDisplayed(String title){
+	public boolean isOutOfOrderBoxDisplayed(String title) {
 		By outOfOrderBoxLocator = By.xpath("//div[contains(text(),'" + title + "')]");
-		return uiMethods.isElementPresent(outOfOrderBoxLocator);
+		return UIMethods.isElementPresent(outOfOrderBoxLocator);
+	}
+	
+	/**
+	 * [EN] This method verifies if the search title label is displayed in the page
+	 * @return
+	 */
+	public boolean isSearchLblDisplayed() {			
+			return searchLbl.isDisplayed();
 	}
 }
 
