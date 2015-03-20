@@ -23,8 +23,7 @@ import framework.selenium.SeleniumDriverManager;
 public class HomePage {
 	private WebDriver driver;
 	private WebDriverWait wait;
-	UIMethods uiMethods = new UIMethods();
-
+	
 	@FindBy(xpath = "//div[@ng-bind='current._title']")
 	WebElement nowTileLbl;
 
@@ -264,6 +263,6 @@ public class HomePage {
 	 */
 	public boolean isTimelineContainerPresent() {
 		By timelineContainerLocator = By.id("timeline-container");
-		return uiMethods.isElementPresent(timelineContainerLocator);
+		return UIMethods.isElementPresent(timelineContainerLocator);
 	}
 }

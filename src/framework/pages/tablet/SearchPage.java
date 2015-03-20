@@ -287,7 +287,7 @@ public class SearchPage {
 	 */
 	public boolean isOutOfOrderBoxDisplayed(String title) {
 		return isMeetingBoxDisplayed(title);
-		return UIMethods.isElementPresent(outOfOrderBoxLocator);
+	}
 	
 	/**
 	 * [YA]This method verifies if a Meeting BOx is displayed
@@ -295,8 +295,8 @@ public class SearchPage {
 	 * @return
 	 */
 	public boolean isMeetingBoxDisplayed(String meetingSubject) {
-		By outOfOrderBoxLocator = By.xpath("//div[contains(text(),'" + meetingSubject + "')]");
-		return uiMethods.isElementPresent(outOfOrderBoxLocator); 
+		By meetingBoxLocator = By.xpath("//div[contains(text(),'" + meetingSubject + "')]");
+		return UIMethods.isElementPresent(meetingBoxLocator); 
 	}
 	
 	

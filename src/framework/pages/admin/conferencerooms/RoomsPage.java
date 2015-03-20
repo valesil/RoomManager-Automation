@@ -101,7 +101,7 @@ public class RoomsPage extends AbstractMainMenu {
 	 * @return boolean
 	 */
 	private boolean isMessageCorrect(String message) {
-		return UI.isElementPresent(By.xpath("//div[contains(text(),'" 
+		return UIMethods.isElementPresent(By.xpath("//div[contains(text(),'" 
 				+ message + "')]"));
 	}
 	
@@ -161,10 +161,16 @@ public class RoomsPage extends AbstractMainMenu {
 				"')]//ancestor::div[@ng-click='row.toggleSelected($event)']//span")).isEnabled();
 	}
 	
+	/**
+	 * [YA] This method waits for any message to be displayed and clicks it
+	 * @return
+	 */
 	public RoomsPage waitForMessage() {
 		wait.until(ExpectedConditions.visibilityOf(messagePopUp));
 		messagePopUp.click();
 		return this;
+	}
+	
 	/**
 	 * [CG]Method that returns the resource value from resources grid
 	 * @param resourceName
