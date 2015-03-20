@@ -3,13 +3,15 @@ package framework.pages.admin.conferencerooms;
 import org.openqa.selenium.By;
 import framework.common.UIMethods;
 
+import framework.common.UIMethods;
+
 /**
  * 
- * @author Carlos Guevara
+ * @author Juan Carlos Guevara
  *
  */
 public class RoomResourceAssociationsPage extends RoomBaseAbstractPage {
-	UIMethods uiMethods;
+	
 	/**
 	 * [CG]Button that allows to add an available resource to be associated to the room
 	 * @param resourceName
@@ -73,13 +75,8 @@ public class RoomResourceAssociationsPage extends RoomBaseAbstractPage {
 	 * @return
 	 */
 	public boolean searchResource(String resourceName) {
-		try {
-			return driver.findElement(By.xpath("//span[contains(text(),'" + resourceName +
-					"')and@class='ng-binding']")).isDisplayed();	
-		}
-		catch (Exception e) {
-			return false;
-		}
+			return UIMethods.isElementPresent(By.xpath("//span[contains(text(),'" + resourceName +
+				"')and@class='ng-binding']"));	
 	}
 	/**
 	 * [ML]Method that returns boolean if a resource displayed name exist in RoomResourceAssociationsPage 
