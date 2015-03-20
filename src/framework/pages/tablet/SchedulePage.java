@@ -7,8 +7,8 @@ import static framework.common.MessageConstants.MEETING_ERROR;
 import static framework.common.MessageConstants.MEETING_ORGANIZER_REQUIRED;
 import static framework.common.MessageConstants.MEETING_REMOVED;
 import static framework.common.MessageConstants.MEETING_SUBJECT_REQUIERED;
-import static framework.common.MessageConstants.MEETING_UPDATED;
 import static framework.common.MessageConstants.MEETING_TIME_STARTEND;
+import static framework.common.MessageConstants.MEETING_UPDATED;
 import static framework.utils.TimeManager.getTimeElement;
 
 import org.openqa.selenium.By;
@@ -32,7 +32,6 @@ import framework.selenium.SeleniumDriverManager;
 public class SchedulePage {
 	private WebDriver driver;
 	private WebDriverWait wait;
-	UIMethods uIMethods = new UIMethods();
 	
 	@FindBy(xpath = "//span[contains(text(),'Scheduler')]")
 	WebElement titleSchedulerLbl;
@@ -469,7 +468,7 @@ public class SchedulePage {
 	 */
 	public boolean isOutOfOrderBoxDisplayed(String title) {
 		By outOfORderBoxLocator = By.xpath("//span[contains(text(),'" + title + "')]");
-		return uIMethods.isElementPresent(outOfORderBoxLocator);	
+		return UIMethods.isElementPresent(outOfORderBoxLocator);	
 	}
 	
 	/**
@@ -545,7 +544,7 @@ public class SchedulePage {
 	 */
 	public boolean isMeetingBoxDisplayed(String nameMeeting) {
 		By meetingBoxLocator = By.xpath("//span[contains(text(),'" + nameMeeting + "')]");
-		return uIMethods.isElementPresent(meetingBoxLocator);
+		return UIMethods.isElementPresent(meetingBoxLocator);
 	}
 	
 	/**

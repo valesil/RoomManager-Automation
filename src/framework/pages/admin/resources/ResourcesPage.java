@@ -24,7 +24,16 @@ public class ResourcesPage extends AbstractMainMenu{
 
 	@FindBy(id = "btnRemove")
 	WebElement removeBtn;
-
+	
+	@FindBy(xpath = "//div[@class='ngPagerLastTriangle']")
+	WebElement lastPageBtn;
+	
+	@FindBy(xpath = "//div[@class='ngPagerFirstTriangle ngPagerPrevTriangle']")
+	WebElement previousPageBtn;
+	
+	@FindBy(xpath = "//div[@class='ngPagerLastTriangle ngPagerNextTriangle']")
+	WebElement nextPageBtn;
+	
 	public ResourcesPage() {
 		PageFactory.initElements(driver, this);
 	}
@@ -136,20 +145,20 @@ public class ResourcesPage extends AbstractMainMenu{
 	 * [CG]Method that clicks "previous triangle icon" to see the previous resources
 	 */
 	public void clickPreviousTriangleIcon() {
-		driver.findElement(By.xpath("//div[@class='ngPagerFirstTriangle ngPagerPrevTriangle']")).click();
+		previousPageBtn.click();
 	}
 	
 	/**
 	 * [CG]Method that clicks "Next triangle icon" to see the next resources
 	 */
 	public void clickNextTriangleIcon() {
-		driver.findElement(By.xpath("//div[@class='ngPagerLastTriangle ngPagerNextTriangle']")).click();
+		nextPageBtn.click();
 	}
 	
 	/**
 	 * [CG]Method that clicks "Last Page triangle icon" to see the last resources
 	 */
 	public void clickLastPageTriangleIcon() {
-		driver.findElement(By.xpath("//div[@class='ngPagerLastTriangle']")).click();
+		lastPageBtn.click();
 	}
 }
