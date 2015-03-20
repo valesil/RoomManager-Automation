@@ -8,7 +8,6 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import framework.common.UIMethods;
 import framework.pages.admin.conferencerooms.RoomsPage;
 import framework.pages.admin.resources.ResourcesPage;
 import framework.selenium.SeleniumDriverManager;
@@ -21,7 +20,6 @@ import framework.selenium.SeleniumDriverManager;
 public abstract class AbstractMainMenu {
 	protected WebDriver driver;	
 	protected WebDriverWait wait;
-	UIMethods uiMethod = new UIMethods();
 	
 	@FindBy(linkText = "Room Manager") 
 	WebElement homeLink;

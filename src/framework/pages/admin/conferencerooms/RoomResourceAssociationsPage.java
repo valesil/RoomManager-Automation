@@ -3,8 +3,6 @@ package framework.pages.admin.conferencerooms;
 import org.openqa.selenium.By;
 import framework.common.UIMethods;
 
-import framework.common.UIMethods;
-
 /**
  * 
  * @author Juan Carlos Guevara
@@ -88,7 +86,7 @@ public class RoomResourceAssociationsPage extends RoomBaseAbstractPage {
 	public boolean getResourceDisplayName(String columnName, String resourceDisplayName) {
 		By resourceDName = By.xpath("//legend[contains(text(),'" + columnName + "')]/parent::div//div[@class='list-group']"
 				+ "//span[@class='ng-binding'][contains(text(),'" + resourceDisplayName + "')]/parent::div");
-		return uiMethods.isElementPresent(resourceDName);
+		return UIMethods.isElementPresent(resourceDName);
 	}
 
 	/**
@@ -99,6 +97,6 @@ public class RoomResourceAssociationsPage extends RoomBaseAbstractPage {
 	public boolean getResourceDisplayNameAvailable(String resourceDisplayName) {
 		By resourceDName = By.xpath("//legend[contains(text(),'Available')]/parent::div//div[@class='list-group']"
 				+ "//span[@class='ng-binding'][contains(text(),'" + resourceDisplayName + "')]");
-		return uiMethods.isElementPresent(resourceDName);
+		return UIMethods.isElementPresent(resourceDName);
 	}
 }

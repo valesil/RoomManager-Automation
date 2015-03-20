@@ -570,4 +570,31 @@ public class SchedulePage {
 				isMessageMeetingDeletedDisplayed();
 				return this;
 	}
+	
+	/**
+	 * [EN] Overload of createMetting method, where body meeting is optional.
+	 * @param organizer
+	 * @param subject
+	 * @param minutesFrom minutes number to add/subtract of current time to set in {From} text box.
+	 * @param minutesTo minutes number to add/subtract of current time to set in {To} text box.
+	 * @param attendee
+	 * @param password
+	 * @return
+	 */
+	public SchedulePage createMeeting(String organizer, String subject, int minutesFrom, 
+			int minutesTo, String attendee, String password) {
+
+		String startTime = TimeManager.getTime(minutesFrom, "hh:mm a");
+		String endTime = TimeManager.getTime(minutesTo, "hh:mm a");
+
+		setOrganizerTxtBox(organizer);
+		setSubjectTxtBox(subject);
+		setStartTimeDate(startTime);
+		setEndTimeDate(endTime);
+		setAttendeeTxtBox(attendee);
+		clickCreateBtn();	
+		confirmCredentials(password);
+		isMessageMeetingCreatedDisplayed();
+		return this;
+	}
 }
