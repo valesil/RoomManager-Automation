@@ -1,12 +1,10 @@
 package framework.pages.admin;
 
 import static framework.common.AppConfigConstants.URL_ADMIN;
-
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-
 import framework.selenium.SeleniumDriverManager;
 
 /**
@@ -37,5 +35,12 @@ public class LoginPage {
 	public HomeAdminPage clickSigninLink() {		
 		signinBtn.click();
 		return new HomeAdminPage();
+	}
+
+	/**
+	 * [ML]This method close browser
+	 */
+	public void CloseWindow() {
+		driver.quit();
 	}
 }
