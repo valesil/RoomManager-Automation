@@ -25,8 +25,8 @@ public class PostConditions {
 	
 	/**
 	 * [AC] This class delete a meeting
-	 * @param nameMeeting: name of meeting to delete
-	 * @return: This page, to use the same method repeated times
+	 * @param nameMeeting
+	 * @return SchedulePage
 	 */
 	public PostConditions deleteMeeting(String nameMeeting, String password) {
 		schedule

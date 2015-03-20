@@ -9,6 +9,7 @@ import static framework.common.MessageConstants.MEETING_REMOVED;
 import static framework.common.MessageConstants.MEETING_SUBJECT_REQUIERED;
 import static framework.common.MessageConstants.MEETING_UPDATED;
 import static framework.common.MessageConstants.MEETING_TIME_STARTEND;
+import static framework.common.MessageConstants.MEETING_ATTENDEES_INVALID;
 import static framework.utils.TimeManager.getTimeElement;
 
 import org.openqa.selenium.By;
@@ -93,6 +94,9 @@ public class SchedulePage {
 	
 	@FindBy(xpath = "//button/span[contains(text(),'Cancel')]")
 	WebElement cancelBtn;
+	
+	@FindBy(xpath = "//div[@class='vispanel center']")
+	WebElement timeLine;
 	
 	/**
 	 * [AC] Get the driver and the wait to use that in this class
@@ -318,6 +322,10 @@ public class SchedulePage {
 		return driver.findElement(By.xpath("//span[contains(text(),'" + emailAttendee + "')]")).getText();
 	}
 	
+	public String getEmailAttendeeTxtBoxValue() {
+		return attendeesTxtBox.getText();
+	}
+	
 	/**
 	 * [AC] This method obtains the value of the textBox from subject
 	 * @return
@@ -419,6 +427,14 @@ public class SchedulePage {
 	 */
 	public boolean isErrorAttendeeDisplayed() {
 		return getAnyErrorMessageLbl(MEETING_ATTENDEES_REQUIRED);
+	}
+	
+	/**
+	 * [AC] This method gets the error label when put invalid attendees
+	 * @return
+	 */
+	public boolean isErrorAttendeeInvalidDisplayed() {
+		return getAnyErrorMessageLbl(MEETING_ATTENDEES_INVALID);
 	}
 	
 	/**
@@ -552,9 +568,39 @@ public class SchedulePage {
 	 * [AC] This method waits until the mask disappears
 	 * @return
 	 */
-	public SchedulePage waitForMaskDisappears() {
+	private void waitForMaskDisappears() {
 		wait.until(ExpectedConditions.invisibilityOfElementLocated(
 				By.xpath("//div[@class='Modal-backdrop ng-scope']")));
+	}
+	
+	/**
+	 * [AC] This method clicks over TimeLine
+	 * @return
+	 */
+	public SchedulePage clickOverTimeline() {
+		timeLine.click();
 		return this;
+	}
+	
+	public int getDurationOfMeetingByDefault() {
+		int resp = 0;
+		String start = getStartTimeTxtBoxValue();
+		String end = getEndTimeTxtBoxValue();
+		int minStart = Integer.parseInt(getTimeElement(start, "minutes"));
+		int minEnd = Integer.parseInt(getTimeElement(end, "minutes"));
+		if(minStart > minEnd) {
+			while(minEnd < minStart) {
+				minEnd++;
+				resp++;
+			}
+			//resp = minStart - 30;
+		} else if(minStart < minEnd) {
+			while(minStart < minEnd) {
+				minStart++;
+				resp++;
+			}
+			//resp = minEnd - 30;
+		}
+		return resp;
 	}
 }
