@@ -21,7 +21,7 @@ public class ResourcesPage extends AbstractMainMenu{
 
 	@FindBy(id = "btnRemove")
 	WebElement removeBtn;
-
+	
 	/**
 	 * [ML]Click on "+Add" resource button	
 	 * @return
@@ -87,8 +87,9 @@ public class ResourcesPage extends AbstractMainMenu{
 	 * @return
 	 */	
 	public boolean isResourceNameDisplayedInResourcesPage(String resourceName) {
-		return driver.findElement(By.xpath("//div[@id='resourcesGrid']/div[2]/descendant::*/span[contains(text(),'"
-				+ resourceName + "')]")).isDisplayed();
+		By resource = By.xpath("//div[@id='resourcesGrid']/div[2]/descendant::*/span[contains(text(),'"
+				+ resourceName + "')]");
+		return uiMethod.isElementPresent(resource);
 	}
 
 	/**
