@@ -291,7 +291,7 @@ public class SearchPage {
 	 */
 	public boolean isOutOfOrderBoxDisplayed(String title) {
 		By outOfOrderBoxLocator = By.xpath("//div[contains(text(),'" + title + "')]");
-		return uiMethods.isElementPresent(outOfOrderBoxLocator);
+		return UIMethods.isElementPresent(outOfOrderBoxLocator);
 	}
 	
 	/**

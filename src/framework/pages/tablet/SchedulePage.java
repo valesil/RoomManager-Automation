@@ -468,7 +468,7 @@ public class SchedulePage {
 	 */
 	public boolean isOutOfOrderBoxDisplayed(String title) {
 		By outOfORderBoxLocator = By.xpath("//span[contains(text(),'" + title + "')]");
-		return uiMethods.isElementPresent(outOfORderBoxLocator);	
+		return UIMethods.isElementPresent(outOfORderBoxLocator);	
 	}
 
 	/**
@@ -519,7 +519,8 @@ public class SchedulePage {
 		setBodyTxtBox(bodyMeeting);
 		clickCreateBtn();
 		confirmCredentials(password);
-		return waitForMaskDisappears();
+		isMessageMeetingCreatedDisplayed();
+		return this;
 	}
 
 	/**
@@ -545,7 +546,8 @@ public class SchedulePage {
 		setAttendeeTxtBox(attendee);
 		clickCreateBtn();	
 		confirmCredentials(password);
-		return waitForMaskDisappears();
+		isMessageMeetingCreatedDisplayed();
+		return this;
 	}
 
 	/**
@@ -573,7 +575,7 @@ public class SchedulePage {
 	 */
 	public boolean isMeetingBoxDisplayed(String nameMeeting) {
 		By meetingBoxLocator = By.xpath("//span[contains(text(),'" + nameMeeting + "')]");
-		return uiMethods.isElementPresent(meetingBoxLocator);
+		return UIMethods.isElementPresent(meetingBoxLocator);
 	}
 	
 	/**
@@ -585,4 +587,17 @@ public class SchedulePage {
 				By.xpath("//div[@class='Modal-backdrop ng-scope']")));
 		return this;
 	} 
+	
+	/**
+	 * [AC] This class delete a meeting
+	 * @param nameMeeting: name of meeting to delete
+	 * @return: This page, to use the same method repeated times
+	 */
+	public SchedulePage deleteMeeting(String nameMeeting, String password) {
+				clickOverMeetingCreated(nameMeeting);
+				clickRemoveBtn();
+				confirmCredentials(password);
+				isMessageMeetingDeletedDisplayed();
+				return this;
+	}
 }

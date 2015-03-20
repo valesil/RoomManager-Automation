@@ -20,9 +20,6 @@ public class SettingsPage {
 	
 	@FindBy(xpath = "//button[@ng-click='saveSelectedRoom()']")
 	WebElement acceptBtn;
-	
-	@FindBy(xpath = "//span[contains(text(),'Settings')]")
-	WebElement settingsLbl;
 		
 	public SettingsPage() {
 		driver = SeleniumDriverManager.getManager().getDriver();
@@ -34,13 +31,9 @@ public class SettingsPage {
 		driver.findElement(By.xpath("//h4[contains(text(),'" + roomNum + "')]")).click();
 		acceptBtn.click();
 		return new HomePage();
-	}
-	
-	/**
-	 * [EN] This method verifies if setting title is displayed in the main window of the page.
-	 * @return
-	 */
-	public boolean isSettingsLblDisplayed() {	
-			return settingsLbl.isDisplayed();
 	}	
+	
+	public void quit() {
+		driver.quit();
+	}
 }
