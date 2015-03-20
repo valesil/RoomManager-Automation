@@ -12,8 +12,8 @@ import framework.selenium.SeleniumDriverManager;
  *
  */
 public class PostConditions {
-	WebDriver driver;
-	SchedulePage schedule = new SchedulePage();
+	private WebDriver driver;
+	private SchedulePage schedule = new SchedulePage();
 	
 	/**
 	 * [AC] Get the driver and the wait to use that in this class
