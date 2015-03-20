@@ -7,8 +7,8 @@ import static framework.common.MessageConstants.MEETING_ERROR;
 import static framework.common.MessageConstants.MEETING_ORGANIZER_REQUIRED;
 import static framework.common.MessageConstants.MEETING_REMOVED;
 import static framework.common.MessageConstants.MEETING_SUBJECT_REQUIERED;
-import static framework.common.MessageConstants.MEETING_UPDATED;
 import static framework.common.MessageConstants.MEETING_TIME_STARTEND;
+import static framework.common.MessageConstants.MEETING_UPDATED;
 import static framework.utils.TimeManager.getTimeElement;
 
 import org.openqa.selenium.By;
@@ -33,7 +33,6 @@ import framework.utils.TimeManager;
 public class SchedulePage {
 	private WebDriver driver;
 	private WebDriverWait wait;
-	UIMethods uIMethods = new UIMethods();
 	
 	@FindBy(xpath = "//span[contains(text(),'Scheduler')]")
 	WebElement titleSchedulerLbl;
@@ -305,6 +304,7 @@ public class SchedulePage {
 	 * @return
 	 */
 	public SchedulePage clickOverMeetingCreated(String nameMeeting) {
+		waitForMaskDisappears();
 		driver.findElement(By.xpath("//span[contains(text(),'" + nameMeeting + "')]")).click();
 		return this;
 	}
@@ -463,6 +463,10 @@ public class SchedulePage {
 	}
 	
 	/**
+		return UIMethods.isElementPresent(outOfORderBoxLocator);	
+	}
+	
+	/**
 	 * [EN] This method confirm the credentials inserted by the user
 	 * @param name
 	 * @param password
@@ -535,10 +539,17 @@ public class SchedulePage {
 	 */
 	public boolean isMeetingBoxDisplayed(String nameMeeting) {
 		By meetingBoxLocator = By.xpath("//span[contains(text(),'" + nameMeeting + "')]");
-		return uIMethods.isElementPresent(meetingBoxLocator);
+		return UIMethods.isElementPresent(meetingBoxLocator);
 	}
 	
 	/**
+	 * [AC] This method waits until the mask disappears
+	 * @return
+	 */
+	public SchedulePage waitForMaskDisappears() {
+		wait.until(ExpectedConditions.invisibilityOfElementLocated(
+				By.xpath("//div[@class='Modal-backdrop ng-scope']")));
+		return this;
 	 * [YA]This method verifies Out Of Order is displayed in Scheduler's Timeline
 	 * @param title: Out Of Order's Title
 	 * @return

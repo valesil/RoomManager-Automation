@@ -21,7 +21,6 @@ import framework.utils.TimeManager;
 public class RoomOutOfOrderPlanningPage extends RoomBaseAbstractPage {
 
 	TimeManager timeManager = new TimeManager();
-	UIMethods uiMethods = new UIMethods();
 
 	@FindBy(xpath = "//div[@class='check-button']/label")
 	WebElement activationBtn;
@@ -207,7 +206,7 @@ public class RoomOutOfOrderPlanningPage extends RoomBaseAbstractPage {
 	 */
 	private void setTimeTxtBox (String selector, String time, String timeSelector) {
 		WebElement timeTxtBox = findDateElement(selector, timeSelector);
-		uiMethods.doubleClick(timeTxtBox);
+		UIMethods.doubleClick(timeTxtBox);
 		timeTxtBox.sendKeys(time);
 	}
 

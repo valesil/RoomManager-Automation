@@ -31,7 +31,6 @@ public class SearchPage {
 	private WebDriver driver;
 	@SuppressWarnings("rawtypes")
 	private Wait wait;
-	UIMethods uiMethods = new UIMethods();
 
 	@FindBy(xpath = "//span[@ng-click='goBack()']")
 	WebElement backBtn;
@@ -112,8 +111,8 @@ public class SearchPage {
 	 * @return true or false
 	 */
 	public boolean roomIsDiplayed(String roomDisplayName) {
-		return driver.findElement(By.xpath("//button[contains(text(),'" + roomDisplayName 
-				+ "')and@class='ng-scope']")).isDisplayed();
+		return UIMethods.isElementPresent(By.xpath("//button[contains(text(),'" + roomDisplayName 
+				+ "')and@class='ng-scope']"));
 	}
 
 	/**
@@ -288,7 +287,7 @@ public class SearchPage {
 	 */
 	public boolean isOutOfOrderBoxDisplayed(String title) {
 		return isMeetingBoxDisplayed(title);
-	}
+		return UIMethods.isElementPresent(outOfOrderBoxLocator);
 	
 	/**
 	 * [YA]This method verifies if a Meeting BOx is displayed

@@ -12,7 +12,6 @@ import framework.common.UIMethods;
  *
  */
 public class HomeAdminPage extends AbstractMainMenu {
-	UIMethods uiMethods = new UIMethods();
 	
 	/**
 	 * [YA]This method returns to HomeAdminPage from Tablet
@@ -21,7 +20,7 @@ public class HomeAdminPage extends AbstractMainMenu {
 	public HomeAdminPage getAdminHome() {
 		driver.get(URL_ADMIN_HOME);
 		By signInLocator = By.xpath("//button[@ng-click='signIn()']");
-		if(uiMethods.isElementPresent(signInLocator)) {
+		if(UIMethods.isElementPresent(signInLocator)) {
 			driver.findElement(signInLocator).click();
 		}
 		return this;

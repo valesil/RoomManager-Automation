@@ -16,7 +16,6 @@ import framework.pages.admin.AbstractMainMenu;
  *
  */
 public class RoomsPage extends AbstractMainMenu {
-	UIMethods UI = new UIMethods();
 
 	@FindBy(id = "roomsGrid")
 	WebElement roomsGrid;
@@ -30,7 +29,7 @@ public class RoomsPage extends AbstractMainMenu {
 	 * @return
 	 */
 	public RoomInfoPage doubleClickOverRoomName(String displayName) {
-		UI.doubleClick(driver.findElement(By.xpath("//span[contains(text(),'" 
+		UIMethods.doubleClick(driver.findElement(By.xpath("//span[contains(text(),'" 
 				+ displayName + "')and@class='ng-binding']")));
 		return new RoomInfoPage();
 	}
@@ -166,5 +165,13 @@ public class RoomsPage extends AbstractMainMenu {
 		wait.until(ExpectedConditions.visibilityOf(messagePopUp));
 		messagePopUp.click();
 		return this;
+	/**
+	 * [CG]Method that returns the resource value from resources grid
+	 * @param resourceName
+	 * @return
+	 */
+	public String getResourceQuantity(String resourceName) {
+		return driver.findElement(By.xpath("//span[contains(text(),'" + resourceName 
+				+  "')]/ancestor::div/following-sibling::div[@class='ngCell centeredColumn col3 colt3']//span[@class='ng-binding']")).getAttribute("value");
 	}
 }

@@ -1,13 +1,11 @@
 package framework.common;
 
-import static framework.common.AppConfigConstants.EXCEL_INPUT_DATA;
-
-import java.util.List;
-import java.util.Map;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.PageFactory;
 
 import framework.pages.tablet.HomePage;
 import framework.pages.tablet.SchedulePage;
-import framework.utils.readers.ExcelReader;
+import framework.selenium.SeleniumDriverManager;
 
 /**
  * Description This class is to delete the meetings created
@@ -15,23 +13,16 @@ import framework.utils.readers.ExcelReader;
  *
  */
 public class PostConditions {
-	private SchedulePage schedule;
-	private ExcelReader excelReader;
-	private List<Map<String, String>> meetingData;
+	private WebDriver driver;
+	private SchedulePage schedule = new SchedulePage();
 	HomePage home = new HomePage();
 	
 	/**
-	 * [AC] This method is to initialize the listMaps to read from the excel
+	 * [AC] Get the driver and the wait to use that in this class
 	 */
 	public PostConditions() {
-		schedule = new SchedulePage();
-		try {
-			excelReader = new ExcelReader(EXCEL_INPUT_DATA);
-		} catch (Exception e) {
-			System.out.println("Error on Preconditions: " + e.getMessage());
-			e.printStackTrace();
-		}
-		meetingData = excelReader.getMapValues("MeetingData");
+		driver = SeleniumDriverManager.getManager().getDriver();
+		PageFactory.initElements(driver, this);
 	}
 	
 	/**
@@ -48,5 +39,4 @@ public class PostConditions {
 	public void goHome() {
 		schedule.clickBackBtn();
 	}
-	
 }
