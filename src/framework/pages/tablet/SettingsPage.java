@@ -22,7 +22,7 @@ public class SettingsPage {
 	WebElement acceptBtn;
 	
 	@FindBy(xpath = "//span[contains(text(),'Settings')]")
-	WebElement SettingsTitleLbl;
+	WebElement settingsLbl;
 		
 	public SettingsPage() {
 		driver = SeleniumDriverManager.getManager().getDriver();
@@ -40,12 +40,7 @@ public class SettingsPage {
 	 * [EN] This method verifies if setting title is displayed in the main window of the page.
 	 * @return
 	 */
-	public boolean isSettingsTitlelblDisplayed() {	
-			return SettingsTitleLbl.isDisplayed();
-	}
-	
-	public void quit(){
-		driver.quit();
-	}
-	
+	public boolean isSettingsLblDisplayed() {	
+			return settingsLbl.isDisplayed();
+	}	
 }

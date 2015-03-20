@@ -61,7 +61,7 @@ public class SearchPage {
 	WebElement timeLine;
 	
 	@FindBy(xpath = "//span[contains(text(),'Search')]")
-	WebElement searchTitleLbl;
+	WebElement searchLbl;
 	
 	public SearchPage() {
 		this.driver = SeleniumDriverManager.getManager().getDriver();
@@ -298,8 +298,8 @@ public class SearchPage {
 	 * [EN] This method verifies if the search title label is displayed in the page
 	 * @return
 	 */
-	public boolean isSearchTitlelblDisplayed() {			
-			return searchTitleLbl.isDisplayed();
+	public boolean isSearchLblDisplayed() {			
+			return searchLbl.isDisplayed();
 	}
 }
 
