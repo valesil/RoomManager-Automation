@@ -304,6 +304,7 @@ public class SchedulePage {
 	 * @return
 	 */
 	public SchedulePage clickOverMeetingCreated(String nameMeeting) {
+		waitForMaskDisappears();
 		driver.findElement(By.xpath("//span[contains(text(),'" + nameMeeting + "')]")).click();
 		return this;
 	}
@@ -545,5 +546,15 @@ public class SchedulePage {
 	public boolean isMeetingBoxDisplayed(String nameMeeting) {
 		By meetingBoxLocator = By.xpath("//span[contains(text(),'" + nameMeeting + "')]");
 		return uIMethods.isElementPresent(meetingBoxLocator);
+	}
+	
+	/**
+	 * [AC] This method waits until the mask disappears
+	 * @return
+	 */
+	public SchedulePage waitForMaskDisappears() {
+		wait.until(ExpectedConditions.invisibilityOfElementLocated(
+				By.xpath("//div[@class='Modal-backdrop ng-scope']")));
+		return this;
 	}
 }
