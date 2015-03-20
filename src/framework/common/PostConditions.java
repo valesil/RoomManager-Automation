@@ -1,6 +1,10 @@
 package framework.common;
 
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.PageFactory;
+
 import framework.pages.tablet.SchedulePage;
+import framework.selenium.SeleniumDriverManager;
 
 /**
  * Description This class is to delete the meetings created
@@ -8,7 +12,16 @@ import framework.pages.tablet.SchedulePage;
  *
  */
 public class PostConditions {
-	private SchedulePage schedule;
+	private WebDriver driver;
+	private SchedulePage schedule = new SchedulePage();
+	
+	/**
+	 * [AC] Get the driver and the wait to use that in this class
+	 */
+	public PostConditions() {
+		driver = SeleniumDriverManager.getManager().getDriver();
+		PageFactory.initElements(driver, this);
+	}
 	
 	/**
 	 * [AC] This class delete a meeting
