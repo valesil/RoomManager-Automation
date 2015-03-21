@@ -9,12 +9,14 @@ import static framework.common.MessageConstants.MEETING_REMOVED;
 import static framework.common.MessageConstants.MEETING_SUBJECT_REQUIERED;
 import static framework.common.MessageConstants.MEETING_TIME_STARTEND;
 import static framework.common.MessageConstants.MEETING_UPDATED;
+import static framework.common.MessageConstants.MEETING_PAST_CREATED_ERROR;
 import static framework.utils.TimeManager.getTimeElement;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -33,7 +35,6 @@ import framework.utils.TimeManager;
 public class SchedulePage {
 	private WebDriver driver;
 	private WebDriverWait wait;
-	UIMethods uiMethods = new UIMethods();
 
 	@FindBy(xpath = "//span[contains(text(),'Scheduler')]")
 	WebElement schedulerLbl;
@@ -94,6 +95,9 @@ public class SchedulePage {
 
 	@FindBy(xpath = "//button/span[contains(text(),'Cancel')]")
 	WebElement cancelBtn;
+	
+	@FindBy(xpath = "//div[@class='item range meeting']")
+	WebElement itemRangeMeeting;
 
 	/**
 	 * [AC] Get the driver and the wait to use that in this class
@@ -596,5 +600,14 @@ public class SchedulePage {
 		confirmCredentials(password);
 		isMessageMeetingCreatedDisplayed();
 		return this;
+	}
+	
+	/**
+	 * [EN] This method checks that a error message is displayed 
+	 * when a meeting is created with past time values.
+	 * @return boolean
+	 */
+	public boolean isErrorMessageOfPastMeetingDisplayed() {
+		return getAnyErrorMessageLbl(MEETING_PAST_CREATED_ERROR);
 	}
 }
