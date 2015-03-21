@@ -23,9 +23,10 @@ public final class MessageConstants {
 	public static final String MEETING_ORGANIZER_REQUIRED = "Organizer is required";
 	public static final String MEETING_ATTENDEES_REQUIRED = "Attendees are required";
 	public static final String MEETING_TIME_STARTEND = "Start time must be smaller than end time";
-	public static final String MEETING_PAST_CREATED_ERROR = "This meeting request occurs in the past."
-			+ "Please review that.";
-
+	public static final String MEETING_ATTENDEES_INVALID = "Invalid attendees";
+	public static final String MEETING_PAST_CREATED_ERROR = "This meeting request ocurrs in the past."
+			+ "Invalid values of start time and end time.";
+	
 	//The following messages are for RoomInfoPage
 	public static final String ROOM_DISPLAY_NAME_EMPTY = "Display Name must not be empty";
 }
