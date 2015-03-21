@@ -5,28 +5,30 @@ import static framework.common.AppConfigConstants.EXCEL_INPUT_DATA;
 import java.util.List;
 import java.util.Map;
 
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.PageFactory;
+
 import framework.pages.tablet.HomePage;
 import framework.pages.tablet.SchedulePage;
+import framework.selenium.SeleniumDriverManager;
 import framework.utils.TimeManager;
 import framework.utils.readers.ExcelReader;
 
-/**
- * Description: This class is to create meetings as a precondition by UI
- * @author Asael Calizaya
- *
- */
-public class PreConditions {
-	private ExcelReader excelReader;
+public class MeetingMethods {
+	ExcelReader excelReader;
 	List<Map<String, String>> meetingData; 
-	SchedulePage schedulePage;
+	SchedulePage schedule;
+	WebDriver driver;
 	HomePage home;
 
 	/**
 	 * [AC] This method initializes the listMaps to read from the excel
 	 */
-	public PreConditions() {
-
-		home = new HomePage();
+	public MeetingMethods() {
+		driver = SeleniumDriverManager.getManager().getDriver();
+		PageFactory.initElements(driver, this);
+		home = new HomePage();	
+		schedule = new SchedulePage();
 		try {
 			excelReader = new ExcelReader(EXCEL_INPUT_DATA);
 		} catch (Exception e) {
@@ -77,13 +79,12 @@ public class PreConditions {
 			String attendee = meetingData.get(i).get("Attendee");
 			String body = meetingData.get(i).get("Body");
 			String password = meetingData.get(i).get("Password");
-			home.clickScheduleBtn();
-			schedulePage
+			schedule
 			.createMeeting(organizer, subject[i], startTime, endTime, attendee, body)		
 			.confirmCredentials(password)
 			.isMessageMeetingCreatedDisplayed();
 		}
-		schedulePage.clickBackBtn();
+		schedule.clickBackBtn();
 		return subject;
 	}
 
@@ -106,5 +107,20 @@ public class PreConditions {
 			home.clickScheduleBtn()
 			.createMeeting(organizer, subject, startTime, endTime, attendee, body)		
 			.confirmCredentials(password).isMessageMeetingCreatedDisplayed();
+	}
+	
+	/**
+	 * [AC] This class delete a meeting
+	 * @param nameMeeting
+	 * @return SchedulePage
+	 */
+	public SchedulePage deleteMeeting(String nameMeeting, String password) {
+		home.clickScheduleBtn()
+			.deleteMeeting(nameMeeting, password);
+		return new SchedulePage();
+	}
+	
+	public void goHome() {
+		schedule.clickBackBtn();
 	}
 }

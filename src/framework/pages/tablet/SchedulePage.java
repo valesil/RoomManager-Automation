@@ -1,6 +1,7 @@
 package framework.pages.tablet;
 
 import static framework.common.AppConfigConstants.BROWSER;
+import static framework.common.MessageConstants.MEETING_ATTENDEES_INVALID;
 import static framework.common.MessageConstants.MEETING_ATTENDEES_REQUIRED;
 import static framework.common.MessageConstants.MEETING_CREATED;
 import static framework.common.MessageConstants.MEETING_ERROR;
@@ -15,6 +16,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -33,7 +35,6 @@ import framework.utils.TimeManager;
 public class SchedulePage {
 	private WebDriver driver;
 	private WebDriverWait wait;
-	UIMethods uiMethods = new UIMethods();
 
 	@FindBy(xpath = "//span[contains(text(),'Scheduler')]")
 	WebElement schedulerLbl;
@@ -74,7 +75,7 @@ public class SchedulePage {
 	@FindBy(xpath = "//span[contains(text(),'Update')]")
 	WebElement updateBtn;
 
-	@FindBy(css = "css=div.currenttime")
+	@FindBy(xpath = "//div[@class='currenttime']")
 	WebElement currentTimeLine;
 
 	@FindBy(xpath = "//span[@ng-click='goToSearch()']")
@@ -95,6 +96,9 @@ public class SchedulePage {
 	@FindBy(xpath = "//button/span[contains(text(),'Cancel')]")
 	WebElement cancelBtn;
 
+	@FindBy(xpath = "//div[@class='vispanel center']")
+	WebElement timeLine;
+	
 	/**
 	 * [AC] Get the driver and the wait to use that in this class
 	 */
@@ -118,7 +122,7 @@ public class SchedulePage {
 	/**
 	 * [AC] Clear the content of the textBox and set the new value to the subject
 	 * @param subject
-	 * @return
+	 * @return SchedulePage
 	 */
 	public SchedulePage setSubjectTxtBox(String subject) {
 		subjectTxtBox.clear();
@@ -130,7 +134,7 @@ public class SchedulePage {
 	 * [AC] Clear the content of the textBox, set the new value and press enter
 	 * to the attendee value
 	 * @param attendiee
-	 * @return
+	 * @return SchedulePage
 	 */
 	public SchedulePage setAttendeeTxtBox(String attendiee) {
 		attendeesTxtBox.click();
@@ -142,7 +146,7 @@ public class SchedulePage {
 	/**
 	 * [AC] Clear the content of the textBox and set the new value to the body
 	 * @param textBody
-	 * @return
+	 * @return SchedulePage
 	 */
 	public SchedulePage setBodyTxtBox(String textBody) {
 		bodyTxtBox.clear();
@@ -193,7 +197,7 @@ public class SchedulePage {
 	 * set startTime of a meeting 
 	 * @param startTime
 	 * @param meridian
-	 * @return
+	 * @return SchedulePage
 	 */
 	public SchedulePage setStartTimeDate(String startTime) {
 		String from = getTimeElement(startTime, "hourMin");
@@ -215,7 +219,7 @@ public class SchedulePage {
 	 * set endTime of a meeting
 	 * @param endTime
 	 * @param meridian
-	 * @return
+	 * @return SchedulePage
 	 */
 	public SchedulePage setEndTimeDate(String endTime) {
 		String to = getTimeElement(endTime, "hourMin");
@@ -234,7 +238,7 @@ public class SchedulePage {
 
 	/**
 	 * [AC] This method clicks on Create button
-	 * @return
+	 * @return SchedulePage
 	 */
 	public SchedulePage clickCreateBtn() {
 		wait.until(ExpectedConditions.elementToBeClickable(createBtn));
@@ -244,7 +248,7 @@ public class SchedulePage {
 
 	/**
 	 * [AC] This method clicks on Remove button
-	 * @return
+	 * @return SchedulePage
 	 */
 	public SchedulePage clickRemoveBtn() {
 		removeBtn.click();
@@ -253,7 +257,7 @@ public class SchedulePage {
 
 	/**
 	 * [AC] This method clicks on Update button
-	 * @return
+	 * @return SchedulePage
 	 */
 	public SchedulePage clickUpdateBtn() {
 		updateBtn.click();
@@ -262,7 +266,7 @@ public class SchedulePage {
 
 	/**
 	 * [AC] This method clicks on back button
-	 * @return
+	 * @return HomePage
 	 */
 	public HomePage clickBackBtn() {
 		wait.until(ExpectedConditions.elementToBeClickable(backBtn));
@@ -272,7 +276,7 @@ public class SchedulePage {
 
 	/**
 	 * [AC] This method clicks on search page
-	 * @return
+	 * @return SearchPage
 	 */
 	public SearchPage clickSearchBtn() {
 		wait.until(ExpectedConditions.elementToBeClickable(searchBtn));
@@ -282,7 +286,7 @@ public class SchedulePage {
 
 	/**
 	 * [AC] This method get the value of a label from title page
-	 * @return
+	 * @return String
 	 */
 	public String getTitleOfPageValue() {
 		return schedulerLbl.getText();
@@ -291,7 +295,7 @@ public class SchedulePage {
 	/**
 	 * [AC] This method search a meeting and return the name of that
 	 * @param nameMeeting: name of a meeting to search
-	 * @return
+	 * @return String
 	 */
 	public String getNameMeetingCreatedValue(String nameMeeting) {
 		return driver.findElement(By.xpath("//span[contains(text(),'" + nameMeeting + "')]")).getText();
@@ -300,7 +304,7 @@ public class SchedulePage {
 	/**
 	 * [AC] This method search a meeting and click over that
 	 * @param nameMeeting
-	 * @return
+	 * @return SchedulePage
 	 */
 	public SchedulePage clickOverMeetingCreated(String nameMeeting) {
 		waitForMaskDisappears();
@@ -311,15 +315,23 @@ public class SchedulePage {
 	/**
 	 * [AC] This method search for a attendee and return his value
 	 * @param emailAttendee
-	 * @return
+	 * @return String
 	 */
 	public String getEmailAttendeeValue(String emailAttendee) {
 		return driver.findElement(By.xpath("//span[contains(text(),'" + emailAttendee + "')]")).getText();
 	}
 
 	/**
+	 * [AC] This method gets the value of the attendee text box
+	 * @return String
+	 */
+	public String getEmailAttendeeTxtBoxValue() {
+		return attendeesTxtBox.getText();
+	}
+	
+	/**
 	 * [AC] This method obtains the value of the textBox from subject
-	 * @return
+	 * @return String
 	 */
 	public String getMeetingSubjectValue() {
 		return subjectTxtBox.getAttribute("value");
@@ -327,7 +339,7 @@ public class SchedulePage {
 
 	/**
 	 * [AC] This method obtains the value of the textBox from organizer
-	 * @return
+	 * @return String
 	 */
 	public String getNameOrganizerValue() {
 		return organizerTxtBox.getAttribute("value");
@@ -335,7 +347,7 @@ public class SchedulePage {
 
 	/**
 	 * [AC] This method obtains the value of the textBox from body
-	 * @return
+	 * @return String
 	 */
 	public String getBodyTxtBoxValue() {
 		return bodyTxtBox.getAttribute("value");
@@ -344,7 +356,7 @@ public class SchedulePage {
 	/**
 	 * [AC] This method founds the message pop up that appears after do something
 	 * @param message
-	 * @return
+	 * @return boolean
 	 */
 	private boolean getMessagePopUpValue(String message) {
 		WebElement messageLbl = driver.findElement(By.xpath("//div[contains(text(),'" + message + "')]"));
@@ -352,6 +364,11 @@ public class SchedulePage {
 		return messageLbl.isDisplayed();
 	}
 
+	/**
+	 * [AC] This method obtains any message of error label
+	 * @param message
+	 * @return boolean
+	 */
 	private boolean getAnyErrorMessageLbl(String message) {
 		return driver.findElement(By.xpath("//small[contains(text(),'" + message + "')]")).isDisplayed();
 	}
@@ -398,7 +415,7 @@ public class SchedulePage {
 
 	/**
 	 * [AC] This method gets the error label when does not put a subject
-	 * @return
+	 * @return boolean
 	 */
 	public boolean isErrorSubjectDisplayed() {
 		return getAnyErrorMessageLbl(MEETING_SUBJECT_REQUIERED);
@@ -406,7 +423,7 @@ public class SchedulePage {
 
 	/**
 	 * [AC] This method gets the error label when does not put a organizer
-	 * @return
+	 * @return boolean
 	 */
 	public boolean isErrorOrganizerDisplayed() {
 		return getAnyErrorMessageLbl(MEETING_ORGANIZER_REQUIRED);
@@ -414,16 +431,24 @@ public class SchedulePage {
 
 	/**
 	 * [AC] This method gets the error label when does not put attendees
-	 * @return
+	 * @return boolean
 	 */
 	public boolean isErrorAttendeeDisplayed() {
 		return getAnyErrorMessageLbl(MEETING_ATTENDEES_REQUIRED);
 	}
+	
+	/**
+	 * [AC] This method gets the error label when put invalid attendees
+	 * @return boolean
+	 */
+	public boolean isErrorAttendeeInvalidDisplayed() {
+		return getAnyErrorMessageLbl(MEETING_ATTENDEES_INVALID);
+	}
 
 	/**
 	 * [AC]This method clears and set the new value to user name textBox
-	 * @param name
-	 * @return
+	 * @param name 
+	 * @return SchedulePage
 	 */
 	public SchedulePage setUserNameTxtBox(String name) {
 		userNameTxt.clear();
@@ -434,7 +459,7 @@ public class SchedulePage {
 	/**
 	 * [AC] This method clears and set the new value to password textBox
 	 * @param password
-	 * @return
+	 * @return SchedulePage
 	 */
 	public SchedulePage setPasswordTxtBox(String password) {
 		wait.until(ExpectedConditions.visibilityOf(passwordTxt));
@@ -445,7 +470,7 @@ public class SchedulePage {
 
 	/**
 	 * [AC] This method click on OK button
-	 * @return
+	 * @return SchedulePage
 	 */
 	public SchedulePage clickOkButton() {
 		okBtn.click();
@@ -454,7 +479,7 @@ public class SchedulePage {
 
 	/**
 	 * [AC] This method click on Cancel button
-	 * @return
+	 * @return SchedulePage
 	 */
 	public SchedulePage clickCancelButton() {
 		cancelBtn.click();
@@ -464,7 +489,7 @@ public class SchedulePage {
 	/**
 	 * [YA]This method verifies Out Of Order is displayed in Scheduler's Timeline
 	 * @param title: Out Of Order's Title
-	 * @return
+	 * @return boolean
 	 */
 	public boolean isOutOfOrderBoxDisplayed(String title) {
 		By outOfORderBoxLocator = By.xpath("//span[contains(text(),'" + title + "')]");
@@ -475,7 +500,7 @@ public class SchedulePage {
 	 * [EN] This method confirm the credentials inserted by the user
 	 * @param name
 	 * @param password
-	 * @return
+	 * @return SchedulePage
 	 */
 	public SchedulePage confirmCredentials(String password) {
 		setPasswordTxtBox(password);
@@ -522,7 +547,7 @@ public class SchedulePage {
 	
 	/**
 	 * [JC] This method verify if the label scheduler is displayed
-	 * @return
+	 * @return boolean
 	 */
 	public boolean isSchedulerLblDisplayed() {
 		return schedulerLbl.isDisplayed();
@@ -530,7 +555,7 @@ public class SchedulePage {
 
 	/**
 	 * [JC] This method verify return the current date
-	 * @return
+	 * @return String
 	 */
 	public String getTimeLineDate() {
 		String time = currentTimeLine.getAttribute("title").replace("th","").replace("st","")
@@ -541,7 +566,7 @@ public class SchedulePage {
 	/**
 	 * [YA]This method verifies if Meeting Box is present
 	 * @param nameMeeting
-	 * @return
+	 * @return boolean
 	 */
 	public boolean isMeetingBoxDisplayed(String nameMeeting) {
 		By meetingBoxLocator = By.xpath("//span[contains(text(),'" + nameMeeting + "')]");
@@ -550,18 +575,25 @@ public class SchedulePage {
 	
 	/**
 	 * [AC] This method waits until the mask disappears
-	 * @return
 	 */
-	public SchedulePage waitForMaskDisappears() {
+	private void waitForMaskDisappears() {
 		wait.until(ExpectedConditions.invisibilityOfElementLocated(
 				By.xpath("//div[@class='Modal-backdrop ng-scope']")));
+	}
+	
+	/**
+	 * [AC] This method clicks over TimeLine
+	 * @return SchedulePage
+	 */
+	public SchedulePage clickOverTimeline() {
+		timeLine.click();
 		return this;
 	} 
 	
 	/**
-	 * [AC] This class delete a meeting
-	 * @param nameMeeting: name of meeting to delete
-	 * @return: This page, to use the same method repeated times
+	 * [AC] This method delete a meeting
+	 * @param nameMeeting
+	 * @return  SchedulePage
 	 */
 	public SchedulePage deleteMeeting(String nameMeeting, String password) {
 				clickOverMeetingCreated(nameMeeting);
@@ -579,7 +611,7 @@ public class SchedulePage {
 	 * @param minutesTo minutes number to add/subtract of current time to set in {To} text box.
 	 * @param attendee
 	 * @param password
-	 * @return
+	 * @return  SchedulePage
 	 */
 	public SchedulePage createMeeting(String organizer, String subject, int minutesFrom, 
 			int minutesTo, String attendee, String password) {
@@ -597,4 +629,92 @@ public class SchedulePage {
 		isMessageMeetingCreatedDisplayed();
 		return this;
 	}
+	
+	/**
+	 * [AC] This method gets the default duration of a meeting
+	 * @return int
+	 */
+	public int getDurationOfMeetingByDefault() {
+		int resp = 0;
+		String start = getStartTimeTxtBoxValue();
+		String end = getEndTimeTxtBoxValue();
+		int minStart = Integer.parseInt(getTimeElement(start, "minutes"));
+		int minEnd = Integer.parseInt(getTimeElement(end, "minutes"));
+		if(minStart > minEnd) {
+			while(minEnd < minStart) {
+				minEnd++;
+				resp++;
+			}
+		} else if(minStart < minEnd) {
+			while(minStart < minEnd) {
+				minStart++;
+				resp++;
+			}
+		}
+		return resp;
+	}
+	
+	/**
+	 * [JC] This method move the Time Line left or right(depend of the value)
+	 * i.e. if the value is 5000 is move to left, -5000 is move to right
+	 * @param nameMeeting
+	 * @return SchedulePage
+	 */
+	public SchedulePage moveTimeLine(int value) {
+		Actions builder = new Actions(driver);
+		WebElement elem = driver.findElement(By.xpath("//div[@id='timelinePanel']"
+				+ "/descendant::div[contains(@class,'vispanel center')]")); 
+		builder.clickAndHold(elem)
+				.moveByOffset(value, 0)
+				.release().perform();
+		return this;
+	}
+	
+	/**
+	 * [JC] This method move the Meeting selected left or right(depend of the value)
+	 * i.e. if the value is -5000 is move to left, 5000 is move to right
+	 * @param nameMeeting
+	 * @return SchedulePage
+	 */
+	public SchedulePage moveMeeting(String nameMeeting, int value) {
+		Actions builder = new Actions(driver);
+		WebElement elem = driver.findElement(By.xpath("//span[contains(text(),'" + nameMeeting + "')]"));
+		builder.clickAndHold(elem)
+				.moveByOffset(value, 0)
+				.release().perform();
+		return this;
+	}
+	
+	/**
+	 * [JC] This method search a meeting and click over Left Side of this meeting
+	 * i.e. if the value is -5000 is move to left, 5000 is move to right
+	 * @param nameMeeting
+	 * @return SchedulePage
+	 */
+	public SchedulePage resizeMeetingLeft(String nameMeeting) {
+		Actions builder = new Actions(driver);
+		WebElement elem = driver.findElement(By.xpath("//span[contains(text(),'" + nameMeeting + 
+				"')]/parent::div/following-sibling::div[@class='drag-left']"));
+		builder.clickAndHold(elem)
+				.moveByOffset(-800, 0)
+				.release().perform();
+		return this;
+	}
+	
+	/**
+	 * [JC] This method search a meeting and click over Right Side of this meeting
+	 * i.e. if the value is -5000 is move to left, 5000 is move to right
+	 * @param nameMeeting
+	 * @return SchedulePage
+	 */
+	public SchedulePage resizeMeetingRight(String nameMeeting) {
+		Actions builder = new Actions(driver);
+		WebElement elem = driver.findElement(By.xpath("//span[contains(text(),'" + nameMeeting + 
+				"')]/parent::div/following-sibling::div[@class='drag-right']"));
+		builder.clickAndHold(elem)
+				.moveByOffset(800, 0)
+				.release().perform();
+		return this;
+	}
+
 }
