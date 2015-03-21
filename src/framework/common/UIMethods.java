@@ -14,14 +14,19 @@ import framework.selenium.SeleniumDriverManager;
  *
  */
 public class UIMethods {
-	static WebDriver driver = SeleniumDriverManager.getManager().getDriver();	
+	private static WebDriver driver;	
+	private static Actions action;
+
+	public UIMethods() {
+		driver = SeleniumDriverManager.getManager().getDriver();
+		action = new Actions(driver);
+	}
 
 	public static void doubleClick(WebElement webElement) {
-		Actions action = new Actions(driver);
 		action.doubleClick(webElement);
 		action.perform();
 	}
-
+	
 	public static boolean isElementPresent(By element) {
 		boolean present;
 		try {			

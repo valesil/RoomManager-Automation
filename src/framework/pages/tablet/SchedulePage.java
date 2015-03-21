@@ -15,6 +15,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -74,7 +75,7 @@ public class SchedulePage {
 	@FindBy(xpath = "//span[contains(text(),'Update')]")
 	WebElement updateBtn;
 
-	@FindBy(css = "css=div.currenttime")
+	@FindBy(xpath = "//div[@class='currenttime']")
 	WebElement currentTimeLine;
 
 	@FindBy(xpath = "//span[@ng-click='goToSearch()']")
@@ -307,7 +308,68 @@ public class SchedulePage {
 		driver.findElement(By.xpath("//span[contains(text(),'" + nameMeeting + "')]")).click();
 		return this;
 	}
-
+	/**
+	 * [JC] This method move the Time Line left or right(depend of the value)
+	 * i.e. if the value is 5000 is move to left, -5000 is move to right
+	 * @param nameMeeting
+	 * @return
+	 */
+	public SchedulePage moveTimeLine(int value) {
+		Actions builder = new Actions(driver);
+		WebElement elem = driver.findElement(By.xpath("//div[@id='timelinePanel']"
+				+ "/descendant::div[contains(@class,'vispanel center')]")); 
+		builder.clickAndHold(elem)
+				.moveByOffset(value, 0)
+				.release().perform();
+		return this;
+	}
+	
+	/**
+	 * [JC] This method move the Meeting selected left or right(depend of the value)
+	 * i.e. if the value is -5000 is move to left, 5000 is move to right
+	 * @param nameMeeting
+	 * @return
+	 */
+	public SchedulePage moveMeeting(String nameMeeting, int value) {
+		Actions builder = new Actions(driver);
+		WebElement elem = driver.findElement(By.xpath("//span[contains(text(),'" + nameMeeting + "')]"));
+		builder.clickAndHold(elem)
+				.moveByOffset(value, 0)
+				.release().perform();
+		return this;
+	}
+	
+	/**
+	 * [JC] This method search a meeting and click over Left Side of this meeting
+	 * i.e. if the value is -5000 is move to left, 5000 is move to right
+	 * @param nameMeeting
+	 * @return
+	 */
+	public SchedulePage resizeMeetingLeft(String nameMeeting) {
+		Actions builder = new Actions(driver);
+		WebElement elem = driver.findElement(By.xpath("//span[contains(text(),'" + nameMeeting + 
+				"')]/parent::div/following-sibling::div[@class='drag-left']"));
+		builder.clickAndHold(elem)
+				.moveByOffset(-800, 0)
+				.release().perform();
+		return this;
+	}
+	
+	/**
+	 * [JC] This method search a meeting and click over Right Side of this meeting
+	 * i.e. if the value is -5000 is move to left, 5000 is move to right
+	 * @param nameMeeting
+	 * @return
+	 */
+	public SchedulePage resizeMeetingRight(String nameMeeting) {
+		Actions builder = new Actions(driver);
+		WebElement elem = driver.findElement(By.xpath("//span[contains(text(),'" + nameMeeting + 
+				"')]/parent::div/following-sibling::div[@class='drag-right']"));
+		builder.clickAndHold(elem)
+				.moveByOffset(800, 0)
+				.release().perform();
+		return this;
+	}
 	/**
 	 * [AC] This method search for a attendee and return his value
 	 * @param emailAttendee

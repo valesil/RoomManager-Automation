@@ -8,7 +8,6 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
-import framework.common.UIMethods;
 import framework.pages.admin.AbstractMainMenu;
 
 /**
@@ -106,7 +105,7 @@ public class ResourcesPage extends AbstractMainMenu{
 	public boolean isResourceNameDisplayedInResourcesPage(String resourceName) {
 		By resource = By.xpath("//div[@id='resourcesGrid']/div[2]/descendant::*/span[contains(text(),'"
 				+ resourceName + "')]");
-		return UIMethods.isElementPresent(resource);
+		return uiMethod.isElementPresent(resource);
 	}
 
 	/**

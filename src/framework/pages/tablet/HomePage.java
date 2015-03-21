@@ -31,10 +31,10 @@ public class HomePage {
 
 	@FindBy(xpath = "//div[@ng-bind='current._organizer']")
 	WebElement currentMeetingOrganizerLbl;
-
+    
 	@FindBy(xpath = "//div[@ng-bind='next._organizer']")
 	WebElement nextMeetingOrganizerLbl;
-
+	
 	@FindBy(xpath = "//div[contains(@class,'timeleft-remaining')]")
 	WebElement timeLeftLbl;
 
@@ -46,22 +46,22 @@ public class HomePage {
 
 	@FindBy(xpath = "//div[@class='currenttime']")
 	WebElement currentTimeLine;
-
+	
 	@FindBy(xpath = "//span[@ng-bind='currentTime']")
 	WebElement currentTimeLbl;
-
+	
 	@FindBy(xpath = "//div[@ng-class='resource.icon']")
 	WebElement resourceIcon;
-
+	
 	@FindBy(xpath = "//div[@ng-bind='resource.name']")
 	WebElement resourceNameLbl;
-
+	
 	@FindBy(xpath = "//div[@ng-bind='resource.quantity']")
 	WebElement resourceQuantityLbl;
-
+	
 	@FindBy(xpath = "//span[@ng-bind='room._customDisplayName']")
 	WebElement roomDisplayNameLbl;
-
+	
 	@FindBy(xpath = "//div[@ng-click='goToSearch()']")
 	WebElement searchBtn;
 
@@ -70,13 +70,13 @@ public class HomePage {
 
 	@FindBy(xpath = "//div[@ng-click='goToSchedule()']")
 	WebElement scheduleBtn;
-
-	@FindBy(id = "timeline-container") 
-	WebElement timelineContainer; 
-
-	@FindBy(xpath = "//span[@ng-bind = 'room._code']")
-	WebElement roomCodeLbl;
 	
+	@FindBy(xpath = "//span[@ng-bind = 'room._code']")
+	WebElement roomCodeValueLbl;
+	
+	@FindBy(id = "timeline-container")
+	WebElement timelineContainer;
+
 	public HomePage() {
 		driver = SeleniumDriverManager.getManager().getDriver();
 		PageFactory.initElements(driver, this);
@@ -90,7 +90,7 @@ public class HomePage {
 		driver.get(URL_TABLET_HOME);
 		return this;
 	}
-
+	
 	/**
 	 * [EN] Return the value of {Now} tile
 	 * @return String it could be meeting subject or Available
@@ -124,7 +124,7 @@ public class HomePage {
 	public String getNextMeetingOrganizerNameLbl() {
 		return nextMeetingOrganizerLbl.getText();
 	}
-
+	
 	/**
 	 * [EN] Return start time of next meeting set in the room that is displayed on {Next} tile.
 	 * @return
@@ -132,7 +132,7 @@ public class HomePage {
 	public String getStartTimeNextMeetingLbl() {
 		return timeNextStartLbl.getText();
 	}
-
+	
 	/**
 	 * [EN] Return end time of next meeting set in the room that is displayed on {Next} tile.
 	 * @return
@@ -140,41 +140,59 @@ public class HomePage {
 	public String getEndTimeNextMeetingLbl() {
 		return timeNextEndLbl.getText();
 	}
-
+	
 	/**
-	 * [EN] Return display name of the room displayed on the top of the main window.
+	 * [EN]Return display name of the room displayed on the top of the main window.
 	 * @return
 	 */
 	public String getRoomDisplayNameLbl() {
 		wait.until(ExpectedConditions.visibilityOf(roomDisplayNameLbl));
 		return roomDisplayNameLbl.getText();
 	}
-
+	
 	/**
 	 * [EN] Return Search page when {Search} button is clicked.
 	 * @return
 	 */
-	public SearchPage clickSearchBtn() {
+	public SearchPage clickSearchPageBtn() {
 		wait.until(ExpectedConditions.elementToBeClickable(searchBtn));
 		searchBtn.click();
 		return new SearchPage();
 	}
 
 	/**
-	 * [EN] Return Setting page when {Settings} button is clicked.
+	 * [EN] Return Setting page when {Setting} button is clicked.
 	 * @return
 	 */
-	public SettingsPage clickSettingsBtn() {
+	public SettingsPage clickSettingsPageBtn() {
 		settingsBtn.click();
 		return new SettingsPage();
 	}
 
 	/**
+	 * [EN] Return Schedule page when {Schedule} button is clicked.
+	 * @return
+	 */
+	public SchedulePage clickSchedulePageBtn() {
+		wait.until(ExpectedConditions.elementToBeClickable(scheduleBtn));
+		scheduleBtn.click();
+		return new SchedulePage();
+	}
+	
+	/**
+	 * [JC] This method return a new SchedulePage
+	 * @return
+	 */
+	public SchedulePage clickNowTileLbl() {
+		nowTileLbl.click();
+		return new SchedulePage();
+	}
+	/**
 	 * [RB]This method gets the room code of selected room
 	 * @return 
 	 */
-	public String getRoomCodeLbl() {
-		return roomCodeLbl.getText();
+	public String getRoomCode() {
+		return roomCodeValueLbl.getText();
 	}
 
 	/**
@@ -184,10 +202,9 @@ public class HomePage {
 	 * @param amount
 	 * @return
 	 */
-	public boolean isResourceAssociated(String resourceName, String amount) {
-		
+	public boolean VerifyResourceIsAsociated(String resourceName, String amount) {
 		//this condition call other methods to verify if a elements are present in the tablet
-		if (isResourceQuantityDisplayed(amount)&&isResourceNameDisplayed(resourceName))
+		if (isAmountDisplayed(amount)&&isResourceNameDisplayed(resourceName))
 			return true;
 		else
 			return false;
@@ -199,11 +216,11 @@ public class HomePage {
 	 * @param amount
 	 * @return
 	 */
-	private boolean isResourceQuantityDisplayed(String amount) {
-		return driver.findElement(By.xpath("//div[contains(text(),'"+ amount +
+	private boolean isAmountDisplayed(String amount) {
+		return driver.findElement(By.xpath("//div[contains(text(),'"+amount+
 				"')and@ng-bind='resource.quantity']")).isDisplayed();
 	}
-
+	
 	/**
 	 * [RB]This method verifies the quantity of an associated resource
 	 * is displayed in the tablet home page
@@ -215,17 +232,17 @@ public class HomePage {
 				"')and@ng-bind='resource.name']")).isDisplayed();
 	}
 
-	public boolean isHomePageDisplayed() {
+	public boolean homePageIsDisplayed() {
 		return scheduleBtn.isDisplayed();
 	}
-
+	
 	/**
 	 * [JC] This method verify return the current date
 	 * @return
 	 */
-	public String getTimeLineDate() {
+	public String getTimeLineDate(){
 		String time = currentTimeLine.getAttribute("title").replace("th","").replace("st","")
-				.replace("nd","").replace("Current time: ","");
+		.replace("nd","").replace("Current time: ","");
 		return time;
 	}
 	
@@ -236,41 +253,6 @@ public class HomePage {
 	public SchedulePage clickScheduleBtn() {
 		wait.until(ExpectedConditions.visibilityOf(timelineContainer));
 		scheduleBtn.click();
-		return new SchedulePage();
-	}
-		
-	/**
-	 * [EN] Return the current time displayed in the top of main window.
-	 * @return
-	 */
-	public String getCurrentTimeLbl() {
-		return currentTimeLbl.getText();
-	}
-
-	/**
-	 * [EN] Return the current meeting organizer displayed on {Now} tile.
-	 * @return
-	 */
-	public String getCurrentMeetingOrganizerLbl() {
-		return currentMeetingOrganizerLbl.getText();
-	}
-	
-	/**
-	 * [EN] This method clicks {Now} tile.
-	 * @return schedule page
-	 */
-	public SchedulePage clickNowTileLbl() {
-		wait.until(ExpectedConditions.elementToBeClickable(nowTileLbl));
-		nowTileLbl.click();
-		return new SchedulePage();
-	}
-	
-	/**
-	 * [EN] This method clicks the time line container displayed in the bottom of main window
-	 * @return Schedule Page
-	 */
-	public SchedulePage clickTimelineContainer() {
-		timelineContainer.click();
 		return new SchedulePage();
 	}
 }
