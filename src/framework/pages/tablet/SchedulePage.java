@@ -299,11 +299,22 @@ public class SchedulePage {
 	}
 
 	/**
-	 * [JC] This method move the Time Line left or right(depend of the value)
+	 * [AC] This method search a meeting and click over that
 	 * @param nameMeeting
 	 * @return
 	 */
-	public SchedulePage moveTimeLine(int value){
+	public SchedulePage clickOverMeetingCreated(String nameMeeting) {
+		waitForMaskDisappears();
+		driver.findElement(By.xpath("//span[contains(text(),'" + nameMeeting + "')]")).click();
+		return this;
+	}
+	/**
+	 * [JC] This method move the Time Line left or right(depend of the value)
+	 * i.e. if the value is 5000 is move to left, -5000 is move to right
+	 * @param nameMeeting
+	 * @return
+	 */
+	public SchedulePage moveTimeLine(int value) {
 		Actions builder = new Actions(driver);
 		WebElement elem = driver.findElement(By.xpath("//div[@id='timelinePanel']"
 				+ "/descendant::div[contains(@class,'vispanel center')]")); 
@@ -315,10 +326,11 @@ public class SchedulePage {
 	
 	/**
 	 * [JC] This method move the Meeting selected left or right(depend of the value)
+	 * i.e. if the value is -5000 is move to left, 5000 is move to right
 	 * @param nameMeeting
 	 * @return
 	 */
-	public SchedulePage moveMeeting(String nameMeeting, int value){
+	public SchedulePage moveMeeting(String nameMeeting, int value) {
 		Actions builder = new Actions(driver);
 		WebElement elem = driver.findElement(By.xpath("//span[contains(text(),'" + nameMeeting + "')]"));
 		builder.clickAndHold(elem)
@@ -329,45 +341,35 @@ public class SchedulePage {
 	
 	/**
 	 * [JC] This method search a meeting and click over Left Side of this meeting
+	 * i.e. if the value is -5000 is move to left, 5000 is move to right
 	 * @param nameMeeting
 	 * @return
 	 */
-	public SchedulePage resizeMeetingLeft(String nameMeeting){
+	public SchedulePage resizeMeetingLeft(String nameMeeting) {
 		Actions builder = new Actions(driver);
 		WebElement elem = driver.findElement(By.xpath("//span[contains(text(),'" + nameMeeting + 
 				"')]/parent::div/following-sibling::div[@class='drag-left']"));
 		builder.clickAndHold(elem)
-				.moveByOffset(-600, 0)
+				.moveByOffset(-800, 0)
 				.release().perform();
 		return this;
 	}
 	
 	/**
 	 * [JC] This method search a meeting and click over Right Side of this meeting
+	 * i.e. if the value is -5000 is move to left, 5000 is move to right
 	 * @param nameMeeting
 	 * @return
 	 */
-	public SchedulePage resizeMeetingRight(String nameMeeting){
+	public SchedulePage resizeMeetingRight(String nameMeeting) {
 		Actions builder = new Actions(driver);
 		WebElement elem = driver.findElement(By.xpath("//span[contains(text(),'" + nameMeeting + 
 				"')]/parent::div/following-sibling::div[@class='drag-right']"));
 		builder.clickAndHold(elem)
-				.moveByOffset(600, 0)
+				.moveByOffset(800, 0)
 				.release().perform();
 		return this;
 	}
-	
-	
-	/**
-	 * [AC] This method search a meeting and click over that
-	 * @param nameMeeting
-	 * @return
-	 */
-	public SchedulePage clickOverMeetingCreated(String nameMeeting) {
-		driver.findElement(By.xpath("//span[contains(text(),'" + nameMeeting + "')]")).click();
-		return this;
-	}
-
 	/**
 	 * [AC] This method search for a attendee and return his value
 	 * @param emailAttendee
@@ -593,7 +595,6 @@ public class SchedulePage {
 	 * @return
 	 */
 	public String getTimeLineDate() {
-		System.out.println(currentTimeLine.getAttribute("title"));
 		String time = currentTimeLine.getAttribute("title").replace("th","").replace("st","")
 				.replace("nd","").replace("Current time: ","");
 		return time;
