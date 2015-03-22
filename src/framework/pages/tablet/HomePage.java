@@ -10,6 +10,7 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import framework.common.UIMethods;
 import framework.selenium.SeleniumDriverManager;
 
 /**
@@ -22,7 +23,7 @@ import framework.selenium.SeleniumDriverManager;
 public class HomePage {
 	private WebDriver driver;
 	private WebDriverWait wait;
-
+	
 	@FindBy(xpath = "//div[@ng-bind='current._title']")
 	WebElement nowTileLbl;
 
@@ -170,6 +171,16 @@ public class HomePage {
 	}
 
 	/**
+	 * [EN] This method clicks {Now} tile.
+	 * @return schedule page
+	 */
+	public SchedulePage clickNowTileLbl() {
+		wait.until(ExpectedConditions.elementToBeClickable(nowTileLbl));
+		nowTileLbl.click();
+		return new SchedulePage();
+	}
+	
+	/**
 	 * [RB]This method gets the room code of selected room
 	 * @return 
 	 */
@@ -231,7 +242,7 @@ public class HomePage {
 	
 	/**
 	 * [YA] This method clicks Schedule button and waits until timeline is displayed
-	 * @return
+	 * @return SchedulePage
 	 */
 	public SchedulePage clickScheduleBtn() {
 		wait.until(ExpectedConditions.visibilityOf(timelineContainer));
@@ -255,16 +266,7 @@ public class HomePage {
 		return currentMeetingOrganizerLbl.getText();
 	}
 	
-	/**
-	 * [EN] This method clicks {Now} tile.
-	 * @return schedule page
-	 */
-	public SchedulePage clickNowTileLbl() {
-		wait.until(ExpectedConditions.elementToBeClickable(nowTileLbl));
-		nowTileLbl.click();
-		return new SchedulePage();
-	}
-	
+
 	/**
 	 * [EN] This method clicks the time line container displayed in the bottom of main window
 	 * @return Schedule Page
@@ -272,5 +274,14 @@ public class HomePage {
 	public SchedulePage clickTimelineContainer() {
 		timelineContainer.click();
 		return new SchedulePage();
+	}
+	
+	/**
+	 * [YA] This method verifies if timeline container is displayed
+	 * @return boolean
+	 */
+	public boolean isTimelineContainerPresent() {
+		By timelineContainerLocator = By.id("timeline-container");
+		return UIMethods.isElementPresent(timelineContainerLocator);
 	}
 }

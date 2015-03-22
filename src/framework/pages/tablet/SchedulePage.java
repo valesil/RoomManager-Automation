@@ -35,6 +35,7 @@ import framework.utils.TimeManager;
 public class SchedulePage {
 	private WebDriver driver;
 	private WebDriverWait wait;
+	UIMethods uiMethods = new UIMethods();
 
 	@FindBy(xpath = "//span[contains(text(),'Scheduler')]")
 	WebElement schedulerLbl;
@@ -341,7 +342,7 @@ public class SchedulePage {
 	 * [AC] This method obtains the value of the textBox from organizer
 	 * @return String
 	 */
-	public String getNameOrganizerValue() {
+	public String getMeetingOrganizerValue() {
 		return organizerTxtBox.getAttribute("value");
 	}
 
@@ -436,7 +437,7 @@ public class SchedulePage {
 	public boolean isErrorAttendeeDisplayed() {
 		return getAnyErrorMessageLbl(MEETING_ATTENDEES_REQUIRED);
 	}
-	
+
 	/**
 	 * [AC] This method gets the error label when put invalid attendees
 	 * @return boolean
@@ -487,16 +488,6 @@ public class SchedulePage {
 	}
 
 	/**
-	 * [YA]This method verifies Out Of Order is displayed in Scheduler's Timeline
-	 * @param title: Out Of Order's Title
-	 * @return boolean
-	 */
-	public boolean isOutOfOrderBoxDisplayed(String title) {
-		By outOfORderBoxLocator = By.xpath("//span[contains(text(),'" + title + "')]");
-		return UIMethods.isElementPresent(outOfORderBoxLocator);	
-	}
-
-	/**
 	 * [EN] This method confirm the credentials inserted by the user
 	 * @param name
 	 * @param password
@@ -543,7 +534,6 @@ public class SchedulePage {
 		setBodyTxtBox(bodyMeeting);
 		return clickCreateBtn();
 	}
-
 	
 	/**
 	 * [JC] This method verify if the label scheduler is displayed
@@ -564,16 +554,6 @@ public class SchedulePage {
 	}
 
 	/**
-	 * [YA]This method verifies if Meeting Box is present
-	 * @param nameMeeting
-	 * @return boolean
-	 */
-	public boolean isMeetingBoxDisplayed(String nameMeeting) {
-		By meetingBoxLocator = By.xpath("//span[contains(text(),'" + nameMeeting + "')]");
-		return UIMethods.isElementPresent(meetingBoxLocator);
-	}
-	
-	/**
 	 * [AC] This method waits until the mask disappears
 	 */
 	private void waitForMaskDisappears() {
@@ -588,6 +568,57 @@ public class SchedulePage {
 	public SchedulePage clickOverTimeline() {
 		timeLine.click();
 		return this;
+	}
+	
+	/**
+	 * [YA]This method verifies if Meeting Box is present
+	 * @param nameMeeting
+	 * @return boolean
+	 */
+	public boolean isMeetingBoxDisplayed(String nameMeeting) {
+		By meetingBoxLocator = By.xpath("//span[contains(text(),'" + nameMeeting + "')]");
+		return UIMethods.isElementPresent(meetingBoxLocator);
+	}
+
+	/** 
+	 * [YA]This method verifies Out Of Order is displayed in Scheduler's Timeline
+	 * @param title: Out Of Order's Title
+	 * @return boolean
+	 */
+	public boolean isOutOfOrderBoxDisplayed(String title) {
+		return isMeetingBoxDisplayed(title);	
+	}
+
+	/**
+	 * [YA]This method creates a meeting with required information adding minutes to current time
+	 * @param organizer
+	 * @param subject
+	 * @param starTimeMinutes
+	 * @param endTimeMinutes
+	 * @param attendee
+	 * @param password
+	 * @return SchedulePage
+	 */
+	public SchedulePage createMeetingRequiredInformation(String organizer, String subject, String starTimeMinutes,
+			String endTimeMinutes, String attendee, String password) {
+		String startTime = TimeManager.getTime(Integer.parseInt(starTimeMinutes), "hh:mm a");
+		String endTime = TimeManager.getTime(Integer.parseInt(endTimeMinutes), "hh:mm a");
+		setOrganizerTxtBox(organizer);
+		setSubjectTxtBox(subject);
+		setStartTimeDate(startTime);
+		setEndTimeDate(endTime);
+		setAttendeeTxtBox(attendee);	
+		clickCreateBtn();
+		confirmCredentials(password).isMessageMeetingCreatedDisplayed();
+		return this;
+	}
+
+	/**
+	 * [YA]This method verifies if UpdateBtn is present
+	 * @return boolean
+	 */
+	public boolean isUpdateBtnPresent() {
+		return updateBtn.isDisplayed();
 	} 
 	
 	/**
