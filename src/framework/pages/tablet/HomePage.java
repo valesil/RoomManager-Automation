@@ -265,4 +265,20 @@ public class HomePage {
 		By timelineContainerLocator = By.id("timeline-container");
 		return UIMethods.isElementPresent(timelineContainerLocator);
 	}
+	
+	//This method is for meeting methods >(
+	/**
+	 * [YA] This method sets the url for tablet home and choose an specific room
+	 * @param roomName
+	 * @return
+	 */
+	public HomePage getHomeForSpecificRoom(String roomName) {
+		SettingsPage settings = new SettingsPage();
+		getHome();
+		if(isTimelineContainerPresent()) {
+			clickSettingsPageBtn();
+		}
+		settings.selectRoom(roomName);
+		return this;
+	}
 }

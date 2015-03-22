@@ -33,6 +33,7 @@ import framework.utils.TimeManager;
 public class SchedulePage {
 	private WebDriver driver;
 	private WebDriverWait wait;
+	UIMethods uiMethods = new UIMethods();
 
 	@FindBy(xpath = "//span[contains(text(),'Scheduler')]")
 	WebElement titleSchedulerLbl;
@@ -587,9 +588,9 @@ public class SchedulePage {
 
 	/**
 	 * [AC] This method deletes a meeting
-	 * @param nameMeeting: name of meeting to delete
-	 * @param password: Organizer's password
-	 * @return: This page, to use the same method repeated times
+	 * @param nameMeeting
+	 * @param password
+	 * @return SchedulePage
 	 */
 	public SchedulePage deleteMeeting(String nameMeeting, String password) {
 		clickOverMeetingCreated(nameMeeting);
@@ -598,5 +599,13 @@ public class SchedulePage {
 		clickOkButton();
 		isMessageMeetingDeletedDisplayed();
 		return this;
+	}
+	
+	/**
+	 * This method verifies if UpdateBtn is present
+	 * @return boolean
+	 */
+	public boolean isUpdateBtnPresent() {
+		return updateBtn.isDisplayed();
 	}
 }

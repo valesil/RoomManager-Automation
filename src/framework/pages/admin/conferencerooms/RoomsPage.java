@@ -16,7 +16,7 @@ import framework.pages.admin.AbstractMainMenu;
  *
  */
 public class RoomsPage extends AbstractMainMenu {
-
+		
 	@FindBy(id = "roomsGrid")
 	WebElement roomsGrid;
 
@@ -61,7 +61,7 @@ public class RoomsPage extends AbstractMainMenu {
 	 * @return
 	 */
 	public boolean isOutOfOrderIconDisplayed(String roomName) {
-		return 	getOutOfOrderIcon(roomName).isDisplayed();
+		return 	findOutOfOrderIcon(roomName).isDisplayed();
 	}
 	
 	/**
@@ -71,22 +71,48 @@ public class RoomsPage extends AbstractMainMenu {
 	 * @return
 	 */
 	public String getOutOfOrderIconClass(String roomName) {
-		WebElement outOfOrderIcon = getOutOfOrderIcon(roomName);
+		WebElement outOfOrderIcon = findOutOfOrderIcon(roomName);
 		return outOfOrderIcon.getAttribute("class");
 	}
 	
-	private WebElement getOutOfOrderIcon(String roomName) {
-		wait.until(ExpectedConditions.visibilityOf(messagePopUp));
-		messagePopUp.click();
+	/**
+	 * [YA]This method finds Out Of Order Icon
+	 * @param roomName
+	 * @return WebElement
+	 */
+	private WebElement findOutOfOrderIcon(String roomName) {
 		return driver.findElement(By.xpath("//span[contains(text(),'" 
 				+ roomName + "')]//ancestor::div[@ng-click='row.toggleSelected($event)']"
 				+ "//out-of-order-icon//span"));
 	} 
+	
+	/**
+	 * [YA]This method clicks outOfOrderIcon
+	 * @param roomName
+	 * @return
+	 */
+	public RoomsPage clickOutOfOrderIcon(String roomName) {
+		WebElement outOfOrderIcon = findOutOfOrderIcon(roomName);
+		String outOfOrderClass = getOutOfOrderIconClass(roomName);
+		//System.out.println(outOfOrderClass);
+		String action;
+		if(outOfOrderClass.contains("calendar")) {
+			action = "waiting";
+		} else {
+			action = "running";
+		}
+		outOfOrderIcon.click();
+		//System.out.println(action);
+		wait.until(ExpectedConditions.visibilityOfElementLocated(
+				By.xpath("//span[contains(text(),'" + roomName + "')]//ancestor::div[@ng-click="
+						+ "'row.toggleSelected($event)']//div[@ng-switch-when='" + action + "']")));
+		return this;
+	}
 
 	/**
 	 * [YA]This method verifies if a message is displayed and clicks on the message to make it 
 	 * disappear.
-	 * @return
+	 * @return boolean
 	 */
 	public boolean isMessagePresent() {
 		boolean messageDisplayed = messagePopUp.isDisplayed();
