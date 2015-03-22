@@ -168,6 +168,6 @@ public class RoomsPage extends AbstractMainMenu {
 	 */
 	public String getResourceQuantity(String resourceName) {
 		return driver.findElement(By.xpath("//span[contains(text(),'" + resourceName 
-				+  "')]/ancestor::div/following-sibling::div[@class='ngCell centeredColumn col3 colt3']//span[@class='ng-binding']")).getAttribute("value");
+				+  "')]/ancestor::div/following-sibling::div[@class='ngCell centeredColumn col3 colt3']//span[@class='ng-binding']/parent::div")).getText();
 	}
 }
