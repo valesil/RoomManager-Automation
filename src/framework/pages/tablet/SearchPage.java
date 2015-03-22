@@ -309,5 +309,10 @@ public class SearchPage {
 		By meetingBoxLocator = By.xpath("//div[contains(text(),'" + meetingSubject + "')]");
 		return UIMethods.isElementPresent(meetingBoxLocator); 
 	}	
+	
+	public boolean isResourceInAdvancedSearch(String resourceDisplayName) {
+		By resource = By.xpath("//*[@id='collapseExample']//div[contains(text(),'" + resourceDisplayName + "')]");
+		return UIMethods.isElementPresent(resource);
+	}
 }
 
