@@ -16,7 +16,7 @@ import framework.pages.admin.AbstractMainMenu;
  *
  */
 public class ResourcesPage extends AbstractMainMenu{
-	
+
 	@FindBy(xpath = "//div[@class='pull-left']/button[@ng-click='addResourceDialog()']") 
 	WebElement addResourceBtn;
 
@@ -25,20 +25,20 @@ public class ResourcesPage extends AbstractMainMenu{
 
 	@FindBy(id = "btnRemove")
 	WebElement removeBtn;
-	
+
 	@FindBy(xpath = "//div[@class='ngPagerLastTriangle']")
 	WebElement lastPageBtn;
-	
+
 	@FindBy(xpath = "//div[@class='ngPagerFirstTriangle ngPagerPrevTriangle']")
 	WebElement previousPageBtn;
-	
+
 	@FindBy(xpath = "//div[@class='ngPagerLastTriangle ngPagerNextTriangle']")
 	WebElement nextPageBtn;
-	
+
 	public ResourcesPage() {
 		PageFactory.initElements(driver, this);
 	}
-	
+
 	/**
 	 * [ML]Click on "+Add" resource button	
 	 * @return
@@ -148,18 +148,29 @@ public class ResourcesPage extends AbstractMainMenu{
 	public void clickPreviousTriangleIcon() {
 		previousPageBtn.click();
 	}
-	
+
 	/**
 	 * [CG]Method that clicks "Next triangle icon" to see the next resources
 	 */
 	public void clickNextTriangleIcon() {
 		nextPageBtn.click();
 	}
-	
+
 	/**
 	 * [CG]Method that clicks "Last Page triangle icon" to see the last resources
 	 */
 	public void clickLastPageTriangleIcon() {
 		lastPageBtn.click();
+	}	
+
+	/**
+	 * [ML]Return the resource icon name from in resourceInfoPage if is present
+	 * @param iconTitle
+	 * @return boolean if is or not present
+	 */
+	public boolean getResourceIcon(String iconTitle) {
+		By resourceIcon = By.xpath(".//*[@id='resourcesGrid']/descendant::*/span[@class='fa " +
+				iconTitle + "']");
+		return UIMethods.isElementPresent(resourceIcon);
 	}
 }

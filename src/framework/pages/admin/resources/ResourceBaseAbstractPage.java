@@ -7,6 +7,8 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+import framework.common.UIMethods;
 import framework.selenium.SeleniumDriverManager;
 
 /**
@@ -31,6 +33,9 @@ public class ResourceBaseAbstractPage {
 	
 	@FindBy(id = "convert") 
 	WebElement resourceOpenIconBtn;
+
+	@FindBy(xpath = "//button[@ng-click='cancel()']")
+	WebElement closeCancelBtn;
 	
 	public ResourceBaseAbstractPage() {		
 		driver = SeleniumDriverManager.getManager().getDriver();
@@ -115,5 +120,25 @@ public class ResourceBaseAbstractPage {
 	public ResourcesPage clickSaveResourceBtn() {
 		saveResourceBtn.click();
 		return new ResourcesPage();
+	}
+	
+	/**
+	 * [ML]Method that close resourceAsociationPage
+	 * @return ResourcesPage
+	 */
+	public ResourcesPage clickCancelCloseWindowButton() {
+		closeCancelBtn.click();
+		return new ResourcesPage();		
+	}
+	
+	/**
+	 * [ML]Return the resource icon name from in resourceInfoPage if is present
+	 * @param iconTitle
+	 * @return boolean if is or not present
+	 */
+	public boolean getResourceIcon(String iconTitle) {
+		By resourceIcon = By.xpath(".//*[@id='resourcesGrid']/descendant::*/span[@class='fa " +
+				iconTitle + "']");
+		return UIMethods.isElementPresent(resourceIcon);
 	}
 }
