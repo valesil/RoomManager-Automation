@@ -342,7 +342,7 @@ public class SchedulePage {
 	 * [AC] This method obtains the value of the textBox from organizer
 	 * @return String
 	 */
-	public String getNameOrganizerValue() {
+	public String getMeetingOrganizerValue() {
 		return organizerTxtBox.getAttribute("value");
 	}
 
@@ -488,16 +488,6 @@ public class SchedulePage {
 	}
 
 	/**
-	 * [YA]This method verifies Out Of Order is displayed in Scheduler's Timeline
-	 * @param title: Out Of Order's Title
-	 * @return boolean
-	 */
-	public boolean isOutOfOrderBoxDisplayed(String title) {
-		By outOfORderBoxLocator = By.xpath("//span[contains(text(),'" + title + "')]");
-		return UIMethods.isElementPresent(outOfORderBoxLocator);	
-	}
-
-	/**
 	 * [EN] This method confirm the credentials inserted by the user
 	 * @param name
 	 * @param password
@@ -544,7 +534,6 @@ public class SchedulePage {
 		setBodyTxtBox(bodyMeeting);
 		return clickCreateBtn();
 	}
-
 	
 	/**
 	 * [JC] This method verify if the label scheduler is displayed
@@ -565,16 +554,6 @@ public class SchedulePage {
 	}
 
 	/**
-	 * [YA]This method verifies if Meeting Box is present
-	 * @param nameMeeting
-	 * @return boolean
-	 */
-	public boolean isMeetingBoxDisplayed(String nameMeeting) {
-		By meetingBoxLocator = By.xpath("//span[contains(text(),'" + nameMeeting + "')]");
-		return UIMethods.isElementPresent(meetingBoxLocator);
-	}
-
-	/**
 	 * [AC] This method waits until the mask disappears
 	 */
 	private void waitForMaskDisappears() {
@@ -590,6 +569,16 @@ public class SchedulePage {
 		timeLine.click();
 		return this;
 	}
+	
+	/**
+	 * [YA]This method verifies if Meeting Box is present
+	 * @param nameMeeting
+	 * @return boolean
+	 */
+	public boolean isMeetingBoxDisplayed(String nameMeeting) {
+		By meetingBoxLocator = By.xpath("//span[contains(text(),'" + nameMeeting + "')]");
+		return UIMethods.isElementPresent(meetingBoxLocator);
+	}
 
 	/** 
 	 * [YA]This method verifies Out Of Order is displayed in Scheduler's Timeline
@@ -602,13 +591,13 @@ public class SchedulePage {
 
 	/**
 	 * [YA]This method creates a meeting with required information adding minutes to current time
-	 * @param organizer: Organizer name
-	 * @param subject: Meeting's subject
-	 * @param starTimeMinutes: Minutes to add or subtract to current time to get startTime
-	 * @param endTimeMinutes: Minutes to add or subtract to current time to get endTime
-	 * @param attendee: Attendees for the meeting
-	 * @param password: Organizer's password
-	 * @throws InterruptedException 
+	 * @param organizer
+	 * @param subject
+	 * @param starTimeMinutes
+	 * @param endTimeMinutes
+	 * @param attendee
+	 * @param password
+	 * @return SchedulePage
 	 */
 	public SchedulePage createMeetingRequiredInformation(String organizer, String subject, String starTimeMinutes,
 			String endTimeMinutes, String attendee, String password) {
@@ -625,22 +614,7 @@ public class SchedulePage {
 	}
 
 	/**
-	 * [AC] This method deletes a meeting
-	 * @param nameMeeting
-	 * @param password
-	 * @return SchedulePage
-	 */
-	public SchedulePage deleteMeeting(String nameMeeting, String password) {
-		clickOverMeetingCreated(nameMeeting);
-		clickRemoveBtn();
-		setPasswordTxtBox(password);
-		clickOkButton();
-		isMessageMeetingDeletedDisplayed();
-		return this;
-	}
-	
-	/**
-	 * This method verifies if UpdateBtn is present
+	 * [YA]This method verifies if UpdateBtn is present
 	 * @return boolean
 	 */
 	public boolean isUpdateBtnPresent() {

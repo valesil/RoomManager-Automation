@@ -97,7 +97,6 @@ public class MeetingMethods {
 	 * @param attendee: Attendees for the meeting
 	 * @param body: Meeting's body message
 	 * @param password: Organizer's password
-	 * @throws InterruptedException 
 	 */
 	public void createMeeting(String organizer, String subject, String starTimeMinutes,
 			String endTimeMinutes, String attendee, String body, String password) {

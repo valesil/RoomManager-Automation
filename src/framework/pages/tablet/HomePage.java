@@ -171,23 +171,15 @@ public class HomePage {
 	}
 
 	/**
-	 * [EN] Return Schedule page when {Schedule} button is clicked.
-	 * @return
-	 */
-	public SchedulePage clickSchedulePageBtn() {
-		wait.until(ExpectedConditions.elementToBeClickable(scheduleBtn));
-		scheduleBtn.click();
-		return new SchedulePage();
-	}
-	
-	/**
-	 * [JC] This method return a new SchedulePage
-	 * @return
+	 * [EN] This method clicks {Now} tile.
+	 * @return schedule page
 	 */
 	public SchedulePage clickNowTileLbl() {
+		wait.until(ExpectedConditions.elementToBeClickable(nowTileLbl));
 		nowTileLbl.click();
 		return new SchedulePage();
 	}
+	
 	/**
 	 * [RB]This method gets the room code of selected room
 	 * @return 
@@ -274,16 +266,7 @@ public class HomePage {
 		return currentMeetingOrganizerLbl.getText();
 	}
 	
-	/**
-	 * [EN] This method clicks {Now} tile.
-	 * @return schedule page
-	 */
-	public SchedulePage clickNowTileLbl() {
-		wait.until(ExpectedConditions.elementToBeClickable(nowTileLbl));
-		nowTileLbl.click();
-		return new SchedulePage();
-	}
-	
+
 	/**
 	 * [EN] This method clicks the time line container displayed in the bottom of main window
 	 * @return Schedule Page
@@ -312,7 +295,7 @@ public class HomePage {
 		SettingsPage settings = new SettingsPage();
 		getHome();
 		if(isTimelineContainerPresent()) {
-			clickSettingsPageBtn();
+			clickSettingsBtn();
 		}
 		settings.selectRoom(roomName);
 		return this;
