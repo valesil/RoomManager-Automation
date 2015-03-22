@@ -141,25 +141,4 @@ public class ResourcesPage extends AbstractMainMenu{
 	public void clickSelectAllResources() {
 		driver.findElement(By.xpath("//input[@ng-model='allSelected']")).click();
 	}
-
-	/**
-	 * [CG]Method that clicks "previous triangle icon" to see the previous resources
-	 */
-	public void clickPreviousTriangleIcon() {
-		previousPageBtn.click();
-	}
-	
-	/**
-	 * [CG]Method that clicks "Next triangle icon" to see the next resources
-	 */
-	public void clickNextTriangleIcon() {
-		nextPageBtn.click();
-	}
-	
-	/**
-	 * [CG]Method that clicks "Last Page triangle icon" to see the last resources
-	 */
-	public void clickLastPageTriangleIcon() {
-		lastPageBtn.click();
-	}
 }
