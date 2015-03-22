@@ -29,4 +29,13 @@ public final class MessageConstants {
 	
 	//The following messages are for RoomInfoPage
 	public static final String ROOM_DISPLAY_NAME_EMPTY = "Display Name must not be empty";
+	
+	//The following messages are for ResourcesPage
+	public static final String RESOURCE_NAME_DUPLICATED = "A resource with the same name already exists, please choose another name";
+	public static final String RESOURCE_DISPLAY_NAME_DUPLICATED = "A resource with the same display name already exists, please choose another display name";
+	public static final String RESOURCE_NAME_TEXTBOX_EMPTY = "Name must not be empty";
+	public static final String RESOURCE_DISPLAY_NAME_TEXTBOX_EMPTY = "Display name must not be empty";
+	
+	
+	
 }
