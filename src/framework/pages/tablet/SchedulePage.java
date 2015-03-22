@@ -570,14 +570,6 @@ public class SchedulePage {
 				.replace("nd","").replace("Current time: ","");
 		return time;
 	}
-
-	/**
-	 * [AC] This method waits until the mask disappears
-	 */
-	private void waitForMaskDisappears() {
-		wait.until(ExpectedConditions.invisibilityOfElementLocated(
-				By.xpath("//div[@class='Modal-backdrop ng-scope']")));
-	}
 	
 	/**
 	 * [AC] This method clicks over TimeLine
@@ -625,7 +617,7 @@ public class SchedulePage {
 		setSubjectTxtBox(subject);
 		setStartTimeDate(startTime);
 		setEndTimeDate(endTime);
-		setAttendeeTxtBox(attendee);	
+		setAttendeeTxtBoxPressingEnter(attendee);	
 		clickCreateBtn();
 		confirmCredentials(password).isMessageMeetingCreatedDisplayed();
 		return this;
