@@ -36,9 +36,6 @@ public class ResourceBaseAbstractPage {
 	
 	@FindBy(id = "convert") 
 	WebElement resourceOpenIconBtn;
-
-	@FindBy(xpath = "//button[@ng-click='cancel()']")
-	WebElement closeCancelBtn;
 	
 	public ResourceBaseAbstractPage() {		
 		driver = SeleniumDriverManager.getManager().getDriver();
@@ -123,15 +120,6 @@ public class ResourceBaseAbstractPage {
 	public ResourcesPage clickSaveResourceBtn() {
 		saveResourceBtn.click();
 		return new ResourcesPage();
-	}
-	
-	/**
-	 * [ML]Method that close resourceAsociationPage
-	 * @return ResourcesPage
-	 */
-	public ResourcesPage clickCancelCloseWindowButton() {
-		closeCancelBtn.click();
-		return new ResourcesPage();		
 	}
 	
 	/**
