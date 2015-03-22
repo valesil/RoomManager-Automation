@@ -10,6 +10,7 @@ import static framework.common.MessageConstants.MEETING_REMOVED;
 import static framework.common.MessageConstants.MEETING_SUBJECT_REQUIERED;
 import static framework.common.MessageConstants.MEETING_TIME_STARTEND;
 import static framework.common.MessageConstants.MEETING_UPDATED;
+import static framework.common.MessageConstants.MEETING_PAST_CREATED_ERROR;
 import static framework.utils.TimeManager.getTimeElement;
 
 import org.openqa.selenium.By;
@@ -95,7 +96,10 @@ public class SchedulePage {
 
 	@FindBy(xpath = "//button/span[contains(text(),'Cancel')]")
 	WebElement cancelBtn;
-
+	
+	@FindBy(xpath = "//div[@class='item range meeting']")
+	WebElement itemRangeMeeting;
+	
 	@FindBy(xpath = "//div[@class='vispanel center']")
 	WebElement timeLine;
 
@@ -502,16 +506,6 @@ public class SchedulePage {
 	}
 
 	/**
-	 * [YA]This method verifies Out Of Order is displayed in Scheduler's Timeline
-	 * @param title: Out Of Order's Title
-	 * @return boolean
-	 */
-	public boolean isOutOfOrderBoxDisplayed(String title) {
-		By outOfORderBoxLocator = By.xpath("//span[contains(text(),'" + title + "')]");
-		return UIMethods.isElementPresent(outOfORderBoxLocator);	
-	}
-
-	/**
 	 * [EN] This method confirm the credentials inserted by the user
 	 * @param name
 	 * @param password
@@ -558,7 +552,7 @@ public class SchedulePage {
 		setBodyTxtBox(bodyMeeting);
 		return clickCreateBtn();
 	}
-
+	
 	/**
 	 * [JC] This method verify if the label scheduler is displayed
 	 * @return boolean
@@ -578,6 +572,23 @@ public class SchedulePage {
 	}
 
 	/**
+	 * [AC] This method waits until the mask disappears
+	 */
+	private void waitForMaskDisappears() {
+		wait.until(ExpectedConditions.invisibilityOfElementLocated(
+				By.xpath("//div[@class='Modal-backdrop ng-scope']")));
+	}
+	
+	/**
+	 * [AC] This method clicks over TimeLine
+	 * @return SchedulePage
+	 */
+	public SchedulePage clickOverTimeline() {
+		timeLine.click();
+		return this;
+	}
+	
+	/**
 	 * [YA]This method verifies if Meeting Box is present
 	 * @param nameMeeting
 	 * @return boolean
@@ -587,23 +598,47 @@ public class SchedulePage {
 		return UIMethods.isElementPresent(meetingBoxLocator);
 	}
 
-	/**
-	 * [AC] This method waits until the mask disappears
+	/** 
+	 * [YA]This method verifies Out Of Order is displayed in Scheduler's Timeline
+	 * @param title: Out Of Order's Title
+	 * @return boolean
 	 */
-	private void waitForMaskDisappears() {
-		wait.until(ExpectedConditions.invisibilityOfElementLocated(
-				By.xpath("//div[@class='Modal-backdrop ng-scope']")));
+	public boolean isOutOfOrderBoxDisplayed(String title) {
+		return isMeetingBoxDisplayed(title);	
 	}
 
 	/**
-	 * [AC] This method clicks over TimeLine
+	 * [YA]This method creates a meeting with required information adding minutes to current time
+	 * @param organizer
+	 * @param subject
+	 * @param starTimeMinutes
+	 * @param endTimeMinutes
+	 * @param attendee
+	 * @param password
 	 * @return SchedulePage
 	 */
-	public SchedulePage clickOverTimeline() {
-		timeLine.click();
+	public SchedulePage createMeetingRequiredInformation(String organizer, String subject, String starTimeMinutes,
+			String endTimeMinutes, String attendee, String password) {
+		String startTime = TimeManager.getTime(Integer.parseInt(starTimeMinutes), "hh:mm a");
+		String endTime = TimeManager.getTime(Integer.parseInt(endTimeMinutes), "hh:mm a");
+		setOrganizerTxtBox(organizer);
+		setSubjectTxtBox(subject);
+		setStartTimeDate(startTime);
+		setEndTimeDate(endTime);
+		setAttendeeTxtBox(attendee);	
+		clickCreateBtn();
+		confirmCredentials(password).isMessageMeetingCreatedDisplayed();
 		return this;
-	} 
+	}
 
+	/**
+	 * [YA]This method verifies if UpdateBtn is present
+	 * @return boolean
+	 */
+	public boolean isUpdateBtnPresent() {
+		return updateBtn.isDisplayed();
+	} 
+	
 	/**
 	 * [AC] This method delete a meeting
 	 * @param nameMeeting
@@ -644,6 +679,15 @@ public class SchedulePage {
 		return this;
 	}
 
+	/**
+	 * [EN] This method checks that a error message is displayed 
+	 * when a meeting is created with past time values.
+	 * @return boolean
+	 */
+	public boolean isErrorMessageOfPastMeetingDisplayed() {
+		return getAnyErrorMessageLbl(MEETING_PAST_CREATED_ERROR);
+	}
+	
 	/**
 	 * [AC] This method gets the default duration of a meeting
 	 * @return int
@@ -730,5 +774,4 @@ public class SchedulePage {
 		.release().perform();
 		return this;
 	}
-
 }

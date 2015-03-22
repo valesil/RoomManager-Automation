@@ -10,6 +10,7 @@ import org.openqa.selenium.support.PageFactory;
 
 import framework.pages.tablet.HomePage;
 import framework.pages.tablet.SchedulePage;
+import framework.pages.tablet.SettingsPage;
 import framework.selenium.SeleniumDriverManager;
 import framework.utils.TimeManager;
 import framework.utils.readers.ExcelReader;
@@ -20,6 +21,7 @@ public class MeetingMethods {
 	SchedulePage schedule;
 	WebDriver driver;
 	HomePage home;
+	SettingsPage settings;
 
 	/**
 	 * [AC] This method initializes the listMaps to read from the excel
@@ -37,7 +39,7 @@ public class MeetingMethods {
 		}
 		meetingData = excelReader.getMapValues("MeetingData");
 	}	
-	
+
 	/**
 	 * [AC] This method creates a meeting
 	 * @param organizer
@@ -52,15 +54,15 @@ public class MeetingMethods {
 			String attendee, String body, String password) {
 		HomePage home = new HomePage();
 		home.clickScheduleBtn()
-			.setOrganizerTxtBox(organizer)
-			.setSubjectTxtBox(subject)
-			.setStartTimeDate(startTime)
-			.setEndTimeDate(endTime)
+		.setOrganizerTxtBox(organizer)
+		.setSubjectTxtBox(subject)
+		.setStartTimeDate(startTime)
+		.setEndTimeDate(endTime)
 			.setAttendeeTxtBoxPressingEnter(attendee)
-			.setBodyTxtBox(body)
-			.clickCreateBtn()
-			.confirmCredentials(password)
-			.isMessageMeetingCreatedDisplayed();
+		.setBodyTxtBox(body)
+		.clickCreateBtn()
+		.confirmCredentials(password)
+		.isMessageMeetingCreatedDisplayed();
 	}
 
 	/**
@@ -97,18 +99,17 @@ public class MeetingMethods {
 	 * @param attendee: Attendees for the meeting
 	 * @param body: Meeting's body message
 	 * @param password: Organizer's password
-	 * @throws InterruptedException 
 	 */
 	public void createMeeting(String organizer, String subject, String starTimeMinutes,
 			String endTimeMinutes, String attendee, String body, String password) {
-			
+
 		String startTime = TimeManager.getTime(Integer.parseInt(starTimeMinutes), "hh:mm a");
 		String endTime = TimeManager.getTime(Integer.parseInt(endTimeMinutes), "hh:mm a");
-			home.clickScheduleBtn()
-			.createMeeting(organizer, subject, startTime, endTime, attendee, body)		
-			.confirmCredentials(password).isMessageMeetingCreatedDisplayed();
+		home.clickScheduleBtn()
+		.createMeeting(organizer, subject, startTime, endTime, attendee, body)		
+		.confirmCredentials(password).isMessageMeetingCreatedDisplayed();
 	}
-	
+
 	/**
 	 * [AC] This class delete a meeting
 	 * @param nameMeeting
@@ -116,11 +117,25 @@ public class MeetingMethods {
 	 */
 	public SchedulePage deleteMeeting(String nameMeeting, String password) {
 		home.clickScheduleBtn()
-			.deleteMeeting(nameMeeting, password);
+		.deleteMeeting(nameMeeting, password);
 		return new SchedulePage();
 	}
-	
+
 	public void goHome() {
 		schedule.clickBackBtn();
+	}
+
+	/**
+	 * [YA] This method sets the url for tablet home and choose an specific room
+	 * @param roomName
+	 * @return
+	 */
+	public HomePage getHomeForSpecificRoom(String roomName) {
+		home.getHome();
+		if(home.isTimelineContainerPresent()) {
+			home.clickSettingsBtn();
+		}
+		settings.selectRoom(roomName);
+		return new HomePage();
 	}
 }

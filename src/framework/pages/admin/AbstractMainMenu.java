@@ -26,72 +26,72 @@ public abstract class AbstractMainMenu {
 
 	@FindBy(linkText = "Email Servers") 
 	WebElement emailServersLink;
-	
+
 	@FindBy(linkText = "Impersonation") 
 	WebElement impersonationLink;
-	
+
 	@FindBy(linkText = "Conference Rooms") 
 	WebElement conferenceRoomsLink;
-	
+
 	@FindBy(linkText = "Resources") 
 	WebElement resourcesLink;
-	
+
 	@FindBy(linkText = "Issues") 
 	WebElement issuesLink;
-	
+
 	@FindBy(linkText = "Locations") 
 	WebElement locationsLink;
-	
+
 	@FindBy(linkText = "Tablets") 
 	WebElement tabletsLink;
-	
-	
+
+	By maskLocator = By.xpath("//div[@ng-class='{in: animate}']");	
+
 	public AbstractMainMenu() {
 		driver = SeleniumDriverManager.getManager().getDriver();
 		wait = SeleniumDriverManager.getManager().getWait();
 		PageFactory.initElements(driver, this);
 	}
-	
+
 	public HomeAdminPage clickEmailServersLink() {
 		emailServersLink.click();
 		return new HomeAdminPage();
 	}
-	
+
 	public void clickImpersonationLink() {
 		impersonationLink.click();
 	}
-	
+
 	public RoomsPage clickConferenceRoomsLink() {
 		waitForMaskDisappears();
 		conferenceRoomsLink.click();
 		return new RoomsPage();
 	}
-	
+
 	public ResourcesPage clickResourcesLink() {
 		waitForMaskDisappears();
 		resourcesLink.click();
 		return new ResourcesPage();
 	}
-	
+
 	public void clickHomeLink() {
 		homeLink.click();
 	}
-	
+
 	public void clickIssuesLink() {
 		issuesLink.click();
 	}
-	
+
 	public void clickLocationsLink() {
 		locationsLink.click();
 	}
-	
+
 	public void clickTabletsLink() {
 		tabletsLink.click();
 	}
-	
+
 	public AbstractMainMenu waitForMaskDisappears() {
-		wait.until(ExpectedConditions.invisibilityOfElementLocated(
-				By.xpath("//div[@ng-class='{in: animate}']")));
+		wait.until(ExpectedConditions.invisibilityOfElementLocated(maskLocator));
 		return this;
 	}
 }

@@ -1,5 +1,7 @@
 package framework.utils.readers;
 
+import static framework.common.AppConfigConstants.EXCEL_PATH;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
@@ -10,7 +12,6 @@ import java.util.Map;
 import jxl.Sheet;
 import jxl.Workbook;
 import jxl.read.biff.BiffException;
-import static framework.common.AppConfigConstants.EXCEL_PATH;
 
 /**
  * 
