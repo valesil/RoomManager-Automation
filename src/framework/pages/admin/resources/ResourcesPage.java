@@ -129,7 +129,8 @@ public class ResourcesPage extends AbstractMainMenu{
 	 */
 	public boolean searchSelectedItemsValue(String value) throws InterruptedException {
 		String locator = "//span[contains(text(),'Selected Items: " + value + "')]";
-		wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath(locator)));
+		//wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath(locator)));
+		waitForMaskDisappears();
 		return driver.findElement(By.xpath(locator)).isDisplayed();
 	}
 

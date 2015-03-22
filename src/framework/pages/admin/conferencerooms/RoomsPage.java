@@ -157,8 +157,10 @@ public class RoomsPage extends AbstractMainMenu {
 	 * @return true or false if the button is enabled or disabled
 	 */
 	public boolean stateEnableDisableBtn(String roomName) {
-		return driver.findElement(By.xpath("//span[contains(text(),'" + roomName +
-				"')]//ancestor::div[@ng-click='row.toggleSelected($event)']//span")).isEnabled();
+		String locator = "//span[contains(text(),'" + roomName +
+				"')]//ancestor::div[@ng-click='row.toggleSelected($event)']//span";
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath(locator)));
+		return driver.findElement(By.xpath(locator)).isEnabled();
 	}
 	
 	/**
