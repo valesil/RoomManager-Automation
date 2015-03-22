@@ -56,7 +56,7 @@ public class MeetingMethods {
 			.setSubjectTxtBox(subject)
 			.setStartTimeDate(startTime)
 			.setEndTimeDate(endTime)
-			.setAttendeeTxtBox(attendee)
+			.setAttendeeTxtBoxPressingEnter(attendee)
 			.setBodyTxtBox(body)
 			.clickCreateBtn()
 			.confirmCredentials(password)
