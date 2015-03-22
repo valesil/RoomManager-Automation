@@ -2,8 +2,6 @@ package framework.pages.admin.conferencerooms;
 
 import org.openqa.selenium.By;
 
-import framework.common.UIMethods;
-
 /**
  * 
  * @author Juan Carlos Guevara
