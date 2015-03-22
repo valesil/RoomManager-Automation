@@ -94,7 +94,6 @@ public class RoomsPage extends AbstractMainMenu {
 	public RoomsPage clickOutOfOrderIcon(String roomName) {
 		WebElement outOfOrderIcon = findOutOfOrderIcon(roomName);
 		String outOfOrderClass = getOutOfOrderIconClass(roomName);
-		//System.out.println(outOfOrderClass);
 		String action;
 		if(outOfOrderClass.contains("calendar")) {
 			action = "waiting";
@@ -102,7 +101,6 @@ public class RoomsPage extends AbstractMainMenu {
 			action = "running";
 		}
 		outOfOrderIcon.click();
-		//System.out.println(action);
 		wait.until(ExpectedConditions.visibilityOfElementLocated(
 				By.xpath("//span[contains(text(),'" + roomName + "')]//ancestor::div[@ng-click="
 						+ "'row.toggleSelected($event)']//div[@ng-switch-when='" + action + "']")));
@@ -189,7 +187,7 @@ public class RoomsPage extends AbstractMainMenu {
 	
 	/**
 	 * [YA] This method waits for any message to be displayed and clicks it
-	 * @return
+	 * @return RoomsPage
 	 */
 	public RoomsPage waitForMessage() {
 		wait.until(ExpectedConditions.visibilityOf(messagePopUp));

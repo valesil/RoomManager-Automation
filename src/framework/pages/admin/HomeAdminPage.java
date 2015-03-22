@@ -12,6 +12,7 @@ import framework.common.UIMethods;
  *
  */
 public class HomeAdminPage extends AbstractMainMenu {
+	
 	/**
 	 * [YA]This method returns to HomeAdminPage from Tablet
 	 * @return

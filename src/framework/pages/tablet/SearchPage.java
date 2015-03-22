@@ -286,7 +286,7 @@ public class SearchPage {
 	/**
 	 * [YA]This method verifies if an Out Of Order is displayed
 	 * @param title: Out Of Order Title
-	 * @return
+	 * @return boolean
 	 */
 	public boolean isOutOfOrderBoxDisplayed(String title) {
 		return isMeetingBoxDisplayed(title);
@@ -303,13 +303,11 @@ public class SearchPage {
 	/**
 	 * [YA]This method verifies if a Meeting BOx is displayed
 	 * @param meetingSubject: Meeting Subject
-	 * @return
+	 * @return boolean
 	 */
 	public boolean isMeetingBoxDisplayed(String meetingSubject) {
 		By meetingBoxLocator = By.xpath("//div[contains(text(),'" + meetingSubject + "')]");
 		return UIMethods.isElementPresent(meetingBoxLocator); 
-	}
-	
-	
+	}	
 }
 

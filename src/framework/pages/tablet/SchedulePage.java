@@ -583,7 +583,7 @@ public class SchedulePage {
 	/** 
 	 * [YA]This method verifies Out Of Order is displayed in Scheduler's Timeline
 	 * @param title: Out Of Order's Title
-	 * @return
+	 * @return boolean
 	 */
 	public boolean isOutOfOrderBoxDisplayed(String title) {
 		return isMeetingBoxDisplayed(title);	
