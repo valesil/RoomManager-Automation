@@ -10,6 +10,7 @@ import static framework.common.MessageConstants.MEETING_REMOVED;
 import static framework.common.MessageConstants.MEETING_SUBJECT_REQUIERED;
 import static framework.common.MessageConstants.MEETING_TIME_STARTEND;
 import static framework.common.MessageConstants.MEETING_UPDATED;
+import static framework.common.MessageConstants.MEETING_PAST_CREATED_ERROR;
 import static framework.utils.TimeManager.getTimeElement;
 
 import org.openqa.selenium.By;
@@ -96,10 +97,13 @@ public class SchedulePage {
 
 	@FindBy(xpath = "//button/span[contains(text(),'Cancel')]")
 	WebElement cancelBtn;
-
+	
+	@FindBy(xpath = "//div[@class='item range meeting']")
+	WebElement itemRangeMeeting;
+	
 	@FindBy(xpath = "//div[@class='vispanel center']")
 	WebElement timeLine;
-	
+
 	/**
 	 * [AC] Get the driver and the wait to use that in this class
 	 */
@@ -662,6 +666,15 @@ public class SchedulePage {
 	}
 	
 	/**
+	 * [EN] This method checks that a error message is displayed 
+	 * when a meeting is created with past time values.
+	 * @return boolean
+	 */
+	public boolean isErrorMessageOfPastMeetingDisplayed() {
+		return getAnyErrorMessageLbl(MEETING_PAST_CREATED_ERROR);
+	}
+	
+	/**
 	 * [AC] This method gets the default duration of a meeting
 	 * @return int
 	 */
@@ -747,5 +760,4 @@ public class SchedulePage {
 				.release().perform();
 		return this;
 	}
-
 }
