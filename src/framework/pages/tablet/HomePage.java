@@ -244,7 +244,7 @@ public class HomePage {
 	 */
 	public String getTimeLineDate() {
 		String time = currentTimeLine.getAttribute("title").replace("th","").replace("st","")
-				.replace("nd","").replace("Current time: ","");
+				.replace("nd","").replace("rd","").replace("Current time: ","");
 		return time;
 	}
 
