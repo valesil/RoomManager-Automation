@@ -165,8 +165,9 @@ public class RoomsPage extends AbstractMainMenu {
 	 * @return
 	 */
 	public RoomsPage clickResourceIcon(String resourceName) {
-		driver.findElement(By.xpath("//span[contains(text(),'" + resourceName 
-				+ "')and@class='ng-binding']")).click();
+		String locator = "//span[contains(text(),'" + resourceName + "')and@class='ng-binding']";
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath(locator)));
+		driver.findElement(By.xpath(locator)).click();
 		return this;
 	}
 
@@ -181,7 +182,7 @@ public class RoomsPage extends AbstractMainMenu {
 				+ resourceName + "')]";
 		wait.until(ExpectedConditions.textToBePresentInElementLocated(By.xpath(locator), 
 				resourceName));
-		return driver.findElement(By.xpath(locator)).isDisplayed();
+		return UIMethods.isElementPresent(By.xpath(locator));
 	}
 
 	/**
@@ -212,7 +213,7 @@ public class RoomsPage extends AbstractMainMenu {
 	 * @return
 	 */
 	public String getResourceQuantity(String resourceName) {
-		return driver.findElement(By.xpath("//span[contains(text(),'" + resourceName +  "')]"
+		return driver.findElement(By.xpath("//span[contains(text(),'" + resourceName + "')]"
 				+ "/ancestor::div/following-sibling::div[@class='ngCell centeredColumn col3 colt3']"
 				+ "//span[@class='ng-binding']/parent::div")).getText();
 	}

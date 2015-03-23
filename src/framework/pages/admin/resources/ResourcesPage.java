@@ -115,7 +115,7 @@ public class ResourcesPage extends AbstractMainMenu{
 	public boolean searchTotalItemsValue(String value) throws InterruptedException {
 		String locator = "//span[contains(text(),'Total Items: " + value + "')]";
 		wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath(locator)));
-		return driver.findElement(By.xpath(locator)).isDisplayed();
+		return UIMethods.isElementPresent(By.xpath(locator));
 	}
 
 	/**
@@ -127,7 +127,8 @@ public class ResourcesPage extends AbstractMainMenu{
 	 */
 	public boolean searchSelectedItemsValue(String value) throws InterruptedException {
 		By locator = By.xpath("//span[contains(text(),'Selected Items: " + value + "')]");
-		return UIMethods.isElementPresent(locator);
+		wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(locator)));
+		return UIMethods.isElementPresent(By.xpath(locator));
 	}
 
 	/**
