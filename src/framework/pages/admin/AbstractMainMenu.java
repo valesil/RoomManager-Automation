@@ -20,7 +20,7 @@ import framework.selenium.SeleniumDriverManager;
 public abstract class AbstractMainMenu {
 	protected WebDriver driver;	
 	protected WebDriverWait wait;
-	
+
 	@FindBy(linkText = "Room Manager") 
 	WebElement homeLink;
 
@@ -44,7 +44,7 @@ public abstract class AbstractMainMenu {
 
 	@FindBy(linkText = "Tablets") 
 	WebElement tabletsLink;
-
+	
 	By maskLocator = By.xpath("//div[@ng-class='{in: animate}']");	
 
 	public AbstractMainMenu() {
@@ -63,13 +63,11 @@ public abstract class AbstractMainMenu {
 	}
 
 	public RoomsPage clickConferenceRoomsLink() {
-		waitForMaskDisappears();
 		conferenceRoomsLink.click();
 		return new RoomsPage();
 	}
 
 	public ResourcesPage clickResourcesLink() {
-		waitForMaskDisappears();
 		resourcesLink.click();
 		return new ResourcesPage();
 	}
