@@ -102,6 +102,9 @@ public class SchedulePage {
 	
 	@FindBy(xpath = "//div[@class='vispanel center']")
 	WebElement timeLine;
+	
+	@FindBy(css = "div.Modal-holder.ng-scope")
+	WebElement mask;
 
 	/**
 	 * [AC] Get the driver and the wait to use that in this class
@@ -277,6 +280,7 @@ public class SchedulePage {
 	 * @return SchedulePage
 	 */
 	public SchedulePage clickUpdateBtn() {
+		wait.until(ExpectedConditions.elementToBeClickable(updateBtn));
 		updateBtn.click();
 		return this;
 	}
@@ -451,7 +455,7 @@ public class SchedulePage {
 	 * [AC] This method gets the error label when does not put attendees
 	 * @return boolean
 	 */
-	public boolean isErrorAttendeeDisplayed() {
+	public boolean isErrorAttendeeLblDisplayed() {
 		return getAnyErrorMessageLbl(MEETING_ATTENDEES_REQUIRED);
 	}
 
@@ -459,7 +463,7 @@ public class SchedulePage {
 	 * [AC] This method gets the error label when put invalid attendees
 	 * @return boolean
 	 */
-	public boolean isErrorAttendeeInvalidDisplayed() {
+	public boolean isErrorAttendeeInvalidLblDisplayed() {
 		return getAnyErrorMessageLbl(MEETING_ATTENDEES_INVALID);
 	}
 
@@ -492,6 +496,8 @@ public class SchedulePage {
 	 */
 	public SchedulePage clickOkButton() {
 		okBtn.click();
+		okBtn.sendKeys(Keys.ESCAPE);
+		UIMethods.waitForMaskDisappearsAndClickElement(timeLine);
 		return this;
 	}
 
@@ -500,8 +506,9 @@ public class SchedulePage {
 	 * @return SchedulePage
 	 */
 	public SchedulePage clickCancelButton() {
-		wait.until(ExpectedConditions.elementToBeClickable(cancelBtn));
 		cancelBtn.click();
+		cancelBtn.sendKeys(Keys.ESCAPE);
+		UIMethods.waitForMaskDisappearsAndClickElement(timeLine);
 		return this;
 	}
 

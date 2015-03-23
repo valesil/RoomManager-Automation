@@ -36,4 +36,18 @@ public class UIMethods {
 	public static void refresh() {
 		driver.navigate().refresh();
 	}
+	
+	public static void waitForMaskDisappearsAndClickElement(WebElement webElement) {
+        boolean value = false;
+        while (value == false) {
+              try {
+                    webElement.click();
+                    value = true;
+              }
+              catch (Exception e) {
+                    value = false;
+              }
+        }
+  }
+
 }
