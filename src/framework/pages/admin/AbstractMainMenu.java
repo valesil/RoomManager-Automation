@@ -47,6 +47,10 @@ public abstract class AbstractMainMenu {
 	@FindBy(linkText = "Tablets") 
 	WebElement tabletsLink;
 	
+	@FindBy(xpath = "//div[@class = 'row v-space ng-scope']")
+    WebElement background;
+	
+	By maskLocator = By.xpath("//div[@ng-class='{in: animate}']");
 	
 	public AbstractMainMenu() {
 		driver = SeleniumDriverManager.getManager().getDriver();
@@ -64,13 +68,13 @@ public abstract class AbstractMainMenu {
 	}
 	
 	public RoomsPage clickConferenceRoomsLink() {
-		waitForMaskDisappears();
+		waitForMaskDisappearsAndClickElement(background);
 		conferenceRoomsLink.click();
 		return new RoomsPage();
 	}
 	
 	public ResourcesPage clickResourcesLink() {
-		waitForMaskDisappears();
+		waitForMaskDisappearsAndClickElement(background);
 		resourcesLink.click();
 		return new ResourcesPage();
 	}
@@ -91,9 +95,22 @@ public abstract class AbstractMainMenu {
 		tabletsLink.click();
 	}
 	
-	public AbstractMainMenu waitForMaskDisappears() {
-		wait.until(ExpectedConditions.invisibilityOfElementLocated(
-				By.xpath("//div[@ng-class='{in: animate}']")));
-		return this;
-	}
+	public AbstractMainMenu waitForMaskDisappearsAndClickElement(WebElement webElement) {
+        boolean value = false;
+        while (value == false) {
+              try {
+                    webElement.click();
+                    value = true;
+              }
+              catch (Exception e) {
+                    value = false;
+              }
+        } 
+        return this;
+  }
+  
+  public AbstractMainMenu waitForMaskDisappears() {
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(maskLocator));
+        return this;
+  }
 }
