@@ -1,6 +1,5 @@
 package framework.pages.admin;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -41,7 +40,7 @@ public abstract class AbstractMainMenu {
 	WebElement locationsLink;
 
 	@FindBy(linkText = "Tablets") 
-	WebElement tabletsLink;
+	WebElement tabletsLink;	
 
 	public AbstractMainMenu() {
 		driver = SeleniumDriverManager.getManager().getDriver();

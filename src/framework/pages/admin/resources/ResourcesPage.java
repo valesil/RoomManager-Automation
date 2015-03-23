@@ -1,7 +1,6 @@
 package framework.pages.admin.resources;
 
 import static framework.common.UIMethods.doubleClick;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -127,7 +126,7 @@ public class ResourcesPage extends AbstractMainMenu{
 	 * @throws InterruptedException
 	 */
 	public boolean searchSelectedItemsValue(String value) throws InterruptedException {
-		String locator = "//span[contains(text(),'Selected Items: " + value + "')]";
+		By locator = By.xpath("//span[contains(text(),'Selected Items: " + value + "')]");
 		wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(locator)));
 		return UIMethods.isElementPresent(By.xpath(locator));
 	}

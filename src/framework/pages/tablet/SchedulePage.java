@@ -96,13 +96,13 @@ public class SchedulePage {
 
 	@FindBy(xpath = "//button/span[contains(text(),'Cancel')]")
 	WebElement cancelBtn;
-	
+
 	@FindBy(xpath = "//div[@class='item range meeting']")
 	WebElement itemRangeMeeting;
-	
+
 	@FindBy(xpath = "//div[@class='vispanel center']")
 	WebElement timeLine;
-	
+
 	@FindBy(css = "div.Modal-holder.ng-scope")
 	WebElement mask;
 
@@ -149,7 +149,7 @@ public class SchedulePage {
 		attendeesTxtBox.sendKeys(Keys.ENTER);
 		return this;
 	}
-	
+
 	/**
 	 * [AC] Clear the content of the textBox, set the new value and press semicolon
 	 * to the attendee value
@@ -559,7 +559,7 @@ public class SchedulePage {
 		setBodyTxtBox(bodyMeeting);
 		return clickCreateBtn();
 	}
-	
+
 	/**
 	 * [JC] This method verify if the label scheduler is displayed
 	 * @return boolean
@@ -577,7 +577,7 @@ public class SchedulePage {
 				.replace("nd","").replace("Current time: ","");
 		return time;
 	}
-	
+
 	/**
 	 * [AC] This method clicks over TimeLine
 	 * @return SchedulePage
@@ -586,7 +586,7 @@ public class SchedulePage {
 		timeLine.click();
 		return this;
 	}
-	
+
 	/**
 	 * [YA]This method verifies if Meeting Box is present
 	 * @param nameMeeting
@@ -637,7 +637,7 @@ public class SchedulePage {
 	public boolean isUpdateBtnPresent() {
 		return updateBtn.isDisplayed();
 	} 
-	
+
 	/**
 	 * [AC] This method delete a meeting
 	 * @param nameMeeting
@@ -686,7 +686,7 @@ public class SchedulePage {
 	public boolean isErrorMessageOfPastMeetingDisplayed() {
 		return getAnyErrorMessageLbl(MEETING_PAST_CREATED_ERROR);
 	}
-	
+
 	/**
 	 * [AC] This method gets the default duration of a meeting
 	 * @return int
@@ -733,9 +733,9 @@ public class SchedulePage {
 	 * @param nameMeeting
 	 * @return SchedulePage
 	 */
-	public SchedulePage moveMeeting(String nameMeeting, int value) {
+	public SchedulePage moveMeeting(int value) {
 		Actions builder = new Actions(driver);
-		WebElement elem = driver.findElement(By.xpath("//span[contains(text(),'" + nameMeeting + "')]"));
+		WebElement elem = driver.findElement(By.xpath("//div[contains(@class,'item range meeting selected')]"));
 		builder.clickAndHold(elem)
 		.moveByOffset(value, 0)
 		.release().perform();
@@ -773,4 +773,14 @@ public class SchedulePage {
 		.release().perform();
 		return this;
 	}
+
+	/**
+	 * [EN]
+	 * @param textMinorTime
+	 * @return
+	 */
+	public boolean isTextMinorDisplayed(String textMinorTime) {
+		return driver.findElement(By.xpath("//div[contains(text(),'" + textMinorTime + "')]"))
+				.isDisplayed();
+	}	
 }

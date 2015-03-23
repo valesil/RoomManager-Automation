@@ -172,7 +172,7 @@ public class ResourceBaseAbstractPage {
 	 */
 	public ResourceInfoPage clearResourceDisplayName() {
 		wait.until(ExpectedConditions.visibilityOf(resourceDisplayNameTxtBox));
-		resourceDisplayNameTxtBox.clear();
+		resourceDisplayNameTxtBox.clear();		
 		return new ResourceInfoPage();
 	}
 	
