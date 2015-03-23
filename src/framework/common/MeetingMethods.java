@@ -3,6 +3,7 @@ package framework.common;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 
+import framework.pages.admin.LoginPage;
 import framework.pages.tablet.HomePage;
 import framework.pages.tablet.SchedulePage;
 import framework.pages.tablet.SettingsPage;
@@ -39,7 +40,7 @@ public class MeetingMethods {
 		.setSubjectTxtBox(subject)
 		.setStartTimeDate(startTime)
 		.setEndTimeDate(endTime)
-		.setAttendeeTxtBox(attendee)
+		.setAttendeeTxtBoxPressingEnter(attendee)
 		.setBodyTxtBox(body)
 		.clickCreateBtn()
 		.confirmCredentials(password)
@@ -86,5 +87,17 @@ public class MeetingMethods {
 		SettingsPage settings = new SettingsPage();
 		settings.selectRoom(roomName);
 		return new HomePage();
+	}
+	
+	public void createAnOutOfOrder(String startDate, String endDate, String startTime, 
+			String endTime, String title, String description, String roomName) {
+		LoginPage login = new LoginPage();
+		login.clickSigninLink()
+		.clickConferenceRoomsLink()
+		.doubleClickOverRoomName(roomName)
+		.clickOutOfOrderPlanningLink()
+		.setOutOfOrderPeriodInformation(startDate, endDate, startTime, 
+				endTime, title, description)
+		.clickSaveBtn();
 	}
 }

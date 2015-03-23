@@ -36,7 +36,6 @@ import framework.utils.TimeManager;
 public class SchedulePage {
 	private WebDriver driver;
 	private WebDriverWait wait;
-	UIMethods uiMethods = new UIMethods();
 
 	@FindBy(xpath = "//span[contains(text(),'Scheduler')]")
 	WebElement schedulerLbl;
@@ -103,6 +102,9 @@ public class SchedulePage {
 	
 	@FindBy(xpath = "//div[@class='vispanel center']")
 	WebElement timeLine;
+	
+	@FindBy(css = "div.Modal-holder.ng-scope")
+	WebElement mask;
 
 	/**
 	 * [AC] Get the driver and the wait to use that in this class
@@ -141,10 +143,23 @@ public class SchedulePage {
 	 * @param attendiee
 	 * @return SchedulePage
 	 */
-	public SchedulePage setAttendeeTxtBox(String attendiee) {
+	public SchedulePage setAttendeeTxtBoxPressingEnter(String attendiee) {
 		attendeesTxtBox.click();
 		attendeesTxtBox.sendKeys(attendiee);
 		attendeesTxtBox.sendKeys(Keys.ENTER);
+		return this;
+	}
+	
+	/**
+	 * [AC] Clear the content of the textBox, set the new value and press semicolon
+	 * to the attendee value
+	 * @param attendiee
+	 * @return SchedulePage
+	 */
+	public SchedulePage setAttendeeTxtBoxPressingSemicolon(String attendiee) {
+		attendeesTxtBox.click();
+		attendeesTxtBox.sendKeys(attendiee);
+		attendeesTxtBox.sendKeys(Keys.SEMICOLON);
 		return this;
 	}
 
@@ -265,6 +280,7 @@ public class SchedulePage {
 	 * @return SchedulePage
 	 */
 	public SchedulePage clickUpdateBtn() {
+		wait.until(ExpectedConditions.elementToBeClickable(updateBtn));
 		updateBtn.click();
 		return this;
 	}
@@ -312,7 +328,9 @@ public class SchedulePage {
 	 * @return SchedulePage
 	 */
 	public SchedulePage clickOverMeetingCreated(String nameMeeting) {
-		driver.findElement(By.xpath("//span[contains(text(),'" + nameMeeting + "')]")).click();
+		WebElement meeting = driver.findElement(By.xpath("//span[contains(text(),'" + nameMeeting + "')]"));
+		wait.until(ExpectedConditions.elementToBeClickable(meeting));
+		meeting.click();
 		return this;
 	}
 
@@ -321,7 +339,7 @@ public class SchedulePage {
 	 * @param emailAttendee
 	 * @return String
 	 */
-	public String getEmailAttendeeValue(String emailAttendee) {
+	public String getEmailAttendeeLblValue(String emailAttendee) {
 		return driver.findElement(By.xpath("//span[contains(text(),'" + emailAttendee + "')]")).getText();
 	}
 
@@ -332,7 +350,7 @@ public class SchedulePage {
 	public String getEmailAttendeeTxtBoxValue() {
 		return attendeesTxtBox.getText();
 	}
-	
+
 	/**
 	 * [AC] This method obtains the value of the textBox from subject
 	 * @return String
@@ -362,7 +380,7 @@ public class SchedulePage {
 	 * @param message
 	 * @return boolean
 	 */
-	private boolean getMessagePopUpValue(String message) {
+	private boolean findMessagePopUpValue(String message) {
 		WebElement messageLbl = driver.findElement(By.xpath("//div[contains(text(),'" + message + "')]"));
 		wait.until(ExpectedConditions.visibilityOf(messageLbl));
 		return messageLbl.isDisplayed();
@@ -382,7 +400,7 @@ public class SchedulePage {
 	 * @return boolean
 	 */
 	public boolean isMessageMeetingCreatedDisplayed() {
-		return getMessagePopUpValue(MEETING_CREATED);
+		return findMessagePopUpValue(MEETING_CREATED);
 	}
 
 	/**
@@ -390,7 +408,7 @@ public class SchedulePage {
 	 * @return boolean
 	 */
 	public boolean isMessageMeetingUpdatedDisplayed() {
-		return getMessagePopUpValue(MEETING_UPDATED);
+		return findMessagePopUpValue(MEETING_UPDATED);
 	}
 
 	/**
@@ -398,7 +416,7 @@ public class SchedulePage {
 	 * @return boolean
 	 */
 	public boolean isMessageMeetingDeletedDisplayed() {
-		return getMessagePopUpValue(MEETING_REMOVED);
+		return findMessagePopUpValue(MEETING_REMOVED);
 	}
 
 	/**
@@ -414,7 +432,7 @@ public class SchedulePage {
 	 * @return boolean
 	 */
 	public boolean isMessageOfErrorDisplayed() {
-		return getMessagePopUpValue(MEETING_ERROR);
+		return findMessagePopUpValue(MEETING_ERROR);
 	}
 
 	/**
@@ -437,7 +455,7 @@ public class SchedulePage {
 	 * [AC] This method gets the error label when does not put attendees
 	 * @return boolean
 	 */
-	public boolean isErrorAttendeeDisplayed() {
+	public boolean isErrorAttendeeLblDisplayed() {
 		return getAnyErrorMessageLbl(MEETING_ATTENDEES_REQUIRED);
 	}
 
@@ -445,7 +463,7 @@ public class SchedulePage {
 	 * [AC] This method gets the error label when put invalid attendees
 	 * @return boolean
 	 */
-	public boolean isErrorAttendeeInvalidDisplayed() {
+	public boolean isErrorAttendeeInvalidLblDisplayed() {
 		return getAnyErrorMessageLbl(MEETING_ATTENDEES_INVALID);
 	}
 
@@ -478,6 +496,8 @@ public class SchedulePage {
 	 */
 	public SchedulePage clickOkButton() {
 		okBtn.click();
+		okBtn.sendKeys(Keys.ESCAPE);
+		UIMethods.waitForMaskDisappearsAndClickElement(timeLine);
 		return this;
 	}
 
@@ -487,6 +507,8 @@ public class SchedulePage {
 	 */
 	public SchedulePage clickCancelButton() {
 		cancelBtn.click();
+		cancelBtn.sendKeys(Keys.ESCAPE);
+		UIMethods.waitForMaskDisappearsAndClickElement(timeLine);
 		return this;
 	}
 
@@ -533,7 +555,7 @@ public class SchedulePage {
 		setSubjectTxtBox(subject);
 		setStartTimeDate(startTime);
 		setEndTimeDate(endTime);
-		setAttendeeTxtBox(attendees);
+		setAttendeeTxtBoxPressingEnter(attendees);
 		setBodyTxtBox(bodyMeeting);
 		return clickCreateBtn();
 	}
@@ -555,7 +577,7 @@ public class SchedulePage {
 				.replace("nd","").replace("Current time: ","");
 		return time;
 	}
-
+	
 	/**
 	 * [AC] This method clicks over TimeLine
 	 * @return SchedulePage
@@ -602,10 +624,9 @@ public class SchedulePage {
 		setSubjectTxtBox(subject);
 		setStartTimeDate(startTime);
 		setEndTimeDate(endTime);
-		setAttendeeTxtBox(attendee);	
+		setAttendeeTxtBoxPressingEnter(attendee);	
 		clickCreateBtn();
-		confirmCredentials(password)
-		.isMessageMeetingCreatedDisplayed();
+		confirmCredentials(password).isMessageMeetingCreatedDisplayed();
 		return this;
 	}
 
@@ -623,13 +644,13 @@ public class SchedulePage {
 	 * @return  SchedulePage
 	 */
 	public SchedulePage deleteMeeting(String nameMeeting, String password) {
-				clickOverMeetingCreated(nameMeeting);
-				clickRemoveBtn();
-				confirmCredentials(password);
-				isMessageMeetingDeletedDisplayed();
-				return this;
+		clickOverMeetingCreated(nameMeeting);
+		clickRemoveBtn();
+		confirmCredentials(password);
+		isMessageMeetingDeletedDisplayed();
+		return this;
 	}
-	
+
 	/**
 	 * [EN] Overload of createMetting method, where body meeting is optional.
 	 * @param organizer
@@ -650,13 +671,13 @@ public class SchedulePage {
 		setSubjectTxtBox(subject);
 		setStartTimeDate(startTime);
 		setEndTimeDate(endTime);
-		setAttendeeTxtBox(attendee);
+		setAttendeeTxtBoxPressingEnter(attendee);
 		clickCreateBtn();	
 		confirmCredentials(password);
 		isMessageMeetingCreatedDisplayed();
 		return this;
 	}
-	
+
 	/**
 	 * [EN] This method checks that a error message is displayed 
 	 * when a meeting is created with past time values.
@@ -689,7 +710,7 @@ public class SchedulePage {
 		}
 		return resp;
 	}
-	
+
 	/**
 	 * [JC] This method move the Time Line left or right(depend of the value)
 	 * i.e. if the value is 5000 is move to left, -5000 is move to right
@@ -701,11 +722,11 @@ public class SchedulePage {
 		WebElement elem = driver.findElement(By.xpath("//div[@id='timelinePanel']"
 				+ "/descendant::div[contains(@class,'vispanel center')]")); 
 		builder.clickAndHold(elem)
-				.moveByOffset(value, 0)
-				.release().perform();
+		.moveByOffset(value, 0)
+		.release().perform();
 		return this;
 	}
-	
+
 	/**
 	 * [JC] This method move the Meeting selected left or right(depend of the value)
 	 * i.e. if the value is -5000 is move to left, 5000 is move to right
@@ -716,11 +737,11 @@ public class SchedulePage {
 		Actions builder = new Actions(driver);
 		WebElement elem = driver.findElement(By.xpath("//span[contains(text(),'" + nameMeeting + "')]"));
 		builder.clickAndHold(elem)
-				.moveByOffset(value, 0)
-				.release().perform();
+		.moveByOffset(value, 0)
+		.release().perform();
 		return this;
 	}
-	
+
 	/**
 	 * [JC] This method search a meeting and click over Left Side of this meeting
 	 * i.e. if the value is -5000 is move to left, 5000 is move to right
@@ -732,11 +753,11 @@ public class SchedulePage {
 		WebElement elem = driver.findElement(By.xpath("//span[contains(text(),'" + nameMeeting + 
 				"')]/parent::div/following-sibling::div[@class='drag-left']"));
 		builder.clickAndHold(elem)
-				.moveByOffset(-800, 0)
-				.release().perform();
+		.moveByOffset(-800, 0)
+		.release().perform();
 		return this;
 	}
-	
+
 	/**
 	 * [JC] This method search a meeting and click over Right Side of this meeting
 	 * i.e. if the value is -5000 is move to left, 5000 is move to right
@@ -748,8 +769,8 @@ public class SchedulePage {
 		WebElement elem = driver.findElement(By.xpath("//span[contains(text(),'" + nameMeeting + 
 				"')]/parent::div/following-sibling::div[@class='drag-right']"));
 		builder.clickAndHold(elem)
-				.moveByOffset(800, 0)
-				.release().perform();
+		.moveByOffset(800, 0)
+		.release().perform();
 		return this;
 	}
 }

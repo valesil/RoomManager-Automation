@@ -2,11 +2,11 @@
 	"browser":
 	{
 		"navigator":"chrome",
-		"urlAdmin":"http://172.20.208.177:4041/admin",
-		"urlTablet":"http://172.20.208.177:4041/tablet",
-		"urlTabletHome":"http://172.20.208.177:4041/tablet/#/home",
-		"urlAdminHome":"http://172.20.208.177:4041/admin/#/admin",
-		"urlRest":"http://172.20.208.177:4041/"
+		"urlAdmin":"http://172.20.208.177:4042/admin",
+		"urlTablet":"http://172.20.208.177:4042/tablet",
+		"urlTabletHome":"http://172.20.208.177:4042/tablet/#/home",
+		"urlAdminHome":"http://172.20.208.177:4042/admin/#/admin",
+		"urlRest":"http://172.20.208.177:4042/"
 	},
 	"confDriver":
 	{
@@ -18,8 +18,11 @@
 	},
 	"ExternalFile":
 	{
-		"excelPath": "\\src\\tests",
-		"excelInputData": "\\RoomManagerData.xls",
-		"dataProviderData": "\\DataForDataProvider.xls"
+		"excelPath": "\\src\\framework\\common\\datasource",
+		"excelInputData": "\\RoomManagerData.xls"
+	}
+	"RoomName":
+	{
+		"name":"room03"
 	}
 }
