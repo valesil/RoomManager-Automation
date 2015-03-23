@@ -325,7 +325,7 @@ public class RoomOutOfOrderPlanningPage extends RoomBaseAbstractPage {
 	}
 
 	/**
-	 * This method finds date TextBox for Start Date or End date depending on timeSelector
+	 * [YA]This method finds date TextBox for Start Date or End date depending on timeSelector
 	 * @param timeSelector
 	 * @return WebElement
 	 */
@@ -452,7 +452,7 @@ public class RoomOutOfOrderPlanningPage extends RoomBaseAbstractPage {
 	}
 
 	/**
-	 * This method gets the time (hours and minutes) set as start time or end time 
+	 * [YA]This method gets the time (hours and minutes) set as start time or end time 
 	 * depending on the selector
 	 * @param selector
 	 * @return String
@@ -464,7 +464,7 @@ public class RoomOutOfOrderPlanningPage extends RoomBaseAbstractPage {
 	}
 	
 	/**
-	 * This method gets the time (hours and minutes) set as start time
+	 * [YA]This method gets the time (hours and minutes) set as start time
 	 * @return String
 	 */
 	public String getStartTimeValue() {
@@ -480,7 +480,7 @@ public class RoomOutOfOrderPlanningPage extends RoomBaseAbstractPage {
 	}
 	
 	/**
-	 * This method clicks saveBtn when an Out Of Order is created
+	 * [YA]This method clicks saveBtn when an Out Of Order is created
 	 * @return
 	 */
 	public RoomsPage clickSaveOutOfOrderBtn(){

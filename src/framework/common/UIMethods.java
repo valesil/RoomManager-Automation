@@ -38,7 +38,7 @@ public class UIMethods {
 	}
 	
 	/**
-	 * This method is a workaround to wait for mask to disappear for Chrome
+	 * [YA]This method is a workaround to wait for mask to disappear for Chrome
 	 * @param webElement
 	 */
 	public static void waitForMaskDisappearsAndClickElement(WebElement webElement) {

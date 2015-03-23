@@ -106,6 +106,11 @@ public class TimeManager {
 		return dateToString(new Date(),formatter);
 	}
 	
+	/**
+	 * [YA] This method returns the next half hour period for a time
+	 * @param time
+	 * @return
+	 */
 	public static String getNextHalfHourPeriod(String time) {
 		int hours = Integer.parseInt(getTimeElement(time, "hours"));
 		int minutes = Integer.parseInt(getTimeElement(time, "minutes"));
