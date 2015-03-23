@@ -1,0 +1,13 @@
+<suite name="RoomManager">
+	<test name="Schedule test" >
+		<classes>
+			<class name="tests.tablet.homeUI.HomeSuite"/>
+			<!--21-->
+			<class name="tests.tablet.homeUI.SchedulePageIsDisplayedWhenNowTapeIsClicked"/>
+			<!--12,13-->
+			<class name="tests.tablet.homeUI.TheOrganizerAndTittleOfTheNextMeetingIsDisplayedInTheNextTile"/>
+			<!--34-->
+			<class name="tests.tablet.homeUI.TheRedLineInTheTimelineIsInTheCurrentTime"/>			
+		</classes>
+	</test>
+</suite>
