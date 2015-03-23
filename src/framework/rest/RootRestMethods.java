@@ -216,7 +216,7 @@ public class RootRestMethods {
 	}
 
 	/** [J.C]
-	 * @return This method delete An OutOfOrder
+	 * @return This method delete An meeting created
 	 */
 	public static void deleteMeeting(String roomName, String meetingSubject){
 		RestMethods getServicesID = new RestMethods();
