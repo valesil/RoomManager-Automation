@@ -5,9 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
 import framework.pages.admin.conferencerooms.RoomsPage;
 import framework.pages.admin.resources.ResourcesPage;
 import framework.selenium.SeleniumDriverManager;
@@ -44,8 +42,6 @@ public abstract class AbstractMainMenu {
 
 	@FindBy(linkText = "Tablets") 
 	WebElement tabletsLink;
-	
-	By maskLocator = By.xpath("//div[@ng-class='{in: animate}']");	
 
 	public AbstractMainMenu() {
 		driver = SeleniumDriverManager.getManager().getDriver();
@@ -86,10 +82,5 @@ public abstract class AbstractMainMenu {
 
 	public void clickTabletsLink() {
 		tabletsLink.click();
-	}
-
-	public AbstractMainMenu waitForMaskDisappears() {
-		wait.until(ExpectedConditions.invisibilityOfElementLocated(maskLocator));
-		return this;
 	}
 }
