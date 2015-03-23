@@ -29,6 +29,7 @@ public class RoomsPage extends AbstractMainMenu {
 	 * @return
 	 */
 	public RoomInfoPage doubleClickOverRoomName(String displayName) {
+		waitForMaskDisappears();
 		UIMethods.doubleClick(driver.findElement(By.xpath("//span[contains(text(),'" 
 				+ displayName + "')and@class='ng-binding']")));
 		return new RoomInfoPage();
@@ -181,8 +182,10 @@ public class RoomsPage extends AbstractMainMenu {
 	 * @return true or false if the button is enabled or disabled
 	 */
 	public boolean stateEnableDisableBtn(String roomName) {
-		return driver.findElement(By.xpath("//span[contains(text(),'" + roomName +
-				"')]//ancestor::div[@ng-click='row.toggleSelected($event)']//span")).isEnabled();
+		String locator = "//span[contains(text(),'" + roomName +
+				"')]//ancestor::div[@ng-click='row.toggleSelected($event)']//span";
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath(locator)));
+		return driver.findElement(By.xpath(locator)).isEnabled();
 	}
 	
 	/**
@@ -202,6 +205,6 @@ public class RoomsPage extends AbstractMainMenu {
 	 */
 	public String getResourceQuantity(String resourceName) {
 		return driver.findElement(By.xpath("//span[contains(text(),'" + resourceName 
-				+  "')]/ancestor::div/following-sibling::div[@class='ngCell centeredColumn col3 colt3']//span[@class='ng-binding']")).getAttribute("value");
+				+  "')]/ancestor::div/following-sibling::div[@class='ngCell centeredColumn col3 colt3']//span[@class='ng-binding']/parent::div")).getText();
 	}
 }

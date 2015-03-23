@@ -28,6 +28,9 @@ public class ResourceBaseAbstractPage {
 	@FindBy(xpath = "//button[@ng-click='save()']") 
 	WebElement saveResourceBtn;
 	
+	@FindBy(xpath = "//button[@ng-click='cancel()']") 
+	WebElement cancelBtn;
+	
 	@FindBy(xpath = "//div[@class='input-control text']/textarea[@ng-model='resource.description']") 
 	WebElement resourceDescriptionTxtBox;
 	
@@ -122,4 +125,44 @@ public class ResourceBaseAbstractPage {
 		UIMethods.waitForMaskDisappearsAndClickElement(background);
 		return new ResourcesPage();
 	}
+	
+	/**
+	 * [ML]Return the resource icon name from in resourceInfoPage if is present
+	 * @param iconTitle
+	 * @return boolean if is or not present
+	 */
+	public boolean getResourceIcon(String iconTitle) {
+		By resourceIcon = By.xpath(".//*[@id='resourcesGrid']/descendant::*/span[@class='fa " +
+				iconTitle + "']");
+		return UIMethods.isElementPresent(resourceIcon);
+	}
+	
+	/**
+	 * [CG]This method click on cancel button.
+	 * @return
+	 */
+	public ResourcesPage clickCancelResourceBtn() {
+		cancelBtn.click();
+		return new ResourcesPage();
+	}
+	
+	/**
+	 * [CG]This method cleans resource name field in resource info page
+	 * @return
+	 */
+	public ResourceInfoPage clearResourceName() {
+		wait.until(ExpectedConditions.visibilityOf(resourceNameTxtBox));
+		resourceNameTxtBox.clear();
+		return new ResourceInfoPage();
+	}
+	
+	/**
+	 * This method cleans resource display name field in resource info page
+	 * @return
+	 */
+	public ResourceInfoPage clearResourceDisplayName() {
+		wait.until(ExpectedConditions.visibilityOf(resourceDisplayNameTxtBox));
+		resourceDisplayNameTxtBox.clear();
+		return new ResourceInfoPage();
+	}	
 }

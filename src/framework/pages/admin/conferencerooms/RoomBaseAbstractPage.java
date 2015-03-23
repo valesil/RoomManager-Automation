@@ -101,8 +101,8 @@ public abstract class RoomBaseAbstractPage {
 	 * [YA]This method verifies if an error message is correct
 	 * @return boolean
 	 */
-	public boolean isErrorMessageCorrect(String errorMessage) {
-		return driver.findElement(By.xpath("//small[contains(text(),'" 
-				+ errorMessage + "')]")).isDisplayed();
+	public static boolean isErrorMessageCorrect(String errorMessage) {
+		return UIMethods.isElementPresent(By.xpath("//small[contains(text(),'" 
+				+ errorMessage + "')]"));
 	}
 }
