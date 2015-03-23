@@ -8,7 +8,6 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import framework.common.UIMethods;
 import framework.pages.admin.conferencerooms.RoomsPage;
 import framework.pages.admin.resources.ResourcesPage;
 import framework.selenium.SeleniumDriverManager;
@@ -21,96 +20,78 @@ import framework.selenium.SeleniumDriverManager;
 public abstract class AbstractMainMenu {
 	protected WebDriver driver;	
 	protected WebDriverWait wait;
-	UIMethods uiMethod = new UIMethods();
 	
 	@FindBy(linkText = "Room Manager") 
 	WebElement homeLink;
 
 	@FindBy(linkText = "Email Servers") 
 	WebElement emailServersLink;
-	
+
 	@FindBy(linkText = "Impersonation") 
 	WebElement impersonationLink;
-	
+
 	@FindBy(linkText = "Conference Rooms") 
 	WebElement conferenceRoomsLink;
-	
+
 	@FindBy(linkText = "Resources") 
 	WebElement resourcesLink;
-	
+
 	@FindBy(linkText = "Issues") 
 	WebElement issuesLink;
-	
+
 	@FindBy(linkText = "Locations") 
 	WebElement locationsLink;
-	
+
 	@FindBy(linkText = "Tablets") 
 	WebElement tabletsLink;
-	
-	@FindBy(xpath = "//div[@class = 'row v-space ng-scope']")
-    WebElement background;
-	
-	By maskLocator = By.xpath("//div[@ng-class='{in: animate}']");
-	
+
+	By maskLocator = By.xpath("//div[@ng-class='{in: animate}']");	
+
 	public AbstractMainMenu() {
 		driver = SeleniumDriverManager.getManager().getDriver();
 		wait = SeleniumDriverManager.getManager().getWait();
 		PageFactory.initElements(driver, this);
 	}
-	
+
 	public HomeAdminPage clickEmailServersLink() {
 		emailServersLink.click();
 		return new HomeAdminPage();
 	}
-	
+
 	public void clickImpersonationLink() {
 		impersonationLink.click();
 	}
-	
+
 	public RoomsPage clickConferenceRoomsLink() {
-		waitForMaskDisappearsAndClickElement(background);
+		waitForMaskDisappears();
 		conferenceRoomsLink.click();
 		return new RoomsPage();
 	}
-	
+
 	public ResourcesPage clickResourcesLink() {
-		waitForMaskDisappearsAndClickElement(background);
+		waitForMaskDisappears();
 		resourcesLink.click();
 		return new ResourcesPage();
 	}
-	
+
 	public void clickHomeLink() {
 		homeLink.click();
 	}
-	
+
 	public void clickIssuesLink() {
 		issuesLink.click();
 	}
-	
+
 	public void clickLocationsLink() {
 		locationsLink.click();
 	}
-	
+
 	public void clickTabletsLink() {
 		tabletsLink.click();
 	}
-	
-	public AbstractMainMenu waitForMaskDisappearsAndClickElement(WebElement webElement) {
-        boolean value = false;
-        while (value == false) {
-              try {
-                    webElement.click();
-                    value = true;
-              }
-              catch (Exception e) {
-                    value = false;
-              }
-        } 
-        return this;
-  }
-  
-  public AbstractMainMenu waitForMaskDisappears() {
-        wait.until(ExpectedConditions.invisibilityOfElementLocated(maskLocator));
-        return this;
-  }
+
+	public AbstractMainMenu waitForMaskDisappears() {
+		wait.until(ExpectedConditions.invisibilityOfElementLocated(maskLocator));
+		return this;
+	}
 }

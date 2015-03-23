@@ -8,6 +8,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
+import framework.common.UIMethods;
 import framework.pages.admin.AbstractMainMenu;
 
 /**
@@ -15,7 +16,7 @@ import framework.pages.admin.AbstractMainMenu;
  *
  */
 public class ResourcesPage extends AbstractMainMenu{
-	
+
 	@FindBy(xpath = "//div[@class='pull-left']/button[@ng-click='addResourceDialog()']") 
 	WebElement addResourceBtn;
 
@@ -24,20 +25,20 @@ public class ResourcesPage extends AbstractMainMenu{
 
 	@FindBy(id = "btnRemove")
 	WebElement removeBtn;
-	
+
 	@FindBy(xpath = "//div[@class='ngPagerLastTriangle']")
 	WebElement lastPageBtn;
-	
+
 	@FindBy(xpath = "//div[@class='ngPagerFirstTriangle ngPagerPrevTriangle']")
 	WebElement previousPageBtn;
-	
+
 	@FindBy(xpath = "//div[@class='ngPagerLastTriangle ngPagerNextTriangle']")
 	WebElement nextPageBtn;
-	
+
 	public ResourcesPage() {
 		PageFactory.initElements(driver, this);
 	}
-	
+
 	/**
 	 * [ML]Click on "+Add" resource button	
 	 * @return
@@ -103,8 +104,9 @@ public class ResourcesPage extends AbstractMainMenu{
 	 * @return
 	 */	
 	public boolean isResourceNameDisplayedInResourcesPage(String resourceName) {
-		return driver.findElement(By.xpath("//div[@id='resourcesGrid']/div[2]/descendant::*/span[contains(text(),'"
-				+ resourceName + "')]")).isDisplayed();
+		By resource = By.xpath("//div[@id='resourcesGrid']/div[2]/descendant::*/span[contains(text(),'"
+				+ resourceName + "')]");
+		return UIMethods.isElementPresent(resource);
 	}
 
 	/**
@@ -139,5 +141,17 @@ public class ResourcesPage extends AbstractMainMenu{
 	 */
 	public void clickSelectAllResources() {
 		driver.findElement(By.xpath("//input[@ng-model='allSelected']")).click();
+	}
+
+
+	/**
+	 * [ML]Return the resource icon name from in resourceInfoPage if is present
+	 * @param iconTitle
+	 * @return boolean if is or not present
+	 */
+	public boolean getResourceIcon(String iconTitle) {
+		By resourceIcon = By.xpath(".//*[@id='resourcesGrid']/descendant::*/span[@class='fa " +
+				iconTitle + "']");
+		return UIMethods.isElementPresent(resourceIcon);
 	}
 }

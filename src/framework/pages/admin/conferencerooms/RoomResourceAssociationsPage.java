@@ -57,7 +57,7 @@ public class RoomResourceAssociationsPage extends RoomBaseAbstractPage {
 		return driver.findElement(By.xpath("//span[contains(text(),'" + resourceName + 
 				"')]/ancestor::div/following-sibling::div/input")).getAttribute("value");
 	}
-	
+
 	/**
 	 * [CG]Boolean method that returns true or false when locates a resource
 	 * @param resourceName
@@ -67,7 +67,7 @@ public class RoomResourceAssociationsPage extends RoomBaseAbstractPage {
 		return driver.findElement(By.xpath("//span[contains(text(),'" + resourceName + 
 				"')]/ancestor::div/following-sibling::div/input")).isDisplayed();
 	}
-	
+
 	/**
 	 * [CG]Method that returns True when it finds a resource associated to a room
 	 * @param resourceName
@@ -76,5 +76,28 @@ public class RoomResourceAssociationsPage extends RoomBaseAbstractPage {
 	public boolean searchResource(String resourceName) {
 			return UIMethods.isElementPresent(By.xpath("//span[contains(text(),'" + resourceName +
 				"')and@class='ng-binding']"));	
+	}
+	/**
+	 * [ML]Method that returns boolean if a resource displayed name exist in RoomResourceAssociationsPage 
+	 * by column name and resource displayed name parameters
+	 * @param columnName, could be 'Available' or 'Associated'
+	 * @param resourceDisplayName, could be any name
+	 * @return
+	 */
+	public boolean getResourceDisplayName(String columnName, String resourceDisplayName) {
+		By resourceDName = By.xpath("//legend[contains(text(),'" + columnName + "')]/parent::div//div[@class='list-group']"
+				+ "//span[@class='ng-binding'][contains(text(),'" + resourceDisplayName + "')]/parent::div");
+		return UIMethods.isElementPresent(resourceDName);
+	}
+
+	/**
+	 * [ML]Method that return boolean if resource display name is in available column
+	 * @param resourceDisplayName
+	 * @return
+	 */
+	public boolean getResourceDisplayNameAvailable(String resourceDisplayName) {
+		By resourceDName = By.xpath("//legend[contains(text(),'Available')]/parent::div//div[@class='list-group']"
+				+ "//span[@class='ng-binding'][contains(text(),'" + resourceDisplayName + "')]");
+		return UIMethods.isElementPresent(resourceDName);
 	}
 }

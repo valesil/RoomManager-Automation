@@ -59,10 +59,13 @@ public class SearchPage {
 	@FindBy(xpath = "//div[@class='currenttime']")
 	WebElement timeLine;
 	
+	@FindBy(xpath = "//span[contains(text(),'Search')]")
+	WebElement searchLbl;
+	
 	public SearchPage() {
 		this.driver = SeleniumDriverManager.getManager().getDriver();
 		PageFactory.initElements(driver, this);
-		wait=SeleniumDriverManager.getManager().getWait();
+		wait = SeleniumDriverManager.getManager().getWait();
 	}
 	
 	/**
@@ -281,13 +284,40 @@ public class SearchPage {
 	}
 	
 	/**
-	 * [YA]This method verifies if an Out Of Order is displayed in Search timeline
+	 * [YA]This method verifies if an Out Of Order is displayed
 	 * @param title: Out Of Order Title
+	 * @return boolean
+	 */
+	public boolean isOutOfOrderBoxDisplayed(String title) {
+		return isMeetingBoxDisplayed(title);
+	}
+	
+	/**
+	 * [EN] This method verifies if the search title label is displayed in the page
 	 * @return
 	 */
-	public boolean isOutOfOrderBoxDisplayed(String title){
-		By outOfOrderBoxLocator = By.xpath("//div[contains(text(),'" + title + "')]");
-		return UIMethods.isElementPresent(outOfOrderBoxLocator);
+	public boolean isSearchLblDisplayed() {			
+			return searchLbl.isDisplayed();
+	}
+	
+	/**
+	 * [YA]This method verifies if a Meeting BOx is displayed
+	 * @param meetingSubject: Meeting Subject
+	 * @return boolean
+	 */
+	public boolean isMeetingBoxDisplayed(String meetingSubject) {
+		By meetingBoxLocator = By.xpath("//div[contains(text(),'" + meetingSubject + "')]");
+		return UIMethods.isElementPresent(meetingBoxLocator); 
+	}	
+	
+	/**
+	 * [ML]This method verify if a created resource exist in advanced searchPage from tablet
+	 * @param resourceDisplayName
+	 * @return boolean
+	 */
+	public boolean isResourceInAdvancedSearch(String resourceDisplayName) {
+		By resource = By.xpath("//*[@id='collapseExample']//div[contains(text(),'" + resourceDisplayName + "')]");
+		return UIMethods.isElementPresent(resource);
 	}
 }
 

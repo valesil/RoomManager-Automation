@@ -1,33 +1,36 @@
 package framework.common;
 
 import static framework.common.AppConfigConstants.EXCEL_INPUT_DATA;
-import static framework.utils.TimeManager.getTime;
 
 import java.util.List;
 import java.util.Map;
 
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.PageFactory;
+
 import framework.pages.tablet.HomePage;
 import framework.pages.tablet.SchedulePage;
+import framework.pages.tablet.SettingsPage;
+import framework.selenium.SeleniumDriverManager;
 import framework.utils.TimeManager;
 import framework.utils.readers.ExcelReader;
 
-/**
- * Description: This class is to create meetings as a precondition by UI
- * @author Asael Calizaya
- *
- */
-public class PreConditions {
-	private ExcelReader excelReader;
+public class MeetingMethods {
+	ExcelReader excelReader;
 	List<Map<String, String>> meetingData; 
-	SchedulePage schedulePage;
+	SchedulePage schedule;
+	WebDriver driver;
 	HomePage home;
+	SettingsPage settings;
 
 	/**
 	 * [AC] This method initializes the listMaps to read from the excel
 	 */
-	public PreConditions() {
-		schedulePage = new SchedulePage();
-		home = new HomePage();
+	public MeetingMethods() {
+		driver = SeleniumDriverManager.getManager().getDriver();
+		PageFactory.initElements(driver, this);
+		home = new HomePage();	
+		schedule = new SchedulePage();
 		try {
 			excelReader = new ExcelReader(EXCEL_INPUT_DATA);
 		} catch (Exception e) {
@@ -36,7 +39,7 @@ public class PreConditions {
 		}
 		meetingData = excelReader.getMapValues("MeetingData");
 	}	
-	
+
 	/**
 	 * [AC] This method creates a meeting
 	 * @param organizer
@@ -50,16 +53,16 @@ public class PreConditions {
 	public void createMeetingWithAllDataFromExcel(String organizer, String subject, String startTime, String endTime,
 			String attendee, String body, String password) {
 		HomePage home = new HomePage();
-		home.clickSchedulePageBtn()
-			.setOrganizerTxtBox(organizer)
-			.setSubjectTxtBox(subject)
-			.setStartTimeDate(startTime)
-			.setEndTimeDate(endTime)
-			.setAttendeeTxtBox(attendee)
-			.setBodyTxtBox(body)
-			.clickCreateBtn()
-			.confirmCredentials(password)
-			.isMessageMeetingCreatedDisplayed();
+		home.clickScheduleBtn()
+		.setOrganizerTxtBox(organizer)
+		.setSubjectTxtBox(subject)
+		.setStartTimeDate(startTime)
+		.setEndTimeDate(endTime)
+		.setAttendeeTxtBox(attendee)
+		.setBodyTxtBox(body)
+		.clickCreateBtn()
+		.confirmCredentials(password)
+		.isMessageMeetingCreatedDisplayed();
 	}
 
 	/**
@@ -69,7 +72,7 @@ public class PreConditions {
 	 */
 	public String[] createMeetingsSuccessfully(int amountOfMeetings) {
 		String[] subject = new String[amountOfMeetings];
-		home.clickSchedulePageBtn();
+		home.clickScheduleBtn();
 		for (int i = 0; i < amountOfMeetings; i++) {
 			String organizer = meetingData.get(i).get("Organizer");
 			subject[i] = meetingData.get(i).get("Subject");
@@ -78,70 +81,15 @@ public class PreConditions {
 			String attendee = meetingData.get(i).get("Attendee");
 			String body = meetingData.get(i).get("Body");
 			String password = meetingData.get(i).get("Password");
-			schedulePage
+			schedule
 			.createMeeting(organizer, subject[i], startTime, endTime, attendee, body)		
 			.confirmCredentials(password)
 			.isMessageMeetingCreatedDisplayed();
 		}
-		schedulePage.clickBackBtn();
+		schedule.clickBackBtn();
 		return subject;
 	}
 
-	/**
-	 * [EN] Create a meeting with excel values and current time calculated.
-	 * start time: - 5 minutes of current time hh:mm a
-	 * end time: + 10 minutes of current time hh:mm a
-	 * @return subject of the meeting
-	 */
-	public String createCurrentMeeting() {
-		String password = meetingData.get(0).get("Password");
-		String organizer = meetingData.get(0).get("Organizer");
-		String subject = meetingData.get(0).get("Subject");
-		String startTime = getTime(-5, "hh:mm a");
-		String endTime = getTime(10, "hh:mm a");
-		String attendees = meetingData.get(0).get("Attendee");
-		String body = meetingData.get(0).get("Body");
-
-		schedulePage
-		.createMeeting(organizer, subject, startTime,endTime, attendees, body)
-		.confirmCredentials(password)
-		.isMessageMeetingCreatedDisplayed();
-
-		return subject;
-	}
-
-	/**
-	 * [EN] Create a meeting with excel values and current time calculated.
-	 * start time: + 20 minutes of current time
-	 * end time: + 35 minutes of current time
-	 * @return
-	 */
-	public String createNextMeeting() {
-		String password = meetingData.get(0).get("Password");
-		String organizer = meetingData.get(1).get("Organizer");
-		String subject = meetingData.get(1).get("Subject");
-		String startTime = getTime(20, "hh:mm a");
-		String endTime = getTime(35, "hh:mm a");
-		String attendees = meetingData.get(1).get("Attendee");
-		String boddy = meetingData.get(1).get("Body");
-
-		schedulePage
-		.createMeeting(organizer, subject, startTime, endTime, attendees, boddy)
-		.confirmCredentials(password)
-		.isMessageMeetingCreatedDisplayed();
-
-		return subject;
-	}
-
-	/**
-	 * [EN] Get the display name of the room.
-	 * @return room display name that is stored in the excel
-	 */
-	public String getRoomDisplayName() {
-		String roomDisplayName = meetingData.get(0).get("Room");
-		return roomDisplayName;
-	}
-	
 	/**
 	 * [YA]This method creates a meeting 
 	 * @param organizer: Organizer name
@@ -151,15 +99,43 @@ public class PreConditions {
 	 * @param attendee: Attendees for the meeting
 	 * @param body: Meeting's body message
 	 * @param password: Organizer's password
-	 * @throws InterruptedException 
 	 */
 	public void createMeeting(String organizer, String subject, String starTimeMinutes,
 			String endTimeMinutes, String attendee, String body, String password) {
-			
+
 		String startTime = TimeManager.getTime(Integer.parseInt(starTimeMinutes), "hh:mm a");
 		String endTime = TimeManager.getTime(Integer.parseInt(endTimeMinutes), "hh:mm a");
-			home.clickSchedulePageBtn()
-			.createMeeting(organizer, subject, startTime, endTime, attendee, body)		
-			.confirmCredentials(password).isMessageMeetingCreatedDisplayed();
+		home.clickScheduleBtn()
+		.createMeeting(organizer, subject, startTime, endTime, attendee, body)		
+		.confirmCredentials(password).isMessageMeetingCreatedDisplayed();
+	}
+
+	/**
+	 * [AC] This class delete a meeting
+	 * @param nameMeeting
+	 * @return SchedulePage
+	 */
+	public SchedulePage deleteMeeting(String nameMeeting, String password) {
+		home.clickScheduleBtn()
+		.deleteMeeting(nameMeeting, password);
+		return new SchedulePage();
+	}
+
+	public void goHome() {
+		schedule.clickBackBtn();
+	}
+
+	/**
+	 * [YA] This method sets the url for tablet home and choose an specific room
+	 * @param roomName
+	 * @return
+	 */
+	public HomePage getHomeForSpecificRoom(String roomName) {
+		home.getHome();
+		if(home.isTimelineContainerPresent()) {
+			home.clickSettingsBtn();
+		}
+		settings.selectRoom(roomName);
+		return new HomePage();
 	}
 }

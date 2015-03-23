@@ -37,6 +37,9 @@ public abstract class RoomBaseAbstractPage {
 	
 	@FindBy(xpath = "//small[contains(text(),' ')]")
 	WebElement errorMessageLbl;
+	
+	@FindBy (xpath = "//div[@class='toast-message']/div")
+	WebElement messagePopUp;
 
 	public RoomBaseAbstractPage() {
 		driver = SeleniumDriverManager.getManager().getDriver();
@@ -66,6 +69,10 @@ public abstract class RoomBaseAbstractPage {
 	
 	public RoomsPage clickSaveBtn(){
 		saveBtn.click();
+		wait.until(ExpectedConditions.visibilityOf(messagePopUp));
+		if(messagePopUp.isDisplayed()){
+			messagePopUp.click();
+		}
 		return new RoomsPage();
 	}
 
