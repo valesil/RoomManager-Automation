@@ -7,7 +7,6 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
 import framework.common.UIMethods;
 import framework.selenium.SeleniumDriverManager;
 
@@ -162,7 +161,7 @@ public class ResourceBaseAbstractPage {
 	 */
 	public ResourceInfoPage clearResourceDisplayName() {
 		wait.until(ExpectedConditions.visibilityOf(resourceDisplayNameTxtBox));
-		resourceDisplayNameTxtBox.clear();
+		resourceDisplayNameTxtBox.clear();		
 		return new ResourceInfoPage();
 	}	
 }

@@ -3,12 +3,10 @@ package framework.pages.admin.conferencerooms;
 import static framework.common.MessageConstants.OUT_OF_ORDER_SUCCESSFULLY_CREATED;
 import lib.DragAndDrop;
 import lib.DragAndDrop.Position;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-
 import framework.common.UIMethods;
 import framework.pages.admin.AbstractMainMenu;
 import framework.rest.RootRestMethods;
@@ -167,7 +165,6 @@ public class RoomsPage extends AbstractMainMenu {
 	 * @return
 	 */
 	public RoomsPage clickResourceIcon(String resourceName) {
-		waitForMaskDisappears();
 		driver.findElement(By.xpath("//span[contains(text(),'" + resourceName 
 				+ "')and@class='ng-binding']")).click();
 		return this;
