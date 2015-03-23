@@ -34,7 +34,7 @@ public class CannotUpdateIfHasConflictsWithOtherMeeting {
 	@BeforeMethod
 	public void preconditionToUpdateAMeeting() {
 		MeetingMethods preCondition = new MeetingMethods();
-		namesMeetings = preCondition.createMeetingsSuccessfully(2);
+		//namesMeetings = preCondition.createMeetingsSuccessfully(2);
 	}
 
 	@Test

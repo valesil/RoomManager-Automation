@@ -9,8 +9,8 @@ import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 
-import framework.common.MeetingMethods;
 import framework.pages.tablet.HomePage;
+import framework.pages.tablet.SchedulePage;
 import framework.utils.readers.ExcelReader;
 
 /**
@@ -48,7 +48,7 @@ public class QuantityOfCharactersOfOrganizerIsLimitedTo25 {
 	
 	@AfterMethod
 	public void goHome() {
-		MeetingMethods delete = new MeetingMethods();
-		delete.goHome();
+		SchedulePage schedule = new SchedulePage();
+		schedule.clickBackBtn();
 	}
 }
