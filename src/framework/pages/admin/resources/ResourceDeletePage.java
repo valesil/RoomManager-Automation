@@ -4,6 +4,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+
+import framework.common.UIMethods;
 import framework.selenium.SeleniumDriverManager;
 
 /**
@@ -11,9 +13,12 @@ import framework.selenium.SeleniumDriverManager;
  *
  */
 public class ResourceDeletePage extends ResourceBaseAbstractPage {
+	
 	@FindBy(css = "button.info")
 	WebElement confirmRemoveBtn;
 
+	@FindBy(xpath = "//div[@class = 'row v-space ng-scope']")
+	WebElement background;
 
 	public ResourceDeletePage() {		
 		driver = SeleniumDriverManager.getManager().getDriver();
@@ -28,6 +33,7 @@ public class ResourceDeletePage extends ResourceBaseAbstractPage {
 	public ResourcesPage clickConfirmRemoveBtn() {
 		wait.until(ExpectedConditions.elementToBeClickable(confirmRemoveBtn));
 		confirmRemoveBtn.click();
+		UIMethods.waitForMaskDisappearsAndClickElement(background);
 		return new ResourcesPage();
 	}
 }

@@ -9,6 +9,7 @@ import java.text.ParseException;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import framework.common.UIMethods;
 import framework.utils.TimeManager;
@@ -50,7 +51,7 @@ public class RoomOutOfOrderPlanningPage extends RoomBaseAbstractPage {
 		titleTxtBox.sendKeys(title);
 		return this;
 	}
-
+	
 	/**
 	 *[YA]This method set the description for the Out Of Order Planning Period
 	 * @param description
@@ -314,7 +315,7 @@ public class RoomOutOfOrderPlanningPage extends RoomBaseAbstractPage {
 	 * [YA]This method clicks an arrow to change hours or minutes 
 	 * @param timeSelector
 	 * @param action
-	 * @return
+	 * @return RoomOutOfOrderPlanningPage
 	 */
 	private RoomOutOfOrderPlanningPage clickArrowBtn(String timeSelector, String action) {
 		WebElement calendarElementBtn = driver.findElement(By.xpath("//table[@ng-model='form." 
@@ -322,6 +323,44 @@ public class RoomOutOfOrderPlanningPage extends RoomBaseAbstractPage {
 		calendarElementBtn.click();
 		return this;
 	}
+
+	/**
+	 * This method finds date TextBox for Start Date or End date depending on timeSelector
+	 * @param timeSelector
+	 * @return WebElement
+	 */
+	private WebElement findDateTxtBox(String timeSelector) {
+		By dateTxtBoxLocator = By.xpath("//date-picker[@model='form." + timeSelector + ".value']//input");
+		return driver.findElement(dateTxtBoxLocator);
+	}
+
+	/**
+	 * [YA]This method returns the date displayed in DateTextBox
+	 * @param dateSelector
+	 * @return String
+	 */
+	private String getDateValue(String dateSelector) {
+		String date = findDateTxtBox("from").getAttribute("value");
+		String[] dateElements = date.split(" ");
+		String newDate = dateElements[1] + " " + dateElements[2] + " " + dateElements[3];
+		return newDate;
+	}
+
+	/**
+	 * [YA]This method returns the Start date displayed in DateTextBox
+	 * @return String
+	 */
+	public String getStartDateValue() {
+		return getDateValue("from");
+	}
+
+	/**
+	 * [YA]This method returns the End date displayed in DateTextBox
+	 * @return
+	 */
+	public String getEndDateValue() {
+		return getDateValue("to");
+	}	
 
 	/**
 	 * [YA]This method sets all the information for an Out Of Order Period to be created
@@ -369,15 +408,6 @@ public class RoomOutOfOrderPlanningPage extends RoomBaseAbstractPage {
 	}
 
 	/**
-	 * [YA]This method verifies if an error message is correct
-	 * @return boolean
-	 */
-	private boolean isErrorMessageCorrect(String errorMessage) {
-		return driver.findElement(By.xpath("//small[contains(text(),'" 
-				+ errorMessage + "')]")).isDisplayed();
-	}
-	
-	/**
 	 * [YA]This method verifies that a message that says: "'To' field must be greater than 'From' field" 
 	 * is displayed
 	 * @return boolean
@@ -385,7 +415,7 @@ public class RoomOutOfOrderPlanningPage extends RoomBaseAbstractPage {
 	public boolean isToGreaterThanFromErrorDisplayed() {
 		return isErrorMessageCorrect(TO_GRATER_THAN_FROM);
 	}
-	
+
 	/**
 	 * [YA]This method verifies that a message that says: "Cannot establish out of order as a past event"
 	 * is displayed
@@ -394,7 +424,7 @@ public class RoomOutOfOrderPlanningPage extends RoomBaseAbstractPage {
 	public boolean isOutOfOrderInThePastErrorDisplayed() {
 		return isErrorMessageCorrect(OUT_OF_ORDER_IN_THE_PAST);
 	}
-	
+
 	/**
 	 * [YA]This method verifies that a message that says: "Cannot establish out of order as a past event"
 	 * is displayed
@@ -403,5 +433,62 @@ public class RoomOutOfOrderPlanningPage extends RoomBaseAbstractPage {
 	public boolean isOutOfOrderShouldHaveTitleErrorDisplayed() {
 		return isErrorMessageCorrect(OUT_OF_ORDER_SHOULD_HAVE_A_TITLE);
 	}
+
+	/**
+	 * [YA]This method returns the default value should be set for start time
+	 * @return String
+	 */
+	public String getDefaultStartTimeValue() {
+		String currentTime = TimeManager.getCurrentDate("hh:mm a");
+		return TimeManager.getNextHalfHourPeriod(currentTime);
+	}
+
+	/**
+	 * [YA]This method returns the default value should be set for end time
+	 * @return
+	 */
+	public String getDefaultEndTimeValue() {
+		return TimeManager.getNextHalfHourPeriod(getDefaultStartTimeValue());
+	}
+
+	/**
+	 * This method gets the time (hours and minutes) set as start time or end time 
+	 * depending on the selector
+	 * @param selector
+	 * @return String
+	 */
+	private String getTimeValue(String selector) {
+		String hours = findDateElement("hours", selector).getAttribute("value");
+		String minutes = findDateElement("minutes", selector).getAttribute("value"); 
+		return hours + ":" + minutes;
+	}
 	
+	/**
+	 * This method gets the time (hours and minutes) set as start time
+	 * @return String
+	 */
+	public String getStartTimeValue() {
+		return getTimeValue("from");
+	}
+	
+	/**
+	 * This method gets the time (hours and minutes) set as end time
+	 * @return String
+	 */
+	public String getEndTimeValue() {
+		return getTimeValue("to");
+	}
+	
+	/**
+	 * This method clicks saveBtn when an Out Of Order is created
+	 * @return
+	 */
+	public RoomsPage clickSaveOutOfOrderBtn(){
+		clickSaveBtn();
+		wait.until(ExpectedConditions.visibilityOf(messagePopUp));
+		if(messagePopUp.isDisplayed()){
+			messagePopUp.click();
+		}
+		return new RoomsPage();
+	}
 }

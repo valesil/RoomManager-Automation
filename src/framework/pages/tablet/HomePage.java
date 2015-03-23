@@ -10,6 +10,7 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import framework.common.UIMethods;
 import framework.selenium.SeleniumDriverManager;
 
 /**
@@ -76,7 +77,7 @@ public class HomePage {
 
 	@FindBy(xpath = "//span[@ng-bind = 'room._code']")
 	WebElement roomCodeLbl;
-	
+
 	@FindBy(xpath = "//div[@ng-click='selectNowTile()']")
 	WebElement nowTileBox;
 	
@@ -162,6 +163,7 @@ public class HomePage {
 	 */
 	public SearchPage clickSearchBtn() {
 		wait.until(ExpectedConditions.elementToBeClickable(searchBtn));
+		wait.until(ExpectedConditions.visibilityOf(timelineContainer));
 		searchBtn.click();
 		return new SearchPage();
 	}
@@ -171,8 +173,19 @@ public class HomePage {
 	 * @return
 	 */
 	public SettingsPage clickSettingsBtn() {
+		wait.until(ExpectedConditions.visibilityOf(timelineContainer));
 		settingsBtn.click();
 		return new SettingsPage();
+	}
+
+	/**
+	 * [EN] This method clicks {Now} tile.
+	 * @return schedule page
+	 */
+	public SchedulePage clickNowTileLbl() {
+		wait.until(ExpectedConditions.elementToBeClickable(nowTileLbl));
+		nowTileLbl.click();
+		return new SchedulePage();
 	}
 
 	/**
@@ -191,7 +204,7 @@ public class HomePage {
 	 * @return
 	 */
 	public boolean isResourceAssociated(String resourceName, String amount) {
-		
+
 		//this condition call other methods to verify if a elements are present in the tablet
 		if (isResourceQuantityDisplayed(amount)&&isResourceNameDisplayed(resourceName))
 			return true;
@@ -234,17 +247,17 @@ public class HomePage {
 				.replace("nd","").replace("Current time: ","");
 		return time;
 	}
-	
+
 	/**
 	 * [YA] This method clicks Schedule button and waits until timeline is displayed
-	 * @return
+	 * @return SchedulePage
 	 */
 	public SchedulePage clickScheduleBtn() {
 		wait.until(ExpectedConditions.visibilityOf(timelineContainer));
 		scheduleBtn.click();
 		return new SchedulePage();
 	}
-		
+
 	/**
 	 * [EN] Return the current time displayed in the top of main window.
 	 * @return
@@ -260,17 +273,8 @@ public class HomePage {
 	public String getCurrentMeetingOrganizerLbl() {
 		return currentMeetingOrganizerLbl.getText();
 	}
-	
-	/**
-	 * [EN] This method clicks {Now} tile.
-	 * @return schedule page
-	 */
-	public SchedulePage clickNowTileLbl() {
-		wait.until(ExpectedConditions.elementToBeClickable(nowTileLbl));
-		nowTileLbl.click();
-		return new SchedulePage();
-	}
-	
+
+
 	/**
 	 * [EN] This method clicks the time line container displayed in the bottom of main window
 	 * @return Schedule Page
@@ -278,6 +282,45 @@ public class HomePage {
 	public SchedulePage clickTimelineContainer() {
 		timelineContainer.click();
 		return new SchedulePage();
+	}
+
+	/**
+	 * [YA] This method verifies if timeline container is displayed
+	 * @return boolean
+	 */
+	public boolean isTimelineContainerPresent() {
+		By timelineContainerLocator = By.id("timeline-container");
+		return UIMethods.isElementPresent(timelineContainerLocator);
+	}
+
+	/**
+	 * [RB]This method verifies if an associated resource (display name and quantity
+	 * is displayed in the tablet home page)
+	 * @param resourceName
+	 * @param amount
+	 * @return
+	 */
+	public boolean VerifyResourceIsAsociated(String resourceName, String amount) {
+		//this condition call other methods to verify if a elements are present in the tablet
+		if (isQuantityDisplayed(amount)&&isResourceNameDisplayed(resourceName))
+			return true;
+		else
+			return false;
+	}
+
+	/**
+	 * [RB]This method verifies the display name of an associated resource
+	 * is displayed in the tablet home page
+	 * @param amount
+	 * @return
+	 */
+	private boolean isQuantityDisplayed(String amount) {
+		try{
+			return driver.findElement(By.xpath("//div[contains(text(),'"+amount
+					+"')and@ng-bind='resource.quantity']")).isDisplayed();
+		}catch (Exception e) {
+			return false;
+		}
 	}
 	
 	/**
@@ -287,7 +330,7 @@ public class HomePage {
 	public String getNowTileColor() {
 		return nowTileBox.getCssValue("background-color");
 	}
-	
+
 	/**
 	 * [EN] return the color of next tile in RGBA format.
 	 * @return String

@@ -13,6 +13,14 @@ public class RootRestMethods {
 		RestMethods getRooms = new RestMethods(); 
 		return getRooms.response("rooms", "displayName", "String"); 
 	}
+	
+	/** [J.C]
+	 * @return This method get all displayName rooms in existence in a LinkedList <String> 
+	 */
+	public static LinkedList <String> getAllDisplayNameRooms() {
+		RestMethods getRooms = new RestMethods(); 
+		return getRooms.response("rooms", "customDisplayName", "String"); 
+	}
 
 	/** [J.C]
 	 * @return This method create association between a room and resource
@@ -208,7 +216,7 @@ public class RootRestMethods {
 	}
 
 	/** [J.C]
-	 * @return This method delete An OutOfOrder
+	 * @return This method delete An meeting created
 	 */
 	public static void deleteMeeting(String roomName, String meetingSubject){
 		RestMethods getServicesID = new RestMethods();
@@ -292,5 +300,20 @@ public class RootRestMethods {
 			}
 		}
 		return list;
+	}
+	
+	/**
+	 * [YA] This method verifies if Out Of Order is activated 
+	 * @param roomName
+	 * @param title
+	 * @return boolean
+	 */
+	public static boolean isOutOfOrderEnable(String roomName, String title) {
+		try {
+			getOutOfOrderInfo(roomName, title, "meetingId");
+			return true;
+		} catch(Exception e) {
+			return false;
+		}
 	}
 }

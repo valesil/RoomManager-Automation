@@ -31,7 +31,6 @@ public class SearchPage {
 	private WebDriver driver;
 	@SuppressWarnings("rawtypes")
 	private Wait wait;
-	UIMethods uiMethods = new UIMethods();
 
 	@FindBy(xpath = "//span[@ng-click='goBack()']")
 	WebElement backBtn;
@@ -285,13 +284,12 @@ public class SearchPage {
 	}
 	
 	/**
-	 * [YA]This method verifies if an Out Of Order is displayed in Search timeline
+	 * [YA]This method verifies if an Out Of Order is displayed
 	 * @param title: Out Of Order Title
-	 * @return
+	 * @return boolean
 	 */
 	public boolean isOutOfOrderBoxDisplayed(String title) {
-		By outOfOrderBoxLocator = By.xpath("//div[contains(text(),'" + title + "')]");
-		return UIMethods.isElementPresent(outOfOrderBoxLocator);
+		return isMeetingBoxDisplayed(title);
 	}
 	
 	/**
@@ -300,6 +298,26 @@ public class SearchPage {
 	 */
 	public boolean isSearchLblDisplayed() {			
 			return searchLbl.isDisplayed();
+	}
+	
+	/**
+	 * [YA]This method verifies if a Meeting BOx is displayed
+	 * @param meetingSubject: Meeting Subject
+	 * @return boolean
+	 */
+	public boolean isMeetingBoxDisplayed(String meetingSubject) {
+		By meetingBoxLocator = By.xpath("//div[contains(text(),'" + meetingSubject + "')]");
+		return UIMethods.isElementPresent(meetingBoxLocator); 
+	}	
+	
+	/**
+	 * [ML]This method verify if a created resource exist in advanced searchPage from tablet
+	 * @param resourceDisplayName
+	 * @return boolean
+	 */
+	public boolean isResourceInAdvancedSearch(String resourceDisplayName) {
+		By resource = By.xpath("//*[@id='collapseExample']//div[contains(text(),'" + resourceDisplayName + "')]");
+		return UIMethods.isElementPresent(resource);
 	}
 }
 
