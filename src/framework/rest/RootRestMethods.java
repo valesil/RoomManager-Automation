@@ -13,6 +13,14 @@ public class RootRestMethods {
 		RestMethods getRooms = new RestMethods(); 
 		return getRooms.response("rooms", "displayName", "String"); 
 	}
+	
+	/** [J.C]
+	 * @return This method get all displayName rooms in existence in a LinkedList <String> 
+	 */
+	public static LinkedList <String> getAllDisplayNameRooms() {
+		RestMethods getRooms = new RestMethods(); 
+		return getRooms.response("rooms", "customDisplayName", "String"); 
+	}
 
 	/** [J.C]
 	 * @return This method create association between a room and resource
@@ -32,7 +40,7 @@ public class RootRestMethods {
 	 * 
 	 */
 	public static LinkedList <String> getNamesAssociatedResources(String roomName) {
-		LinkedList <String> listResourcesRoomIds, listAllIdResources;
+		LinkedList <String> listResourcesRoomIds, listAllIdResources, listAllResourceNames;
 		LinkedList <String> listNames = new LinkedList <String>(); 
 		RestMethods getResourcesID = new RestMethods();
 		RestMethods getRoomID = new RestMethods(); 
@@ -42,11 +50,11 @@ public class RootRestMethods {
 		listResourcesRoomIds = getResourcesID.
 				response(resourceAssociated, "resourceId", "String");
 		listAllIdResources = getAllIdResources();
+		listAllResourceNames = getAllNameResources();
 		for(int pos = 0; pos<listResourcesRoomIds.size(); pos ++){
 			for(int iterator = 0; iterator < listAllIdResources.size(); iterator ++ ){
 				if(listResourcesRoomIds.get(pos).equals(listAllIdResources.get(iterator))){
-					listNames.add(getRoomID.findAttributeValue("resources", 
-							"String", "_id", listResourcesRoomIds.get(pos), "customName"));
+					listNames.add(listAllResourceNames.get(iterator));
 				}
 			}
 		}
@@ -59,13 +67,34 @@ public class RootRestMethods {
 	public static LinkedList <String> getRoomsByName(String Criteria){
 		LinkedList <String> listAllRooms = getAllRooms();
 		LinkedList <String> listRooms = new LinkedList <String>(); 
-		for(int pos = 0; pos<listAllRooms.size(); pos ++){
+		for(int pos = 0; pos < listAllRooms.size(); pos ++){
 			if(listAllRooms.get(pos).contains(Criteria))
 				listRooms.add(listAllRooms.get(pos));
 		}
 		return listRooms;
 	}
-
+	
+	/** [J.C]
+	 * @return This method return a names of rooms that have certain Associated resource 
+	 * in a LinkedList <String> 
+	 * 
+	 */
+	public static LinkedList <String> getRoomNamesByResource(String ResourceName) {
+		LinkedList <String> listResourceNames, listRoomNames;
+		LinkedList <String> listRoomswithResource = new LinkedList <String>(); 
+		listRoomNames = getAllRooms();
+		for(int pos = 0; pos < listRoomNames.size(); pos ++){
+			listResourceNames = getNamesAssociatedResources(listRoomNames.get(pos));
+			for(int iter = 0; iter < listResourceNames.size(); iter ++){
+				if(listResourceNames.get(iter) == ResourceName){
+					listRoomswithResource.add(listRoomNames.get(pos));
+					iter=listResourceNames.size();
+				}
+			}
+		}
+		return listRoomswithResource;
+	}
+	
 	/** [J.C]
 	 * @return This method return id of resources in a LinkedList <String> 
 	 */
@@ -120,7 +149,19 @@ public class RootRestMethods {
 		deleteAssociatedResource.getAndDeleteMethods
 		("DELETE", resourcesAssociated + "/" + resourceAssociatedID); 
 	}
-
+	
+	/** [J.C]
+	 * @return This method create an OutOfOrderInfo in a room 
+	 */
+	public static void CreateOutOfOrderInfo(String roomName, String fileJSON) {
+		RestMethods getRoomID = new RestMethods(); 
+		RestMethods createAssociatedResource = new RestMethods();
+		String roomID = getRoomID.findAttributeValue
+				("rooms", "String", "displayName", roomName, "_id");
+		String resourceAssociated = "rooms/" + roomID + "/out-of-orders";
+		createAssociatedResource.postAndPutMethod(resourceAssociated, fileJSON);
+	}
+	
 	/** [J.C]
 	 * @return This method obtain info of an OutOfOrder selected
 	 */
