@@ -105,4 +105,24 @@ public class TimeManager {
 	public static String getCurrentDate(String formatter) {
 		return dateToString(new Date(),formatter);
 	}
+	
+	public static String getNextHalfHourPeriod(String time) {
+		int hours = Integer.parseInt(getTimeElement(time, "hours"));
+		int minutes = Integer.parseInt(getTimeElement(time, "minutes"));
+		String strMinutes;
+		if(minutes < 30) {
+			strMinutes = "30";
+		} else {
+			strMinutes = "00";
+			hours = hours + 1;
+			if (hours >= 13) {
+				hours = hours - 12;
+			}
+		}
+		String newTime = hours + ":" + strMinutes;
+		if(hours < 10) {
+			newTime = "0" + newTime;
+		}
+		return newTime;
+	}
 }
