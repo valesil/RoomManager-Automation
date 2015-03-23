@@ -21,7 +21,6 @@ import framework.utils.TimeManager;
 public class RoomOutOfOrderPlanningPage extends RoomBaseAbstractPage {
 
 	TimeManager timeManager = new TimeManager();
-	UIMethods uiMethods = new UIMethods();
 
 	@FindBy(xpath = "//div[@class='check-button']/label")
 	WebElement activationBtn;
@@ -207,7 +206,7 @@ public class RoomOutOfOrderPlanningPage extends RoomBaseAbstractPage {
 	 */
 	private void setTimeTxtBox (String selector, String time, String timeSelector) {
 		WebElement timeTxtBox = findDateElement(selector, timeSelector);
-		uiMethods.doubleClick(timeTxtBox);
+		UIMethods.doubleClick(timeTxtBox);
 		timeTxtBox.sendKeys(time);
 	}
 
@@ -370,15 +369,6 @@ public class RoomOutOfOrderPlanningPage extends RoomBaseAbstractPage {
 	}
 
 	/**
-	 * [YA]This method verifies if an error message is correct
-	 * @return boolean
-	 */
-	private boolean isErrorMessageCorrect(String errorMessage) {
-		return driver.findElement(By.xpath("//small[contains(text(),'" 
-				+ errorMessage + "')]")).isDisplayed();
-	}
-	
-	/**
 	 * [YA]This method verifies that a message that says: "'To' field must be greater than 'From' field" 
 	 * is displayed
 	 * @return boolean
@@ -405,4 +395,5 @@ public class RoomOutOfOrderPlanningPage extends RoomBaseAbstractPage {
 		return isErrorMessageCorrect(OUT_OF_ORDER_SHOULD_HAVE_A_TITLE);
 	}
 	
+
 }

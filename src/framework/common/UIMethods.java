@@ -1,9 +1,11 @@
 package framework.common;
 
+import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.ui.WebDriverWait;
+
 import framework.selenium.SeleniumDriverManager;
 
 /**
@@ -12,18 +14,26 @@ import framework.selenium.SeleniumDriverManager;
  *
  */
 public class UIMethods {
-	private WebDriver driver;	
-	private WebDriverWait wait;
-	private Actions action;
+	static WebDriver driver = SeleniumDriverManager.getManager().getDriver();	
 
-	public UIMethods() {
-		driver = SeleniumDriverManager.getManager().getDriver();
-		wait = SeleniumDriverManager.getManager().getWait();
-		action = new Actions(driver);
-	}
-
-	public void doubleClick(WebElement webElement) {
+	public static void doubleClick(WebElement webElement) {
+		Actions action = new Actions(driver);
 		action.doubleClick(webElement);
 		action.perform();
+	}
+
+	public static boolean isElementPresent(By element) {
+		boolean present;
+		try {			
+			driver.findElement(element);
+			present=true;
+		} catch (NoSuchElementException ex) {
+			present = false;
+		}
+		return present;
+	}
+	
+	public static void refresh() {
+		driver.navigate().refresh();
 	}
 }

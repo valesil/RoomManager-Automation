@@ -1,5 +1,6 @@
 package framework.pages.admin.conferencerooms;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -7,6 +8,7 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import framework.common.UIMethods;
 import framework.selenium.SeleniumDriverManager;
 
 /**
@@ -35,6 +37,9 @@ public abstract class RoomBaseAbstractPage {
 	
 	@FindBy(xpath = "//small[contains(text(),' ')]")
 	WebElement errorMessageLbl;
+	
+	@FindBy (xpath = "//div[@class='toast-message']/div")
+	WebElement messagePopUp;
 
 	public RoomBaseAbstractPage() {
 		driver = SeleniumDriverManager.getManager().getDriver();
@@ -64,6 +69,10 @@ public abstract class RoomBaseAbstractPage {
 	
 	public RoomsPage clickSaveBtn(){
 		saveBtn.click();
+		wait.until(ExpectedConditions.visibilityOf(messagePopUp));
+		if(messagePopUp.isDisplayed()){
+			messagePopUp.click();
+		}
 		return new RoomsPage();
 	}
 
@@ -85,5 +94,14 @@ public abstract class RoomBaseAbstractPage {
 	 */
 	public boolean isErrorMessagePresent() {
 		return errorMessageLbl.isDisplayed();
+	}
+	
+	/**
+	 * [YA]This method verifies if an error message is correct
+	 * @return boolean
+	 */
+	public static boolean isErrorMessageCorrect(String errorMessage) {
+		return UIMethods.isElementPresent(By.xpath("//small[contains(text(),'" 
+				+ errorMessage + "')]"));
 	}
 }

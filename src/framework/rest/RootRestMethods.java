@@ -301,4 +301,19 @@ public class RootRestMethods {
 		}
 		return list;
 	}
+	
+	/**
+	 * [YA] This method verifies if Out Of Order is activated 
+	 * @param roomName
+	 * @param title
+	 * @return boolean
+	 */
+	public static boolean isOutOfOrderEnable(String roomName, String title) {
+		try {
+			getOutOfOrderInfo(roomName, title, "meetingId");
+			return true;
+		} catch(Exception e) {
+			return false;
+		}
+	}
 }

@@ -3,7 +3,6 @@ package framework.pages.admin.conferencerooms;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-
 import framework.common.UIMethods;
 
 /**
@@ -20,9 +19,15 @@ public class RoomInfoPage extends RoomBaseAbstractPage{
 
 	@FindBy(xpath = "//input[@ng-model='selectedRoom.capacity']")
 	WebElement roomCapacityTxtBox;
+	
+	@FindBy(xpath = "//div/input[@ng-model='selectedRoom.customDisplayName']")
+	WebElement roomDisplayNameTxtBox;
 
 	@FindBy(xpath = "//span[@class='select2-chosen']")
 	WebElement locationCmbBox;
+	
+	@FindBy(xpath = "//small[@class='inline-error']")
+	WebElement errorDisplayName;
 
 	UIMethods UI = new UIMethods();
 
@@ -97,5 +102,22 @@ public class RoomInfoPage extends RoomBaseAbstractPage{
 		roomCapacityTxtBox.clear();
 		roomCapacityTxtBox.sendKeys(roomCapacity);
 		return new RoomInfoPage();
+	}
+	
+	/**
+	 * [ML]This method gets error message from RoomInfoPage when blank text is 
+	 * inserted into room display name 
+	 * @return error message for display name when empty value is inserted
+	 */
+	public String getErrorMessageDisplayName() {
+		return errorDisplayName.getText();
+	}
+	
+	/**
+	 * [ML]This method gets the room display name from RoomInfoPage
+	 * @return room display name
+	 */
+	public String getRoomDisplayName() {
+		return roomDisplayNameTxtBox.getAttribute("value");
 	}
 }
