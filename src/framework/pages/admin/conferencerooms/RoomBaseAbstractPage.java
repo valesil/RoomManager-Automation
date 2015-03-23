@@ -68,10 +68,6 @@ public abstract class RoomBaseAbstractPage {
 	
 	public RoomsPage clickSaveBtn(){
 		saveBtn.click();
-		wait.until(ExpectedConditions.visibilityOf(messagePopUp));
-		if(messagePopUp.isDisplayed()){
-			messagePopUp.click();
-		}
 		return new RoomsPage();
 	}
 
