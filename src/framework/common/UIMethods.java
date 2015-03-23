@@ -36,4 +36,22 @@ public class UIMethods {
 	public static void refresh() {
 		driver.navigate().refresh();
 	}
+	
+	/**
+	 * This method is a workaround to wait for mask to disappear for Chrome
+	 * @param webElement
+	 */
+	public static void waitForMaskDisappearsAndClickElement(WebElement webElement) {
+		boolean value = false;
+		while (value == false) {
+			try {
+				webElement.click();
+				value = true;
+			}
+			catch (Exception e) {
+				value = false;
+			}
+		} 
+	}
+	
 }

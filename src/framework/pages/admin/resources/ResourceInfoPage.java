@@ -4,7 +4,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import framework.common.UIMethods;
+
 import framework.selenium.SeleniumDriverManager;
 
 /**
@@ -12,7 +12,7 @@ import framework.selenium.SeleniumDriverManager;
  *
  */
 public class ResourceInfoPage extends ResourceBaseAbstractPage {	
-	UIMethods uiMethod = new UIMethods();
+	
 	@FindBy(linkText = "Resource Associations") 
 	WebElement resourceAssociationsLink;
 	
