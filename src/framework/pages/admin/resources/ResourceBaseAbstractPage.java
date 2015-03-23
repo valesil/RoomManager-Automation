@@ -7,6 +7,8 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+import framework.common.UIMethods;
 import framework.selenium.SeleniumDriverManager;
 
 /**
@@ -31,6 +33,9 @@ public class ResourceBaseAbstractPage {
 	
 	@FindBy(id = "convert") 
 	WebElement resourceOpenIconBtn;
+	
+	@FindBy(xpath = "//div[@class = 'row v-space ng-scope']")
+	WebElement background;
 	
 	public ResourceBaseAbstractPage() {		
 		driver = SeleniumDriverManager.getManager().getDriver();
@@ -114,6 +119,7 @@ public class ResourceBaseAbstractPage {
 	 */
 	public ResourcesPage clickSaveResourceBtn() {
 		saveResourceBtn.click();
+		UIMethods.waitForMaskDisappearsAndClickElement(background);
 		return new ResourcesPage();
 	}
 }

@@ -157,6 +157,7 @@ public class HomePage {
 	 */
 	public SearchPage clickSearchBtn() {
 		wait.until(ExpectedConditions.elementToBeClickable(searchBtn));
+		wait.until(ExpectedConditions.visibilityOf(timelineContainer));
 		searchBtn.click();
 		return new SearchPage();
 	}
@@ -166,6 +167,7 @@ public class HomePage {
 	 * @return
 	 */
 	public SettingsPage clickSettingsBtn() {
+		wait.until(ExpectedConditions.visibilityOf(timelineContainer));
 		settingsBtn.click();
 		return new SettingsPage();
 	}

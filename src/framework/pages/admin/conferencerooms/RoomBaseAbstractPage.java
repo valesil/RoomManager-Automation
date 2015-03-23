@@ -8,6 +8,7 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import framework.common.UIMethods;
 import framework.selenium.SeleniumDriverManager;
 
 /**
@@ -39,6 +40,9 @@ public abstract class RoomBaseAbstractPage {
 	
 	@FindBy (xpath = "//div[@class='toast-message']/div")
 	WebElement messagePopUp;
+	
+	@FindBy(xpath = "//div[@class = 'row v-space ng-scope']")
+	WebElement background;
 
 	public RoomBaseAbstractPage() {
 		driver = SeleniumDriverManager.getManager().getDriver();
@@ -63,15 +67,13 @@ public abstract class RoomBaseAbstractPage {
 
 	public RoomsPage clickCancelBtn(){
 		cancelBtn.click();
+		UIMethods.waitForMaskDisappearsAndClickElement(background);
 		return new RoomsPage();
 	}
 	
 	public RoomsPage clickSaveBtn(){
 		saveBtn.click();
-		wait.until(ExpectedConditions.visibilityOf(messagePopUp));
-		if(messagePopUp.isDisplayed()){
-			messagePopUp.click();
-		}
+		UIMethods.waitForMaskDisappearsAndClickElement(background);
 		return new RoomsPage();
 	}
 

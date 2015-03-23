@@ -308,7 +308,6 @@ public class SchedulePage {
 	 * @return SchedulePage
 	 */
 	public SchedulePage clickOverMeetingCreated(String nameMeeting) {
-		waitForMaskDisappears();
 		driver.findElement(By.xpath("//span[contains(text(),'" + nameMeeting + "')]")).click();
 		return this;
 	}
@@ -554,14 +553,6 @@ public class SchedulePage {
 	}
 
 	/**
-	 * [AC] This method waits until the mask disappears
-	 */
-	private void waitForMaskDisappears() {
-		wait.until(ExpectedConditions.invisibilityOfElementLocated(
-				By.xpath("//div[@class='Modal-backdrop ng-scope']")));
-	}
-	
-	/**
 	 * [AC] This method clicks over TimeLine
 	 * @return SchedulePage
 	 */
@@ -609,7 +600,8 @@ public class SchedulePage {
 		setEndTimeDate(endTime);
 		setAttendeeTxtBox(attendee);	
 		clickCreateBtn();
-		confirmCredentials(password).isMessageMeetingCreatedDisplayed();
+		confirmCredentials(password)
+		.isMessageMeetingCreatedDisplayed();
 		return this;
 	}
 
