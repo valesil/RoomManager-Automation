@@ -23,10 +23,7 @@ public class RoomInfoPage extends RoomBaseAbstractPage{
 	WebElement roomDisplayNameTxtBox;
 
 	@FindBy(xpath = "//span[@class='select2-chosen']")
-	WebElement locationTxtBox;
-	
-	@FindBy (xpath = "//input[@role='combobox']")
-	WebElement locationSecondTxtBox;
+	WebElement locationCmbBox;
 	
 	@FindBy(xpath = "//small[@class='inline-error']")
 	WebElement errorDisplayName;
@@ -80,7 +77,7 @@ public class RoomInfoPage extends RoomBaseAbstractPage{
 	 * @return the room location
 	 */
 	public String getRoomLocation() {
-		return locationTxtBox.getText();
+		return locationCmbBox.getText();
 	}
 
 	/**
@@ -89,8 +86,8 @@ public class RoomInfoPage extends RoomBaseAbstractPage{
 	 * @return
 	 */
 	public RoomInfoPage setLocation(String location) {
-		locationTxtBox.click();
-		locationSecondTxtBox.sendKeys(location);
+		locationCmbBox.click();
+		locationCmbBox.sendKeys(location);
 		driver.findElement(By.xpath("//span[contains(text(),'" + location
 				+ "')and@class='select2-match']")).click();
 		return new RoomInfoPage();
@@ -123,7 +120,7 @@ public class RoomInfoPage extends RoomBaseAbstractPage{
 	public String getRoomDisplayName() {
 		return roomDisplayNameTxtBox.getAttribute("value");
 	}
-	
+
 	/**
 	 * [RB] THis method verify default values of room
 	 * @param newdisplayname
