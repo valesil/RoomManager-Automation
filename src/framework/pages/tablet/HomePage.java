@@ -10,7 +10,6 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import framework.common.UIMethods;
 import framework.selenium.SeleniumDriverManager;
 
 /**
@@ -23,7 +22,7 @@ import framework.selenium.SeleniumDriverManager;
 public class HomePage {
 	private WebDriver driver;
 	private WebDriverWait wait;
-	
+
 	@FindBy(xpath = "//div[@ng-bind='current._title']")
 	WebElement nowTileLbl;
 
@@ -77,7 +76,7 @@ public class HomePage {
 
 	@FindBy(xpath = "//span[@ng-bind = 'room._code']")
 	WebElement roomCodeLbl;
-	
+
 	public HomePage() {
 		driver = SeleniumDriverManager.getManager().getDriver();
 		PageFactory.initElements(driver, this);
@@ -171,16 +170,6 @@ public class HomePage {
 	}
 
 	/**
-	 * [EN] This method clicks {Now} tile.
-	 * @return schedule page
-	 */
-	public SchedulePage clickNowTileLbl() {
-		wait.until(ExpectedConditions.elementToBeClickable(nowTileLbl));
-		nowTileLbl.click();
-		return new SchedulePage();
-	}
-	
-	/**
 	 * [RB]This method gets the room code of selected room
 	 * @return 
 	 */
@@ -195,10 +184,9 @@ public class HomePage {
 	 * @param amount
 	 * @return
 	 */
-	public boolean isResourceAssociated(String resourceName, String amount) {
-		
+	public boolean VerifyResourceIsAsociated(String resourceName, String amount) {
 		//this condition call other methods to verify if a elements are present in the tablet
-		if (isResourceQuantityDisplayed(amount)&&isResourceNameDisplayed(resourceName))
+		if (isQuantityDisplayed(amount)&&isResourceNameDisplayed(resourceName))
 			return true;
 		else
 			return false;
@@ -210,78 +198,114 @@ public class HomePage {
 	 * @param amount
 	 * @return
 	 */
-	private boolean isResourceQuantityDisplayed(String amount) {
-		return driver.findElement(By.xpath("//div[contains(text(),'"+ amount +
-				"')and@ng-bind='resource.quantity']")).isDisplayed();
-	}
+	private boolean isQuantityDisplayed(String amount) {
+		try{
+				return driver.findElement(By.xpath("//div[contains(text(),'"+amount
+						+"')and@ng-bind='resource.quantity']")).isDisplayed();
+		}catch (Exception e) {
+			return false;
+		}
+}
 
-	/**
-	 * [RB]This method verifies the quantity of an associated resource
-	 * is displayed in the tablet home page
-	 * @param resourceDisplayName
-	 * @return
-	 */
-	private boolean isResourceNameDisplayed(String resourceDisplayName) {
-		return driver.findElement(By.xpath("//div[contains(text(),'"+resourceDisplayName+
-				"')and@ng-bind='resource.name']")).isDisplayed();
-	}
+/**
+ * [RB]This method verifies if an associated resource (display name and quantity
+ * is displayed in the tablet home page)
+ * @param resourceName
+ * @param amount
+ * @return
+ */
+public boolean isResourceAssociated(String resourceName, String amount) {
 
-	public boolean isHomePageDisplayed() {
-		return scheduleBtn.isDisplayed();
-	}
+	//this condition call other methods to verify if a elements are present in the tablet
+	if (isResourceQuantityDisplayed(amount)&&isResourceNameDisplayed(resourceName))
+		return true;
+	else
+		return false;
+}
 
-	/**
-	 * [JC] This method verify return the current date
-	 * @return
-	 */
-	public String getTimeLineDate() {
-		String time = currentTimeLine.getAttribute("title").replace("th","").replace("st","")
-				.replace("nd","").replace("Current time: ","");
-		return time;
+/**
+ * [RB]This method verifies the display name of an associated resource
+ * is displayed in the tablet home page
+ * @param amount
+ * @return true or false
+ */
+private boolean isResourceQuantityDisplayed(String amount) {
+	try{
+	return driver.findElement(By.xpath("//div[contains(text(),'"+ amount +
+			"')and@ng-bind='resource.quantity']")).isDisplayed();
+	}catch (Exception e) {
+		return false;
 	}
-	
-	/**
-	 * [YA] This method clicks Schedule button and waits until timeline is displayed
-	 * @return SchedulePage
-	 */
-	public SchedulePage clickScheduleBtn() {
-		wait.until(ExpectedConditions.visibilityOf(timelineContainer));
-		scheduleBtn.click();
-		return new SchedulePage();
-	}
-		
-	/**
-	 * [EN] Return the current time displayed in the top of main window.
-	 * @return
-	 */
-	public String getCurrentTimeLbl() {
-		return currentTimeLbl.getText();
-	}
+}
 
-	/**
-	 * [EN] Return the current meeting organizer displayed on {Now} tile.
-	 * @return
-	 */
-	public String getCurrentMeetingOrganizerLbl() {
-		return currentMeetingOrganizerLbl.getText();
-	}
-	
+/**
+ * [RB]This method verifies the quantity of an associated resource
+ * is displayed in the tablet home page
+ * @param resourceDisplayName
+ * @return true or false
+ */
+private boolean isResourceNameDisplayed(String resourceDisplayName) {
+	System.out.println(resourceDisplayName);
+	return driver.findElement((By.xpath("//div[contains(text(),'"+resourceDisplayName+
+			"')and@ng-bind='resource.name']"))).isDisplayed();
+}
 
-	/**
-	 * [EN] This method clicks the time line container displayed in the bottom of main window
-	 * @return Schedule Page
-	 */
-	public SchedulePage clickTimelineContainer() {
-		timelineContainer.click();
-		return new SchedulePage();
-	}
-	
-	/**
-	 * [YA] This method verifies if timeline container is displayed
-	 * @return boolean
-	 */
-	public boolean isTimelineContainerPresent() {
-		By timelineContainerLocator = By.id("timeline-container");
-		return UIMethods.isElementPresent(timelineContainerLocator);
-	}
+public boolean isHomePageDisplayed() {
+	return scheduleBtn.isDisplayed();
+}
+
+/**
+ * [JC] This method verify return the current date
+ * @return
+ */
+public String getTimeLineDate() {
+	String time = currentTimeLine.getAttribute("title").replace("th","").replace("st","")
+			.replace("nd","").replace("Current time: ","");
+	return time;
+}
+
+/**
+ * [YA] This method clicks Schedule button and waits until timeline is displayed
+ * @return
+ */
+public SchedulePage clickScheduleBtn() {
+	wait.until(ExpectedConditions.visibilityOf(timelineContainer));
+	scheduleBtn.click();
+	return new SchedulePage();
+}
+
+/**
+ * [EN] Return the current time displayed in the top of main window.
+ * @return
+ */
+public String getCurrentTimeLbl() {
+	return currentTimeLbl.getText();
+}
+
+/**
+ * [EN] Return the current meeting organizer displayed on {Now} tile.
+ * @return
+ */
+public String getCurrentMeetingOrganizerLbl() {
+	return currentMeetingOrganizerLbl.getText();
+}
+
+/**
+ * [EN] This method clicks {Now} tile.
+ * @return schedule page
+ */
+public SchedulePage clickNowTileLbl() {
+	wait.until(ExpectedConditions.elementToBeClickable(nowTileLbl));
+	nowTileLbl.click();
+	return new SchedulePage();
+}
+
+/**
+ * [EN] This method clicks the time line container displayed in the bottom of main window
+ * @return Schedule Page
+ */
+public SchedulePage clickTimelineContainer() {
+	timelineContainer.click();
+	return new SchedulePage();
+}
 }

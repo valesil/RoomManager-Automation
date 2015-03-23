@@ -3,7 +3,6 @@ package framework.pages.admin.conferencerooms;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import framework.common.UIMethods;
 
 /**
  * This class represents Room Info page
@@ -24,12 +23,16 @@ public class RoomInfoPage extends RoomBaseAbstractPage{
 	WebElement roomDisplayNameTxtBox;
 
 	@FindBy(xpath = "//span[@class='select2-chosen']")
-	WebElement locationCmbBox;
+	WebElement locationTxtBox;
+	
+	@FindBy (xpath = "//input[@role='combobox']")
+	WebElement locationSecondTxtBox;
 	
 	@FindBy(xpath = "//small[@class='inline-error']")
 	WebElement errorDisplayName;
-
-	UIMethods UI = new UIMethods();
+	
+	@FindBy(xpath = "//button[@ng-click='enableDisableRoom(selectedRoom)']")
+	WebElement disableIcon;
 
 	/**
 	 * [RB]This method sets the display Name of a room
@@ -77,7 +80,7 @@ public class RoomInfoPage extends RoomBaseAbstractPage{
 	 * @return the room location
 	 */
 	public String getRoomLocation() {
-		return locationCmbBox.getText();
+		return locationTxtBox.getText();
 	}
 
 	/**
@@ -86,8 +89,8 @@ public class RoomInfoPage extends RoomBaseAbstractPage{
 	 * @return
 	 */
 	public RoomInfoPage setLocation(String location) {
-		locationCmbBox.click();
-		locationCmbBox.sendKeys(location);
+		locationTxtBox.click();
+		locationSecondTxtBox.sendKeys(location);
 		driver.findElement(By.xpath("//span[contains(text(),'" + location
 				+ "')and@class='select2-match']")).click();
 		return new RoomInfoPage();
@@ -119,5 +122,55 @@ public class RoomInfoPage extends RoomBaseAbstractPage{
 	 */
 	public String getRoomDisplayName() {
 		return roomDisplayNameTxtBox.getAttribute("value");
+	}
+	
+	/**
+	 * [RB] THis method verify default values of room
+	 * @param newdisplayname
+	 * @return
+	 */
+	public boolean verifyRoomDefaultValues(String newdisplayname) {
+
+		String capacity = getRoomCapacity();
+		String code = getRoomCode();
+		String displayname = getRoomDisplayName();
+		
+		if (displayname.equals(newdisplayname) && capacity.equals("")
+				&& code.equals("")){
+			return true;
+		}
+		else{
+			return false;
+		}
+	}
+
+	/**
+	 * [RB]This method verify if a error message is displayed when a empty value for 
+	 * displayname is inserted and saved 
+	 * @return
+	 */
+	public boolean isDisplaynameErrorMessageDisplayed() {
+		return driver.findElement(By.xpath("//small[contains(text(),'not be empty')"
+				+ "and@ng-show='textInputs.customName']")).isDisplayed();
+	}
+
+	/**
+	 * [RB]This method verify if the capacity of room is long
+	 * @param newCapacity
+	 * @return
+	 */
+	public boolean capacityIsLong(String newCapacity) {
+		if (newCapacity.length() > 9)
+			return true;
+		else
+			return false;
+	}
+
+	/**
+	 * [RB]This method disables a room
+	 */
+	public RoomInfoPage clickDisableIcon() {
+		disableIcon.click();
+		return this;
 	}
 }

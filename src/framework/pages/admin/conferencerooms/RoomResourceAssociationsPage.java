@@ -100,4 +100,13 @@ public class RoomResourceAssociationsPage extends RoomBaseAbstractPage {
 				+ "//span[@class='ng-binding'][contains(text(),'" + resourceDisplayName + "')]");
 		return UIMethods.isElementPresent(resourceDName);
 	}
+
+	/**
+	 * [RB]THis method verify if exists changes after click on cancel or save button
+	 * @return tru or false
+	 */
+	public boolean verifyChanges(String resourceName) {
+		return UIMethods.isElementPresent(By.xpath("//div[@class='list-group-item text-center col-xs-12 ng-scope']"
+				+ "//span[contains(text(),'"+resourceName+"')]"));
+	}
 }
