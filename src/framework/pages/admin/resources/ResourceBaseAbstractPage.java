@@ -37,6 +37,9 @@ public class ResourceBaseAbstractPage {
 	@FindBy(id = "convert") 
 	WebElement resourceOpenIconBtn;
 	
+	@FindBy(xpath = "//div[@class = 'row v-space ng-scope']")
+	WebElement background;
+	
 	public ResourceBaseAbstractPage() {		
 		driver = SeleniumDriverManager.getManager().getDriver();
 		wait = SeleniumDriverManager.getManager().getWait();
@@ -119,6 +122,7 @@ public class ResourceBaseAbstractPage {
 	 */
 	public ResourcesPage clickSaveResourceBtn() {
 		saveResourceBtn.click();
+		UIMethods.waitForMaskDisappearsAndClickElement(background);
 		return new ResourcesPage();
 	}
 	
