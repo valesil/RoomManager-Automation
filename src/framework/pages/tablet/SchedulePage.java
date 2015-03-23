@@ -102,7 +102,10 @@ public class SchedulePage {
 	
 	@FindBy(xpath = "//div[@class='vispanel center']")
 	WebElement timeLine;
-
+	
+	@FindBy(xpath = "//div[@class = 'group']")
+	WebElement groupTimeLine;
+	
 	/**
 	 * [AC] Get the driver and the wait to use that in this class
 	 */
@@ -584,7 +587,7 @@ public class SchedulePage {
 		wait.until(ExpectedConditions.invisibilityOfElementLocated(
 				By.xpath("//div[@class='Modal-backdrop ng-scope']")));
 	}
-	
+		
 	/**
 	 * [AC] This method clicks over TimeLine
 	 * @return SchedulePage
@@ -689,9 +692,9 @@ public class SchedulePage {
 	 * @param nameMeeting
 	 * @return SchedulePage
 	 */
-	public SchedulePage moveMeeting(String nameMeeting, int value) {
+	public SchedulePage moveMeeting(int value) {
 		Actions builder = new Actions(driver);
-		WebElement elem = driver.findElement(By.xpath("//span[contains(text(),'" + nameMeeting + "')]"));
+		WebElement elem = driver.findElement(By.xpath("//div[contains(@class,'item range meeting selected')]"));
 		builder.clickAndHold(elem)
 				.moveByOffset(value, 0)
 				.release().perform();
@@ -709,7 +712,7 @@ public class SchedulePage {
 		WebElement elem = driver.findElement(By.xpath("//span[contains(text(),'" + nameMeeting + 
 				"')]/parent::div/following-sibling::div[@class='drag-left']"));
 		builder.clickAndHold(elem)
-				.moveByOffset(-800, 0)
+				.moveByOffset(2000, 0)
 				.release().perform();
 		return this;
 	}
@@ -725,8 +728,18 @@ public class SchedulePage {
 		WebElement elem = driver.findElement(By.xpath("//span[contains(text(),'" + nameMeeting + 
 				"')]/parent::div/following-sibling::div[@class='drag-right']"));
 		builder.clickAndHold(elem)
-				.moveByOffset(800, 0)
+				.moveByOffset(-2000, 0)
 				.release().perform();
 		return this;
 	}
+	
+	/**
+	 * [EN]
+	 * @param textMinorTime
+	 * @return
+	 */
+	public boolean isTextMinorDisplayed(String textMinorTime) {
+		return driver.findElement(By.xpath("//div[contains(text(),'" + textMinorTime + "')]"))
+				.isDisplayed();
+	}	
 }
