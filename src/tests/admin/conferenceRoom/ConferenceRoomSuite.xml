@@ -1,0 +1,20 @@
+<suite name="ConferenceRoom_Test_Suite">
+<listeners>
+            <listener class-name="org.uncommons.reportng.HTMLReporter"/>
+            <listener class-name="org.uncommons.reportng.JUnitXMLReporter"/>
+            <listener class-name="framework.utils.ReportNGListener"/>
+</listeners>	
+    <test name = "RoomManager">
+         <classes>
+			<class name="tests.admin.conferenceRoom.StartTestSuiteConferenceRoom" />
+			<!-- Test 18, 19 -->
+            <class name="tests.admin.conferenceRoom.RoomAllowsBlankSpaceBetweenTextForDisplayNameAndCode" />
+            <!-- Test 15, 16 -->
+            <class name="tests.admin.conferenceRoom.RoomAllowsBlankTextForRoomCodeAndCapacity" />
+            <!-- Test 20-->
+            <class name="tests.admin.conferenceRoom.RoomDoesNotAllowsBlankSpaceBetweenTextForCapacity" />
+            <!-- Test 17 -->
+        	<class name="tests.admin.conferenceRoom.RoomDoesNotAllowsBlankTextForDisplayName" />
+		 </classes>
+    </test>
+</suite>

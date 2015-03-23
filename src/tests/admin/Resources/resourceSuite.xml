@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite name="Resources">
+<listeners>
+            <listener class-name="org.uncommons.reportng.HTMLReporter"/>
+            <listener class-name="org.uncommons.reportng.JUnitXMLReporter"/>
+            <listener class-name="framework.utils.ReportNGListener"/>
+</listeners>
+
+  <test name="Testing Resources">
+    <classes>   		
+    	<class name="tests.admin.Resources.StartTestSuiteResources"/>
+    	<!-- Test 33 -->
+    	<class name="tests.admin.Resources.AssociatedRoomIsDisplayedInResourceAssociationPage"/>
+    	<!-- Test 17, 4, 27 -->
+    	<class name="tests.admin.Resources.ResourceCanAndCannotBeUpdatedInResourceInfo"/>
+    	<!-- Test 1 --> 
+    	<class name="tests.admin.Resources.ResourceCanBeDeleted"/>
+    	<!-- Test 3 --> 
+    	<class name="tests.admin.Resources.ResourceCreatedWithRequiredValue"/>
+    	<!-- Test 7 -->
+    	<class name="tests.admin.Resources.ResourceDeletedIsRemovedFromAdvancedSearchInTablet" />
+    	<!-- Test 2 -->
+    	<class name="tests.admin.Resources.ResourceDisplayNameCanBeUpdatedInResourcesPage"/>
+    	<!-- Test 16, 29, 5 -->
+    	<class name="tests.admin.Resources.ResourceIconCanBeUpdatedInResourcesPage"/>
+    	<!-- Test 30, 4 -->    	
+    	<class name="tests.admin.Resources.ResourceNameCanBeUpdatedInResourcesPage"/>
+    	<!-- Test 32 -->
+    	<class name="tests.admin.Resources.ResourceQuantityIsDisplayedInResourceAssociationPage"/>
+    	<!-- Test 6 -->
+    	<class name="tests.admin.Resources.ResourcInformationIsDisplayedInResourceInfoPage"/>     
+    </classes>
+  </test> <!-- Test -->
+</suite> <!-- Suite -->
