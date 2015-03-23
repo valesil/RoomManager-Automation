@@ -8,6 +8,7 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import framework.common.UIMethods;
 import framework.selenium.SeleniumDriverManager;
 
 /**
@@ -99,8 +100,8 @@ public abstract class RoomBaseAbstractPage {
 	 * [YA]This method verifies if an error message is correct
 	 * @return boolean
 	 */
-	public boolean isErrorMessageCorrect(String errorMessage) {
-		return driver.findElement(By.xpath("//small[contains(text(),'" 
-				+ errorMessage + "')]")).isDisplayed();
+	public static boolean isErrorMessageCorrect(String errorMessage) {
+		return UIMethods.isElementPresent(By.xpath("//small[contains(text(),'" 
+				+ errorMessage + "')]"));
 	}
 }

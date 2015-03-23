@@ -1,6 +1,5 @@
 package framework.pages.admin.resources;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -27,7 +26,7 @@ public class ResourceInfoPage extends ResourceBaseAbstractPage {
 	 * [ML]Return the text of the resource name field in resourceInfoPage
 	 * @return
 	 */
-	public String getResourceNameFromResourceInfoPage() {
+	public String getResourceName() {
 		wait.until(ExpectedConditions.visibilityOf(resourceNameTxtBox));
 		return resourceNameTxtBox.getAttribute("value");
 	}
@@ -46,17 +45,7 @@ public class ResourceInfoPage extends ResourceBaseAbstractPage {
 	 */
 	public String getResourceDescription() {
 		return resourceDescriptionTxtBox.getAttribute("value");
-	}
-
-	/**
-	 * [ML]Return the resource icon name from in resourceInfoPage if is present
-	 * @param iconTitle
-	 * @return
-	 */
-	public boolean getResourceIcon(String iconTitle) {
-		return driver.findElement(By.xpath(".//*[@id='resourcesGrid']/descendant::*/span[@class='fa " +
-				iconTitle + "']")).isDisplayed();
-	}
+	}	
 
 	/**
 	 * [ML]Click in resourceAssociationLink
