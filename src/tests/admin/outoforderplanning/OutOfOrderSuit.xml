@@ -1,0 +1,28 @@
+<suite name="OutOfOrderSuite">
+ 	<listeners>
+      	<listener class-name="org.uncommons.reportng.HTMLReporter"/>
+      	<listener class-name="org.uncommons.reportng.JUnitXMLReporter"/>
+      	<listener class-name="framework.utils.ReportNGListener"/>
+  	</listeners>
+ 	<test name = "OutOfOrderTests">
+		<classes>
+ 			<class name="tests.admin.outoforderplanning.StartTest" />
+ 			 	<!--TC15-TC48--><class name="tests.admin.outoforderplanning.OutOfOrderIsNotCreatedIfTitleContainsOnlySpaces" />
+ 				<!--TC18-TC38--><class name="tests.admin.outoforderplanning.OutOfOrderIsNotCreatedIfStartTimeAndEndTimeAreInThePast" />
+ 				<!--TC20-TC39<class name="tests.admin.outoforderplanning.OutOfOrderIsNotCreatedIfEndDateOccursBeforeStartDate" />-->
+ 				<!--TC21-TC40<class name="tests.admin.outoforderplanning.OutOfOrderIsNotCreatedIfEndTimeOccursBeforeStartTime" />-->
+ 				<!--TC11-TC47--><class name="tests.admin.outoforderplanning.OutOfOrderIsNotCreatedIfTitleIsEmpty" />
+	 			<!--TC12-TC25--><class name="tests.admin.outoforderplanning.OutOfOrderIsCreatedAndEnabled" />
+				<!--TC05-0000--><class name="tests.admin.outoforderplanning.OutOfOrderCreatedReplacesExistingMeetingInTablet" />
+ 				<!--TC05-0000--><class name="tests.admin.outoforderplanning.OutOfOrderCreatedIsDispayedInTabletTimeline" />
+ 				<!--TC13-0000--><class name="tests.admin.outoforderplanning.IfOutOfOrderIsCreatedInTheFutureCalendarIconIsDisplayed" />
+ 				<!--TC14-0000--><class name="tests.admin.outoforderplanning.IfOutOfOrderIsCreatedInThePresentClockIconIsDisplayed" />
+ 				<!--TC22-0000--><class name="tests.admin.outoforderplanning.OutOfOrderIsCreatedIfStartTimeIsInThePastAndEndTimeIsInTheFuture" /> 
+	 			<!--TC19-0000--><class name="tests.admin.outoforderplanning.OutOfOrderIsCreatedIfStartTimeIsInThePastAndEndTimeIsInTheFuture" />
+ 				<!--TC02-TC03--><class name="tests.admin.outoforderplanning.OutOfOrderCreatedIsDispayedInTabletTimeline" />
+ 				<!-- --><class name="tests.admin.outoforderplanning.StartAndEndDateAreSetForCurrentTimeByDefault" />
+ 				<!-- --><class name="tests.admin.outoforderplanning.StartAndEndTimeAreSetInNextHalfHour" />			
+ 			
+ 		</classes>
+ 	</test>
+</suite>
