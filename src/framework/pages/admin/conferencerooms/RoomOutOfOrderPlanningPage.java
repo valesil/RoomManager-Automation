@@ -375,8 +375,8 @@ public class RoomOutOfOrderPlanningPage extends RoomBaseAbstractPage {
 	 */
 	public RoomOutOfOrderPlanningPage setOutOfOrderPeriodInformation (String startDate, String endDate, 
 			String startTime, String endTime, String title, String description) {
-//		setStartDateWithCalendar(startDate);
-//		setEndDateWithCalendar(endDate);
+		setStartDateWithCalendar(startDate);
+		setEndDateWithCalendar(endDate);
 		setTitleTxtBox(title);
 		setDescriptionTxtBox(description);
 		setEndTime(endTime);
