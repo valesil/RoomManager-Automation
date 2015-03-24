@@ -1,16 +1,17 @@
 package framework.common;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.File; 
+ import java.io.IOException; 
+ 
+ import org.apache.commons.io.FileUtils; 
+ import org.openqa.selenium.By; 
+ import org.openqa.selenium.NoSuchElementException; 
+ import org.openqa.selenium.OutputType; 
+ import org.openqa.selenium.TakesScreenshot; 
+ import org.openqa.selenium.WebDriver; 
+ import org.openqa.selenium.WebElement; 
+ import org.openqa.selenium.interactions.Actions; 
 
-import org.apache.commons.io.FileUtils;
-import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 
 import framework.selenium.SeleniumDriverManager;
 
@@ -38,13 +39,13 @@ public class UIMethods {
 		}
 		return present;
 	}
-	
+
 	public static void refresh() {
 		driver.navigate().refresh();
 	}
-	
+
 	/**
-	 * [YA]This method is a workaround to wait for mask to disappear for Chrome
+	 * This method is a workaround to wait for mask to disappear for Chrome
 	 * @param webElement
 	 */
 	public static void waitForMaskDisappears(WebElement webElement) {
@@ -59,20 +60,19 @@ public class UIMethods {
 			}
 		} 
 	}
-	
-	/**
-	 * [YA]This method takes screenshots
-	 * @param filePath
-	 * @param fileName
-	 * @throws IOException
-	 */
-	public static void takeScreenShot(String filePath, String fileName) throws IOException {
-		try {
-		File scrFile = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
-		FileUtils.copyFile(scrFile, new File(filePath + fileName));
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-	
+
+	/** 
+	 * [YA]This method takes screenshots 
+	 * @param filePath 
+	 * @param fileName 
+	 * @throws IOException 
+	 */ 
+	public static void takeScreenShot(String filePath, String fileName) throws IOException { 
+		try { 
+			File scrFile = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE); 
+			FileUtils.copyFile(scrFile, new File(filePath + fileName)); 
+		} catch (Exception e) { 
+			e.printStackTrace(); 
+		} 
+	} 
 }
