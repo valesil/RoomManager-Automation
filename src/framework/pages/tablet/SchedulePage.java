@@ -596,7 +596,7 @@ public class SchedulePage {
 		setMeetingInformation(organizer, subject, startTime, endTime, attendees);	
 		setBodyTxtBox(bodyMeeting);
 		clickCreateBtn();
-		confirmCredentials(password).isMessageMeetingCreatedDisplayed();
+		confirmCredentials(password);
 		return this;
 	}
 
