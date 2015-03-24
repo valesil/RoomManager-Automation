@@ -4,7 +4,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 
 import framework.pages.admin.LoginPage;
-import framework.pages.tablet.HomePage;
+import framework.pages.tablet.HomeTabletPage;
 import framework.pages.tablet.SchedulePage;
 import framework.pages.tablet.SettingsPage;
 import framework.selenium.SeleniumDriverManager;
@@ -16,7 +16,7 @@ import framework.selenium.SeleniumDriverManager;
  */
 public class MeetingMethods {
 	WebDriver driver;
-	HomePage home = new HomePage();
+	HomeTabletPage home = new HomeTabletPage();
 	
 
 	/**
@@ -87,10 +87,10 @@ public class MeetingMethods {
 	 * @param roomName
 	 * @return
 	 */
-	public HomePage getHomeForSpecificRoom(String roomName) {
+	public HomeTabletPage getHomeForSpecificRoom(String roomName) {
 		SettingsPage settings = new SettingsPage();
 		settings.selectRoom(roomName);
-		return new HomePage();
+		return new HomeTabletPage();
 	}
 	
 	/**

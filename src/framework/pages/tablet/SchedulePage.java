@@ -292,10 +292,10 @@ public class SchedulePage {
 	 * [AC] This method clicks on back button
 	 * @return HomePage
 	 */
-	public HomePage clickBackBtn() {
+	public HomeTabletPage clickBackBtn() {
 		wait.until(ExpectedConditions.elementToBeClickable(backBtn));
 		backBtn.click();
-		return new HomePage();
+		return new HomeTabletPage();
 	}
 
 	/**
@@ -593,7 +593,8 @@ public class SchedulePage {
 		setMeetingInformation(organizer, subject, startTime, endTime, attendees);	
 		setBodyTxtBox(bodyMeeting);
 		clickCreateBtn();
-		confirmCredentials(password).isMessageMeetingCreatedDisplayed();
+		confirmCredentials(password);
+		UIMethods.waitForMaskDisappears(timeLine);
 		return this;
 	}
 

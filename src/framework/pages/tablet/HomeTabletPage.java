@@ -20,7 +20,7 @@ import framework.selenium.SeleniumDriverManager;
  * Also has the buttons: Settings, Schedule, Search.
  * @author Eliana Navia 
  */
-public class HomePage {
+public class HomeTabletPage {
 	private WebDriver driver;
 	private WebDriverWait wait;
 
@@ -84,7 +84,7 @@ public class HomePage {
 	@FindBy(xpath = "//div[@ng-click='selectNextTile()']")
 	WebElement nextTileBox;
 
-	public HomePage() {
+	public HomeTabletPage() {
 		driver = SeleniumDriverManager.getManager().getDriver();
 		PageFactory.initElements(driver, this);
 		wait = SeleniumDriverManager.getManager().getWait();
@@ -93,7 +93,7 @@ public class HomePage {
 	/**
 	 * [EN]this method set the page with home url.
 	 */
-	public HomePage getHome() {
+	public HomeTabletPage getHome() {
 		driver.get(URL_TABLET_HOME);
 		return this;
 	}
