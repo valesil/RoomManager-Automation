@@ -597,7 +597,6 @@ public class SchedulePage {
 		setBodyTxtBox(bodyMeeting);
 		clickCreateBtn();
 		confirmCredentials(password);
-		UIMethods.waitForMaskDisappears(timeLine);
 		return this;
 	}
 
