@@ -1,10 +1,15 @@
 package framework.utils;
 
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+
+import org.joda.time.DateTime;
+import org.joda.time.Hours;
+import org.joda.time.Minutes;
 
 /**
  * This class manage Time elements: hours, minutes, meridian 
@@ -14,6 +19,7 @@ import java.util.GregorianCalendar;
 public class TimeManager {
 
 	static Calendar calendar = new GregorianCalendar();
+	static DateTime dateTime = new DateTime();
 
 	/**
 	 * [YA]This method gets a new time based on the current time and minutes to add or subtract
@@ -150,5 +156,35 @@ public class TimeManager {
 			e.printStackTrace();
 		}
 		return newDate;
+	}
+
+	/**
+	 * [EN] This method does the subtraction between timeEnd and timeIni.
+	 * @param timeIni hh:mm a
+	 * @param timeEnd hh:mm a
+	 * @return String hh:mm timeEnd - timeIni 
+	 */
+	public static String differenceBetweenTimes(String timeIni, String timeEnd) {
+		SimpleDateFormat format = new SimpleDateFormat("hh:mm a");
+		String newTime = "";
+		Date init = new Date();
+		Date end = new Date();
+		try {
+			init = format.parse(timeIni);
+			end = format.parse(timeEnd);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+
+		DateTime dtInit = new DateTime(init);
+		DateTime dtEnd = new DateTime(end);
+		int hoursDiff = Hours.hoursBetween(dtInit, dtEnd).getHours() % 24;
+		int minutesDiff = Minutes.minutesBetween(dtInit, dtEnd).getMinutes() % 60;
+
+		String complementHours = (hoursDiff < 10) ? "0" : "";
+		String complementMinutes = (minutesDiff < 10) ? "0" : "";
+
+		newTime = complementHours + hoursDiff + ":" + complementMinutes + minutesDiff;
+		return newTime;
 	}
 }

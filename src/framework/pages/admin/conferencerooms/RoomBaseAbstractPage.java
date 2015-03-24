@@ -77,12 +77,7 @@ public abstract class RoomBaseAbstractPage {
 		UIMethods.waitForMaskDisappears(background);
 		return new RoomsPage();
 	}
-	public RoomBaseAbstractPage clickSaveWithErrorBtn(){
-		saveBtn.click();
-		wait.until(ExpectedConditions.visibilityOf(errorMessageLbl));
-		return this;
-	}
-
+	
 	/**
 	 * [YA]This method verifies if any error message is displayed
 	 * @return
@@ -90,7 +85,7 @@ public abstract class RoomBaseAbstractPage {
 	public boolean isErrorMessagePresent() {
 		return errorMessageLbl.isDisplayed();
 	}
-	
+
 	/**
 	 * [YA]This method verifies if an error message is correct
 	 * @return boolean

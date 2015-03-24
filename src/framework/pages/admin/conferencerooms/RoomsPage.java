@@ -1,12 +1,12 @@
 package framework.pages.admin.conferencerooms;
 
 import static framework.common.MessageConstants.OUT_OF_ORDER_SUCCESSFULLY_CREATED;
-import lib.DragAndDrop;
-import lib.DragAndDrop.Position;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+
 import framework.common.UIMethods;
 import framework.pages.admin.AbstractMainMenu;
 import framework.rest.RootRestMethods;
@@ -219,7 +219,7 @@ public class RoomsPage extends AbstractMainMenu {
 	}
 
 	/**
-	 * This method use the rootRestClass to verify the made changes
+	 * [RB]This method use the rootRestClass to verify the made changes
 	 * @return true if the roomDisplay was modified 
 	 */
 	public boolean verifyChangesMade(String ChangedDisplayName) {
@@ -230,103 +230,5 @@ public class RoomsPage extends AbstractMainMenu {
 			}
 		}
 		return flag;
-	}
-
-	/**
-	 * [RB]This method verify if room was grouped after drag and drop
-	 * @return
-	 */
-	public boolean IsGroupedByRoom() {
-		boolean flag = false;
-		for (String room : RootRestMethods.getAllDisplayNameRooms()) {
-			if (driver.findElement(By.xpath("//*[@id='roomsGrid']/div[@class='ngViewport ng-scope']//descendant::span[contains(text(),'"
-					+room+"')]")).isDisplayed()) {
-				flag = true;
-			}
-			else{
-				flag = false;
-			}
-		}
-		return flag;
-	}
-
-	/**
-	 * [RB]This method does the drag and drop of room column
-	 */
-	public RoomsPage dragAndDropColumn(String columnHeaderName) {
-		moveElement(driver.findElement(By.xpath("//div[contains(text(),'"+columnHeaderName+"')]"
-				+ "/ancestor::div[@class='ngHeaderSortColumn customHeaderClass']")));
-		return this;
-	}
-
-	/**
-	 * [RB]This method move the element to target using the Drag and Drop library 
-	 */
-	private void moveElement(WebElement elementToMove) {
-		DragAndDrop.html5_DragAndDrop(driver, elementToMove, container, Position.Center, Position.Center);
-	}
-
-	/**
-	 * [RB]This method verifies if rooms are grouped by disable status 
-	 * @return
-	 */
-	public boolean IsGroupedByDisableStatus() {
-		boolean flag = false;
-		int totalRooms = RootRestMethods.getAllDisplayNameRooms().size();
-		int displayedEnableRooms = getEnbledRooms();
-		int result = totalRooms - displayedEnableRooms;
-		if (result == getDisabledRooms()) {
-			flag = true;
-		}
-		return flag;
-	}
-	
-	/**
-	 * [RB]This method verifies if rooms are grouped by enable status 
-	 * @return
-	 */
-	public boolean IsGroupedByEnableStatus() {
-		boolean flag = false;
-		int totalRooms = RootRestMethods.getAllDisplayNameRooms().size();
-		int displayedDisableRooms = getDisabledRooms();
-		int result = totalRooms - displayedDisableRooms;
-		
-		if (result == getEnbledRooms()) {
-			flag = true;
-		}
-		return flag;
-	}
-
-	/**
-	 * [RB]This method gets the number of disabled rooms
-	 * @return
-	 */
-	public int getDisabledRooms(){
-		String word = disableRoomsLbl.getText();
-		return getAmount(word);
-	}
-
-	/**
-	 * [RB]This method gets the number of enabled rooms
-	 * @return
-	 */
-	public int getEnbledRooms() {
-		String word = enabledRoomsLbl.getText();
-		return getAmount(word);
-	}
-
-	/**
-	 * [RB]This method filter only the numbers that contains a string 
-	 * @return the number of a string
-	 */
-	private int getAmount(String string){
-		String cadena = "";
-		for (int i=0; i<string.length(); i++){
-			String subCadena = string.substring(i, i+1);
-			if (subCadena.matches("[0-9]")){
-				cadena += subCadena;
-			}
-		}
-		return Integer.parseInt(cadena);
 	}
 }
