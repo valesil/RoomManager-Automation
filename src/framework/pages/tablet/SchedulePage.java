@@ -12,6 +12,7 @@ import static framework.common.MessageConstants.MEETING_TIME_STARTEND;
 import static framework.common.MessageConstants.MEETING_UPDATED;
 import static framework.common.MessageConstants.MEETING_PAST_CREATED_ERROR;
 import static framework.utils.TimeManager.getTimeElement;
+import static framework.common.UIMethods.doubleClick;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
@@ -105,7 +106,10 @@ public class SchedulePage {
 
 	@FindBy(css = "div.Modal-holder.ng-scope")
 	WebElement mask;
-
+	
+	@FindBy(xpath = "//div[@class='foreground']")
+	WebElement timeLineGroup;
+	
 	/**
 	 * [AC] Get the driver and the wait to use that in this class
 	 */
@@ -652,33 +656,6 @@ public class SchedulePage {
 	}
 
 	/**
-	 * [EN] Overload of createMetting method, where body meeting is optional.
-	 * @param organizer
-	 * @param subject
-	 * @param minutesFrom minutes number to add/subtract of current time to set in {From} text box.
-	 * @param minutesTo minutes number to add/subtract of current time to set in {To} text box.
-	 * @param attendee
-	 * @param password
-	 * @return  SchedulePage
-	 */
-	public SchedulePage createMeeting(String organizer, String subject, int minutesFrom, 
-			int minutesTo, String attendee, String password) {
-
-		String startTime = TimeManager.getTime(minutesFrom, "hh:mm a");
-		String endTime = TimeManager.getTime(minutesTo, "hh:mm a");
-
-		setOrganizerTxtBox(organizer);
-		setSubjectTxtBox(subject);
-		setStartTimeDate(startTime);
-		setEndTimeDate(endTime);
-		setAttendeeTxtBoxPressingEnter(attendee);
-		clickCreateBtn();	
-		confirmCredentials(password);
-		isMessageMeetingCreatedDisplayed();
-		return this;
-	}
-
-	/**
 	 * [EN] This method checks that a error message is displayed 
 	 * when a meeting is created with past time values.
 	 * @return boolean
@@ -775,12 +752,32 @@ public class SchedulePage {
 	}
 
 	/**
-	 * [EN]
+	 * [EN]Gets the text minor (time separated by 30 minutes) displayed in the bottom of time line.
 	 * @param textMinorTime
-	 * @return
+	 * @return true if is displayed otherwise false.
 	 */
 	public boolean isTextMinorDisplayed(String textMinorTime) {
 		return driver.findElement(By.xpath("//div[contains(text(),'" + textMinorTime + "')]"))
 				.isDisplayed();
 	}	
+	
+	/**
+	 * [EN] This method does double click over time line group.
+	 */
+	public void doubleClickTimeLineGroup() {
+		WebElement elem = driver.findElement(By.xpath("//div[@id='timelinePanel']"
+				+ "/descendant::div[contains(@class,'vispanel center')]"));
+		doubleClick(elem);
+		doubleClick(timeLineGroup);
+	}
+	
+	/**
+	 * [EN] This method checks that the item range meeting is displayed in the time line.
+	 * @return boolean
+	 */
+	public boolean isItemRangeMeetingDisplayed() {
+		WebElement elem = driver.findElement(By.xpath("//div[@id='timelinePanel']"
+				+ "/descendant::div[contains(@class,'item range meeting')]"));
+		return elem.isDisplayed();
+	}
 }
