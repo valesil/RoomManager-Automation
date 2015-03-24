@@ -522,7 +522,7 @@ public class RoomOutOfOrderPlanningPage extends RoomBaseAbstractPage {
 	 * @param errorMessage
 	 * @return
 	 */
-	public RoomOutOfOrderPlanningPage clickSaveWithErrorBtn(){
+	public RoomOutOfOrderPlanningPage clickSaveWithErrorBtn() {
 		saveBtn.click();
 		wait.until(ExpectedConditions.visibilityOf(errorMessageLbl));
 		return this;

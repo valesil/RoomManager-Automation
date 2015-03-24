@@ -117,7 +117,7 @@ public class RoomResourceAssociationsPage extends RoomBaseAbstractPage {
 	 * @param errorMessage
 	 * @return
 	 */
-	public RoomResourceAssociationsPage clickSaveWithErrorBtn(){
+	public RoomResourceAssociationsPage clickSaveWithErrorBtn() {
 		saveBtn.click();
 		wait.until(ExpectedConditions.visibilityOf(errorMessageLbl));
 		return this;

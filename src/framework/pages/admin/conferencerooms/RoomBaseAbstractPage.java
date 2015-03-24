@@ -77,15 +77,7 @@ public abstract class RoomBaseAbstractPage {
 		UIMethods.waitForMaskDisappears(background);
 		return new RoomsPage();
 	}
-	/*
-	* [RB]This method click on save button if a resource exists already and returns previous page.
-	* @return
-	*/
-	public Object clickSaveResourceWithErrorBtn() {
-		saveBtn.click();
-		return this;
-	}
-
+	
 	/**
 	 * [YA]This method verifies if any error message is displayed
 	 * @return

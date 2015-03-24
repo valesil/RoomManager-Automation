@@ -181,7 +181,7 @@ public class RoomInfoPage extends RoomBaseAbstractPage{
 	 * @param errorMessage
 	 * @return
 	 */
-	public RoomInfoPage clickSaveWithErrorBtn(){
+	public RoomInfoPage clickSaveWithErrorBtn() {
 		saveBtn.click();
 		wait.until(ExpectedConditions.visibilityOf(errorMessageLbl));
 		return this;
