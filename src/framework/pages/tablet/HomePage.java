@@ -318,7 +318,7 @@ public boolean VerifyResourceIsAsociated(String resourceName, String amount) {
  * @param amount
  * @return
  */
-private boolean isQuantityDisplayed(String amount) {
+private String isQuantityDisplayed(String amount) {
 	try{
 		return driver.findElement(By.xpath("//div[contains(text(),'"+amount
 				+"')and@ng-bind='resource.quantity']")).isDisplayed();
