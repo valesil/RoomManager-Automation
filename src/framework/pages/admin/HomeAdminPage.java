@@ -1,6 +1,6 @@
 package framework.pages.admin;
 
-import static framework.common.AppConfigConstants.URL_ADMIN_HOME;
+import static framework.common.AppConfigConstants.URL_ADMIN;
 
 /**
  * 
@@ -9,12 +9,7 @@ import static framework.common.AppConfigConstants.URL_ADMIN_HOME;
  */
 public class HomeAdminPage extends AbstractMainMenu {
 	
-	/**
-	 * [YA]This method returns to HomeAdminPage from Tablet
-	 * @return
-	 */
-	public HomeAdminPage getAdminHome() {
-		driver.get(URL_ADMIN_HOME);
-		return this;
+	public HomeAdminPage (){
+		driver.get(URL_ADMIN);
 	}
 }
