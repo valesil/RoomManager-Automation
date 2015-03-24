@@ -122,7 +122,7 @@ public class ResourceBaseAbstractPage {
 	 */
 	public ResourcesPage clickSaveResourceBtn() {
 		saveResourceBtn.click();
-		UIMethods.waitForMaskDisappearsAndClickElement(background);
+		UIMethods.waitForMaskDisappears(background);
 		return new ResourcesPage();
 	}
 	
@@ -152,7 +152,7 @@ public class ResourceBaseAbstractPage {
 	 */
 	public ResourcesPage clickCancelResourceBtn() {
 		cancelBtn.click();
-		UIMethods.waitForMaskDisappearsAndClickElement(background);
+		UIMethods.waitForMaskDisappears(background);
 		return new ResourcesPage();
 	}
 	
