@@ -34,13 +34,13 @@ public abstract class RoomBaseAbstractPage {
 
 	@FindBy(xpath = "//button[@ng-click='cancel()']") 
 	WebElement cancelBtn;
-	
+
 	@FindBy(xpath = "//small[contains(text(),' ')]")
 	WebElement errorMessageLbl;
-	
+
 	@FindBy (xpath = "//div[@class='toast-message']/div")
 	WebElement messagePopUp;
-	
+
 	@FindBy(xpath = "//div[@class = 'row v-space ng-scope']")
 	WebElement background;
 
@@ -70,11 +70,19 @@ public abstract class RoomBaseAbstractPage {
 		UIMethods.waitForMaskDisappearsAndClickElement(background);
 		return new RoomsPage();
 	}
-	
+
 	public RoomsPage clickSaveBtn(){
 		saveBtn.click();
 		UIMethods.waitForMaskDisappearsAndClickElement(background);
 		return new RoomsPage();
+	}
+	/*
+	* [RB]This method click on save button if a resource exists already and returns previous page.
+	* @return
+	*/
+	public Object clickSaveResourceWithErrorBtn() {
+		saveBtn.click();
+		return this;
 	}
 
 	/**
@@ -96,7 +104,7 @@ public abstract class RoomBaseAbstractPage {
 	public boolean isErrorMessagePresent() {
 		return errorMessageLbl.isDisplayed();
 	}
-	
+
 	/**
 	 * [YA]This method verifies if an error message is correct
 	 * @return boolean
