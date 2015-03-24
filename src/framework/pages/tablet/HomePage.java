@@ -305,6 +305,7 @@ public class HomePage {
 	 * @return
 	 */
 	public boolean VerifyResourceIsAsociated(String resourceName, String amount) {
+		
 		//this condition call other methods to verify if a elements are present in the tablet
 		if (isQuantityDisplayed(amount)&&isResourceNameDisplayed(resourceName))
 			return true;
