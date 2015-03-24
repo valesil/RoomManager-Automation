@@ -5,6 +5,7 @@
 		"urlAdmin":"http://172.20.208.177:4042/admin",
 		"urlTablet":"http://172.20.208.177:4042/tablet",
 		"urlTabletHome":"http://172.20.208.177:4042/tablet/#/home",
+		"urlTabletSettings":"http://172.20.208.177:4042/tablet/#/settings",
 		"urlAdminHome":"http://172.20.208.177:4042/admin/#/admin",
 		"urlRest":"http://172.20.208.177:4042/"
 	},
