@@ -562,7 +562,26 @@ public class SchedulePage {
 	}
 
 	/**
-	 * [EN] This method setting the values to created a meeting.
+	 * [YA] This method sets required information for the creation of a meeting
+	 * @param organizer
+	 * @param subject
+	 * @param startTime
+	 * @param endTime
+	 * @param attendees
+	 * @return SchedulePage
+	 */
+	private SchedulePage setMeetingInformation(String organizer, String subject, String startTime, 
+			String endTime, String attendees) {
+		setOrganizerTxtBox(organizer);
+		setSubjectTxtBox(subject);
+		setStartTimeDate(startTime);
+		setEndTimeDate(endTime);
+		setAttendeeTxtBoxPressingEnter(attendees);
+		return this;
+	}
+	
+	/**
+	 * [EN] Created a meeting with all values (required and optional).
 	 * @param organizer
 	 * @param subject
 	 * @param startTime hh:mm a
@@ -572,16 +591,35 @@ public class SchedulePage {
 	 * @return
 	 */
 	public SchedulePage createMeeting(String organizer, String subject, String startTime, 
-			String endTime, String attendees, String bodyMeeting) {
-		setOrganizerTxtBox(organizer);
-		setSubjectTxtBox(subject);
-		setStartTimeDate(startTime);
-		setEndTimeDate(endTime);
-		setAttendeeTxtBoxPressingEnter(attendees);
+			String endTime, String attendees, String bodyMeeting, String password) {
+		
+		setMeetingInformation(organizer, subject, startTime, endTime, attendees);	
 		setBodyTxtBox(bodyMeeting);
-		return clickCreateBtn();
+		clickCreateBtn();
+		confirmCredentials(password).isMessageMeetingCreatedDisplayed();
+		return this;
 	}
 
+	/**
+	 * [YA]Overload to create a meeting with required information adding/subtract minutes to current time
+	 * @param organizer
+	 * @param subject
+	 * @param starTimeMinutes
+	 * @param endTimeMinutes
+	 * @param attendee
+	 * @param password
+	 * @return SchedulePage
+	 */
+	public SchedulePage createMeeting(String organizer, String subject, String starTimeMinutes,
+			String endTimeMinutes, String attendee, String password) {
+		String startTime = TimeManager.getTime(Integer.parseInt(starTimeMinutes), "hh:mm a");
+		String endTime = TimeManager.getTime(Integer.parseInt(endTimeMinutes), "hh:mm a");
+		setMeetingInformation(organizer, subject, startTime, endTime, attendee);
+		clickCreateBtn();
+		confirmCredentials(password).isMessageMeetingCreatedDisplayed();
+		return this;
+	}
+	
 	/**
 	 * [JC] This method verify if the label scheduler is displayed
 	 * @return boolean
@@ -628,29 +666,7 @@ public class SchedulePage {
 		return isMeetingBoxDisplayed(title);	
 	}
 
-	/**
-	 * [YA]This method creates a meeting with required information adding minutes to current time
-	 * @param organizer
-	 * @param subject
-	 * @param starTimeMinutes
-	 * @param endTimeMinutes
-	 * @param attendee
-	 * @param password
-	 * @return SchedulePage
-	 */
-	public SchedulePage createMeetingRequiredInformation(String organizer, String subject, String starTimeMinutes,
-			String endTimeMinutes, String attendee, String password) {
-		String startTime = TimeManager.getTime(Integer.parseInt(starTimeMinutes), "hh:mm a");
-		String endTime = TimeManager.getTime(Integer.parseInt(endTimeMinutes), "hh:mm a");
-		setOrganizerTxtBox(organizer);
-		setSubjectTxtBox(subject);
-		setStartTimeDate(startTime);
-		setEndTimeDate(endTime);
-		setAttendeeTxtBoxPressingEnter(attendee);	
-		clickCreateBtn();
-		confirmCredentials(password).isMessageMeetingCreatedDisplayed();
-		return this;
-	}
+	
 
 	/**
 	 * [YA]This method verifies if UpdateBtn is present
@@ -770,11 +786,11 @@ public class SchedulePage {
 	}
 
 	/**
-	 * [EN]Gets the text minor (time separated by 30 minutes) displayed in the bottom of time line.
+	 * [EN]Gets the text hour (separated by 1 hour) displayed in the bottom of time line.
 	 * @param textMinorTime
 	 * @return true if is displayed otherwise false.
 	 */
-	public boolean isTextMinorDisplayed(String textMinorTime) {
+	public boolean isTextHourDisplayed(String textMinorTime) {
 		return driver.findElement(By.xpath("//div[contains(text(),'" + textMinorTime + "')]"))
 				.isDisplayed();
 	}	
@@ -783,9 +799,7 @@ public class SchedulePage {
 	 * [EN] This method does double click over time line group.
 	 */
 	public void doubleClickTimeLineGroup() {
-		WebElement elem = driver.findElement(By.xpath("//div[@id='timelinePanel']"
-				+ "/descendant::div[contains(@class,'vispanel center')]"));
-		doubleClick(elem);
+		timeLine.click();
 		doubleClick(timeLineGroup);
 	}
 	
@@ -794,8 +808,6 @@ public class SchedulePage {
 	 * @return boolean
 	 */
 	public boolean isItemRangeMeetingDisplayed() {
-		WebElement elem = driver.findElement(By.xpath("//div[@id='timelinePanel']"
-				+ "/descendant::div[contains(@class,'item range meeting')]"));
-		return elem.isDisplayed();
+		return itemRangeMeeting.isDisplayed();
 	}
 }
