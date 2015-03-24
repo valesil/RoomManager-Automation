@@ -61,6 +61,7 @@ public abstract class RoomBaseAbstractPage {
 	}
 
 	public RoomOutOfOrderPlanningPage clickOutOfOrderPlanningLink(){
+		wait.until(ExpectedConditions.visibilityOf(outOfOrderPlanningLink));
 		outOfOrderPlanningLink.click();
 		return new RoomOutOfOrderPlanningPage();
 	}

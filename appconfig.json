@@ -18,11 +18,7 @@
 	},
 	"ExternalFile":
 	{
-		"excelPath": "\\src\\framework\\common\\datasource",
+		"excelPath": "\\src\\tests",
 		"excelInputData": "\\RoomManagerData.xls"
-	}
-	"RoomName":
-	{
-		"name":"room03"
 	}
 }

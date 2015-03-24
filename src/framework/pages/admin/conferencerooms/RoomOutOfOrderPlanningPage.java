@@ -7,6 +7,7 @@ import static framework.common.MessageConstants.OUT_OF_ORDER_SHOULD_HAVE_A_TITLE
 import java.text.ParseException;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -23,7 +24,7 @@ public class RoomOutOfOrderPlanningPage extends RoomBaseAbstractPage {
 
 	TimeManager timeManager = new TimeManager();
 
-	@FindBy(xpath = "//div[@class='check-button']/label")
+	@FindBy(xpath = "//div[@class='check-button']")
 	WebElement activationBtn;
 
 	@FindBy(xpath = "//label[@for='title-dropdown']")
@@ -325,7 +326,7 @@ public class RoomOutOfOrderPlanningPage extends RoomBaseAbstractPage {
 	}
 
 	/**
-	 * This method finds date TextBox for Start Date or End date depending on timeSelector
+	 * [YA]This method finds date TextBox for Start Date or End date depending on timeSelector
 	 * @param timeSelector
 	 * @return WebElement
 	 */
@@ -375,12 +376,12 @@ public class RoomOutOfOrderPlanningPage extends RoomBaseAbstractPage {
 	 */
 	public RoomOutOfOrderPlanningPage setOutOfOrderPeriodInformation (String startDate, String endDate, 
 			String startTime, String endTime, String title, String description) {
-		setStartDateWithCalendar(startDate);
-		setEndDateWithCalendar(endDate);
 		setTitleTxtBox(title);
-		setDescriptionTxtBox(description);
 		setEndTime(endTime);
 		setStartTime(startTime);
+		setStartDateWithCalendar(startDate);
+		setEndDateWithCalendar(endDate);
+		setDescriptionTxtBox(description);
 		selectEmailNotificationChkBox();
 		return this;
 	}
@@ -390,7 +391,7 @@ public class RoomOutOfOrderPlanningPage extends RoomBaseAbstractPage {
 	 * @return
 	 */
 	public RoomOutOfOrderPlanningPage activateOutOfOrder(){
-		if(emailNotificationChkBox.getAttribute("class").contains("text-disabled-color")) {
+		if(!isOutOfOrderActivated()) {
 			clickActivationBtn();
 		}
 		return this;
@@ -401,7 +402,7 @@ public class RoomOutOfOrderPlanningPage extends RoomBaseAbstractPage {
 	 * @return 
 	 */
 	public RoomOutOfOrderPlanningPage deactivateOutOfOrder(){
-		if(!emailNotificationChkBox.getAttribute("class").contains("text-disabled-color")) {
+		if(isOutOfOrderActivated()) {
 			clickActivationBtn();
 		}
 		return this;
@@ -452,7 +453,7 @@ public class RoomOutOfOrderPlanningPage extends RoomBaseAbstractPage {
 	}
 
 	/**
-	 * This method gets the time (hours and minutes) set as start time or end time 
+	 * [YA]This method gets the time (hours and minutes) set as start time or end time 
 	 * depending on the selector
 	 * @param selector
 	 * @return String
@@ -464,7 +465,7 @@ public class RoomOutOfOrderPlanningPage extends RoomBaseAbstractPage {
 	}
 	
 	/**
-	 * This method gets the time (hours and minutes) set as start time
+	 * [YA]This method gets the time (hours and minutes) set as start time
 	 * @return String
 	 */
 	public String getStartTimeValue() {
@@ -472,7 +473,7 @@ public class RoomOutOfOrderPlanningPage extends RoomBaseAbstractPage {
 	}
 	
 	/**
-	 * This method gets the time (hours and minutes) set as end time
+	 * [YA]This method gets the time (hours and minutes) set as end time
 	 * @return String
 	 */
 	public String getEndTimeValue() {
@@ -480,8 +481,8 @@ public class RoomOutOfOrderPlanningPage extends RoomBaseAbstractPage {
 	}
 	
 	/**
-	 * This method clicks saveBtn when an Out Of Order is created
-	 * @return
+	 * [YA]This method clicks saveBtn when an Out Of Order is created
+	 * @return RoomsPage
 	 */
 	public RoomsPage clickSaveOutOfOrderBtn(){
 		clickSaveBtn();
@@ -490,5 +491,32 @@ public class RoomOutOfOrderPlanningPage extends RoomBaseAbstractPage {
 			messagePopUp.click();
 		}
 		return new RoomsPage();
+	}
+	
+	/**
+	 * [YA]This method gets Out Of Order's title
+	 * @return String
+	 */
+	public String getTitleValue() {
+		return titleTxtBox.getAttribute("value");
+	}
+	
+	/**
+	 * [YA]This method gets Out Of Order's description
+	 * @return String
+	 */
+	public String getDescriptionValue() {
+		return descriptionTxtBox.getAttribute("value");
+	}
+	
+	public boolean isOutOfOrderActivated() {
+		return !emailNotificationChkBox.getAttribute("class").contains("text-disabled-color");
+	}
+	
+	public void isEmailNotificationChkBoxSelected() {
+		String script = "return window.getComputedStyle(document.querySelector('#validationError'),':before').getPropertyValue('content')";
+		JavascriptExecutor js = (JavascriptExecutor)driver;
+		String content = (String) js.executeScript(script);
+		System.out.println(content);
 	}
 }
