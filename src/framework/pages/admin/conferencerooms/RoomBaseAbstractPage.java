@@ -68,13 +68,13 @@ public abstract class RoomBaseAbstractPage {
 
 	public RoomsPage clickCancelBtn(){
 		cancelBtn.click();
-		UIMethods.waitForMaskDisappearsAndClickElement(background);
+		UIMethods.waitForMaskDisappears(background);
 		return new RoomsPage();
 	}
 
 	public RoomsPage clickSaveBtn(){
 		saveBtn.click();
-		UIMethods.waitForMaskDisappearsAndClickElement(background);
+		UIMethods.waitForMaskDisappears(background);
 		return new RoomsPage();
 	}
 	/*
@@ -92,7 +92,7 @@ public abstract class RoomBaseAbstractPage {
 	 * @param errorMessage
 	 * @return
 	 */
-	public Object clickSaveWithErrorBtn(){
+	public RoomBaseAbstractPage clickSaveWithErrorBtn(){
 		saveBtn.click();
 		wait.until(ExpectedConditions.visibilityOf(errorMessageLbl));
 		return this;

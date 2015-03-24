@@ -512,7 +512,7 @@ public class SchedulePage {
 	public SchedulePage clickOkButton() {
 		okBtn.click();
 		okBtn.sendKeys(Keys.ESCAPE);
-		UIMethods.waitForMaskDisappearsAndClickElement(timeLine);
+		UIMethods.waitForMaskDisappears(timeLine);
 		return this;
 	}
 
@@ -523,7 +523,7 @@ public class SchedulePage {
 	public SchedulePage clickCancelButton() {
 		cancelBtn.click();
 		cancelBtn.sendKeys(Keys.ESCAPE);
-		UIMethods.waitForMaskDisappearsAndClickElement(timeLine);
+		UIMethods.waitForMaskDisappears(timeLine);
 		return this;
 	}
 
