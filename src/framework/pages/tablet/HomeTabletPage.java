@@ -168,7 +168,7 @@ public class HomeTabletPage {
 	public SettingsPage clickSettingsBtn() {
 		
 		//If current page is Home 
-		if (UIMethods.isElementPresent(By.xpath("//div[@ng-click='goToSettings()']"))) {		
+		if (UIMethods.isElementPresent(By.xpath("//div[@ng-click='goToSettings()']"))) {
 			settingsBtn.click();	
 		}
 		return new SettingsPage();

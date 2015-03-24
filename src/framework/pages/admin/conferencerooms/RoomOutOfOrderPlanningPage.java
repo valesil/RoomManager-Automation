@@ -1,13 +1,12 @@
 package framework.pages.admin.conferencerooms;
 
 import static framework.common.MessageConstants.OUT_OF_ORDER_IN_THE_PAST;
-import static framework.common.MessageConstants.TO_GRATER_THAN_FROM;
 import static framework.common.MessageConstants.OUT_OF_ORDER_SHOULD_HAVE_A_TITLE;
+import static framework.common.MessageConstants.TO_GRATER_THAN_FROM;
 
 import java.text.ParseException;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -509,14 +508,23 @@ public class RoomOutOfOrderPlanningPage extends RoomBaseAbstractPage {
 		return descriptionTxtBox.getAttribute("value");
 	}
 	
+	/**
+	 * [YA] This method verifies if Out Of Order is Activated
+	 * @return
+	 */
 	public boolean isOutOfOrderActivated() {
 		return !emailNotificationChkBox.getAttribute("class").contains("text-disabled-color");
 	}
-	
-	public void isEmailNotificationChkBoxSelected() {
-		String script = "return window.getComputedStyle(document.querySelector('#validationError'),':before').getPropertyValue('content')";
-		JavascriptExecutor js = (JavascriptExecutor)driver;
-		String content = (String) js.executeScript(script);
-		System.out.println(content);
+
+	/**
+	 * [YA] This method clicks Save button when an error message is expected and 
+	 * it should stay in the same page
+	 * @param errorMessage
+	 * @return
+	 */
+	public RoomOutOfOrderPlanningPage clickSaveWithErrorBtn() {
+		saveBtn.click();
+		wait.until(ExpectedConditions.visibilityOf(errorMessageLbl));
+		return this;
 	}
 }
