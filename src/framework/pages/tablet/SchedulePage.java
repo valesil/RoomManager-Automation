@@ -295,10 +295,10 @@ public class SchedulePage {
 	 * [AC] This method clicks on back button
 	 * @return HomePage
 	 */
-	public HomePage clickBackBtn() {
+	public HomeTabletPage clickBackBtn() {
 		wait.until(ExpectedConditions.elementToBeClickable(backBtn));
 		backBtn.click();
-		return new HomePage();
+		return new HomeTabletPage();
 	}
 
 	/**

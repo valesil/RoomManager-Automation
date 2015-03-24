@@ -26,10 +26,10 @@ public class SettingsPage {
 		PageFactory.initElements(driver, this);
 	}
 	
-	public HomePage selectRoom(String roomNum) {
+	public HomeTabletPage selectRoom(String roomNum) {
 		driver.findElement(By.xpath("//h4[contains(text(),'" + roomNum + "')]")).click();
 		acceptBtn.click();
-		return new HomePage();
+		return new HomeTabletPage();
 	}	
 	
 	public void quit() {
