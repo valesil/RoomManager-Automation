@@ -87,18 +87,6 @@ public abstract class RoomBaseAbstractPage {
 	}
 
 	/**
-	 * [YA] This method clicks Save button when an error message is expected and 
-	 * it should stay in the same page
-	 * @param errorMessage
-	 * @return
-	 */
-	public Object clickSaveWithErrorBtn(){
-		saveBtn.click();
-		wait.until(ExpectedConditions.visibilityOf(errorMessageLbl));
-		return this;
-	}
-
-	/**
 	 * [YA]This method verifies if any error message is displayed
 	 * @return
 	 */

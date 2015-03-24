@@ -2,7 +2,7 @@
 	"browser":
 	{
 		"navigator":"chrome",
-		"urlAdmin":"http://172.20.208.177:4042/admin",
+		"urlAdmin":"http://172.20.208.177:4042/admin/#/admin",
 		"urlTablet":"http://172.20.208.177:4042/tablet",
 		"urlRest":"http://172.20.208.177:4042/"
 	},
@@ -18,5 +18,6 @@
 	{
 		"excelPath": "\\src\\tests",
 		"excelInputData": "\\RoomManagerData.xls"
+		"dataProviderData":"\\DataForDataProvider.xls"
 	}
 }

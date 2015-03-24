@@ -167,7 +167,7 @@ public class HomeTabletPage {
 	 */
 	public SettingsPage clickSettingsBtn() {
 		//If current page is Home 
-		if (timelineContainer.isDisplayed()){		//verify that it works else use iselementepresent
+		if (UIMethods.isElementPresent(By.xpath("//div[@ng-click='goToSettings()']"))){		//verify that it works else use iselementepresent
 			settingsBtn.click();	
 		}
 		return new SettingsPage();
