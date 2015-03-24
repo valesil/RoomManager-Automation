@@ -81,9 +81,9 @@ public class SearchPage {
 	 * [JC] This method click on Back button
 	 * @return
 	 */
-	public HomePage clickBackBtn() {
+	public HomeTabletPage clickBackBtn() {
 		backBtn.click();
-		return new HomePage();
+		return new HomeTabletPage();
 	}
 
 	/**
