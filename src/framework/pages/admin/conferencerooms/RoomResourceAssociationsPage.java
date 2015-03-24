@@ -64,8 +64,8 @@ public class RoomResourceAssociationsPage extends RoomBaseAbstractPage {
 	 * @return
 	 */
 	public boolean searchResourcequantity(String resourceName) {
-		return driver.findElement(By.xpath("//span[contains(text(),'" + resourceName + 
-				"')]/ancestor::div/following-sibling::div/input")).isDisplayed();
+		return UIMethods.isElementPresent(By.xpath("//span[contains(text(),'" + resourceName + 
+				"')]/ancestor::div/following-sibling::div/input"));
 	}
 
 	/**
@@ -99,5 +99,14 @@ public class RoomResourceAssociationsPage extends RoomBaseAbstractPage {
 		By resourceDName = By.xpath("//legend[contains(text(),'Available')]/parent::div//div[@class='list-group']"
 				+ "//span[@class='ng-binding'][contains(text(),'" + resourceDisplayName + "')]");
 		return UIMethods.isElementPresent(resourceDName);
+	}
+
+	/**
+	 * [RB]THis method verify if exists changes after click on cancel or save button
+	 * @return tru or false
+	 */
+	public boolean verifyChanges(String resourceName) {
+		return UIMethods.isElementPresent(By.xpath("//div[@class='list-group-item text-center col-xs-12 ng-scope']"
+				+ "//span[contains(text(),'"+resourceName+"')]"));
 	}
 }

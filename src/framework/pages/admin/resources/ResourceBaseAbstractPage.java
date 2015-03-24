@@ -7,8 +7,8 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
 import framework.common.UIMethods;
+import framework.pages.admin.conferencerooms.RoomBaseAbstractPage;
 import framework.selenium.SeleniumDriverManager;
 
 /**
@@ -25,7 +25,7 @@ public class ResourceBaseAbstractPage {
 	@FindBy(xpath = "//div[@class='input-control text']/input[@ng-model='resource.customName']") 
 	WebElement resourceDisplayNameTxtBox;
 	
-	@FindBy(xpath = "//button[@ng-click='save()']") 
+	@FindBy(xpath = "//span[contains(text(),'Save')and@class='ng-binding']") 
 	WebElement saveResourceBtn;
 	
 	@FindBy(xpath = "//button[@ng-click='cancel()']") 
@@ -138,11 +138,21 @@ public class ResourceBaseAbstractPage {
 	}
 	
 	/**
+	 * [CG]This method click on save button if a resource exists already and returns previous page.
+	 * @return
+	 */
+	public Object clickSaveResourceWithErrorBtn() {
+		saveResourceBtn.click();
+		return this;
+	}
+	
+	/**
 	 * [CG]This method click on cancel button.
 	 * @return
 	 */
 	public ResourcesPage clickCancelResourceBtn() {
 		cancelBtn.click();
+		UIMethods.waitForMaskDisappearsAndClickElement(background);
 		return new ResourcesPage();
 	}
 	
@@ -157,12 +167,21 @@ public class ResourceBaseAbstractPage {
 	}
 	
 	/**
-	 * This method cleans resource display name field in resource info page
+	 * [CG]This method cleans resource display name field in resource info page
 	 * @return
 	 */
 	public ResourceInfoPage clearResourceDisplayName() {
 		wait.until(ExpectedConditions.visibilityOf(resourceDisplayNameTxtBox));
-		resourceDisplayNameTxtBox.clear();
+		resourceDisplayNameTxtBox.clear();		
 		return new ResourceInfoPage();
-	}	
+	}
+	
+	/**
+	 * [CG]Method that returns true if an error message is displayed 
+	 * @param message
+	 * @return
+	 */
+	public boolean verifyErrorMessage(String message) {
+		return RoomBaseAbstractPage.isErrorMessageCorrect(message);
+	}
 }

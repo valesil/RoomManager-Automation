@@ -35,6 +35,7 @@ public class MeetingMethods {
 	 */
 	public void createMeetingWithAllDataFromExcel(String organizer, String subject, String startTime, String endTime,
 			String attendee, String body, String password) {
+		SchedulePage schedule = new SchedulePage();
 		home.clickScheduleBtn()
 		.setOrganizerTxtBox(organizer)
 		.setSubjectTxtBox(subject)
@@ -45,6 +46,7 @@ public class MeetingMethods {
 		.clickCreateBtn()
 		.confirmCredentials(password)
 		.isMessageMeetingCreatedDisplayed();
+		schedule.clickBackBtn();
 	}
 
 	/**
@@ -89,7 +91,7 @@ public class MeetingMethods {
 	}
 	
 	/**
-	 * 
+	 * [AC] This method creates an Out Of Order
 	 * @param startDate
 	 * @param endDate
 	 * @param startTime
