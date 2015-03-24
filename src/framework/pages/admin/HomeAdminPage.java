@@ -9,7 +9,7 @@ import static framework.common.AppConfigConstants.URL_ADMIN;
  */
 public class HomeAdminPage extends AbstractMainMenu {
 	
-	public HomeAdminPage (){
+	public HomeAdminPage () {
 		driver.get(URL_ADMIN);
 	}
 }
