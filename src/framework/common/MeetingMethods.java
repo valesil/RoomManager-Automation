@@ -8,8 +8,12 @@ import framework.pages.tablet.HomePage;
 import framework.pages.tablet.SchedulePage;
 import framework.pages.tablet.SettingsPage;
 import framework.selenium.SeleniumDriverManager;
-import framework.utils.TimeManager;
 
+/**
+ * [AC]
+ * @author administrator
+ *
+ */
 public class MeetingMethods {
 	WebDriver driver;
 	HomePage home = new HomePage();
@@ -59,13 +63,12 @@ public class MeetingMethods {
 	 * @param body: Meeting's body message
 	 * @param password: Organizer's password
 	 */
-	public void createMeeting(String organizer, String subject, String starTimeMinutes,
-			String endTimeMinutes, String attendee, String body, String password) {
-		String startTime = TimeManager.getTime(Integer.parseInt(starTimeMinutes), "hh:mm a");
-		String endTime = TimeManager.getTime(Integer.parseInt(endTimeMinutes), "hh:mm a");
+	public SchedulePage createMeeting(String organizer, String subject, String starTimeMinutes,
+			String endTimeMinutes, String attendees, String body, String password) {
 		home.clickScheduleBtn()
-		.createMeeting(organizer, subject, startTime, endTime, attendee, body)		
-		.confirmCredentials(password);
+		.createMeeting(organizer, subject, starTimeMinutes, endTimeMinutes, 
+				attendees, password);	
+	return new SchedulePage();
 	}
 
 	/**
