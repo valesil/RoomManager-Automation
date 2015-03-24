@@ -108,7 +108,10 @@ public class SchedulePage {
 
 	@FindBy(css = "div.Modal-holder.ng-scope")
 	WebElement mask;
-
+	
+	@FindBy(xpath = "//div[@id='toast-container']")
+	WebElement messagePopUp;
+	
 	@FindBy(xpath = "//div[@class='foreground']")
 	WebElement timeLineGroup;
 
@@ -458,7 +461,7 @@ public class SchedulePage {
 	 * [AC] This method gets the error label when does not put a subject
 	 * @return boolean
 	 */
-	public boolean isErrorSubjectDisplayed() {
+	public boolean isErrorSubjectLblDisplayed() {
 		return getAnyErrorMessageLbl(MEETING_SUBJECT_REQUIERED);
 	}
 
@@ -466,7 +469,7 @@ public class SchedulePage {
 	 * [AC] This method gets the error label when does not put a organizer
 	 * @return boolean
 	 */
-	public boolean isErrorOrganizerDisplayed() {
+	public boolean isErrorOrganizerLblDisplayed() {
 		return getAnyErrorMessageLbl(MEETING_ORGANIZER_REQUIRED);
 	}
 
@@ -789,8 +792,16 @@ public class SchedulePage {
 	public boolean isTextHourDisplayed(String textMinorTime) {
 		return driver.findElement(By.xpath("//div[contains(text(),'" + textMinorTime + "')]"))
 				.isDisplayed();
-	}	
+	}
 
+	/**
+	 * [AC] This method waits until the message PopUp appears
+	 * @return
+	 */
+	public boolean waitForMessagePopUp() {
+		return messagePopUp.isDisplayed();
+	}
+	
 	/**
 	 * [EN] This method does double click over time line group.
 	 */
