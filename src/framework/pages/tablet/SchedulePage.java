@@ -108,10 +108,10 @@ public class SchedulePage {
 
 	@FindBy(css = "div.Modal-holder.ng-scope")
 	WebElement mask;
-	
+
 	@FindBy(xpath = "//div[@class='foreground']")
 	WebElement timeLineGroup;
-	
+
 	/**
 	 * [AC] Get the driver and the wait to use that in this class
 	 */
@@ -437,7 +437,7 @@ public class SchedulePage {
 	public boolean isMessageErrorPopUpDisplayed() {
 		return findMessagePopUpValue(MEETING_ERROR);
 	}
-	
+
 	/**
 	 * [AC] This method gets the error message when occur an error creating meetings
 	 * @return
@@ -445,7 +445,7 @@ public class SchedulePage {
 	public boolean isMessageErrorCreationMeetingPopUpDisplayed() {
 		return findMessagePopUpValue(MEETING_CREATE_ERROR);
 	}
-	
+
 	/**
 	 * [AC] This method gets the error message when occur an error updating meetings
 	 * @return
@@ -576,21 +576,7 @@ public class SchedulePage {
 		setAttendeeTxtBoxPressingEnter(attendees);
 		return this;
 	}
-	
-	/**
-	 * @param organizer
-	 * @param subject
-	 * @param startTime
-	 * @param endTime
-	 * @param attendees
-	 * @return SchedulePage
-	 */
-	private SchedulePage setMeetingInformation(String organizer, String subject, String startTime, 
-			String endTime, String attendees) {
-		setMeetingInformation(organizer, subject, startTime, endTime, attendees);
-		return this;
-	}
-	
+
 	/**
 	 * [EN] Created a meeting with all values (required and optional).
 	 * @param organizer
@@ -603,7 +589,7 @@ public class SchedulePage {
 	 */
 	public SchedulePage createMeeting(String organizer, String subject, String startTime, 
 			String endTime, String attendees, String bodyMeeting, String password) {
-		
+
 		setMeetingInformation(organizer, subject, startTime, endTime, attendees);	
 		setBodyTxtBox(bodyMeeting);
 		clickCreateBtn();
@@ -612,7 +598,8 @@ public class SchedulePage {
 	}
 
 	/**
-	 * [YA]Overload to create a meeting with required information adding/subtract minutes to current time
+	 * [YA]Overload to create a meeting with required information adding/subtract minutes 
+	 * to current time.
 	 * @param organizer
 	 * @param subject
 	 * @param starTimeMinutes
@@ -628,26 +615,6 @@ public class SchedulePage {
 		setMeetingInformation(organizer, subject, startTime, endTime, attendee);
 		clickCreateBtn();
 		confirmCredentials(password).isMessageMeetingCreatedDisplayed();
-		return this;
-	}
-	
-	/**
-	 * [YA]This method creates a meeting with required information adding minutes to current time
-	 * @param organizer
-	 * @param subject
-	 * @param starTimeMinutes
-	 * @param endTimeMinutes
-	 * @param attendee
-	 * @param password
-	 * @return SchedulePage
-	 */
-	public SchedulePage createMeetingRequiredInformation(String organizer, String subject, String starTimeMinutes,
-			String endTimeMinutes, String attendees, String password) {
-		String startTime = TimeManager.getTime(Integer.parseInt(starTimeMinutes), "hh:mm a");
-		String endTime = TimeManager.getTime(Integer.parseInt(endTimeMinutes), "hh:mm a");
-		setMeetingInformation(organizer, subject, startTime, endTime, attendees);
-		clickCreateBtn();
-		confirmCredentials(password);
 		return this;
 	}
 
@@ -697,7 +664,7 @@ public class SchedulePage {
 		return isMeetingBoxDisplayed(title);	
 	}
 
-	
+	/**
 	 * [YA]This method verifies if UpdateBtn is present
 	 * @return boolean
 	 */
@@ -823,15 +790,15 @@ public class SchedulePage {
 		return driver.findElement(By.xpath("//div[contains(text(),'" + textMinorTime + "')]"))
 				.isDisplayed();
 	}	
-	
+
 	/**
 	 * [EN] This method does double click over time line group.
 	 */
 	public void doubleClickTimeLineGroup() {
-		timeLine.click();
+		clickRemoveBtn();
 		doubleClick(timeLineGroup);
 	}
-	
+
 	/**
 	 * [EN] This method checks that the item range meeting is displayed in the time line.
 	 * @return boolean
