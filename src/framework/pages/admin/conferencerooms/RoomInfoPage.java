@@ -30,7 +30,10 @@ public class RoomInfoPage extends RoomBaseAbstractPage{
 	
 	@FindBy(xpath = "//button[@ng-click='enableDisableRoom(selectedRoom)']")
 	WebElement disableIcon;
-
+	
+	@FindBy(xpath = "//input[@role='combobox']")
+	WebElement locationTxtBox;
+	
 	/**
 	 * [RB]This method sets the display Name of a room
 	 * @param newDisplayName
@@ -87,7 +90,7 @@ public class RoomInfoPage extends RoomBaseAbstractPage{
 	 */
 	public RoomInfoPage setLocation(String location) {
 		locationCmbBox.click();
-		locationCmbBox.sendKeys(location);
+		locationTxtBox.sendKeys(location);
 		driver.findElement(By.xpath("//span[contains(text(),'" + location
 				+ "')and@class='select2-match']")).click();
 		return new RoomInfoPage();
