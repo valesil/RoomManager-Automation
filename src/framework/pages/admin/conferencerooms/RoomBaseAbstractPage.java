@@ -68,13 +68,13 @@ public abstract class RoomBaseAbstractPage {
 
 	public RoomsPage clickCancelBtn(){
 		cancelBtn.click();
-		UIMethods.waitForMaskDisappearsAndClickElement(background);
+		UIMethods.waitForMaskDisappears(background);
 		return new RoomsPage();
 	}
 
 	public RoomsPage clickSaveBtn(){
 		saveBtn.click();
-		UIMethods.waitForMaskDisappearsAndClickElement(background);
+		UIMethods.waitForMaskDisappears(background);
 		return new RoomsPage();
 	}
 	/*
