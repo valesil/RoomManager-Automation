@@ -1,6 +1,6 @@
 package framework.pages.tablet;
 
-import static framework.common.AppConfigConstants.URL_TABLET_HOME;
+import static framework.common.AppConfigConstants.URL_TABLET;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -20,7 +20,7 @@ import framework.selenium.SeleniumDriverManager;
  * Also has the buttons: Settings, Schedule, Search.
  * @author Eliana Navia 
  */
-public class HomePage {
+public class HomeTabletPage {
 	private WebDriver driver;
 	private WebDriverWait wait;
 
@@ -84,18 +84,11 @@ public class HomePage {
 	@FindBy(xpath = "//div[@ng-click='selectNextTile()']")
 	WebElement nextTileBox;
 
-	public HomePage() {
+	public HomeTabletPage() {
 		driver = SeleniumDriverManager.getManager().getDriver();
 		PageFactory.initElements(driver, this);
 		wait = SeleniumDriverManager.getManager().getWait();
-	}
-
-	/**
-	 * [EN]this method set the page with home url.
-	 */
-	public HomePage getHome() {
-		driver.get(URL_TABLET_HOME);
-		return this;
+		driver.get(URL_TABLET);
 	}
 
 	/**
@@ -173,8 +166,10 @@ public class HomePage {
 	 * @return
 	 */
 	public SettingsPage clickSettingsBtn() {
-		wait.until(ExpectedConditions.visibilityOf(timelineContainer));
-		settingsBtn.click();
+		//If current page is Home 
+		if (timelineContainer.isDisplayed()){		//verify that it works else use iselementepresent
+			settingsBtn.click();	
+		}
 		return new SettingsPage();
 	}
 
