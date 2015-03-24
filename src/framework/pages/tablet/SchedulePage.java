@@ -10,7 +10,7 @@ import static framework.common.MessageConstants.MEETING_REMOVED;
 import static framework.common.MessageConstants.MEETING_SUBJECT_REQUIERED;
 import static framework.common.MessageConstants.MEETING_TIME_STARTEND;
 import static framework.common.MessageConstants.MEETING_UPDATED;
-import static framework.common.MessageConstants.MEETING_PAST_CREATED_ERROR;
+import static framework.common.MessageConstants.MEETING_PAST_CREATED_INFORMATION;
 import static framework.utils.TimeManager.getTimeElement;
 import static framework.common.UIMethods.doubleClick;
 
@@ -656,12 +656,12 @@ public class SchedulePage {
 	}
 
 	/**
-	 * [EN] This method checks that a error message is displayed 
+	 * [EN] This method checks that an information message is displayed 
 	 * when a meeting is created with past time values.
 	 * @return boolean
 	 */
-	public boolean isErrorMessageOfPastMeetingDisplayed() {
-		return getAnyErrorMessageLbl(MEETING_PAST_CREATED_ERROR);
+	public boolean isInformationMessageOfPastMeetingDisplayed() {
+		return getAnyErrorMessageLbl(MEETING_PAST_CREATED_INFORMATION);
 	}
 
 	/**
