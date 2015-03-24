@@ -26,7 +26,7 @@ public class HomePage {
 
 	@FindBy(xpath = "//div[@ng-bind='current._title']")
 	WebElement nowTileLbl;
-	
+
 	@FindBy(xpath = "//div[@ng-bind='next._title']")
 	WebElement nextTileLbl; 
 
@@ -80,10 +80,10 @@ public class HomePage {
 
 	@FindBy(xpath = "//div[@ng-click='selectNowTile()']")
 	WebElement nowTileBox;
-	
+
 	@FindBy(xpath = "//div[@ng-click='selectNextTile()']")
 	WebElement nextTileBox;
-	
+
 	public HomePage() {
 		driver = SeleniumDriverManager.getManager().getDriver();
 		PageFactory.initElements(driver, this);
@@ -230,8 +230,12 @@ public class HomePage {
 	 * @return
 	 */
 	private boolean isResourceNameDisplayed(String resourceDisplayName) {
-		return driver.findElement(By.xpath("//div[contains(text(),'"+resourceDisplayName+
-				"')and@ng-bind='resource.name']")).isDisplayed();
+		try{
+			return driver.findElement(By.xpath("//div[contains(text(),'"+resourceDisplayName+
+					"')and@ng-bind='resource.name']")).isDisplayed();
+		}catch (Exception e) {
+			return false;
+		}
 	}
 
 	public boolean isHomePageDisplayed() {
@@ -301,6 +305,7 @@ public class HomePage {
 	 * @return
 	 */
 	public boolean VerifyResourceIsAsociated(String resourceName, String amount) {
+		
 		//this condition call other methods to verify if a elements are present in the tablet
 		if (isQuantityDisplayed(amount)&&isResourceNameDisplayed(resourceName))
 			return true;
@@ -318,11 +323,11 @@ public class HomePage {
 		try{
 			return driver.findElement(By.xpath("//div[contains(text(),'"+amount
 					+"')and@ng-bind='resource.quantity']")).isDisplayed();
-		}catch (Exception e) {
+		} catch (Exception e) {
 			return false;
 		}
 	}
-	
+
 	/**
 	 * [EN] return the color of now tile in RGBA format.
 	 * @return String

@@ -1,5 +1,6 @@
 package framework.utils;
 
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -40,12 +41,12 @@ public class TimeManager {
 	 * [YA]This method returns a new time as a String based on current time and minutes to add/subtract
 	 * It calls two methods: dateToString() and getNewTime
 	 * @param value: minutes to add or subtract
-	 * @return date as a String with any format
+	 * @return String with any format
 	 */
 	public static String getTime(int value, String formatter) {
 		return dateToString(getNewTime(value), formatter);
 	}
-	
+
 	/**
 	 * [YA]This element returns a time element: hours, minutes or meridian
 	 * @param time: time to split hh:mm a
@@ -63,12 +64,12 @@ public class TimeManager {
 		break;
 		case "meridian": elementValue = splittedTime[1];
 		break;
-		
+
 		//This case set the hour to 24 h format
 		case "Hour": elementValue = (splittedTime[1].equals("pm")) ?  
 				(Integer.parseInt(timeElement[0]) + 12) + "" : Integer.parseInt(timeElement[0]) + "";
 		break;
-		
+
 		//This case set the value to hh:mm
 		case "hourMin": elementValue = splittedTime[0];
 		break;
@@ -105,7 +106,12 @@ public class TimeManager {
 	public static String getCurrentDate(String formatter) {
 		return dateToString(new Date(),formatter);
 	}
-	
+
+	/**
+	 * [YA] This method returns the next half hour period for a time
+	 * @param time
+	 * @return
+	 */
 	public static String getNextHalfHourPeriod(String time) {
 		int hours = Integer.parseInt(getTimeElement(time, "hours"));
 		int minutes = Integer.parseInt(getTimeElement(time, "minutes"));
@@ -124,5 +130,25 @@ public class TimeManager {
 			newTime = "0" + newTime;
 		}
 		return newTime;
+	}
+
+	/**
+	 * [YA] This method changes the date format 
+	 * @param date
+	 * @param oldFormat
+	 * @param newFormat
+	 * @return String
+	 */
+	public static String changeDateFormat(String date, String oldFormat, String newFormat) {
+		String newDate = null;
+		try {
+			SimpleDateFormat sdf = new SimpleDateFormat(oldFormat);
+			Date oldDate = sdf.parse(date);
+			sdf.applyPattern(newFormat);
+			newDate = sdf.format(oldDate);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return newDate;
 	}
 }

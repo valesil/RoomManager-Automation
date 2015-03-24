@@ -1,5 +1,7 @@
 package framework.common;
 
+import static framework.common.AppConfigConstants.URL_TABLET_SETTINGS;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 
@@ -8,8 +10,12 @@ import framework.pages.tablet.HomePage;
 import framework.pages.tablet.SchedulePage;
 import framework.pages.tablet.SettingsPage;
 import framework.selenium.SeleniumDriverManager;
-import framework.utils.TimeManager;
 
+/**
+ * [AC]
+ * @author administrator
+ *
+ */
 public class MeetingMethods {
 	WebDriver driver;
 	HomePage home = new HomePage();
@@ -24,7 +30,7 @@ public class MeetingMethods {
 	}	
 
 	/**
-	 * [AC] This method creates a meeting
+	 * [AC] This method creates a meeting 
 	 * @param organizer
 	 * @param subject
 	 * @param startTime
@@ -33,7 +39,7 @@ public class MeetingMethods {
 	 * @param body
 	 * @param password
 	 */
-	public void createMeetingWithAllDataFromExcel(String organizer, String subject, String startTime, String endTime,
+	public void createMeetingFromHome(String organizer, String subject, String startTime, String endTime,
 			String attendee, String body, String password) {
 		SchedulePage schedule = new SchedulePage();
 		home.clickScheduleBtn()
@@ -59,18 +65,16 @@ public class MeetingMethods {
 	 * @param body: Meeting's body message
 	 * @param password: Organizer's password
 	 */
-	public void createMeeting(String organizer, String subject, String starTimeMinutes,
-			String endTimeMinutes, String attendee, String body, String password) {
-
-		String startTime = TimeManager.getTime(Integer.parseInt(starTimeMinutes), "hh:mm a");
-		String endTime = TimeManager.getTime(Integer.parseInt(endTimeMinutes), "hh:mm a");
+	public SchedulePage createMeeting(String organizer, String subject, String starTimeMinutes,
+			String endTimeMinutes, String attendees, String body, String password) {
 		home.clickScheduleBtn()
-		.createMeeting(organizer, subject, startTime, endTime, attendee, body)		
-		.confirmCredentials(password).isMessageMeetingCreatedDisplayed();
+		.createMeeting(organizer, subject, starTimeMinutes, endTimeMinutes, 
+				attendees, password);	
+	return new SchedulePage();
 	}
 
 	/**
-	 * [AC] This class delete a meeting
+	 * [AC] This class deletes a meeting
 	 * @param nameMeeting
 	 * @return SchedulePage
 	 */
@@ -85,7 +89,8 @@ public class MeetingMethods {
 	 * @param roomName
 	 * @return
 	 */
-	public HomePage getHomeForSpecificRoom(String roomName) {
+	public HomePage getTabletHomeForSpecificRoom(String roomName) {
+		driver.get(URL_TABLET_SETTINGS);		
 		SettingsPage settings = new SettingsPage();
 		settings.selectRoom(roomName);
 		return new HomePage();
@@ -110,6 +115,7 @@ public class MeetingMethods {
 		.clickOutOfOrderPlanningLink()
 		.setOutOfOrderPeriodInformation(startDate, endDate, startTime, 
 				endTime, title, description)
+		.activateOutOfOrder()
 		.clickSaveBtn();
 	}
 }
