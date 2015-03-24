@@ -24,7 +24,7 @@ public class MeetingMethods {
 	}	
 
 	/**
-	 * [AC] This method creates a meeting
+	 * [AC] This method creates a meeting 
 	 * @param organizer
 	 * @param subject
 	 * @param startTime
@@ -33,7 +33,7 @@ public class MeetingMethods {
 	 * @param body
 	 * @param password
 	 */
-	public void createMeetingWithAllDataFromExcel(String organizer, String subject, String startTime, String endTime,
+	public void createMeetingFromHome(String organizer, String subject, String startTime, String endTime,
 			String attendee, String body, String password) {
 		SchedulePage schedule = new SchedulePage();
 		home.clickScheduleBtn()

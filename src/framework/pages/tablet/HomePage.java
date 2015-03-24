@@ -323,7 +323,7 @@ public class HomePage {
 		try{
 			return driver.findElement(By.xpath("//div[contains(text(),'"+amount
 					+"')and@ng-bind='resource.quantity']")).isDisplayed();
-		}catch (Exception e) {
+		} catch (Exception e) {
 			return false;
 		}
 	}
