@@ -4,9 +4,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 
 import framework.pages.admin.LoginPage;
-import framework.pages.tablet.HomePage;
+import framework.pages.tablet.HomeTabletPage;
 import framework.pages.tablet.SchedulePage;
-import framework.pages.tablet.SettingsPage;
 import framework.selenium.SeleniumDriverManager;
 
 /**
@@ -16,7 +15,7 @@ import framework.selenium.SeleniumDriverManager;
  */
 public class MeetingMethods {
 	WebDriver driver;
-	HomePage home = new HomePage();
+	HomeTabletPage home = new HomeTabletPage();
 	
 
 	/**
@@ -71,28 +70,6 @@ public class MeetingMethods {
 	return new SchedulePage();
 	}
 
-	/**
-	 * [AC] This class deletes a meeting
-	 * @param nameMeeting
-	 * @return SchedulePage
-	 */
-	public SchedulePage deleteMeeting(String nameMeeting, String password) {
-		home.getHome().clickScheduleBtn()
-		.deleteMeeting(nameMeeting, password);
-		return new SchedulePage();
-	}
-
-	/**
-	 * [YA] This method sets the url for tablet home and choose an specific room
-	 * @param roomName
-	 * @return
-	 */
-	public HomePage getHomeForSpecificRoom(String roomName) {
-		SettingsPage settings = new SettingsPage();
-		settings.selectRoom(roomName);
-		return new HomePage();
-	}
-	
 	/**
 	 * [AC] This method creates an Out Of Order
 	 * @param startDate
