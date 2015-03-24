@@ -7,6 +7,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 import framework.selenium.SeleniumDriverManager;
+
 /**
  * @title  Settings
  * @author Jose Cabrera
