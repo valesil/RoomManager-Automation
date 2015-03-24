@@ -3,6 +3,7 @@ package framework.pages.admin.conferencerooms;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 /**
  * This class represents Room Info page
@@ -171,6 +172,18 @@ public class RoomInfoPage extends RoomBaseAbstractPage{
 	 */
 	public RoomInfoPage clickDisableIcon() {
 		disableIcon.click();
+		return this;
+	}
+	
+	/**
+	 * [YA] This method clicks Save button when an error message is expected and 
+	 * it should stay in the same page
+	 * @param errorMessage
+	 * @return
+	 */
+	public RoomInfoPage clickSaveWithErrorBtn() {
+		saveBtn.click();
+		wait.until(ExpectedConditions.visibilityOf(errorMessageLbl));
 		return this;
 	}
 }
