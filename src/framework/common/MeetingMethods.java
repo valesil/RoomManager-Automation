@@ -66,7 +66,7 @@ public class MeetingMethods {
 	public SchedulePage createMeeting(String organizer, String subject, String starTimeMinutes,
 			String endTimeMinutes, String attendees, String body, String password) {
 		home.clickScheduleBtn()
-		.createMeetingRequiredInformation(organizer, subject, starTimeMinutes, endTimeMinutes, 
+		.createMeeting(organizer, subject, starTimeMinutes, endTimeMinutes, 
 				attendees, password);	
 	return new SchedulePage();
 	}
