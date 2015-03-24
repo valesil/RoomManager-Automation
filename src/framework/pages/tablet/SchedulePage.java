@@ -224,12 +224,9 @@ public class SchedulePage {
 	public SchedulePage setStartTimeDate(String startTime) {
 		String from = getTimeElement(startTime, "hourMin");
 		String fromMeridian = getTimeElement(startTime, "meridian");		
-		if(BROWSER.equalsIgnoreCase("ie")) {
+		if(BROWSER.equalsIgnoreCase("ie")||BROWSER.equalsIgnoreCase("firefox")) {
 			startTimeTxtBox.clear();
 			startTimeTxtBox.sendKeys(startTime);			
-		} else if (BROWSER.equalsIgnoreCase("firefox")) {
-			startTimeTxtBox.clear();
-			startTimeTxtBox.sendKeys(startTime);
 		} else {
 			setStartTime(from, fromMeridian);
 		}
@@ -558,6 +555,25 @@ public class SchedulePage {
 	}
 
 	/**
+	 * [YA] This method sets required information for the creation of a meeting
+	 * @param organizer
+	 * @param subject
+	 * @param startTime
+	 * @param endTime
+	 * @param attendees
+	 * @return SchedulePage
+	 */
+	private SchedulePage setMeetingInformation(String organizer, String subject, String startTime, 
+			String endTime, String attendees) {
+		setOrganizerTxtBox(organizer);
+		setSubjectTxtBox(subject);
+		setStartTimeDate(startTime);
+		setEndTimeDate(endTime);
+		setAttendeeTxtBoxPressingEnter(attendees);
+		return this;
+	}
+	
+	/**
 	 * [EN] This method setting the values to created a meeting.
 	 * @param organizer
 	 * @param subject
@@ -569,13 +585,29 @@ public class SchedulePage {
 	 */
 	public SchedulePage createMeeting(String organizer, String subject, String startTime, 
 			String endTime, String attendees, String bodyMeeting) {
-		setOrganizerTxtBox(organizer);
-		setSubjectTxtBox(subject);
-		setStartTimeDate(startTime);
-		setEndTimeDate(endTime);
-		setAttendeeTxtBoxPressingEnter(attendees);
+		setMeetingInformation(organizer, subject, startTime, endTime, attendees);
 		setBodyTxtBox(bodyMeeting);
 		return clickCreateBtn();
+	}
+	
+	/**
+	 * [YA]This method creates a meeting with required information adding minutes to current time
+	 * @param organizer
+	 * @param subject
+	 * @param starTimeMinutes
+	 * @param endTimeMinutes
+	 * @param attendee
+	 * @param password
+	 * @return SchedulePage
+	 */
+	public SchedulePage createMeetingRequiredInformation(String organizer, String subject, String starTimeMinutes,
+			String endTimeMinutes, String attendees, String password) {
+		String startTime = TimeManager.getTime(Integer.parseInt(starTimeMinutes), "hh:mm a");
+		String endTime = TimeManager.getTime(Integer.parseInt(endTimeMinutes), "hh:mm a");
+		setMeetingInformation(organizer, subject, startTime, endTime, attendees);
+		clickCreateBtn();
+		confirmCredentials(password);
+		return this;
 	}
 
 	/**
@@ -625,30 +657,6 @@ public class SchedulePage {
 	}
 
 	/**
-	 * [YA]This method creates a meeting with required information adding minutes to current time
-	 * @param organizer
-	 * @param subject
-	 * @param starTimeMinutes
-	 * @param endTimeMinutes
-	 * @param attendee
-	 * @param password
-	 * @return SchedulePage
-	 */
-	public SchedulePage createMeetingRequiredInformation(String organizer, String subject, String starTimeMinutes,
-			String endTimeMinutes, String attendee, String password) {
-		String startTime = TimeManager.getTime(Integer.parseInt(starTimeMinutes), "hh:mm a");
-		String endTime = TimeManager.getTime(Integer.parseInt(endTimeMinutes), "hh:mm a");
-		setOrganizerTxtBox(organizer);
-		setSubjectTxtBox(subject);
-		setStartTimeDate(startTime);
-		setEndTimeDate(endTime);
-		setAttendeeTxtBoxPressingEnter(attendee);	
-		clickCreateBtn();
-		confirmCredentials(password).isMessageMeetingCreatedDisplayed();
-		return this;
-	}
-
-	/**
 	 * [YA]This method verifies if UpdateBtn is present
 	 * @return boolean
 	 */
@@ -666,33 +674,6 @@ public class SchedulePage {
 		clickRemoveBtn();
 		confirmCredentials(password);
 		isMessageMeetingDeletedDisplayed();
-		return this;
-	}
-
-	/**
-	 * [EN] Overload of createMetting method, where body meeting is optional.
-	 * @param organizer
-	 * @param subject
-	 * @param minutesFrom minutes number to add/subtract of current time to set in {From} text box.
-	 * @param minutesTo minutes number to add/subtract of current time to set in {To} text box.
-	 * @param attendee
-	 * @param password
-	 * @return  SchedulePage
-	 */
-	public SchedulePage createMeeting(String organizer, String subject, int minutesFrom, 
-			int minutesTo, String attendee, String password) {
-
-		String startTime = TimeManager.getTime(minutesFrom, "hh:mm a");
-		String endTime = TimeManager.getTime(minutesTo, "hh:mm a");
-
-		setOrganizerTxtBox(organizer);
-		setSubjectTxtBox(subject);
-		setStartTimeDate(startTime);
-		setEndTimeDate(endTime);
-		setAttendeeTxtBoxPressingEnter(attendee);
-		clickCreateBtn();	
-		confirmCredentials(password);
-		isMessageMeetingCreatedDisplayed();
 		return this;
 	}
 
