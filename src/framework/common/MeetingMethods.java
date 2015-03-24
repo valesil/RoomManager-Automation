@@ -1,5 +1,7 @@
 package framework.common;
 
+import static framework.common.AppConfigConstants.URL_TABLET_SETTINGS;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 
@@ -87,7 +89,8 @@ public class MeetingMethods {
 	 * @param roomName
 	 * @return
 	 */
-	public HomePage getHomeForSpecificRoom(String roomName) {
+	public HomePage getTabletHomeForSpecificRoom(String roomName) {
+		driver.get(URL_TABLET_SETTINGS);		
 		SettingsPage settings = new SettingsPage();
 		settings.selectRoom(roomName);
 		return new HomePage();
