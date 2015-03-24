@@ -3,6 +3,7 @@ package framework.pages.admin.conferencerooms;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 /**
  * This class represents Room Info page
