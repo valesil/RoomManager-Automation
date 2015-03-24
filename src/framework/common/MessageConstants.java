@@ -18,14 +18,15 @@ public final class MessageConstants {
 	public static final String MEETING_CREATED = "Meeting successfully created"; 
 	public static final String MEETING_REMOVED = "Meeting successfully removed";
 	public static final String MEETING_UPDATED = "Meeting successfully updated";
+	public static final String MEETING_CREATE_ERROR = "Cannot create meeting, it has conflicts with other meeting";
+	public static final String MEETING_UPDATE_ERROR = "Cannot update meeting, it has conflicts with other meeting"; 
 	public static final String MEETING_ERROR = "Ooops, something bad happened";
 	public static final String MEETING_SUBJECT_REQUIERED = "Subject is required";
 	public static final String MEETING_ORGANIZER_REQUIRED = "Organizer is required";
 	public static final String MEETING_ATTENDEES_REQUIRED = "Attendees are required";
 	public static final String MEETING_TIME_STARTEND = "Start time must be smaller than end time";
 	public static final String MEETING_ATTENDEES_INVALID = "Invalid attendees";
-	public static final String MEETING_PAST_CREATED_ERROR = "This meeting request ocurrs in the past."
-			+ "Invalid values of start time and end time.";
+	public static final String MEETING_PAST_CREATED_INFORMATION = "This meeting request ocurrs in the past.";
 	
 	//The following messages are for RoomInfoPage
 	public static final String ROOM_DISPLAY_NAME_EMPTY = "Display Name must not be empty";
