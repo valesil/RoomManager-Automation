@@ -92,7 +92,7 @@ public abstract class RoomBaseAbstractPage {
 	 * @param errorMessage
 	 * @return
 	 */
-	public Object clickSaveWithErrorBtn(){
+	public RoomBaseAbstractPage clickSaveWithErrorBtn(){
 		saveBtn.click();
 		wait.until(ExpectedConditions.visibilityOf(errorMessageLbl));
 		return this;
