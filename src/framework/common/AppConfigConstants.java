@@ -13,6 +13,7 @@ public final class AppConfigConstants {
 	public static final String BROWSER = value.readJsonFile("browser", "navigator");
 	public static final String URL_TABLET = value.readJsonFile("browser", "urlTablet");
 	public static final String URL_TABLET_HOME = value.readJsonFile("browser", "urlTabletHome");
+	public static final String URL_TABLET_SETTINGS = value.readJsonFile("browser", "urlTabletSettings");
 	public static final String URL_ADMIN = value.readJsonFile("browser", "urlAdmin");
 	public static final String URL_ADMIN_HOME = value.readJsonFile("browser", "urlAdminHome");
 	public static final String URL_REST = value.readJsonFile("browser", "urlRest");
