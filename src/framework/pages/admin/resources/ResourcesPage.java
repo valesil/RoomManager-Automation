@@ -127,8 +127,8 @@ public class ResourcesPage extends AbstractMainMenu{
 	 */
 	public boolean searchSelectedItemsValue(String value) throws InterruptedException {
 		By locator = By.xpath("//span[contains(text(),'Selected Items: " + value + "')]");
-		wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(locator)));
-		return UIMethods.isElementPresent(By.xpath(locator));
+		wait.until(ExpectedConditions.presenceOfElementLocated(locator));
+		return UIMethods.isElementPresent(locator);
 	}
 
 	/**
