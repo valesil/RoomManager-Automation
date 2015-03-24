@@ -26,7 +26,7 @@ public class HomePage {
 
 	@FindBy(xpath = "//div[@ng-bind='current._title']")
 	WebElement nowTileLbl;
-
+	
 	@FindBy(xpath = "//div[@ng-bind='next._title']")
 	WebElement nextTileLbl; 
 
@@ -78,6 +78,12 @@ public class HomePage {
 	@FindBy(xpath = "//span[@ng-bind = 'room._code']")
 	WebElement roomCodeLbl;
 
+	@FindBy(xpath = "//div[@ng-click='selectNowTile()']")
+	WebElement nowTileBox;
+	
+	@FindBy(xpath = "//div[@ng-click='selectNextTile()']")
+	WebElement nextTileBox;
+	
 	public HomePage() {
 		driver = SeleniumDriverManager.getManager().getDriver();
 		PageFactory.initElements(driver, this);
@@ -318,6 +324,22 @@ private boolean isQuantityDisplayed(String amount) {
 				+"')and@ng-bind='resource.quantity']")).isDisplayed();
 	}catch (Exception e) {
 		return false;
+	}
+	
+	/**
+	 * [EN] return the color of now tile in RGBA format.
+	 * @return String
+	 */
+	public String getNowTileColor() {
+		return nowTileBox.getCssValue("background-color");
+	}
+
+	/**
+	 * [EN] return the color of next tile in RGBA format.
+	 * @return String
+	 */
+	public String getNextTileColor() {
+		return nextTileBox.getCssValue("background-color");
 	}
 }
 }

@@ -64,8 +64,8 @@ public class RoomResourceAssociationsPage extends RoomBaseAbstractPage {
 	 * @return
 	 */
 	public boolean searchResourcequantity(String resourceName) {
-		return driver.findElement(By.xpath("//span[contains(text(),'" + resourceName + 
-				"')]/ancestor::div/following-sibling::div/input")).isDisplayed();
+		return UIMethods.isElementPresent(By.xpath("//span[contains(text(),'" + resourceName + 
+				"')]/ancestor::div/following-sibling::div/input"));
 	}
 
 	/**
