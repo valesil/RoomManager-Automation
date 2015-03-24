@@ -1,6 +1,6 @@
 package framework.pages.tablet;
 
-import static framework.common.AppConfigConstants.URL_TABLET_HOME;
+import static framework.common.AppConfigConstants.URL_TABLET;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -88,16 +88,8 @@ public class HomeTabletPage {
 		driver = SeleniumDriverManager.getManager().getDriver();
 		PageFactory.initElements(driver, this);
 		wait = SeleniumDriverManager.getManager().getWait();
-		driver.get(URL_TABLET_HOME);
+		driver.get(URL_TABLET);
 	}
-
-	/**
-	 * [EN]this method set the page with home url.
-	 */
-//	public HomePage getHome() {
-//		driver.get(URL_TABLET_HOME);
-//		return this;
-//	}
 
 	/**
 	 * [EN] Return the value of {Now} tile
@@ -174,8 +166,9 @@ public class HomeTabletPage {
 	 * @return
 	 */
 	public SettingsPage clickSettingsBtn() {
-		if(timelineContainer.isDisplayed()) {
-			settingsBtn.click();
+		//If current page is Home 
+		if (timelineContainer.isDisplayed()){		//verify that it works else use iselementepresent
+			settingsBtn.click();	
 		}
 		return new SettingsPage();
 	}
