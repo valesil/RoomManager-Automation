@@ -108,10 +108,10 @@ public class SchedulePage {
 
 	@FindBy(css = "div.Modal-holder.ng-scope")
 	WebElement mask;
-	
+
 	@FindBy(xpath = "//div[@id='toast-container']")
 	WebElement messagePopUp;
-	
+
 	@FindBy(xpath = "//div[@class='foreground']")
 	WebElement timeLineGroup;
 
@@ -601,8 +601,7 @@ public class SchedulePage {
 	}
 
 	/**
-	 * [YA]Overload to create a meeting with required information adding/subtract minutes 
-	 * to current time.
+	 * [YA]This method creates a meeting with required information adding minutes to current time
 	 * @param organizer
 	 * @param subject
 	 * @param starTimeMinutes
@@ -801,7 +800,7 @@ public class SchedulePage {
 	public boolean waitForMessagePopUp() {
 		return messagePopUp.isDisplayed();
 	}
-	
+
 	/**
 	 * [EN] This method does double click over time line group.
 	 */
