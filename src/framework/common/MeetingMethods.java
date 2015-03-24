@@ -35,6 +35,7 @@ public class MeetingMethods {
 	 */
 	public void createMeetingWithAllDataFromExcel(String organizer, String subject, String startTime, String endTime,
 			String attendee, String body, String password) {
+		SchedulePage schedule = new SchedulePage();
 		home.clickScheduleBtn()
 		.setOrganizerTxtBox(organizer)
 		.setSubjectTxtBox(subject)
@@ -45,6 +46,7 @@ public class MeetingMethods {
 		.clickCreateBtn()
 		.confirmCredentials(password)
 		.isMessageMeetingCreatedDisplayed();
+		schedule.clickBackBtn();
 	}
 
 	/**
@@ -59,16 +61,15 @@ public class MeetingMethods {
 	 */
 	public void createMeeting(String organizer, String subject, String starTimeMinutes,
 			String endTimeMinutes, String attendee, String body, String password) {
-
 		String startTime = TimeManager.getTime(Integer.parseInt(starTimeMinutes), "hh:mm a");
 		String endTime = TimeManager.getTime(Integer.parseInt(endTimeMinutes), "hh:mm a");
 		home.clickScheduleBtn()
 		.createMeeting(organizer, subject, startTime, endTime, attendee, body)		
-		.confirmCredentials(password).isMessageMeetingCreatedDisplayed();
+		.confirmCredentials(password);
 	}
 
 	/**
-	 * [AC] This class delete a meeting
+	 * [AC] This class deletes a meeting
 	 * @param nameMeeting
 	 * @return SchedulePage
 	 */
@@ -89,6 +90,16 @@ public class MeetingMethods {
 		return new HomePage();
 	}
 	
+	/**
+	 * [AC] This method creates an Out Of Order
+	 * @param startDate
+	 * @param endDate
+	 * @param startTime
+	 * @param endTime
+	 * @param title
+	 * @param description
+	 * @param roomName
+	 */
 	public void createAnOutOfOrder(String startDate, String endDate, String startTime, 
 			String endTime, String title, String description, String roomName) {
 		LoginPage login = new LoginPage();
@@ -98,6 +109,7 @@ public class MeetingMethods {
 		.clickOutOfOrderPlanningLink()
 		.setOutOfOrderPeriodInformation(startDate, endDate, startTime, 
 				endTime, title, description)
+		.activateOutOfOrder()
 		.clickSaveBtn();
 	}
 }

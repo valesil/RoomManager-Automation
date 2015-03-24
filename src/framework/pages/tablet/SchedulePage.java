@@ -5,6 +5,8 @@ import static framework.common.MessageConstants.MEETING_ATTENDEES_INVALID;
 import static framework.common.MessageConstants.MEETING_ATTENDEES_REQUIRED;
 import static framework.common.MessageConstants.MEETING_CREATED;
 import static framework.common.MessageConstants.MEETING_ERROR;
+import static framework.common.MessageConstants.MEETING_CREATE_ERROR;
+import static framework.common.MessageConstants.MEETING_UPDATE_ERROR;
 import static framework.common.MessageConstants.MEETING_ORGANIZER_REQUIRED;
 import static framework.common.MessageConstants.MEETING_REMOVED;
 import static framework.common.MessageConstants.MEETING_SUBJECT_REQUIERED;
@@ -435,8 +437,24 @@ public class SchedulePage {
 	 * [AC] This method gets the error message when something bad happens
 	 * @return boolean
 	 */
-	public boolean isMessageOfErrorDisplayed() {
+	public boolean isMessageErrorPopUpDisplayed() {
 		return findMessagePopUpValue(MEETING_ERROR);
+	}
+	
+	/**
+	 * [AC] This method gets the error message when occur an error creating meetings
+	 * @return
+	 */
+	public boolean isMessageErrorCreationMeetingPopUpDisplayed() {
+		return findMessagePopUpValue(MEETING_CREATE_ERROR);
+	}
+	
+	/**
+	 * [AC] This method gets the error message when occur an error updating meetings
+	 * @return
+	 */
+	public boolean isMessageErrorUpdateMeetingPopUpDisplayed() {
+		return findMessagePopUpValue(MEETING_UPDATE_ERROR);
 	}
 
 	/**

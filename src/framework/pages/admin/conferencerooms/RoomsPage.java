@@ -3,12 +3,10 @@ package framework.pages.admin.conferencerooms;
 import static framework.common.MessageConstants.OUT_OF_ORDER_SUCCESSFULLY_CREATED;
 import lib.DragAndDrop;
 import lib.DragAndDrop.Position;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-
 import framework.common.UIMethods;
 import framework.pages.admin.AbstractMainMenu;
 import framework.rest.RootRestMethods;
@@ -19,7 +17,7 @@ import framework.rest.RootRestMethods;
  *
  */
 public class RoomsPage extends AbstractMainMenu {
-		
+
 	@FindBy(id = "roomsGrid")
 	WebElement roomsGrid;
 
@@ -41,7 +39,6 @@ public class RoomsPage extends AbstractMainMenu {
 	 * @return
 	 */
 	public RoomInfoPage doubleClickOverRoomName(String displayName) {
-		waitForMaskDisappears();
 		UIMethods.doubleClick(driver.findElement(By.xpath("//span[contains(text(),'" 
 				+ displayName + "')and@class='ng-binding']")));
 		return new RoomInfoPage();
@@ -56,7 +53,7 @@ public class RoomsPage extends AbstractMainMenu {
 		return driver.findElement(By.xpath("//span[contains(text(),'" 
 				+ roomName + "')and@class='ng-binding']")).getText();
 	}
-	
+
 	/**
 	 * [RB]This method disables a selected room
 	 * @param roomDisplayName
@@ -76,7 +73,7 @@ public class RoomsPage extends AbstractMainMenu {
 	public boolean isOutOfOrderIconDisplayed(String roomName) {
 		return 	findOutOfOrderIcon(roomName).isDisplayed();
 	}
-	
+
 	/**
 	 * [YA]This method returns the icon is displayed in Out Of Order Column when an Out Of Order 
 	 * Period is established
@@ -87,7 +84,7 @@ public class RoomsPage extends AbstractMainMenu {
 		WebElement outOfOrderIcon = findOutOfOrderIcon(roomName);
 		return outOfOrderIcon.getAttribute("class");
 	}
-	
+
 	/**
 	 * [YA]This method finds Out Of Order Icon
 	 * @param roomName
@@ -98,7 +95,7 @@ public class RoomsPage extends AbstractMainMenu {
 				+ roomName + "')]//ancestor::div[@ng-click='row.toggleSelected($event)']"
 				+ "//out-of-order-icon//span"));
 	} 
-	
+
 	/**
 	 * [YA]This method clicks outOfOrderIcon
 	 * @param roomName
@@ -132,7 +129,7 @@ public class RoomsPage extends AbstractMainMenu {
 		}
 		return messageDisplayed;
 	}
-	
+
 	/**
 	 * [YA]This method that verifies if a message is correct
 	 * @return boolean
@@ -141,7 +138,7 @@ public class RoomsPage extends AbstractMainMenu {
 		return UIMethods.isElementPresent(By.xpath("//div[contains(text(),'" 
 				+ message + "')]"));
 	}
-	
+
 	/**
 	 * [YA]This method verifies that a message that says: "Out of order was created successfully"
 	 * is displayed
@@ -150,7 +147,7 @@ public class RoomsPage extends AbstractMainMenu {
 	public boolean isOutOfOrderSuccessfullyCreatedMessageDisplayed() {
 		return isMessageCorrect(OUT_OF_ORDER_SUCCESSFULLY_CREATED);
 	}
-	
+
 	/**
 	 * [CG]Method that returns true when the search of a resource in the top of conference rooms 
 	 * page icons is successful  
@@ -168,12 +165,12 @@ public class RoomsPage extends AbstractMainMenu {
 	 * @return
 	 */
 	public RoomsPage clickResourceIcon(String resourceName) {
-		waitForMaskDisappears();
-		driver.findElement(By.xpath("//span[contains(text(),'" + resourceName 
-				+ "')and@class='ng-binding']")).click();
+		String locator = "//span[contains(text(),'" + resourceName + "')and@class='ng-binding']";
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath(locator)));
+		driver.findElement(By.xpath(locator)).click();
 		return this;
 	}
-	
+
 	/**
 	 * [CG]Method that returns true when the search of a resource in the top of rooms table 
 	 * header is successful
@@ -185,7 +182,7 @@ public class RoomsPage extends AbstractMainMenu {
 				+ resourceName + "')]";
 		wait.until(ExpectedConditions.textToBePresentInElementLocated(By.xpath(locator), 
 				resourceName));
-		return driver.findElement(By.xpath(locator)).isDisplayed();
+		return UIMethods.isElementPresent(By.xpath(locator));
 	}
 
 	/**
@@ -199,7 +196,7 @@ public class RoomsPage extends AbstractMainMenu {
 		wait.until(ExpectedConditions.elementToBeClickable(By.xpath(locator)));
 		return driver.findElement(By.xpath(locator)).isEnabled();
 	}
-	
+
 	/**
 	 * [YA] This method waits for any message to be displayed and clicks it
 	 * @return RoomsPage
@@ -209,15 +206,16 @@ public class RoomsPage extends AbstractMainMenu {
 		messagePopUp.click();
 		return this;
 	}
-	
+
 	/**
 	 * [CG]Method that returns the resource value from resources grid
 	 * @param resourceName
 	 * @return
 	 */
 	public String getResourceQuantity(String resourceName) {
-		return driver.findElement(By.xpath("//span[contains(text(),'" + resourceName 
-				+  "')]/ancestor::div/following-sibling::div[@class='ngCell centeredColumn col3 colt3']//span[@class='ng-binding']/parent::div")).getText();
+		return driver.findElement(By.xpath("//span[contains(text(),'" + resourceName + "')]"
+				+ "/ancestor::div/following-sibling::div[@class='ngCell centeredColumn col3 colt3']"
+				+ "//span[@class='ng-binding']/parent::div")).getText();
 	}
 
 	/**
