@@ -18,6 +18,8 @@ public final class MessageConstants {
 	public static final String MEETING_CREATED = "Meeting successfully created"; 
 	public static final String MEETING_REMOVED = "Meeting successfully removed";
 	public static final String MEETING_UPDATED = "Meeting successfully updated";
+	public static final String MEETING_CREATE_ERROR = "Cannot create meeting, it has conflicts with other meeting";
+	public static final String MEETING_UPDATE_ERROR = "Cannot update meeting, it has conflicts with other meeting"; 
 	public static final String MEETING_ERROR = "Ooops, something bad happened";
 	public static final String MEETING_SUBJECT_REQUIERED = "Subject is required";
 	public static final String MEETING_ORGANIZER_REQUIRED = "Organizer is required";
