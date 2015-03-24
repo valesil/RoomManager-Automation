@@ -228,12 +228,9 @@ public class SchedulePage {
 	public SchedulePage setStartTimeDate(String startTime) {
 		String from = getTimeElement(startTime, "hourMin");
 		String fromMeridian = getTimeElement(startTime, "meridian");		
-		if(BROWSER.equalsIgnoreCase("ie")) {
+		if(BROWSER.equalsIgnoreCase("ie")||BROWSER.equalsIgnoreCase("firefox")) {
 			startTimeTxtBox.clear();
 			startTimeTxtBox.sendKeys(startTime);			
-		} else if (BROWSER.equalsIgnoreCase("firefox")) {
-			startTimeTxtBox.clear();
-			startTimeTxtBox.sendKeys(startTime);
 		} else {
 			setStartTime(from, fromMeridian);
 		}
@@ -519,7 +516,7 @@ public class SchedulePage {
 	public SchedulePage clickOkButton() {
 		okBtn.click();
 		okBtn.sendKeys(Keys.ESCAPE);
-		UIMethods.waitForMaskDisappearsAndClickElement(timeLine);
+		UIMethods.waitForMaskDisappears(timeLine);
 		return this;
 	}
 
@@ -530,7 +527,7 @@ public class SchedulePage {
 	public SchedulePage clickCancelButton() {
 		cancelBtn.click();
 		cancelBtn.sendKeys(Keys.ESCAPE);
-		UIMethods.waitForMaskDisappearsAndClickElement(timeLine);
+		UIMethods.waitForMaskDisappears(timeLine);
 		return this;
 	}
 
@@ -581,6 +578,20 @@ public class SchedulePage {
 	}
 	
 	/**
+	 * @param organizer
+	 * @param subject
+	 * @param startTime
+	 * @param endTime
+	 * @param attendees
+	 * @return SchedulePage
+	 */
+	private SchedulePage setMeetingInformation(String organizer, String subject, String startTime, 
+			String endTime, String attendees) {
+		setMeetingInformation(organizer, subject, startTime, endTime, attendees);
+		return this;
+	}
+	
+	/**
 	 * [EN] Created a meeting with all values (required and optional).
 	 * @param organizer
 	 * @param subject
@@ -620,6 +631,26 @@ public class SchedulePage {
 		return this;
 	}
 	
+	/**
+	 * [YA]This method creates a meeting with required information adding minutes to current time
+	 * @param organizer
+	 * @param subject
+	 * @param starTimeMinutes
+	 * @param endTimeMinutes
+	 * @param attendee
+	 * @param password
+	 * @return SchedulePage
+	 */
+	public SchedulePage createMeetingRequiredInformation(String organizer, String subject, String starTimeMinutes,
+			String endTimeMinutes, String attendees, String password) {
+		String startTime = TimeManager.getTime(Integer.parseInt(starTimeMinutes), "hh:mm a");
+		String endTime = TimeManager.getTime(Integer.parseInt(endTimeMinutes), "hh:mm a");
+		setMeetingInformation(organizer, subject, startTime, endTime, attendees);
+		clickCreateBtn();
+		confirmCredentials(password);
+		return this;
+	}
+
 	/**
 	 * [JC] This method verify if the label scheduler is displayed
 	 * @return boolean
@@ -667,8 +698,6 @@ public class SchedulePage {
 	}
 
 	
-
-	/**
 	 * [YA]This method verifies if UpdateBtn is present
 	 * @return boolean
 	 */
