@@ -65,7 +65,7 @@ public class MeetingMethods {
 		String endTime = TimeManager.getTime(Integer.parseInt(endTimeMinutes), "hh:mm a");
 		home.clickScheduleBtn()
 		.createMeeting(organizer, subject, startTime, endTime, attendee, body)		
-		.confirmCredentials(password).isMessageMeetingCreatedDisplayed();
+		.confirmCredentials(password);
 	}
 
 	/**
@@ -109,6 +109,7 @@ public class MeetingMethods {
 		.clickOutOfOrderPlanningLink()
 		.setOutOfOrderPeriodInformation(startDate, endDate, startTime, 
 				endTime, title, description)
+		.activateOutOfOrder()
 		.clickSaveBtn();
 	}
 }
