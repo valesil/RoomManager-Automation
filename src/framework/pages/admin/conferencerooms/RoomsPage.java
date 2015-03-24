@@ -41,7 +41,6 @@ public class RoomsPage extends AbstractMainMenu {
 	 * @return
 	 */
 	public RoomInfoPage doubleClickOverRoomName(String displayName) {
-		waitForMaskDisappears();
 		UIMethods.doubleClick(driver.findElement(By.xpath("//span[contains(text(),'" 
 				+ displayName + "')and@class='ng-binding']")));
 		return new RoomInfoPage();
