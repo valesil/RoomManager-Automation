@@ -7,6 +7,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
 import framework.common.UIMethods;
 import framework.pages.admin.conferencerooms.RoomBaseAbstractPage;
 import framework.selenium.SeleniumDriverManager;
@@ -137,14 +138,7 @@ public class ResourceBaseAbstractPage {
 		return UIMethods.isElementPresent(resourceIcon);
 	}
 	
-	/**
-	 * [CG]This method click on save button if a resource exists already and returns previous page.
-	 * @return
-	 */
-	public Object clickSaveResourceWithErrorBtn() {
-		saveResourceBtn.click();
-		return this;
-	}
+	
 	
 	/**
 	 * [CG]This method click on cancel button.
@@ -183,5 +177,14 @@ public class ResourceBaseAbstractPage {
 	 */
 	public boolean verifyErrorMessage(String message) {
 		return RoomBaseAbstractPage.isErrorMessageCorrect(message);
+	}
+	
+	/**
+	 * [CG]This method click on save button if a resource exists already.
+	 * @return
+	 */
+	public ResourceBaseAbstractPage clickSaveResourceWithErrorBtn() {
+		saveResourceBtn.click();
+		return this;
 	}
 }
