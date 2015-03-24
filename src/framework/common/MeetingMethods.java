@@ -61,16 +61,15 @@ public class MeetingMethods {
 	 */
 	public void createMeeting(String organizer, String subject, String starTimeMinutes,
 			String endTimeMinutes, String attendee, String body, String password) {
-
 		String startTime = TimeManager.getTime(Integer.parseInt(starTimeMinutes), "hh:mm a");
 		String endTime = TimeManager.getTime(Integer.parseInt(endTimeMinutes), "hh:mm a");
 		home.clickScheduleBtn()
 		.createMeeting(organizer, subject, startTime, endTime, attendee, body)		
-		.confirmCredentials(password).isMessageMeetingCreatedDisplayed();
+		.confirmCredentials(password);
 	}
 
 	/**
-	 * [AC] This class delete a meeting
+	 * [AC] This class deletes a meeting
 	 * @param nameMeeting
 	 * @return SchedulePage
 	 */
@@ -110,6 +109,7 @@ public class MeetingMethods {
 		.clickOutOfOrderPlanningLink()
 		.setOutOfOrderPeriodInformation(startDate, endDate, startTime, 
 				endTime, title, description)
+		.activateOutOfOrder()
 		.clickSaveBtn();
 	}
 }
