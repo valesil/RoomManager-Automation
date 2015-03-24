@@ -6,7 +6,6 @@ import org.openqa.selenium.support.PageFactory;
 import framework.pages.admin.LoginPage;
 import framework.pages.tablet.HomeTabletPage;
 import framework.pages.tablet.SchedulePage;
-import framework.pages.tablet.SettingsPage;
 import framework.selenium.SeleniumDriverManager;
 
 /**
@@ -28,7 +27,7 @@ public class MeetingMethods {
 	}	
 
 	/**
-	 * [AC] This method creates a meeting
+	 * [AC] This method creates a meeting 
 	 * @param organizer
 	 * @param subject
 	 * @param startTime
@@ -37,7 +36,7 @@ public class MeetingMethods {
 	 * @param body
 	 * @param password
 	 */
-	public void createMeetingWithAllDataFromExcel(String organizer, String subject, String startTime, String endTime,
+	public void createMeetingFromHome(String organizer, String subject, String startTime, String endTime,
 			String attendee, String body, String password) {
 		SchedulePage schedule = new SchedulePage();
 		home.clickScheduleBtn()
@@ -71,28 +70,6 @@ public class MeetingMethods {
 	return new SchedulePage();
 	}
 
-	/**
-	 * [AC] This class deletes a meeting
-	 * @param nameMeeting
-	 * @return SchedulePage
-	 */
-	public SchedulePage deleteMeeting(String nameMeeting, String password) {
-		home.getHome().clickScheduleBtn()
-		.deleteMeeting(nameMeeting, password);
-		return new SchedulePage();
-	}
-
-	/**
-	 * [YA] This method sets the url for tablet home and choose an specific room
-	 * @param roomName
-	 * @return
-	 */
-	public HomeTabletPage getHomeForSpecificRoom(String roomName) {
-		SettingsPage settings = new SettingsPage();
-		settings.selectRoom(roomName);
-		return new HomeTabletPage();
-	}
-	
 	/**
 	 * [AC] This method creates an Out Of Order
 	 * @param startDate

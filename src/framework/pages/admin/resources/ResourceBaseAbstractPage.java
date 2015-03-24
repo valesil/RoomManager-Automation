@@ -7,6 +7,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
 import framework.common.UIMethods;
 import framework.pages.admin.conferencerooms.RoomBaseAbstractPage;
 import framework.selenium.SeleniumDriverManager;
@@ -51,11 +52,11 @@ public class ResourceBaseAbstractPage {
 	 * @param resourceName
 	 * @return
 	 */
-	public ResourceInfoPage setResourceName(String resourceName) {
+	public ResourceBaseAbstractPage setResourceName(String resourceName) {
 		wait.until(ExpectedConditions.visibilityOf(resourceNameTxtBox));
 		resourceNameTxtBox.clear();
 		resourceNameTxtBox.sendKeys(resourceName);
-		return new ResourceInfoPage();
+		return this;
 	}
 	
 	/**
@@ -64,10 +65,10 @@ public class ResourceBaseAbstractPage {
 	 * @param resourceDisplayName
 	 * @return the current page
 	 */
-	public ResourceInfoPage setResourceDisplayName(String resourceDisplayName) {
+	public ResourceBaseAbstractPage setResourceDisplayName(String resourceDisplayName) {
 		resourceDisplayNameTxtBox.clear();
 		resourceDisplayNameTxtBox.sendKeys(resourceDisplayName);
-		return new ResourceInfoPage();
+		return this;
 	}
 	
 	/**
@@ -76,10 +77,10 @@ public class ResourceBaseAbstractPage {
 	 * @param resourceDescription
 	 * @return the current page
 	 */
-	public ResourceInfoPage setResourceDescription(String resourceDescription) {
+	public ResourceBaseAbstractPage setResourceDescription(String resourceDescription) {
 		resourceDescriptionTxtBox.clear();
 		resourceDescriptionTxtBox.sendKeys(resourceDescription);
-		return new ResourceInfoPage();
+		return this;
 	}
 	
 	/**
@@ -87,11 +88,11 @@ public class ResourceBaseAbstractPage {
 	 * @param iconTitle
 	 * @return the current page
 	 */
-	public ResourceInfoPage selectResourceIcon(String iconTitle) {
+	public ResourceBaseAbstractPage selectResourceIcon(String iconTitle) {
 		By icon = By.xpath("//button[@value='" + iconTitle +"']"); 
 		wait.until(ExpectedConditions.elementToBeClickable(icon));
 		driver.findElement(icon).click();
-		return new ResourceInfoPage();
+		return this;
 	}
 	
 	/**
@@ -100,20 +101,20 @@ public class ResourceBaseAbstractPage {
 	 * @param direction
 	 * @return
 	 */
-	public ResourceInfoPage clickPreviusNextIconPageBtn(String direction) {
+	public ResourceBaseAbstractPage clickPreviusNextIconPageBtn(String direction) {
 		By iconButton = By.xpath("//button[@class='btn btn-primary btn-" + direction + "']");
 		driver.findElement(iconButton).click();
-		return new ResourceInfoPage();
+		return this;
 	}
 	
 	/**
 	 * [ML]This method click on found icon from selectResourceIcon method
 	 * @return
 	 */
-	public ResourceInfoPage clickResourceIcon() {
+	public ResourceBaseAbstractPage clickResourceIcon() {
 		wait.until(ExpectedConditions.elementToBeClickable(resourceOpenIconBtn));
 		resourceOpenIconBtn.click();
-		return new ResourceInfoPage();
+		return this;
 	}
 	
 	/**
@@ -137,14 +138,7 @@ public class ResourceBaseAbstractPage {
 		return UIMethods.isElementPresent(resourceIcon);
 	}
 	
-	/**
-	 * [CG]This method click on save button if a resource exists already and returns previous page.
-	 * @return
-	 */
-	public Object clickSaveResourceWithErrorBtn() {
-		saveResourceBtn.click();
-		return this;
-	}
+	
 	
 	/**
 	 * [CG]This method click on cancel button.
@@ -183,5 +177,14 @@ public class ResourceBaseAbstractPage {
 	 */
 	public boolean verifyErrorMessage(String message) {
 		return RoomBaseAbstractPage.isErrorMessageCorrect(message);
+	}
+	
+	/**
+	 * [CG]This method click on save button if a resource exists already.
+	 * @return
+	 */
+	public ResourceBaseAbstractPage clickSaveResourceWithErrorBtn() {
+		saveResourceBtn.click();
+		return this;
 	}
 }

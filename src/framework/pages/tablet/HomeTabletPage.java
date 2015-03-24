@@ -1,6 +1,6 @@
 package framework.pages.tablet;
 
-import static framework.common.AppConfigConstants.URL_TABLET_HOME;
+import static framework.common.AppConfigConstants.URL_TABLET;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -88,14 +88,7 @@ public class HomeTabletPage {
 		driver = SeleniumDriverManager.getManager().getDriver();
 		PageFactory.initElements(driver, this);
 		wait = SeleniumDriverManager.getManager().getWait();
-	}
-
-	/**
-	 * [EN]this method set the page with home url.
-	 */
-	public HomeTabletPage getHome() {
-		driver.get(URL_TABLET_HOME);
-		return this;
+		driver.get(URL_TABLET);
 	}
 
 	/**
@@ -173,8 +166,10 @@ public class HomeTabletPage {
 	 * @return
 	 */
 	public SettingsPage clickSettingsBtn() {
-		wait.until(ExpectedConditions.visibilityOf(timelineContainer));
-		settingsBtn.click();
+		//If current page is Home 
+		if (timelineContainer.isDisplayed()){		//verify that it works else use iselementepresent
+			settingsBtn.click();	
+		}
 		return new SettingsPage();
 	}
 
@@ -323,7 +318,7 @@ public class HomeTabletPage {
 		try{
 			return driver.findElement(By.xpath("//div[contains(text(),'"+amount
 					+"')and@ng-bind='resource.quantity']")).isDisplayed();
-		}catch (Exception e) {
+		} catch (Exception e) {
 			return false;
 		}
 	}
