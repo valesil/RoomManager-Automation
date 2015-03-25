@@ -7,6 +7,7 @@ import java.net.MalformedURLException;
 import java.util.List;
 import java.util.Map;
 
+import org.json.JSONException;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
@@ -18,42 +19,40 @@ import framework.rest.RootRestMethods;
 import framework.utils.readers.ExcelReader;
 
 /**
- * TC05: Verify that Clock icon appears in out of order column when the schedule to be 
- * out of order is current time
+ * TC17: Verify an Out Of Order can be created if description text box is empty
  * @author Yesica Acha
  *
  */
-public class IfOutOfOrderIsCreatedInThePresentClockIconIsDisplayed {
+public class OutOfOrderIsCreatedIfDescriptionIsEmpty {
 	ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
 	List<Map<String, String>> testData = excelReader.getMapValues("OutOfOrderPlanning");
-	String roomName = testData.get(3).get("Room Name");
-	String startDate = testData.get(3).get("Start date");
-	String endDate = testData.get(3).get("End date");
-	String startTime = testData.get(3).get("Start time (minutes to add)");
-	String endTime = testData.get(3).get("End time (minutes to add)");
-	String title = testData.get(3).get("Title");
-	String description = testData.get(3).get("Description");
-	String expectedIcon = testData.get(3).get("Icon").toLowerCase().replaceAll(" ", "");
-
-	@Test(groups = "ACCEPTANCE")
-	public void testIfOutOfOrderIsCreatedInThePresentClockIconIsDisplayed() {
-		
-		//Out of Order creation
+	String roomName = testData.get(8).get("Room Name");
+	String title = testData.get(8).get("Title");
+	String description = testData.get(8).get("Description");
+	String expectedMessage = testData.get(8).get("Message");
+	
+	@Test(groups = "FUNCTIONAL")
+	public void testOutOfOrderIsCreatedIfDescriptionIsEmpty() throws JSONException, MalformedURLException, IOException {
 		HomeAdminPage homeAdminPage = new HomeAdminPage(); 
 		RoomsPage roomsPage = homeAdminPage.clickConferenceRoomsLink();
 		RoomOutOfOrderPlanningPage outOfOrderPage = roomsPage
 				.doubleClickOverRoomName(roomName)
 				.clickOutOfOrderPlanningLink();
-		roomsPage = outOfOrderPage.setOutOfOrderPeriodInformation(startDate, endDate, 
-				startTime, endTime, title, description)
+		roomsPage = outOfOrderPage.setTitleTxtBox(title)
+				.setDescriptionTxtBox(description)
+				.activateOutOfOrder()
 				.clickSaveOutOfOrderBtn();
-
-		//Assert for TC05
-		Assert.assertTrue(roomsPage.getOutOfOrderIconClass(roomName).contains(expectedIcon));
+		
+		//Assertion for TC17
+		Assert.assertTrue(RootRestMethods.isOutOfOrderCreated(roomName, title));
+		Assert.assertTrue(roomsPage.isMessagePresent());
+		Assert.assertTrue(roomsPage.isOutOfOrderSuccessfullyCreatedMessageDisplayed());
+		Assert.assertTrue(roomsPage.isOutOfOrderIconDisplayed(roomName));
 	}
-
+	
 	@AfterMethod
-	public void deleteOutOfOrder() throws MalformedURLException, IOException {
+	public void postCondition() throws MalformedURLException, IOException {
 		RootRestMethods.deleteOutOfOrder(roomName, title);
 	}
+
 }

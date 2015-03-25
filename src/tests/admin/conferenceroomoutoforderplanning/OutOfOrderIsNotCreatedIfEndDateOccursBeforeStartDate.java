@@ -19,45 +19,39 @@ import framework.rest.RootRestMethods;
 import framework.utils.readers.ExcelReader;
 
 /**
- * TC23: Verify an Out Of Order cannot be created when end time (hours and minutes) occurs before 
- * start time
- * TC32: Verify when end time (hours and minutes) occurs before start time an error message that says 
- * 'To' field must be greater than 'From' field is displayed
+ * TC24: Verify an Out Of Order cannot be created when end date (day, month, year) occurs 
+ * before start date
+ * TC33: Verify when end date (day, month, year) occurs before start date an error message 
+ * that says "'To' field must be greater than 'From' field" is displayed.
  * @author Yesica Acha
  *
  */
-public class OutOfOrderIsNotCreatedIfEndTimeOccursBeforeStartTime {
+public class OutOfOrderIsNotCreatedIfEndDateOccursBeforeStartDate {
 	RoomOutOfOrderPlanningPage outOfOrderPage;
-	
 	ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
 	List<Map<String, String>> testData = excelReader.getMapValues("OutOfOrderPlanning");
-	String roomName = testData.get(1).get("Room Name");
-	String title = testData.get(1).get("Title");
-	String startDate = testData.get(1).get("Start date");
-	String endDate = testData.get(1).get("End date");
-	String startTime = testData.get(1).get("Start time (minutes to add)");
-	String endTime = testData.get(1).get("End time (minutes to add)");
+	String title = testData.get(0).get("Title");
+	String startDate = testData.get(0).get("Start date");
+	String endDate = testData.get(0).get("End date");
+	String roomName = testData.get(0).get("Room Name");
 
-	@Test(groups = {"ACCEPTANCE", "UI"})
-	public void testOutOfOrderIsNotCreatedIfEndTimeOccursBeforeStartTime() throws JSONException, MalformedURLException, IOException {
+	@Test(groups = {"FUNCTIONAL", "UI"})
+	public void testOutOfOrderIsNotCreatedIfEndDateOccursBeforeStartDate() throws JSONException, MalformedURLException, IOException {
 
-		//Out Or Order creation
+		//Out Of Order creation
 		HomeAdminPage homeAdminPage = new HomeAdminPage(); 
 		RoomsPage roomsPage = homeAdminPage.clickConferenceRoomsLink();
 		outOfOrderPage = roomsPage
 				.doubleClickOverRoomName(roomName)
 				.clickOutOfOrderPlanningLink();
-		outOfOrderPage = outOfOrderPage
-				.setStartDateWithCalendar(startDate)
+		outOfOrderPage = outOfOrderPage.setStartDateWithCalendar(startDate)
 				.setEndDateWithCalendar(endDate)
-				.setStartTime(startTime)
-				.setEndTime(endTime)
 				.clickSaveWithErrorBtn();
 
-		//Assertion for TC23
+		//Assertion for TC24
 		Assert.assertFalse(RootRestMethods.isOutOfOrderCreated(roomName, title));
 
-		//Assertion for TC32
+		//Assertion for TC33
 		Assert.assertTrue(outOfOrderPage.isErrorMessagePresent());
 		Assert.assertTrue(outOfOrderPage.isToGreaterThanFromErrorDisplayed());
 	}

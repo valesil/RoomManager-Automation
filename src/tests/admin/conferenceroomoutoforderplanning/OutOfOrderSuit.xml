@@ -8,15 +8,29 @@
 		<classes>
  			<class name="tests.admin.conferenceroomoutoforderplanning.StartTestConferenceRoomOutOfOrder" />
  			 	<!--TC01, TC28-->
- 			 	<class name="tests.admin.conferenceroomoutoforderplanning.OutOfOrderIsCreatedAndEnabled"/>	
+ 			 	<class name="tests.admin.conferenceroomoutoforderplanning.OutOfOrderIsCreatedAndEnabled"/>
  			 	<!--TC04-->
- 			 	<class name="tests.admin.conferenceroomoutoforderplanning.IfOutOfOrderIsCreatedInTheFutureCalendarIconIsDisplayed"/>		
+ 			 	<class name="tests.admin.conferenceroomoutoforderplanning.IfOutOfOrderIsCreatedInTheFutureCalendarIconIsDisplayed"/>
  			 	<!--TC05-->
- 			 	<class name="tests.admin.conferenceroomoutoforderplanning.IfOutOfOrderIsCreatedInThePresentClockIconIsDisplayed"/>		
- 			 	<!--TC20, TC29-->
- 			 	<class name="tests.admin.conferenceroomoutoforderplanning.OutOfOrderIsNotCreatedIfStartTimeAndEndTimeAreInThePast"/>		
- 			 	<!--TC21, TC30-->
- 			 	<class name="tests.admin.conferenceroomoutoforderplanning.OutOfOrderIsNotCreatedIfEndTimeOccursBeforeStartTime"/>		
+ 			 	<class name="tests.admin.conferenceroomoutoforderplanning.IfOutOfOrderIsCreatedInThePresentClockIconIsDisplayed"/>
+ 			 	<!--TC16-->
+ 			 	<class name="tests.admin.conferenceroomoutoforderplanning.OutOfOrderIsCreatedIfStartTimeIsInThePastAndEndTimeIsInTheFuture"/>		
+ 			 	<!--TC17-->
+ 			 	<class name="tests.admin.conferenceroomoutoforderplanning.OutOfOrderIsCreatedIfDescriptionIsEmpty"/>
+ 			 	<!--TC18, TC29-->
+ 			 	<class name="tests.admin.conferenceroomoutoforderplanning.OutOfOrderIsNotCreatedIfTitleIsEmpty"/>
+ 			 	<!--TC19, TC30-->
+ 			 	<class name="tests.admin.conferenceroomoutoforderplanning.OutOfOrderIsNotCreatedIfTitleContainsOnlySpaces"/>		
+ 			 	<!--TC22, TC31-->
+ 			 	<class name="tests.admin.conferenceroomoutoforderplanning.OutOfOrderIsNotCreatedIfStartTimeAndEndTimeAreInThePast"/>	
+ 			 	<!--TC23, TC32-->
+ 			 	<class name="tests.admin.conferenceroomoutoforderplanning.OutOfOrderIsNotCreatedIfEndTimeOccursBeforeStartTime"/>
+ 			 	<!--TC24, TC33-->
+ 			 	<class name="tests.admin.conferenceroomoutoforderplanning.OutOfOrderIsNotCreatedIfEndDateOccursBeforeStartDate"/>
+ 			 	<!--TC34, TC35-->
+ 			 	<class name="tests.admin.conferenceroomoutoforderplanning.StartAndEndDateAreSetForCurrentTimeByDefault"/>	 					 				
+ 				<!--TC36, TC37-->
+ 			 	<class name="tests.admin.conferenceroomoutoforderplanning.StartAndEndTimeAreSetForTheNextHalfHourPeriod"/>	 					 				
  		</classes>
  	</test>
 </suite>

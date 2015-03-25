@@ -40,16 +40,16 @@ public class IfOutOfOrderIsCreatedInTheFutureCalendarIconIsDisplayed {
 		
 		//Out Of Order creation
 		HomeAdminPage homeAdminPage = new HomeAdminPage(); 
-		RoomsPage conferenceRoom = homeAdminPage.clickConferenceRoomsLink();
-		RoomOutOfOrderPlanningPage outOfOrder = conferenceRoom
+		RoomsPage roomsPage = homeAdminPage.clickConferenceRoomsLink();
+		RoomOutOfOrderPlanningPage outOfOrderPage = roomsPage
 				.doubleClickOverRoomName(roomName)
 				.clickOutOfOrderPlanningLink();
-		conferenceRoom = outOfOrder.setOutOfOrderPeriodInformation(startDate, endDate, 
+		roomsPage = outOfOrderPage.setOutOfOrderPeriodInformation(startDate, endDate, 
 				startTime, endTime, title, description)
 		.clickSaveOutOfOrderBtn();
 		
 		//Assertion for TC04
-		Assert.assertTrue(conferenceRoom.getOutOfOrderIconClass(roomName).contains(expectedIcon));		
+		Assert.assertTrue(roomsPage.getOutOfOrderIconClass(roomName).contains(expectedIcon));		
 	}
 	
 	@AfterMethod

@@ -12,7 +12,6 @@ public class StartTestConferenceRoomOutOfOrder {
 
 	@BeforeSuite
 	public void start() {
-		
 	}
 	
 	@AfterSuite
