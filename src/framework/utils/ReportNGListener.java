@@ -2,6 +2,8 @@ package framework.utils;
 
 import java.io.IOException;
 
+import org.apache.log4j.Logger;
+import org.apache.log4j.PropertyConfigurator;
 import org.openqa.selenium.WebDriver;
 import org.testng.ITestContext;
 import org.testng.ITestListener;
@@ -13,15 +15,22 @@ import framework.selenium.SeleniumDriverManager;
 
 public class ReportNGListener implements ITestListener {
 	WebDriver driver = SeleniumDriverManager.getManager().getDriver();
+	Logger log = Logger.getLogger(getClass());
 
 	@Override
+	public void onStart(ITestContext result) {
+		PropertyConfigurator.configure("log4j.properties");
+		log.info("Start Of Execution(TEST)-> " + result.getName());
+	}
+	
+	@Override
 	public void onTestStart(ITestResult result) {
-		// TODO Auto-generated method stub
+		log.info("Test Started-> " + result.getName());
 	}
 	
 	@Override
 	public void onTestSuccess(ITestResult result) {
-		// TODO Auto-generated method stub
+		log.info("Test Pass-> " + result.getName());
 	}
 	
 	@Override
@@ -43,25 +52,21 @@ public class ReportNGListener implements ITestListener {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		log.error("Test Failed-> " + result.getName());
 	}
 
 	@Override
 	public void onTestSkipped(ITestResult result) {
-		// TODO Auto-generated method stub
+		log.warn("Test Skipped-> " + result.getName());
 	}
 	
 	@Override
 	public void onTestFailedButWithinSuccessPercentage(ITestResult result) {
-		// TODO Auto-generated method stub
+		log.info("Success percentage failure -> " + result.toString());
 	}
-	
-	@Override
-	public void onStart(ITestContext context) {
-		// TODO Auto-generated method stub
-	}
-	
+		
 	@Override
 	public void onFinish(ITestContext context) {
-		// TODO Auto-generated method stub
+		log.info("END Of Execution(TEST)-> " + context.getName());
 	}	
 }
