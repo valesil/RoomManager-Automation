@@ -2,6 +2,10 @@ package framework.pages.admin.conferencerooms;
 
 import static framework.common.MessageConstants.OUT_OF_ORDER_SUCCESSFULLY_CREATED;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
+
+import org.json.JSONException;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -221,8 +225,11 @@ public class RoomsPage extends AbstractMainMenu {
 	/**
 	 * [RB]This method use the rootRestClass to verify the made changes
 	 * @return true if the roomDisplay was modified 
+	 * @throws IOException 
+	 * @throws MalformedURLException 
+	 * @throws JSONException 
 	 */
-	public boolean verifyChangesMade(String ChangedDisplayName) {
+	public boolean verifyChangesMade(String ChangedDisplayName) throws JSONException, MalformedURLException, IOException {
 		boolean flag = false;
 		for (String displayName : RootRestMethods.getAllDisplayNameRooms()) {
 			if (ChangedDisplayName.equals(displayName)) {
