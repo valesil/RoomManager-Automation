@@ -37,7 +37,7 @@ public class IfOutOfOrderIsCreatedInThePresentClockIconIsDisplayed {
 
 	@Test(groups = "ACCEPTANCE")
 	public void testIfOutOfOrderIsCreatedInThePresentClockIconIsDisplayed() {
-		
+
 		//Out of Order creation
 		HomeAdminPage homeAdminPage = new HomeAdminPage(); 
 		RoomsPage roomsPage = homeAdminPage.clickConferenceRoomsLink();

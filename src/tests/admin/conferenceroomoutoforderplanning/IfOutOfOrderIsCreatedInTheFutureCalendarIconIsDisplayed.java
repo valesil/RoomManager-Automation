@@ -37,7 +37,7 @@ public class IfOutOfOrderIsCreatedInTheFutureCalendarIconIsDisplayed {
 	
 	@Test(groups = "ACCEPTANCE")
 	public void testIfOutOfOrderIsCreatedInTheFutureCalendarIconIsDisplayed() {
-		
+
 		//Out Of Order creation
 		HomeAdminPage homeAdminPage = new HomeAdminPage(); 
 		RoomsPage roomsPage = homeAdminPage.clickConferenceRoomsLink();

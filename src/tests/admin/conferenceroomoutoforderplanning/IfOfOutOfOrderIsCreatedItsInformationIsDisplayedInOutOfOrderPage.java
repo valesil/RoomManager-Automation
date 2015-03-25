@@ -7,7 +7,6 @@ import java.net.MalformedURLException;
 import java.util.List;
 import java.util.Map;
 
-import org.json.JSONException;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
@@ -16,16 +15,16 @@ import framework.pages.admin.HomeAdminPage;
 import framework.pages.admin.conferencerooms.RoomOutOfOrderPlanningPage;
 import framework.pages.admin.conferencerooms.RoomsPage;
 import framework.rest.RootRestMethods;
+import framework.utils.TimeManager;
 import framework.utils.readers.ExcelReader;
 
 /**
- * TC01: Verify an Out Of Order can be created and enabled in Out Of Order Planning
- * TC28: Verify that when an Out Of Order is created and enabled a message that says 
- * "Out of order was created successfully." is displayed
+ * TC02: Verify Out of Order's information is displayed in Out Of Order planning if it is 
+ * for current time or for future time
  * @author Yesica Acha
  *
  */
-public class OutOfOrderIsCreatedAndEnabled {
+public class IfOfOutOfOrderIsCreatedItsInformationIsDisplayedInOutOfOrderPage {
 	ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
 	List<Map<String, String>> testData = excelReader.getMapValues("OutOfOrderPlanning");
 	String roomName = testData.get(4).get("Room Name");
@@ -35,31 +34,39 @@ public class OutOfOrderIsCreatedAndEnabled {
 	String endTime = testData.get(4).get("End time (minutes to add)");
 	String title = testData.get(4).get("Title");
 	String description = testData.get(4).get("Description");
-	
-	@Test(groups = {"ACCEPTANCE", "UI"})
-	public void testOutOfOrderIsCreatedAndEnabled() throws JSONException, MalformedURLException, IOException {
 
-		//Out Of Oder Creation
+
+	@Test(groups = "ACCEPTANCE")
+	public void testIfOfOutOfOrderIsCreatedItsInformationIsDisplayedInOutOfOrderPage() {
+		String expectedStartDate = TimeManager.changeDateFormat(startDate, "yyyy/MMM/dd", "MMM dd YYYY");
+		String expectedEndDate = TimeManager.changeDateFormat(endDate, "yyyy/MMM/dd", "MMM dd YYYY");
+		String expectedStartTime = TimeManager.getTime(Integer.parseInt(startTime), "hh:mm");
+		String expectedEndTime = TimeManager.getTime(Integer.parseInt(endTime), "hh:mm");
+
+		//Out Of Order Creation
 		HomeAdminPage homeAdminPage = new HomeAdminPage(); 
 		RoomsPage roomsPage = homeAdminPage.clickConferenceRoomsLink();
-		RoomOutOfOrderPlanningPage outOfOrderPage = roomsPage
-				.doubleClickOverRoomName(roomName)
+		RoomOutOfOrderPlanningPage outOfOrderPage = roomsPage.doubleClickOverRoomName(roomName)
 				.clickOutOfOrderPlanningLink();
 		roomsPage = outOfOrderPage.setOutOfOrderPeriodInformation(startDate, endDate, 
 				startTime, endTime, title, description)
 				.activateOutOfOrder()
+				.selectEmailNotificationChkBox()
 				.clickSaveOutOfOrderBtn();
-		
-		//Assertion for TC12
-		Assert.assertTrue(roomsPage.isOutOfOrderIconDisplayed(roomName));
-		Assert.assertTrue(RootRestMethods.isOutOfOrderCreated(roomName, title));
-		Assert.assertTrue(RootRestMethods.isOutOfOrderEnable(roomName, title));
-		
-		//Assertion for TC25
-		Assert.assertTrue(roomsPage.isMessagePresent());
-		Assert.assertTrue(roomsPage.isOutOfOrderSuccessfullyCreatedMessageDisplayed());
+		outOfOrderPage = roomsPage
+				.doubleClickOverRoomName(roomName)
+				.clickOutOfOrderPlanningLink();
+
+		//Assertion for TC02
+		Assert.assertEquals(outOfOrderPage.getStartDateValue(), expectedStartDate);
+		Assert.assertEquals(outOfOrderPage.getEndDateValue(), expectedEndDate);
+		Assert.assertEquals(outOfOrderPage.getStartTimeValue(), expectedStartTime);
+		Assert.assertEquals(outOfOrderPage.getEndTimeValue(), expectedEndTime);
+		Assert.assertEquals(outOfOrderPage.getTitleValue(), title);
+		Assert.assertEquals(outOfOrderPage.getDescriptionValue(), description);
+		Assert.assertTrue(outOfOrderPage.isOutOfOrderActivated());
 	}
-	
+
 	@AfterMethod
 	public void deleteOutOfOrder() throws MalformedURLException, IOException {
 		RootRestMethods.deleteOutOfOrder(roomName, title);

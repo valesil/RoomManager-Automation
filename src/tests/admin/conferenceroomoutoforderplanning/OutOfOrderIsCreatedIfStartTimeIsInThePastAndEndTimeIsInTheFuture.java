@@ -59,7 +59,7 @@ public class OutOfOrderIsCreatedIfStartTimeIsInThePastAndEndTimeIsInTheFuture {
 	}
 	
 	@AfterClass
-	public void postCondition() throws MalformedURLException, IOException{
+	public void deleteOutOfOrder() throws MalformedURLException, IOException{
 		RootRestMethods.deleteOutOfOrder(roomName, title);
 	}
 }
