@@ -166,7 +166,7 @@ public class HomeTabletPage {
 	 * @return
 	 */
 	public SettingsPage clickSettingsBtn() {
-		
+
 		//If current page is Home 
 		if (UIMethods.isElementPresent(By.xpath("//div[@ng-click='goToSettings()']"))) {
 			settingsBtn.click();	
@@ -274,7 +274,6 @@ public class HomeTabletPage {
 		return currentMeetingOrganizerLbl.getText();
 	}
 
-
 	/**
 	 * [EN] This method clicks the time line container displayed in the bottom of main window
 	 * @return Schedule Page
@@ -301,7 +300,7 @@ public class HomeTabletPage {
 	 * @return
 	 */
 	public boolean VerifyResourceIsAsociated(String resourceName, String amount) {
-		
+
 		//this condition call other methods to verify if a elements are present in the tablet
 		if (isQuantityDisplayed(amount)&&isResourceNameDisplayed(resourceName))
 			return true;
