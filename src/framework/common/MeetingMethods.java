@@ -3,23 +3,23 @@ package framework.common;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 
-import framework.pages.admin.LoginPage;
+import framework.pages.admin.HomeAdminPage;
 import framework.pages.tablet.HomeTabletPage;
 import framework.pages.tablet.SchedulePage;
 import framework.selenium.SeleniumDriverManager;
 
 /**
- * [AC]
- * @author administrator
+ * This class contains the methods to manage meetings, and to creates Out Of Order
+ * @author Asael Calizaya
  *
  */
 public class MeetingMethods {
 	WebDriver driver;
-	HomeTabletPage home = new HomeTabletPage();
-	
+	HomeTabletPage home;
+
 
 	/**
-	 * [AC] This method initializes the listMaps to read from the excel
+	 * [AC] This method initialize the driver
 	 */
 	public MeetingMethods() {
 		driver = SeleniumDriverManager.getManager().getDriver();
@@ -27,7 +27,7 @@ public class MeetingMethods {
 	}	
 
 	/**
-	 * [AC] This method creates a meeting 
+	 * [AC] This method creates a meeting
 	 * @param organizer
 	 * @param subject
 	 * @param startTime
@@ -36,19 +36,12 @@ public class MeetingMethods {
 	 * @param body
 	 * @param password
 	 */
-	public void createMeetingFromHome(String organizer, String subject, String startTime, String endTime,
-			String attendee, String body, String password) {
+	public void createMeetingFromHome(String organizer, String subject, String startTime, 
+			String endTime, String attendee, String body, String password) {
 		SchedulePage schedule = new SchedulePage();
+		home = new HomeTabletPage();
 		home.clickScheduleBtn()
-		.setOrganizerTxtBox(organizer)
-		.setSubjectTxtBox(subject)
-		.setStartTimeDate(startTime)
-		.setEndTimeDate(endTime)
-		.setAttendeeTxtBoxPressingEnter(attendee)
-		.setBodyTxtBox(body)
-		.clickCreateBtn()
-		.confirmCredentials(password)
-		.isMessageMeetingCreatedDisplayed();
+		.createMeeting(organizer, subject, startTime, endTime, attendee, body, password);
 		schedule.clickBackBtn();
 	}
 
@@ -64,10 +57,11 @@ public class MeetingMethods {
 	 */
 	public SchedulePage createMeeting(String organizer, String subject, String starTimeMinutes,
 			String endTimeMinutes, String attendees, String body, String password) {
+		home = new HomeTabletPage();
 		home.clickScheduleBtn()
 		.createMeeting(organizer, subject, starTimeMinutes, endTimeMinutes, 
 				attendees, password);	
-	return new SchedulePage();
+		return new SchedulePage();
 	}
 
 	/**
@@ -82,14 +76,13 @@ public class MeetingMethods {
 	 */
 	public void createAnOutOfOrder(String startDate, String endDate, String startTime, 
 			String endTime, String title, String description, String roomName) {
-		LoginPage login = new LoginPage();
-		login.clickSigninLink()
-		.clickConferenceRoomsLink()
+		HomeAdminPage homePage = new HomeAdminPage();
+		homePage.clickConferenceRoomsLink()
 		.doubleClickOverRoomName(roomName)
 		.clickOutOfOrderPlanningLink()
 		.setOutOfOrderPeriodInformation(startDate, endDate, startTime, 
 				endTime, title, description)
-		.activateOutOfOrder()
-		.clickSaveBtn();
+				.activateOutOfOrder()
+				.clickSaveBtn();
 	}
 }
