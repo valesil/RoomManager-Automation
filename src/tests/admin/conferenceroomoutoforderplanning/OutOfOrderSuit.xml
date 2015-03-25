@@ -1,0 +1,23 @@
+<suite name="ConferenceRoomOutOfOrderSuite">
+ 	<listeners>
+      	<listener class-name="org.uncommons.reportng.HTMLReporter"/>
+      	<listener class-name="org.uncommons.reportng.JUnitXMLReporter"/>
+      	<listener class-name="framework.utils.ReportNGListener"/>
+  	</listeners>
+ 	<test name = "ConferenceRoomOutOfOrderTests">
+		<classes>
+ 			<class name="tests.admin.conferenceroomoutoforderplanning.StartTestConferenceRoomOutOfOrder" />
+ 			 	<!--TC01, TC28-->
+ 			 	<class name="tests.admin.conferenceroomoutoforderplanning.OutOfOrderIsCreatedAndEnabled"/>	
+ 			 	<!--TC04-->
+ 			 	<class name="tests.admin.conferenceroomoutoforderplanning.IfOutOfOrderIsCreatedInTheFutureCalendarIconIsDisplayed"/>		
+ 			 	<!--TC05-->
+ 			 	<class name="tests.admin.conferenceroomoutoforderplanning.IfOutOfOrderIsCreatedInThePresentClockIconIsDisplayed"/>		
+ 			 	<!--TC20, TC29-->
+ 			 	<class name="tests.admin.conferenceroomoutoforderplanning.OutOfOrderIsNotCreatedIfStartTimeAndEndTimeAreInThePast"/>		
+ 			 	<!--TC21, TC30-->
+ 			 	<class name="tests.admin.conferenceroomoutoforderplanning.OutOfOrderIsNotCreatedIfEndTimeOccursBeforeStartTime"/>		
+ 		</classes>
+ 	</test>
+</suite>
+
