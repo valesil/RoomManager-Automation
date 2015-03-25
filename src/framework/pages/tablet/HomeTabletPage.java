@@ -166,11 +166,7 @@ public class HomeTabletPage {
 	 * @return
 	 */
 	public SettingsPage clickSettingsBtn() {
-		
-		//If current page is Home 
-		if (UIMethods.isElementPresent(By.xpath("//div[@ng-click='goToSettings()']"))) {
-			settingsBtn.click();	
-		}
+		settingsBtn.click();	
 		return new SettingsPage();
 	}
 
@@ -301,7 +297,7 @@ public class HomeTabletPage {
 	 * @return
 	 */
 	public boolean VerifyResourceIsAsociated(String resourceName, String amount) {
-		
+
 		//this condition call other methods to verify if a elements are present in the tablet
 		if (isQuantityDisplayed(amount)&&isResourceNameDisplayed(resourceName))
 			return true;
