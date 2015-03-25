@@ -29,7 +29,7 @@ public class ResourceBaseAbstractPage {
 	@FindBy(xpath = "//span[contains(text(),'Save')and@class='ng-binding']") 
 	WebElement saveResourceBtn;
 	
-	@FindBy(xpath = "//button[@ng-click='cancel()']") 
+	@FindBy(xpath = "//span[contains(text(),'Cancel')and@class='ng-binding']") 
 	WebElement cancelBtn;
 	
 	@FindBy(xpath = "//div[@class='input-control text']/textarea[@ng-model='resource.description']") 

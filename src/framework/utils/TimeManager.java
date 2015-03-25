@@ -160,12 +160,12 @@ public class TimeManager {
 
 	/**
 	 * [EN] This method does the subtraction between timeEnd and timeIni.
-	 * @param timeIni hh:mm a
-	 * @param timeEnd hh:mm a
+	 * @param timeIni HH:mm
+	 * @param timeEnd HH:mm
 	 * @return String hh:mm timeEnd - timeIni 
 	 */
 	public static String differenceBetweenTimes(String timeIni, String timeEnd) {
-		SimpleDateFormat format = new SimpleDateFormat("hh:mm a");
+		SimpleDateFormat format = new SimpleDateFormat("HH:mm");
 		String newTime = "";
 		Date init = new Date();
 		Date end = new Date();
