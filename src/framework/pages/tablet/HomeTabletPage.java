@@ -269,7 +269,6 @@ public class HomeTabletPage {
 		return currentMeetingOrganizerLbl.getText();
 	}
 
-
 	/**
 	 * [EN] This method clicks the time line container displayed in the bottom of main window
 	 * @return Schedule Page

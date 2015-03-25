@@ -519,6 +519,7 @@ public class SchedulePage {
 	public SchedulePage clickOkButton() {
 		okBtn.click();
 		okBtn.sendKeys(Keys.ESCAPE);
+		wait.until(ExpectedConditions.visibilityOf(messagePopUp));
 		UIMethods.waitForMaskDisappears(timeLine);
 		return this;
 	}
@@ -799,6 +800,7 @@ public class SchedulePage {
 	 * @return
 	 */
 	public boolean waitForMessagePopUp() {
+		wait.until(ExpectedConditions.visibilityOf(messagePopUp));
 		return messagePopUp.isDisplayed();
 	}
 
