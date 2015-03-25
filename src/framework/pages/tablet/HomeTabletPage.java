@@ -88,7 +88,6 @@ public class HomeTabletPage {
 		driver = SeleniumDriverManager.getManager().getDriver();
 		PageFactory.initElements(driver, this);
 		wait = SeleniumDriverManager.getManager().getWait();
-		driver.get(URL_TABLET);
 	}
 
 	/**
