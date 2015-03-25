@@ -60,8 +60,10 @@ public class RoomsPage extends AbstractMainMenu {
 	 * @return ConferenceRoomPage object
 	 */
 	public Object enableDisableIcon(String roomDisplayName) {
-		driver.findElement(By.xpath("//span[contains(text(),'"+roomDisplayName
-				+ "')]//ancestor::div[@ng-click='row.toggleSelected($event)']//span")).click();
+		String xpathElement = "//span[contains(text(),'"+roomDisplayName
+				+ "')]//ancestor::div[@ng-click='row.toggleSelected($event)']//span";
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath(xpathElement)));
+		driver.findElement(By.xpath(xpathElement)).click();
 		return this;
 	}
 
