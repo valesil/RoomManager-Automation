@@ -617,6 +617,7 @@ public class SchedulePage {
 		setMeetingInformation(organizer, subject, startTime, endTime, attendees);
 		clickCreateBtn();
 		confirmCredentials(password);
+		wait.until(ExpectedConditions.visibilityOf(messagePopUp));
 		return this;
 	}
 

@@ -29,9 +29,12 @@ public class ReportNGListener implements ITestListener {
 		try {
 		System.setProperty("org.uncommons.reportng.escape-output", "false");
 		String filePath = System.getProperty("user.dir") + "/test-output/html/screenshots/";
-		String failureImageFileName =  result.getName() + "_" + result.getParameters()[0] + ".png"; 
-		System.out.println(result.getParameters()[0]);
-		System.out.println(result.getParameters()[1]);
+		String failureImageFileName;
+		if(result.getMethod().toString().contains("java.lang")) {
+			failureImageFileName =  result.getName() + "_" + result.getParameters()[0] + ".png"; 
+		} else {
+			failureImageFileName =  result.getName() + ".png"; 
+		}
 		UIMethods.takeScreenShot(filePath, failureImageFileName);
 		Reporter.log("<a href=\"" + filePath + failureImageFileName 
 				+ "\"><img src=\"file:///" + filePath + failureImageFileName 
