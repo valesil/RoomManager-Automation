@@ -88,6 +88,7 @@ public class HomeTabletPage {
 		driver = SeleniumDriverManager.getManager().getDriver();
 		PageFactory.initElements(driver, this);
 		wait = SeleniumDriverManager.getManager().getWait();
+		driver.get(URL_TABLET);
 	}
 
 	/**
@@ -165,7 +166,11 @@ public class HomeTabletPage {
 	 * @return
 	 */
 	public SettingsPage clickSettingsBtn() {
-		settingsBtn.click();	
+
+		//If current page is Home 
+		if (UIMethods.isElementPresent(By.xpath("//div[@ng-click='goToSettings()']"))) {
+			settingsBtn.click();	
+		}
 		return new SettingsPage();
 	}
 
