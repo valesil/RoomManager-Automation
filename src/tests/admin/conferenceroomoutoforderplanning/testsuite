@@ -1,0 +1,19 @@
+<suite name="OutOfOrderSuite">
+ 	<test name = "OutOfOrderTests">
+		<classes>
+ 			<class name="tests.admin.outoforderplanning.StartTest" />
+ 			<!--TC15-TC48--><class name="tests.admin.conferenceroomoutoforderplanning.OutOfOrderIsNotCreatedIfTitleContainsOnlySpaces" />
+ 			<!--TC18-TC38--><class name="tests.admin.conferenceroomoutoforderplanning.OutOfOrderIsNotCreatedIfStartTimeAndEndTimeAreInThePast" />
+ 			<!--TC20-TC39--><class name="tests.admin.conferenceroomoutoforderplanning.OutOfOrderIsNotCreatedIfEndDateOccursBeforeStartDate" />
+ 			<!--TC21-TC40--><class name="tests.admin.conferenceroomoutoforderplanning.OutOfOrderIsNotCreatedIfEndTimeOccursBeforeStartTime" />
+ 			<!--TC11-TC47--><class name="tests.admin.conferenceroomoutoforderplanning.OutOfOrderIsNotCreatedIfTitleIsEmpty" />
+ 			<!--TC12-TC25--><class name="tests.admin.conferenceroomoutoforderplanning.OutOfOrderIsCreatedAndEnabled" />
+ 			<!--TC13-0000--><class name="tests.admin.conferenceroomoutoforderplanning.IfOutOfOrderIsCreatedInTheFutureCalendarIconIsDisplayed" />
+ 			<!--TC14-0000--><class name="tests.admin.conferenceroomoutoforderplanning.IfOutOfOrderIsCreatedInThePresentClockIconIsDisplayed" />
+ 			<!--TC22-0000--><class name="tests.admin.conferenceroomoutoforderplanning.OutOfOrderIsCreatedIfStartTimeIsInThePastAndEndTimeIsInTheFuture" /> 
+ 			<!--TC19-0000--><class name="tests.admin.conferenceroomoutoforderplanning.OutOfOrderIsCreatedIfStartTimeIsInThePastAndEndTimeIsInTheFuture" />
+ 			<!--TC02-TC03--><class name="tests.admin.conferenceroomoutoforderplanning.OutOfOrderCreatedIsDispayedInTabletTimeline" />			
+ 			<class name="tests.admin.conferenceroomoutoforderplanning.IfOfOutOfOrderIsCreatedItsInformationIsDisplayedInOutOfOrderPage" />		
+ 		</classes>
+	</test>
+</suite>
