@@ -185,7 +185,8 @@ public class SearchPage {
 	public Boolean dateIsPresent(){
 		Date d = new java.util.Date(Calendar.getInstance().getTimeInMillis());
 		String date=new SimpleDateFormat("MMMM d YYY").format(d).toString();
-		return dateLabel.getText().replace("th","").replace("st","").replace("nd","").equals(date);
+		return dateLabel.getText().replace("th","").replace("st","")
+				.replace("nd","").replace("rd","").equals(date);
 	}
 	
 	/**
@@ -202,7 +203,7 @@ public class SearchPage {
 	 */
 	public String getTimeLineDate(){
 		String time = timeLine.getAttribute("title").replace("th","").replace("st","")
-		.replace("nd","").replace("Current time: ","");
+		.replace("nd","").replace("rd","").replace("Current time: ","");
 		return time;
 	}
 
