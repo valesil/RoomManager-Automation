@@ -23,7 +23,7 @@ import framework.rest.RootRestMethods;
 import framework.utils.readers.ExcelReader;
 
 /**
- * @title  Verify on search page that can filter by location, 
+ * @title  TC5: Verify on search page that can filter by location, 
  * 		   just the rooms that be part of that location are displayed
  * @author Jose Cabrera
  */

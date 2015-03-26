@@ -23,7 +23,7 @@ import framework.rest.RootRestMethods;
 import framework.utils.readers.ExcelReader;
 
 /**
- * @title  Verify when put a letter on "Room Name" field, 
+ * @title TC3: Verify when put a letter on "Room Name" field, 
  * the rooms that match with that criteria is filtered
  * @author Jose Cabrera
  */

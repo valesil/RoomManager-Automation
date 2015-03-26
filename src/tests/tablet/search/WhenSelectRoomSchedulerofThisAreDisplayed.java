@@ -19,7 +19,7 @@ import framework.pages.tablet.SearchPage;
 import framework.utils.readers.ExcelReader;
 
 /**
- * @title Verify on search page when you press over some room, 
+ * @title  TC7: Verify on search page when you press over some room, 
  * the sheduler page is displayed of that room
  * @author Jose Cabrera
  */

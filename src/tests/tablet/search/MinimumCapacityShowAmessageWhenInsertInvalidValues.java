@@ -21,7 +21,7 @@ import framework.pages.tablet.SearchPage;
 import framework.utils.readers.ExcelReader;
 
 /**
- * @title  Verify that an error message is displayed when invalid values are 
+ * @title  TC12: Verify that an error message is displayed when invalid values are 
  * inserted on "Minimum Capacity" field
  * @author Jose Cabrera
  */

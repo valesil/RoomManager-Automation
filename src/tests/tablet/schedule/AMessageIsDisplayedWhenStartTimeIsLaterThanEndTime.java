@@ -14,7 +14,7 @@ import framework.pages.tablet.SchedulePage;
 import framework.pages.tablet.SearchPage;
 
 /**
- * @title Verify that a message is displayed if the start time is later than end time
+ * @title  TC41: Verify that a message is displayed if the start time is later than end time
  * @author Jose Cabrera
  */
 public class AMessageIsDisplayedWhenStartTimeIsLaterThanEndTime {

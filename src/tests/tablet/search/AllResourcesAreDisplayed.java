@@ -19,7 +19,7 @@ import framework.pages.tablet.SearchPage;
 import framework.rest.RootRestMethods;
 
 /**
- * @title Verify that all resources are displayed on search page 
+ * @title TC2: Verify that all resources are displayed on search page 
  * on "filter by resource" field 
  * @author Jose Cabrera
  */

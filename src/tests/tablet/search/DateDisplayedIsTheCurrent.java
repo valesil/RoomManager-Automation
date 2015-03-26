@@ -13,7 +13,7 @@ import framework.pages.tablet.HomeTabletPage;
 import framework.pages.tablet.SearchPage;
 
 /**
- * @title Verify if the date displayed on search page is 
+ * @title TC18:Verify if the date displayed on search page is 
  * the current date
  * @author Jose Cabrera
  */

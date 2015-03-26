@@ -22,6 +22,11 @@ import framework.pages.tablet.SchedulePage;
 import framework.rest.RootRestMethods;
 import framework.utils.readers.ExcelReader;
 
+/**
+ * @title  TC12: Verify that the name of the next meeting in the room is displayed in Next Tile
+ * @title  TC13: Verify that the organizer of the next meeting in the room is displayed in the Next Tile
+ * @author Jose Cabrera
+ */
 public class TheOrganizerAndTittleOfTheNextMeetingIsDisplayedInTheNextTile {
 	ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
 	List<Map<String, String>> meetingData = excelReader.getMapValues("MeetingData");

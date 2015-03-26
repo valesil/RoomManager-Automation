@@ -15,7 +15,7 @@ import framework.pages.tablet.SearchPage;
 import framework.utils.TimeManager;
 
 /**
- * @title Verify the red line in the timeline is in the current time 
+ * @title TC19: Verify the red line in the timeline is in the current time 
  * @author Jose Cabrera
  */
 public class TimeLineDisplayedIsInCurrentTime {

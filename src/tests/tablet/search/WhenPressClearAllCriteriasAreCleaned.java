@@ -25,7 +25,7 @@ import framework.rest.RootRestMethods;
 import framework.utils.readers.ExcelReader;
 
 /**
- * @title Verify on search page that when "Clear" button  is pressed 
+ * @title TC15: Verify on search page that when "Clear" button  is pressed 
  * all fields are cleaned
  * @author Jose Cabrera
  */

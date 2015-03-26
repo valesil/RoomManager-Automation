@@ -7,21 +7,21 @@
 	<test name="Schedule Suite" >
 		<classes>
 			<class name="tests.tablet.StartSuite"/>
-			<!--41-->
+			<!--TC41-->
 			<class name="tests.tablet.schedule.AMessageIsDisplayedWhenStartTimeIsLaterThanEndTime"/>	
-			<!--44-->
+			<!--TC44-->
 			<class name="tests.tablet.schedule.ClickingBackButtonGoesToThePreviousPage"/>
-			<!--43-->
+			<!--TC43-->
 			<class name="tests.tablet.schedule.ClickingTheRightArrowDisplaysTheSearchPage"/>
-			<!--22-->
+			<!--TC22-->
 			<class name="tests.tablet.schedule.ScheduleOfAMeetingIsChangedByMovingItInsideTheTimeLineIfUpdateButtonIsClicked"/>
-			<!--17-->
+			<!--TC17-->
 			<class name="tests.tablet.schedule.ScheduleOfAMeetingIsNotChangedByMovingItInsideTheTimeLineIfUpdateButtonIsNotClicked"/>
-			<!--23-->
+			<!--TC23-->
 			<class name="tests.tablet.schedule.TheDurationOfTheMeetingIsChangedResizingInTimelineAndClickingUpdate"/>			
-			<!--18-->
+			<!--TC18-->
 			<class name="tests.tablet.schedule.TheDurationOfTheMeetingIsNotChangedResizingInTimelineButNotClickingUpdate"/>	
-			<!--38-->
+			<!--TC38-->
 			<class name="tests.tablet.schedule.TheRedLineInTheTimelineIsInTheCurrentTime"/>				
 		</classes>
 	</test>

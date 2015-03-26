@@ -13,6 +13,11 @@ import org.testng.annotations.Test;
 import framework.pages.tablet.HomeTabletPage;
 import framework.pages.tablet.SchedulePage;
 
+/**
+ * @title  TC21: Verify that schedule page is displayed when Now Tape is clicked when no 
+ * event is scheduled
+ * @author Jose Cabrera
+ */
 public class SchedulePageIsDisplayedWhenNowTapeIsClicked {
 		
 	@Test(groups = "UI")
@@ -27,6 +32,4 @@ public class SchedulePageIsDisplayedWhenNowTapeIsClicked {
 		SchedulePage schedule = new SchedulePage();
 		schedule.clickBackBtn();
 	}
-	
-
 }

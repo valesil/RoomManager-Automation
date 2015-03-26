@@ -12,7 +12,7 @@ import framework.pages.tablet.HomeTabletPage;
 import framework.pages.tablet.SearchPage;
 
 /**
- * @titleVerify on search page when "BACK" (represented for an arrow) button 
+ * @title TC17: Verify on search page when "BACK" (represented for an arrow) button 
  * is pressed the home page is displayed
  * @author Jose Cabrera
  */

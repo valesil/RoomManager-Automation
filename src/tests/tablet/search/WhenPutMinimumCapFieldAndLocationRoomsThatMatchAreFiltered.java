@@ -23,7 +23,7 @@ import framework.rest.RootRestMethods;
 import framework.utils.readers.ExcelReader;
 
 /**
- * @title  Verify on search page if filter by "location" and "Minimum capacity", 
+ * @title TC9: Verify on search page if filter by "location" and "Minimum capacity", 
  * only the rooms that contains that especifications are displayed
  * @author Jose Cabrera
  */

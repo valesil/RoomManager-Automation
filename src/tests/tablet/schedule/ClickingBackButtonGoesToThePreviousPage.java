@@ -7,7 +7,7 @@ import framework.pages.tablet.HomeTabletPage;
 import framework.pages.tablet.SchedulePage;
 
 /**
- * @title Verify that Clicking back button goes to the previous page
+ * @title TC44: Verify that Clicking back button goes to the previous page
  * @author Jose Cabrera
  */
 public class ClickingBackButtonGoesToThePreviousPage {

@@ -15,7 +15,7 @@ import framework.pages.tablet.HomeTabletPage;
 import framework.pages.tablet.SearchPage;
 
 /**
- * @title Verify on search page when "Advanced" button is pressed 
+ * @title TC13: Verify on search page when "Advanced" button is pressed 
  * filters criterias are displayed(Filter by resourse, Room name, Minimum capacity, location)
  * @author Jose Cabrera
  */

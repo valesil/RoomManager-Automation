@@ -15,7 +15,7 @@ import framework.pages.tablet.HomeTabletPage;
 import framework.pages.tablet.SearchPage;
 
 /**
- * @title Verify when filters are displayed on search page and "Advanced" button 
+ * @title TC16: Verify when filters are displayed on search page and "Advanced" button 
  * is pressed all filters are hidden
  * @author Jose Cabrera
  */

@@ -7,11 +7,11 @@
 	<test name="Home Suite" >
 		<classes>
 			<class name="tests.tablet.StartSuite"/>
-			<!--21-->
+			<!--TC21-->
 			<class name="tests.tablet.homeUI.SchedulePageIsDisplayedWhenNowTapeIsClicked"/>
-			<!--12,13-->
+			<!--TC12, TC13-->
 			<class name="tests.tablet.homeUI.TheOrganizerAndTittleOfTheNextMeetingIsDisplayedInTheNextTile"/>
-			<!--34-->
+			<!--TC34-->
 			<class name="tests.tablet.homeUI.TheRedLineInTheTimelineIsInTheCurrentTime"/>			
 		</classes>
 	</test>

@@ -13,10 +13,14 @@ import org.testng.annotations.Test;
 import framework.pages.tablet.HomeTabletPage;
 import framework.utils.TimeManager;
 
+/**
+ * @title TC34: Verify the red line in the timeline is in the current time 
+ * @author Jose Cabrera
+ */
 public class TheRedLineInTheTimelineIsInTheCurrentTime {
 	
 	@Test(groups = "UI")
-	public void testRedLineInTheTimelineIsInTheCurrentTime () throws IOException{
+	public void testRedLineInTheTimelineIsInTheCurrentTime () throws IOException {
 		HomeTabletPage home = new HomeTabletPage();
 		String currentDate = TimeManager.getCurrentDate("MMMM d YYY, HH:mm");
 		Assert.assertTrue(home.getTimeLineDate().contains(currentDate));

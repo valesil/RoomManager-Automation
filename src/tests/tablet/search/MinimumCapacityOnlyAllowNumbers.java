@@ -21,7 +21,7 @@ import framework.pages.tablet.SearchPage;
 import framework.utils.readers.ExcelReader;
 
 /**
- * @title  Verify on search page that "Minimum capacity"  field,
+ * @title  TC14: Verify on search page that "Minimum capacity"  field,
  * only allow numbers
  * @author Jose Cabrera
  */

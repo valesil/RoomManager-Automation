@@ -17,7 +17,7 @@ import framework.pages.tablet.SchedulePage;
 import framework.pages.tablet.SearchPage;
 
 /**
- * @title Verify that Clicking the right arrow displays the search page
+ * @title  TC43: Verify that Clicking the right arrow displays the search page
  * @author Jose Cabrera
  */
 public class ClickingTheRightArrowDisplaysTheSearchPage {
