@@ -1,7 +1,6 @@
 package framework.pages.admin;
 
 import static framework.common.AppConfigConstants.URL_ADMIN;
-import framework.common.UIMethods;
 
 /**
  * 
@@ -12,6 +11,6 @@ public class HomeAdminPage extends AbstractMainMenu {
 	
 	public HomeAdminPage () {
 		driver.get(URL_ADMIN);
-		UIMethods.refresh();
+		emailServersLink.click();
 	}
 }
