@@ -330,4 +330,22 @@ public class RootRestMethods {
 			return false;
 		}
 	}
+	
+	/**
+	 * [YA] This method verifies if OutOf Order was created
+	 * @param roomName
+	 * @param title
+	 * @return boolean
+	 * @throws IOException 
+	 * @throws MalformedURLException 
+	 * @throws JSONException 
+	 */
+	public static boolean isOutOfOrderCreated(String roomName, String title) throws JSONException, MalformedURLException, IOException {
+		String outOfOrdertitle = getOutOfOrderInfo(roomName, title, "title");
+		if(outOfOrdertitle == null) {
+			return false;
+		} else {
+			return true;
+		}
+	}
 }
