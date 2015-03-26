@@ -536,7 +536,7 @@ public class SchedulePage {
 	}
 
 	/**
-	 * [EN] This method confirm the credentials inserted by the user
+	 * [EN] This method confirms the credentials inserted by the user.
 	 * @param name
 	 * @param password
 	 * @return SchedulePage
@@ -589,7 +589,7 @@ public class SchedulePage {
 	 * @param endTime  hh:mm a
 	 * @param attendees
 	 * @param bodyMeeting
-	 * @return
+	 * @return SchedulePage
 	 */
 	public SchedulePage createMeeting(String organizer, String subject, String startTime, 
 			String endTime, String attendees, String bodyMeeting, String password) {
@@ -598,6 +598,7 @@ public class SchedulePage {
 		setBodyTxtBox(bodyMeeting);
 		clickCreateBtn();
 		confirmCredentials(password);
+		wait.until(ExpectedConditions.visibilityOf(messagePopUp));
 		return this;
 	}
 
@@ -677,7 +678,7 @@ public class SchedulePage {
 	} 
 
 	/**
-	 * [AC] This method delete a meeting
+	 * [AC] This method deletes a meeting
 	 * @param nameMeeting
 	 * @return  SchedulePage
 	 */
@@ -695,7 +696,8 @@ public class SchedulePage {
 	 * @return boolean
 	 */
 	public boolean isInformationMessageOfPastMeetingDisplayed() {
-		return getAnyErrorMessageLbl(MEETING_PAST_CREATED_INFORMATION);
+		return UIMethods.isElementPresent(By.xpath("//small[contains(text(),'" 
+				+ MEETING_PAST_CREATED_INFORMATION + "')]"));
 	}
 
 	/**
@@ -808,7 +810,7 @@ public class SchedulePage {
 	 * [EN] This method does double click over time line group.
 	 */
 	public void doubleClickTimeLineGroup() {
-		clickRemoveBtn();
+		clickOverTimeline();
 		doubleClick(timeLineGroup);
 	}
 
@@ -818,5 +820,14 @@ public class SchedulePage {
 	 */
 	public boolean isItemRangeMeetingDisplayed() {
 		return itemRangeMeeting.isDisplayed();
+	}
+
+	/**
+	 * [EN] This method checks that the item range meeting is displayed in the time line.
+	 * @return boolean
+	 */
+	public SchedulePage clickItemRangeMeeting() {
+		itemRangeMeeting.click();
+		return this;
 	}
 }

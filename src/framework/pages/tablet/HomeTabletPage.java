@@ -86,9 +86,11 @@ public class HomeTabletPage {
 
 	public HomeTabletPage() {
 		driver = SeleniumDriverManager.getManager().getDriver();
-		PageFactory.initElements(driver, this);
 		wait = SeleniumDriverManager.getManager().getWait();
-		driver.get(URL_TABLET);
+		PageFactory.initElements(driver, this);
+		if (!driver.getCurrentUrl().equals(URL_TABLET + "/#/home")) {
+			driver.get(URL_TABLET);
+		} 
 	}
 
 	/**
@@ -166,9 +168,9 @@ public class HomeTabletPage {
 	 * @return
 	 */
 	public SettingsPage clickSettingsBtn() {
-
-		//If current page is Home 
-		if (UIMethods.isElementPresent(By.xpath("//div[@ng-click='goToSettings()']"))) {
+		
+		//If current page is not Settings
+		if (!UIMethods.isElementPresent(By.xpath("//button[@ng-click='saveSelectedRoom()']"))) {
 			settingsBtn.click();	
 		}
 		return new SettingsPage();
