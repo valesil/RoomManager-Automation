@@ -1,0 +1,28 @@
+<suite name = "HomePageSuite">
+<listeners>
+      <listener class-name="org.uncommons.reportng.HTMLReporter"/>
+      <listener class-name="org.uncommons.reportng.JUnitXMLReporter"/>
+      <listener class-name="framework.utils.ReportNGListener"/>
+</listeners>
+      
+    <test name = "HomePage">         
+       <classes>   
+          <class name = "tests.common.StartSuite"/>
+          <!---TC20, TC22, TC23, TC24 -->
+          <class name = "tests.tablet.homeUI.NavigationFromHomePage"/>
+          <!---TC27, TC28, TC33, TC19, TC29, TC17, TC05 -->
+          <class name = "tests.tablet.homeUI.HomePageInformation"/>
+          <!---TC01, TC02, TC31, TC30, TC18, TC07 -->
+          <class name = "tests.tablet.homeUI.CurrentMeetingValuesVerifications"/>
+          <!---TC06, TC03, TC32 -->
+          <class name = "tests.tablet.homeUI.NextMeetingValuesVerifications"/>
+          <!---TC16 -->
+          <class name = "tests.tablet.homeUI.NextMeetingInformationIsDeletedWhenItIsRemoved"/>
+          <!---TC14 -->
+          <class name = "tests.tablet.homeUI.UpdateOfNextMeetingSubjetWhenItIsChanged"/>
+          <!---TC04 -->
+          <class name = "tests.tablet.homeUI.TimeLeftUntilNextMeetingWhenRoomIsBussy"/>
+       </classes>
+     </test>  
+      
+</suite>
