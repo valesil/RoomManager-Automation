@@ -56,6 +56,7 @@ public abstract class RoomBaseAbstractPage {
 	}
 
 	public RoomResourceAssociationsPage clickResourceAssociationsLink(){
+		wait.until(ExpectedConditions.visibilityOf(resourceAssociationsLink));
 		resourceAssociationsLink.click();
 		return new RoomResourceAssociationsPage();
 	}
