@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite name="Resources">
+<listeners>
+            <listener class-name="org.uncommons.reportng.HTMLReporter"/>
+            <listener class-name="org.uncommons.reportng.JUnitXMLReporter"/>
+            <listener class-name="framework.utils.ReportNGListener"/>
+</listeners>
+
+  <test name="Resources">
+    <classes>   		
+    	<class name="tests.admin.resources.StartTestSuiteResources"/>
+    	<!-- TC33 -->
+    	<class name="tests.admin.resources.AssociatedRoomIsDisplayedInResourceAssociationPage"/>
+    	<!-- TC01 --> 
+    	<class name="tests.admin.resources.ResourceCanBeDeleted"/>
+    	<!-- TC02, TC04, TC05, TC27 -->
+    	<class name="tests.admin.resources.ResourceCanBeUpdatedInResourceInfo"/>   
+    	<!-- TC17 --> 
+    	<class name="tests.admin.resources.ResourceCanNotBeUpdatedInResourceInfo"/> 	
+    	<!-- TC31 --> 
+    	<class name="tests.admin.resources.ResourceCreatedUpdatesAdvancedSearchPageInTablet"/>
+    	<!-- TC03, TC15 -->
+    	<class name="tests.admin.resources.ResourceCreatedWithRequiredAndNotRequiredValue" />
+    	<!-- TC07 -->
+    	<class name="tests.admin.resources.ResourceDeletedUpdatesAdvancedSearchPageInTablet"/>
+    	<!-- TC16, TC29 -->   	
+    	<class name="tests.admin.resources.ResourceIconCanBeUpdatedInResourcesPage"/>
+    	<!-- TC34, TC30 -->
+    	<class name="tests.admin.resources.ResourceNameAndDisplayNameCanBeUpdatedInResourcesPage"/>
+    	<!-- TC32 -->
+    	<class name="tests.admin.resources.ResourceQuantityIsDisplayedInResourceAssociationPage"/>     	
+    	<!-- TC06 -->
+    	<class name="tests.admin.resources.ResourcInformationIsDisplayedInResourceInfoPage"/> 
+    </classes>
+  </test> 
+</suite> <!-- Suite -->
