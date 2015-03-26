@@ -172,7 +172,7 @@ public class RoomsPage extends AbstractMainMenu {
 	 */
 	public RoomsPage clickResourceIcon(String resourceName) {
 		String locator = "//span[contains(text(),'" + resourceName + "')and@class='ng-binding']";
-		wait.until(ExpectedConditions.elementToBeClickable(By.xpath(locator)));
+		wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(locator)));
 		driver.findElement(By.xpath(locator)).click();
 		return this;
 	}
