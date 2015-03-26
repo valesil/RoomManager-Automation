@@ -66,9 +66,9 @@ public class RootRestMethods {
 				response(resourceAssociated, "resourceId","String");
 		listAllIdResources = getAllIdResources();
 		listAllResourceNames = getAllNameResources();
-		for(int pos = 0; pos<listResourcesRoomIds.size(); pos ++){
-			for(int iterator = 0; iterator < listAllIdResources.size(); iterator ++ ){
-				if(listResourcesRoomIds.get(pos).equals(listAllIdResources.get(iterator))){
+		for(int pos = 0; pos<listResourcesRoomIds.size(); pos ++) {
+			for(int iterator = 0; iterator < listAllIdResources.size(); iterator ++ ) {
+				if(listResourcesRoomIds.get(pos).equals(listAllIdResources.get(iterator))) {
 					listNames.add(listAllResourceNames.get(iterator));
 				}
 			}
@@ -86,7 +86,7 @@ public class RootRestMethods {
 	MalformedURLException, IOException{
 		LinkedList <String> listAllRooms = getAllRooms();
 		LinkedList <String> listRooms = new LinkedList <String>(); 
-		for(int pos = 0; pos < listAllRooms.size(); pos ++){
+		for(int pos = 0; pos < listAllRooms.size(); pos ++) {
 			if(listAllRooms.get(pos).contains(Criteria))
 				listRooms.add(listAllRooms.get(pos));
 		}
@@ -106,10 +106,10 @@ public class RootRestMethods {
 		LinkedList <String> listResourceNames, listRoomNames;
 		LinkedList <String> listRoomswithResource = new LinkedList <String>(); 
 		listRoomNames = getAllRooms();
-		for(int pos = 0; pos < listRoomNames.size(); pos ++){
+		for(int pos = 0; pos < listRoomNames.size(); pos ++) {
 			listResourceNames = getNamesAssociatedResources(listRoomNames.get(pos));
-			for(int iter = 0; iter < listResourceNames.size(); iter ++){
-				if(listResourceNames.get(iter) == ResourceName){
+			for(int iter = 0; iter < listResourceNames.size(); iter ++) {
+				if(listResourceNames.get(iter) == ResourceName) {
 					listRoomswithResource.add(listRoomNames.get(pos));
 					iter=listResourceNames.size();
 				}
@@ -204,7 +204,7 @@ public class RootRestMethods {
 		String roomID = getRoomID.findAttributeValue("rooms", "String", 
 				"displayName", roomName, "_id"); 
 		String outOfOrders = "rooms/" + roomID + "/out-of-orders"; 
-		if(attribute=="sendEmail"){
+		if(attribute=="sendEmail") {
 			return getoutOfOrderInfo.findAttributeValue(outOfOrders, "Boolean", 
 					"title", title, attribute);
 		}
@@ -254,7 +254,7 @@ public class RootRestMethods {
 	 * @throws MalformedURLException 
 	 */
 	public static void deleteMeeting(String roomName, String meetingSubject, String authentication) 
-			throws MalformedURLException, IOException{
+			throws MalformedURLException, IOException {
 		RestMethods getServicesID = new RestMethods();
 		RestMethods getRoomID = new RestMethods();
 		RestMethods getMeetingID = new RestMethods();
@@ -286,14 +286,14 @@ public class RootRestMethods {
 	 */
 	public static LinkedList <String> getListByNumeric(String feature, String attribute, 
 			String attributeValue, String attributeSearched) throws JSONException, 
-			MalformedURLException, IOException{
+			MalformedURLException, IOException {
 		RestMethods restConds = new RestMethods(); 
 		LinkedList <String> list =  new LinkedList <String>(); 
 		LinkedList <String> listAttributes = restConds.response(feature,"Int", attribute); 
 		LinkedList <String> listAttSearched = restConds.response(feature,"String", 
 				attributeSearched);
-		for(int iterator = 0; iterator < listAttSearched.size(); iterator ++ ){
-			if(listAttributes.get(iterator).equals(attributeValue)){
+		for(int iterator = 0; iterator < listAttSearched.size(); iterator ++ ) {
+			if(listAttributes.get(iterator).equals(attributeValue)) {
 				list.add(listAttSearched.get(iterator)); 
 			}
 		}
@@ -304,11 +304,11 @@ public class RootRestMethods {
 	 * @return This method obtain a list of common elements between two lists
 	 */
 	public static LinkedList <String> mergeLists(LinkedList <String> list1, 
-			LinkedList <String> list2){
+			LinkedList <String> list2) {
 		LinkedList <String> list = new LinkedList <String>();
-		for(int iter1 = 0;iter1 < list1.size();iter1 ++ ){
-			for(int iter2 = 0;iter2 < list2.size();iter2 ++ ){
-				if(list1.get(iter1).equals(list2.get(iter2))){
+		for(int iter1 = 0;iter1 < list1.size();iter1 ++ ) {
+			for(int iter2 = 0;iter2 < list2.size();iter2 ++ ) {
+				if(list1.get(iter1).equals(list2.get(iter2))) {
 					list.add(list1.get(iter1));
 				}
 			}
@@ -328,6 +328,24 @@ public class RootRestMethods {
 			return true;
 		} catch(Exception e) {
 			return false;
+		}
+	}
+	
+	/**
+	 * [YA] This method verifies if OutOf Order was created
+	 * @param roomName
+	 * @param title
+	 * @return boolean
+	 * @throws IOException 
+	 * @throws MalformedURLException 
+	 * @throws JSONException 
+	 */
+	public static boolean isOutOfOrderCreated(String roomName, String title) throws JSONException, MalformedURLException, IOException {
+		String outOfOrdertitle = getOutOfOrderInfo(roomName, title, "title");
+		if(outOfOrdertitle == null) {
+			return false;
+		} else {
+			return true;
 		}
 	}
 }
