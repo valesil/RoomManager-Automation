@@ -39,7 +39,11 @@ public class ResourceBaseAbstractPage {
 	WebElement resourceOpenIconBtn;
 	
 	@FindBy(xpath = "//div[@class = 'row v-space ng-scope']")
-	WebElement background;
+	WebElement background;	
+
+	
+	@FindBy(linkText = "Resource Associations") 
+	WebElement resourceAssociationsLink;
 	
 	public ResourceBaseAbstractPage() {		
 		driver = SeleniumDriverManager.getManager().getDriver();
@@ -186,5 +190,15 @@ public class ResourceBaseAbstractPage {
 	public ResourceBaseAbstractPage clickSaveResourceWithErrorBtn() {
 		saveResourceBtn.click();
 		return this;
+	}	
+
+
+	/**
+	 * [ML]Click in resourceAssociationLink
+	 * @return ResourceAssociationPage
+	 */
+	public ResourceAssociationsPage clickResourceAssociationLink() {
+		resourceAssociationsLink.click();
+		return new ResourceAssociationsPage();
 	}
 }
