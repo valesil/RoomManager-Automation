@@ -21,7 +21,7 @@ public class RootRestMethods {
 		RestMethods getRooms = new RestMethods(); 
 		return getRooms.response("rooms", "displayName", "String"); 
 	}
-	
+
 	/** [J.C]
 	 * @return This method get all displayName rooms in existence in a LinkedList <String> 
 	 * @throws IOException 
@@ -92,7 +92,7 @@ public class RootRestMethods {
 		}
 		return listRooms;
 	}
-	
+
 	/** [J.C]
 	 * @return This method return a names of rooms that have certain Associated resource 
 	 * in a LinkedList <String> 
@@ -117,7 +117,7 @@ public class RootRestMethods {
 		}
 		return listRoomswithResource;
 	}
-	
+
 	/** [J.C]
 	 * @return This method return id of resources in a LinkedList <String> 
 	 * @throws IOException 
@@ -175,7 +175,7 @@ public class RootRestMethods {
 		deleteAssociatedResource.getOrDeleteMethods
 		("DELETE", resourcesAssociated + "/" + resourceAssociatedID); 
 	}
-	
+
 	/** [J.C]
 	 * @return This method create an OutOfOrderInfo in a room 
 	 * @throws IOException 
@@ -190,7 +190,7 @@ public class RootRestMethods {
 		String resourceAssociated = "rooms/" + roomID + "/out-of-orders";
 		createAssociatedResource.postMethod(resourceAssociated, fileJSON, authentication);
 	}
-	
+
 	/** [J.C]
 	 * @return This method obtain info of an OutOfOrder selected
 	 * @throws IOException 
@@ -247,7 +247,7 @@ public class RootRestMethods {
 		String meetings = "services/" + serviceID + "/rooms/" + roomID + "/meetings"; 
 		createMeeting.postMethod(meetings, filePath, authentication); 
 	}
-	
+
 	/** [J.C]
 	 * @return This method delete A meeting created
 	 * @throws IOException 
@@ -315,7 +315,7 @@ public class RootRestMethods {
 		}
 		return list;
 	}
-	
+
 	/**
 	 * [YA] This method verifies if Out Of Order is activated 
 	 * @param roomName
@@ -329,5 +329,24 @@ public class RootRestMethods {
 		} catch(Exception e) {
 			return false;
 		}
+	}
+
+	/**
+	 * [YA] This method verifies if OutOf Order was created
+	 * @param roomName
+	 * @param title
+	 * @return boolean
+	 * @throws IOException 
+	 * @throws MalformedURLException 
+	 * @throws JSONException 
+	 */
+	public static boolean isOutOfOrderCreated(String roomName, String title) throws JSONException, MalformedURLException, IOException {
+		String outOfOrdertitle = getOutOfOrderInfo(roomName, title, "title");
+		if(outOfOrdertitle == null) {
+			return false;
+		} else {
+			return true;
+		}
+
 	}
 }

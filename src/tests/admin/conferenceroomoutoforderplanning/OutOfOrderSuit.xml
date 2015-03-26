@@ -1,0 +1,37 @@
+<suite name="ConferenceRoomOutOfOrderSuite">
+ 	<listeners>
+      	<listener class-name="org.uncommons.reportng.HTMLReporter"/>
+      	<listener class-name="org.uncommons.reportng.JUnitXMLReporter"/>
+      	<listener class-name="framework.utils.ReportNGListener"/>
+  	</listeners>
+ 	<test name = "ConferenceRoomOutOfOrderTests">
+		<classes>
+ 			<class name="tests.admin.conferenceroomoutoforderplanning.StartTestConferenceRoomOutOfOrder" />
+ 			 	<!--TC01, TC28-->
+ 			 	<class name="tests.admin.conferenceroomoutoforderplanning.OutOfOrderIsCreatedAndEnabled"/>
+ 			 	<!--TC04-->
+ 			 	<class name="tests.admin.conferenceroomoutoforderplanning.IfOutOfOrderIsCreatedInTheFutureCalendarIconIsDisplayed"/>
+ 			 	<!--TC05-->
+ 			 	<class name="tests.admin.conferenceroomoutoforderplanning.IfOutOfOrderIsCreatedInThePresentClockIconIsDisplayed"/>
+ 			 	<!--TC16-->
+ 			 	<class name="tests.admin.conferenceroomoutoforderplanning.OutOfOrderIsCreatedIfStartTimeIsInThePastAndEndTimeIsInTheFuture"/>		
+ 			 	<!--TC17-->
+ 			 	<class name="tests.admin.conferenceroomoutoforderplanning.OutOfOrderIsCreatedIfDescriptionIsEmpty"/>
+ 			 	<!--TC18, TC29-->
+ 			 	<class name="tests.admin.conferenceroomoutoforderplanning.OutOfOrderIsNotCreatedIfTitleIsEmpty"/>
+ 			 	<!--TC19, TC30-->
+ 			 	<class name="tests.admin.conferenceroomoutoforderplanning.OutOfOrderIsNotCreatedIfTitleContainsOnlySpaces"/>		
+ 			 	<!--TC22, TC31-->
+ 			 	<class name="tests.admin.conferenceroomoutoforderplanning.OutOfOrderIsNotCreatedIfStartTimeAndEndTimeAreInThePast"/>	
+ 			 	<!--TC23, TC32-->
+ 			 	<class name="tests.admin.conferenceroomoutoforderplanning.OutOfOrderIsNotCreatedIfEndTimeOccursBeforeStartTime"/>
+ 			 	<!--TC24, TC33-->
+ 			 	<class name="tests.admin.conferenceroomoutoforderplanning.OutOfOrderIsNotCreatedIfEndDateOccursBeforeStartDate"/>
+ 			 	<!--TC34, TC35-->
+ 			 	<class name="tests.admin.conferenceroomoutoforderplanning.StartAndEndDateAreSetForCurrentTimeByDefault"/>	 					 				
+ 				<!--TC36, TC37-->
+ 			 	<class name="tests.admin.conferenceroomoutoforderplanning.StartAndEndTimeAreSetForTheNextHalfHourPeriod"/>	 					 				
+ 		</classes>
+ 	</test>
+</suite>
+
