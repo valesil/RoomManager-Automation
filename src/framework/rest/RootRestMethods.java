@@ -332,7 +332,7 @@ public class RootRestMethods {
 	}
 
 	/**
-	 * [YA] This method verifies if OutOf Order was created
+	 * [YA] This method verifies if Out Of Order was created
 	 * @param roomName
 	 * @param title
 	 * @return boolean
@@ -347,6 +347,5 @@ public class RootRestMethods {
 		} else {
 			return true;
 		}
-
 	}
 }
