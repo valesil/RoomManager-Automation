@@ -1,7 +1,6 @@
 package framework.pages.admin;
 
 import static framework.common.AppConfigConstants.URL_ADMIN;
-import framework.common.UIMethods;
 
 /**
  * 
