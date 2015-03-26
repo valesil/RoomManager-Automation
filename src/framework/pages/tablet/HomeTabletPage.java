@@ -166,7 +166,6 @@ public class HomeTabletPage {
 	/**
 	 * [EN] Return Setting page when {Settings} button is clicked.
 	 * @return
-	 * @throws InterruptedException 
 	 */
 	public SettingsPage clickSettingsBtn() {
 		
