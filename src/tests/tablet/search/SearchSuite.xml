@@ -1,0 +1,50 @@
+<suite name="RoomManager">
+<listeners>
+            <listener class-name="org.uncommons.reportng.HTMLReporter"/>
+            <listener class-name="org.uncommons.reportng.JUnitXMLReporter"/>
+            <listener class-name="framework.utils.ReportNGListener"/>
+</listeners>
+	<test name="Search test" >
+		<classes>
+			<class name="tests.tablet.StartSuite"/>
+			<!--2-->
+			<class name="tests.tablet.search.AllResourcesAreDisplayed"/>
+			<!--6-->
+			<class name="tests.tablet.search.AllRoomsareDisplayedWhenPageisLoaded"/>
+			<!--18-->
+			<class name="tests.tablet.search.DateDisplayedIsTheCurrent"/>
+			<!--14-->
+			<class name="tests.tablet.search.MinimumCapacityOnlyAllowNumbers"/>
+			<!--12-->
+			<class name="tests.tablet.search.MinimumCapacityShowAmessageWhenInsertInvalidValues"/>
+			<!--19-->
+			<class name="tests.tablet.search.TimeLineDisplayedIsInCurrentTime"/>
+			<!--13-->
+			<class name="tests.tablet.search.WhenPressAdvancedallCriteriasAreDisplayed"/>
+			<!--16-->
+			<class name="tests.tablet.search.WhenPressAdvancedTwiceAllSearchCriteriasAreHidden"/>
+			<!--15-->
+			<class name="tests.tablet.search.WhenPressClearAllCriteriasAreCleaned"/>
+			<!--3-->
+			<class name="tests.tablet.search.WhenPutLetterOnRoomNameFieldRoomsThatMatchAreFiltered"/>
+			<!--9-->
+			<class name="tests.tablet.search.WhenPutMinimumCapFieldAndLocationRoomsThatMatchAreFiltered"/>
+			<!--4-->
+			<class name="tests.tablet.search.WhenPutMinimumCapFieldRoomsThatMatchAreFiltered"/>
+			<!--8-->
+			<class name="tests.tablet.search.WhenPutRoomNameFieldAndLocationRoomsThatMatchAreFiltered"/>
+			<!--10-->
+			<class name="tests.tablet.search.WhenPutRoomNameFieldAndResourceRoomsThatMatchAreFiltered"/>
+			<!--11-->
+			<class name="tests.tablet.search.WhenPutRoomNameMinimumCapFieldRoomsThatMatchAreFiltered"/>
+			<!--17-->
+			<class name="tests.tablet.search.WhenSelectBackButtonSchedulerPageAreDisplayed"/>
+			<!--5-->
+			<class name="tests.tablet.search.WhenSelectLocationRoomsThatMatchAreFiltered"/>
+			<!--20-->
+			<class name="tests.tablet.search.WhenSelectResourceRoomsThatMatchAreFiltered"/>
+			<!--7-->
+			<class name="tests.tablet.search.WhenSelectRoomSchedulerofThisAreDisplayed"/>
+		</classes>
+	</test>
+</suite>
