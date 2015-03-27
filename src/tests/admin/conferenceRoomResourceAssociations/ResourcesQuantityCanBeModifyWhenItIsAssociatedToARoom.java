@@ -43,12 +43,12 @@ public class ResourcesQuantityCanBeModifyWhenItIsAssociatedToARoom {
 
 	@BeforeClass
 	public void precondition() throws MalformedURLException, IOException {
-		HomeAdminPage homeAdminPage = new HomeAdminPage();				
-		ResourcesPage resourcesPage = homeAdminPage.clickResourcesLink();
 
 		//Create resource by Rest
 		RootRestMethods.createResource(filePath, "");
-		UIMethods.refresh();		
+		UIMethods.refresh();
+		HomeAdminPage homeAdminPage = new HomeAdminPage();				
+		ResourcesPage resourcesPage = homeAdminPage.clickResourcesLink();
 
 		//Associate resource to a room
 		RoomsPage roomsPage = resourcesPage.clickConferenceRoomsLink();
@@ -62,9 +62,9 @@ public class ResourcesQuantityCanBeModifyWhenItIsAssociatedToARoom {
 	@Test(groups = {"ACCEPTANCE"})
 	public void testResourcesQuantityCanBeModifyWhenItIsAssociatedToARoom() {
 
-		//change resource quantity
-		UIMethods.refresh();
-		RoomsPage roomsPage = new RoomsPage();
+		//Change resource quantity
+		HomeAdminPage homeAdminPage = new HomeAdminPage();
+		RoomsPage roomsPage = homeAdminPage.clickConferenceRoomsLink();
 		RoomInfoPage roomInfoPage = roomsPage.doubleClickOverRoomName(roomName);
 		RoomResourceAssociationsPage roomResourceAssociationsPage = roomInfoPage.
 				clickResourceAssociationsLink()
@@ -81,11 +81,9 @@ public class ResourcesQuantityCanBeModifyWhenItIsAssociatedToARoom {
 	}
 
 	@AfterClass
-	public void cleanRoom() throws InterruptedException, BiffException, IOException {
+	public void postCondition() throws InterruptedException, BiffException, IOException {
 
-		//delete resource with API rest method
-		HomeAdminPage homeAdminPage = new HomeAdminPage();;	
-		homeAdminPage.clickResourcesLink();
+		//Delete resource with API rest method
 		RootRestMethods.deleteResource(resourceName);
 		UIMethods.refresh();
 	}

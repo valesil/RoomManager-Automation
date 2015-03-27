@@ -7,6 +7,7 @@ import java.util.Map;
 
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import framework.pages.admin.HomeAdminPage;
@@ -16,7 +17,7 @@ import framework.pages.tablet.SearchPage;
 import framework.utils.readers.ExcelReader;
 
 /**
- * TC:24 Verify that when a room status is disabled, the tablet does not schedule meetings
+ * TC24: Verify that when a room status is disabled, the tablet does not schedule meetings
  * @author Juan Carlos Guevara
  */
 public class ForARoomDisabledTheTabletDoesNotScheduleMeetings {
@@ -24,13 +25,17 @@ public class ForARoomDisabledTheTabletDoesNotScheduleMeetings {
 	List<Map<String, String>> testData = excelReader.getMapValues("Resources");
 	String roomName = testData.get(1).get("Room Name");
 
-	@Test(groups = {"FUNCTIONAL"})
-	public void testForARoomDisabledTheTabletDoesNotScheduleMeetings() {
+	@BeforeClass
+	public void precondition(){
 
-		//Disabling room in Admin 
+		//Disable room in Admin 
 		HomeAdminPage homeAdminPage = new HomeAdminPage();
 		RoomsPage roomsPage = homeAdminPage.clickConferenceRoomsLink();		
 		roomsPage.enableDisableIcon(roomName);		
+	}
+
+	@Test(groups = {"FUNCTIONAL"})
+	public void testForARoomDisabledTheTabletDoesNotScheduleMeetings() {
 
 		//Open tablet to see changes
 		HomeTabletPage homeTabletPage = new HomeTabletPage();

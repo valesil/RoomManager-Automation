@@ -7,11 +7,9 @@
 	
     <test name = "RoomManager">
          <classes>			
-			<!--TC27, TC32-->
+			<!--TC27, TC32, TC08-->
 			<class name="tests.admin.conferenceRoom.ResourceQuantityIsDisplayedInTheResourceAssociatedColumnInRoomGrid" />			      
-            <!--TC08-->
-            <class name="tests.admin.conferenceRoom.ResourcesAddedAreListedInTheTopOfRoomListPane" />
-			<!--TC10-->
+            <!--TC10-->
 			<class name="tests.admin.conferenceRoom.AnEnabledRoomIsAvailableInTheTablet" />	
 			<!--TC11-->
 			<class name="tests.admin.conferenceRoom.ForARoomDisabledTheTabletDoesNotScheduleMeetings" />

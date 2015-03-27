@@ -39,20 +39,19 @@ public class AResourceDeletedIsRemovedFromAvailablesGridInARoom {
 
 	@BeforeClass
 	public void precondition() throws MalformedURLException, IOException {
-		HomeAdminPage homeAdminPage = new HomeAdminPage();				
-		homeAdminPage.clickResourcesLink();
 
 		//Create resource by Rest
 		RootRestMethods.createResource(filePath, "");
-		UIMethods.refresh();				
+		UIMethods.refresh();
 	}
 
 	@Test(groups = {"FUNCTIONAL"})
 	public void testAResourceDeletedIsRemovedFromAvailablesGridInARoom() 
 			throws MalformedURLException, IOException {
+		HomeAdminPage homeAdminPage = new HomeAdminPage();
 
 		//Delete Resource
-		ResourcesPage resourcesPage = new ResourcesPage();
+		ResourcesPage resourcesPage = homeAdminPage.clickResourcesLink();
 		RoomsPage roomsPage = resourcesPage.clickConferenceRoomsLink();
 		resourcesPage = roomsPage.clickResourcesLink();
 		RootRestMethods.deleteResource(resourceName);

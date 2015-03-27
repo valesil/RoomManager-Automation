@@ -39,13 +39,13 @@ public class AResourceDeletedIsRemovedFromResourcesAssociatedInARoom {
 
 	@BeforeClass
 	public void precondition() throws MalformedURLException, IOException {
-		HomeAdminPage homeAdminPage = new HomeAdminPage();				
-		ResourcesPage resourcesPage = homeAdminPage.clickResourcesLink();
 
 		//Create resource by Rest
 		RootRestMethods.createResource(filePath, "");
-		UIMethods.refresh();		
-
+		UIMethods.refresh();
+		HomeAdminPage homeAdminPage = new HomeAdminPage();				
+		ResourcesPage resourcesPage = homeAdminPage.clickResourcesLink();
+		
 		//Associate resource to a room
 		RoomsPage roomsPage = resourcesPage.clickConferenceRoomsLink();
 		RoomInfoPage roomInfoPage = roomsPage.doubleClickOverRoomName(roomName);

@@ -38,7 +38,7 @@ public class AllResourcesCreatedAreDisplayedInAvailableGridOfResourceAssociation
 		for(Map<String, String> resource : testData){
 			ResourcesPage resourcesPage = homeAdminPage.clickResourcesLink();
 
-			//create a resource	
+			//Create a resource	
 			ResourceCreatePage resourceCreatePage = resourcesPage.clickAddResourceBtn();		
 			resourceCreatePage.clickResourceIcon()
 			.selectResourceIcon(resource.get("Icon"))
@@ -61,11 +61,9 @@ public class AllResourcesCreatedAreDisplayedInAvailableGridOfResourceAssociation
 	}
 
 	@AfterClass
-	public void cleanRoom() throws MalformedURLException, IOException {
+	public void postConditions() throws MalformedURLException, IOException {
 
-		//delete resource with API rest method
-		HomeAdminPage homeAdminPage = new HomeAdminPage();;	
-		homeAdminPage.clickResourcesLink();
+		//Delete resource with API rest method
 		for(Map<String, String> resource : testData){					
 			RootRestMethods.deleteResource(resource.get("ResourceName"));
 		}

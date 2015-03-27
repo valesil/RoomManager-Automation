@@ -80,11 +80,9 @@ public class AnErrorMessageIsDisplayedWhenTextBoxesAreLeftEmptyInResourceInfoFor
 	}
 
 	@AfterClass
-	public void cleanRoom() throws MalformedURLException, IOException {
+	public void postCondition() throws MalformedURLException, IOException {
 
-		//Delete resource
-		HomeAdminPage homeAdminPage = new HomeAdminPage();
-		homeAdminPage.clickResourcesLink();
+		//Delete resource with API rest method
 		RootRestMethods.deleteResource(resourceName);
 		UIMethods.refresh();
 	}

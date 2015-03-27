@@ -25,21 +25,19 @@ public class RoomAvailabilityCanBeEnabledOrDisabledWithEnableDisableButton {
 	String roomName = testData.get(2).get("Room Name");
 
 	@Test(groups = {"ACCEPTANCE"})
-	public void testRoomAvailabilityCanBeDisabled() {
+	public void testRoomAvailabilityCanBeEnabledOrDisabledWithEnableDisableButton() {
 
-		//disabling a room 
+		//Disabling a room 
 		HomeAdminPage homeAdminPage = new HomeAdminPage();
 		RoomsPage confRoomsPage = homeAdminPage.clickConferenceRoomsLink();	
 		confRoomsPage.enableDisableIcon(roomName);
 
 		//Assertion for TC12 
 		Assert.assertTrue(confRoomsPage.stateEnableDisableBtn(roomName));
-		if(confRoomsPage.stateEnableDisableBtn(roomName)) {
-			confRoomsPage.enableDisableIcon(roomName);
-		} else {
+		confRoomsPage.enableDisableIcon(roomName);
 
-			//Assertion for TC13 
-			Assert.assertTrue(confRoomsPage.stateEnableDisableBtn(roomName));
-		}
+		//Assertion for TC13 
+		Assert.assertTrue(confRoomsPage.stateEnableDisableBtn(roomName));
+
 	}
 }

@@ -33,7 +33,7 @@ public class AnErrorMessageIsDisplayedWhenTextBoxesAreLeftEmptyInAddForm {
 		HomeAdminPage homeAdminPage = new HomeAdminPage();
 		ResourcesPage resourcesPage = homeAdminPage.clickResourcesLink();	
 
-		//attempt to create a resource with name TextBox empty
+		//Attempt to create a resource with name TextBox empty
 		ResourceCreatePage resourceCreatePage = resourcesPage.clickAddResourceBtn();		
 		resourceCreatePage.setResourceDisplayName(resourceDisplayName)
 		.clickSaveResourceWithErrorBtn();

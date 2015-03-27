@@ -39,7 +39,7 @@ public class AnErrorMessageIsDisplayedWhenAResourceIsUpdatedWithANameAlreadyRegi
 	public void preconditions() {
 		HomeAdminPage homeAdminPage = new HomeAdminPage();
 
-		//create resources
+		//Create resources
 		for(Map<String, String> resource : testData){
 			ResourcesPage resourcesPage = homeAdminPage.clickResourcesLink();
 			ResourceCreatePage resourceCreatePage = resourcesPage.clickAddResourceBtn();		
@@ -57,7 +57,7 @@ public class AnErrorMessageIsDisplayedWhenAResourceIsUpdatedWithANameAlreadyRegi
 			throws InterruptedException {
 		ResourcesPage resourcesPage = new ResourcesPage();	
 
-		//create a resource with the same name
+		//Create a resource with the same name
 		ResourceInfoPage resourceInfoPage = resourcesPage.openResourceInfoPage(resourceUpdateName);		
 		resourceInfoPage.setResourceName(resourceName)
 		.setResourceDisplayName(resourceDisplayName)
@@ -69,11 +69,9 @@ public class AnErrorMessageIsDisplayedWhenAResourceIsUpdatedWithANameAlreadyRegi
 	}
 
 	@AfterClass
-	public void cleanRoom() throws MalformedURLException, IOException {
+	public void postCondition() throws MalformedURLException, IOException {
 
-		//delete resource
-		HomeAdminPage homeAdminPage = new HomeAdminPage();
-		homeAdminPage.clickResourcesLink();
+		//Delete resource with API rest method
 		for(Map<String, String> resource : testData){					
 			RootRestMethods.deleteResource(resource.get("ResourceName"));
 		}

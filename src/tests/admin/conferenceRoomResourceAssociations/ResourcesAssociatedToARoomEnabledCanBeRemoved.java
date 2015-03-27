@@ -39,16 +39,15 @@ public class ResourcesAssociatedToARoomEnabledCanBeRemoved {
 	String filePath = System.getProperty("user.dir") + resourceFileJSON;
 	String resourceName = jsonValue.readJsonFile("name" , resourceFileJSON);	
 	String resourceDisplayName = jsonValue.readJsonFile("customName" , resourceFileJSON);
-	
+
 	@BeforeClass
 	public void preconditions() throws MalformedURLException, IOException {
-		UIMethods.refresh();
-		HomeAdminPage homeAdminPage = new HomeAdminPage();				
-		ResourcesPage resourcesPage = homeAdminPage.clickResourcesLink();
 
 		//Create resource by Rest
 		RootRestMethods.createResource(filePath, "");
-		UIMethods.refresh();		
+		UIMethods.refresh();
+		HomeAdminPage homeAdminPage = new HomeAdminPage();				
+		ResourcesPage resourcesPage = homeAdminPage.clickResourcesLink();
 
 		//Associating resource to a room
 		RoomsPage roomsPage = resourcesPage.clickConferenceRoomsLink();
@@ -77,11 +76,9 @@ public class ResourcesAssociatedToARoomEnabledCanBeRemoved {
 	}
 
 	@AfterClass
-	public void cleanRoom() throws InterruptedException, BiffException, IOException {
+	public void postCondition() throws InterruptedException, BiffException, IOException {
 
-		//delete resource with API rest method
-		HomeAdminPage homeAdminPage = new HomeAdminPage();;	
-		homeAdminPage.clickResourcesLink();
+		//Delete resource with API rest method
 		RootRestMethods.deleteResource(resourceName);
 		UIMethods.refresh();	
 	}

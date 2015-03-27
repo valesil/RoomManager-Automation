@@ -6,18 +6,15 @@ import java.util.List;
 import java.util.Map;
 
 import org.testng.Assert;
-import org.testng.annotations.AfterClass;
 import org.testng.annotations.Test;
 
-import framework.pages.admin.HomeAdminPage;
-import framework.pages.admin.conferencerooms.RoomsPage;
 import framework.pages.tablet.HomeTabletPage;
 import framework.pages.tablet.SearchPage;
 import framework.pages.tablet.SettingsPage;
 import framework.utils.readers.ExcelReader;
 
 /**
- * TC10:Verify that a enabled room is available in the tablet
+ * TC10:Verify that an enabled room is available in the tablet
  * @author Juan Carlos Guevara
  */
 public class AnEnabledRoomIsAvailableInTheTablet {
@@ -26,16 +23,9 @@ public class AnEnabledRoomIsAvailableInTheTablet {
 	String roomName = testData.get(0).get("Room Name");
 
 	@Test(groups = {"FUNCTIONAL"})
-	public void testARoomEnableIsAvailableInTheTablet() throws InterruptedException{
+	public void testAnEnabledRoomIsAvailableInTheTablet() throws InterruptedException{
 
-		//Checking room status in Admin 
-		HomeAdminPage homeAdminPage = new HomeAdminPage();
-		RoomsPage roomsPage = homeAdminPage.clickConferenceRoomsLink();
-		if(!roomsPage.stateEnableDisableBtn(roomName)) {
-			roomsPage.enableDisableIcon(roomName);
-		}
-
-		//Open tablet to see changes
+		//Open tablet to see availability of an enable room
 		HomeTabletPage homeTabletPage = new HomeTabletPage();
 		SettingsPage settingsPage = homeTabletPage.clickSettingsBtn();
 		homeTabletPage = settingsPage.selectRoom(roomName);	
@@ -45,16 +35,5 @@ public class AnEnabledRoomIsAvailableInTheTablet {
 
 		//Assertion for TC10 
 		Assert.assertTrue(searchPage.roomIsDiplayed(roomName));
-	}
-
-	@AfterClass
-	public void postConditions() {
-
-		//Enable room in admin
-		HomeAdminPage homeAdminPage = new HomeAdminPage();
-		RoomsPage roomsPage = homeAdminPage.clickConferenceRoomsLink();
-		if(!roomsPage.stateEnableDisableBtn(roomName)) {
-			roomsPage.enableDisableIcon(roomName);
-		}		
 	}
 }

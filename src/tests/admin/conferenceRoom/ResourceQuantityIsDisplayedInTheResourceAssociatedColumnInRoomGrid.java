@@ -22,8 +22,9 @@ import framework.utils.readers.ExcelReader;
 import framework.utils.readers.JsonReader;
 
 /**
- * TC27: Verify that resource quantity and icon are displayed as columns in {Room} grid.
- * TC32: Verify that the resources added are inserted as columns in room grid. 
+ * TC08: Verify that resources added are listed in the top of room list pane
+ * TC27: Verify that resource quantity and icon are displayed as columns in Room grid.
+ * TC32: Verify that resources added are inserted as columns in Room grid. 
  * @author Juan Carlos Guevara
  */
 public class ResourceQuantityIsDisplayedInTheResourceAssociatedColumnInRoomGrid {
@@ -40,8 +41,6 @@ public class ResourceQuantityIsDisplayedInTheResourceAssociatedColumnInRoomGrid 
 
 	@BeforeClass
 	public void precondition() throws MalformedURLException, IOException {
-		HomeAdminPage homeAdminPage = new HomeAdminPage();				
-		homeAdminPage.clickResourcesLink();		
 
 		//Create resource by Rest
 		RootRestMethods.createResource(filePath, "");
@@ -50,7 +49,6 @@ public class ResourceQuantityIsDisplayedInTheResourceAssociatedColumnInRoomGrid 
 
 	@Test(groups = {"FUNCTIONAL"})
 	public void testAResourceIsDisplayedAsAColumnWhenItsIconIsSelectedInTheTopOfRoomGrid() {
-
 		HomeAdminPage homeAdminPage = new HomeAdminPage();
 		RoomsPage roomsPage = homeAdminPage.clickConferenceRoomsLink();
 
@@ -69,14 +67,15 @@ public class ResourceQuantityIsDisplayedInTheResourceAssociatedColumnInRoomGrid 
 
 		//Assertion for TC32 
 		Assert.assertTrue(roomsPage.isResourcePresentInTableHeader(resourceDisplayName));
+
+		//Assertion for TC08 
+		Assert.assertTrue(roomsPage.searchResource(resourceDisplayName));
 	}
 
 	@AfterClass
 	public void postConditions() throws MalformedURLException, IOException {
 
-		//Delete resource created
-		HomeAdminPage homeAdminPage = new HomeAdminPage();				
-		homeAdminPage.clickResourcesLink();
+		//Delete resource with API rest method
 		RootRestMethods.deleteResource(resourceDisplayName);
 		UIMethods.refresh();
 	}

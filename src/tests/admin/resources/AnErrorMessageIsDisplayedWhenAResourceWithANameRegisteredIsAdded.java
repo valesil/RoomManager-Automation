@@ -41,7 +41,7 @@ public class AnErrorMessageIsDisplayedWhenAResourceWithANameRegisteredIsAdded {
 		HomeAdminPage homeAdminPage = new HomeAdminPage();
 		ResourcesPage resourcesPage = homeAdminPage.clickResourcesLink();	
 
-		//create a resource
+		//Create a resource
 		ResourceCreatePage resourceCreatePage = resourcesPage.clickAddResourceBtn();		
 		resourceCreatePage.clickResourceIcon()
 		.selectResourceIcon(iconTitle)
@@ -55,7 +55,7 @@ public class AnErrorMessageIsDisplayedWhenAResourceWithANameRegisteredIsAdded {
 	public void testAnErrorMessageIsDisplayedWhenAResourceWithANameRegisteredIsAdded() {
 		ResourcesPage resourcesPage = new ResourcesPage();	
 
-		//create a resource with the same name
+		//Create a resource with the same name
 		ResourceCreatePage resourceCreatePage = resourcesPage.clickAddResourceBtn();		
 		resourceCreatePage.setResourceName(resourceName)
 		.setResourceDisplayName(resourceDisplayName)
@@ -67,10 +67,9 @@ public class AnErrorMessageIsDisplayedWhenAResourceWithANameRegisteredIsAdded {
 	}
 
 	@AfterClass
-	public void cleanRoom() throws MalformedURLException, IOException {	
-		//delete resource
-		HomeAdminPage homeAdminPage = new HomeAdminPage();
-		homeAdminPage.clickResourcesLink();
+	public void postCondition() throws MalformedURLException, IOException {	
+
+		//Delete resource with API rest method
 		RootRestMethods.deleteResource(resourceName);
 		UIMethods.refresh();
 	}

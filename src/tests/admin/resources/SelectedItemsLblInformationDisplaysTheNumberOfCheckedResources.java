@@ -35,7 +35,7 @@ public class SelectedItemsLblInformationDisplaysTheNumberOfCheckedResources {
 		ResourcesPage resourcesPage = homeAdminPage.clickResourcesLink();
 		for(Map<String, String> resource : testData) {
 
-			//create a resource
+			//Create a resource
 			ResourceCreatePage resourceCreatePage = resourcesPage.clickAddResourceBtn();		
 			resourceCreatePage.clickResourceIcon()
 			.selectResourceIcon(resource.get("Icon"))
@@ -52,9 +52,9 @@ public class SelectedItemsLblInformationDisplaysTheNumberOfCheckedResources {
 	}
 
 	@AfterClass
-	public void cleanRoom() throws MalformedURLException, IOException {
-		HomeAdminPage homeAdminPage = new HomeAdminPage();
-		homeAdminPage.clickResourcesLink();
+	public void postCondition() throws MalformedURLException, IOException {
+
+		//Delete resources with API rest method
 		for(Map<String, String> resource : testData){					
 			RootRestMethods.deleteResource(resource.get("ResourceName"));
 		}

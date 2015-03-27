@@ -38,20 +38,18 @@ public class AResourceCanBeAssociatedToARoomEnabled {
 
 	@BeforeClass
 	public void precondition() throws MalformedURLException, IOException {
-		HomeAdminPage homeAdminPage = new HomeAdminPage();				
-		homeAdminPage.clickResourcesLink();
 
 		//Create resource by Rest
 		RootRestMethods.createResource(filePath, "");
-		UIMethods.refresh();		
+		UIMethods.refresh();
 	}
 
 	@Test(groups = {"ACCEPTANCE"})
 	public void testAResourceCanBeAssociatedToARoomEnabled() {
+		HomeAdminPage homeAdminPage = new HomeAdminPage();
 
 		//Associate the resource to a room
-		RoomsPage roomsPage = new RoomsPage();
-		roomsPage.clickConferenceRoomsLink();
+		RoomsPage roomsPage = homeAdminPage.clickConferenceRoomsLink();
 		RoomInfoPage roomInfoPage = roomsPage.doubleClickOverRoomName(roomName);
 		RoomResourceAssociationsPage roomsResourceAssociationsPage = roomInfoPage
 				.clickResourceAssociationsLink();
@@ -67,9 +65,7 @@ public class AResourceCanBeAssociatedToARoomEnabled {
 	@AfterClass
 	public void postCondition() throws MalformedURLException, IOException {
 
-		//delete resource with API rest method
-		HomeAdminPage homeAdminPage = new HomeAdminPage();;	
-		homeAdminPage.clickResourcesLink();
+		//Delete resource with API rest method
 		RootRestMethods.deleteResource(resourceName);
 		UIMethods.refresh();
 	}
