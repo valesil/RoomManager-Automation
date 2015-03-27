@@ -41,8 +41,9 @@ public class ResourceAssociationsPage extends ResourceBaseAbstractPage {
 	/**
 	 * [ML]Method to click on close button
 	 */
-	public void clickCloseBtn() {
+	public ResourcesPage clickCloseBtn() {
 		wait.until(ExpectedConditions.elementToBeClickable(closeBtn));
 		closeBtn.click();
+		return new ResourcesPage();
 	}
 }
