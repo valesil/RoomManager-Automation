@@ -1,11 +1,5 @@
 package tests.tablet.homeUI;
 
-/**
- * Created by Jose Cabrera
- * 1/28/15
- * 
- */
-
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.Test;
@@ -21,10 +15,10 @@ import framework.pages.tablet.SchedulePage;
 public class SchedulePageIsDisplayedWhenNowTapeIsClicked {
 		
 	@Test(groups = "UI")
-	public void testSchedulePageIsDisplayedWhenNowTapeIsClicked (){
-		HomeTabletPage home = new HomeTabletPage();
-		SchedulePage schedule = home.clickNowTileLbl();
-		Assert.assertTrue(schedule.isSchedulerLblDisplayed());
+	public void testSchedulePageIsDisplayedWhenNowTapeIsClicked () {
+		HomeTabletPage homePage = new HomeTabletPage();
+		SchedulePage schedulePage = homePage.clickNowTileLbl();
+		Assert.assertTrue(schedulePage.isSchedulerLblDisplayed());
 	}
 	
 	@AfterClass

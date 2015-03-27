@@ -1,12 +1,5 @@
 package tests.tablet.search;
 
-
-/**
- * Created by Jose Cabrera
- * 1/28/15
- * 
- */
-
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
@@ -15,24 +8,24 @@ import framework.pages.tablet.HomeTabletPage;
 import framework.pages.tablet.SearchPage;
 
 /**
- * @title TC16: Verify when filters are displayed on search page and "Advanced" button 
+ * TC16: Verify when filters are displayed on search page and "Advanced" button 
  * is pressed all filters are hidden
  * @author Jose Cabrera
  */
 public class WhenPressAdvancedTwiceAllSearchCriteriasAreHidden {
-	SearchPage search = new SearchPage();
+	SearchPage searchPage;
 	
 	@Test(groups = "UI")
 	public void testPressAdvancedTwiceAllSearchCriteriasAreHidden() {
-		HomeTabletPage home = new HomeTabletPage();
-		search = home.clickSearchBtn()
+		HomeTabletPage homePage = new HomeTabletPage();
+		searchPage = homePage.clickSearchBtn()
 				.clickCollapseAdvancedBtn()
 				.clickHiddenAdvancedBtn();
-		Assert.assertFalse(search.filtersArePresent());
+		Assert.assertFalse(searchPage.filtersArePresent());
 	}
 
 	@AfterMethod
 	public void toHome() {
-		search.clickBackBtn();
+		searchPage.clickBackBtn();
 	}
 }

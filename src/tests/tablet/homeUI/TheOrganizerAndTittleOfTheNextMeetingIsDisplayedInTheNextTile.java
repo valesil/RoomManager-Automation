@@ -1,10 +1,5 @@
 package tests.tablet.homeUI;
 
-/**
- * Created by Jose Cabrera
- * 1/28/15
- * 
- */
 import static framework.common.AppConfigConstants.EXCEL_INPUT_DATA;
 
 import java.io.IOException;
@@ -23,8 +18,8 @@ import framework.rest.RootRestMethods;
 import framework.utils.readers.ExcelReader;
 
 /**
- * @title  TC12: Verify that the name of the next meeting in the room is displayed in Next Tile
- * @title  TC13: Verify that the organizer of the next meeting in the room is displayed in the Next Tile
+ * TC12: Verify that the name of the next meeting in the room is displayed in Next Tile
+ * TC13: Verify that the organizer of the next meeting in the room is displayed in the Next Tile
  * @author Jose Cabrera
  */
 public class TheOrganizerAndTittleOfTheNextMeetingIsDisplayedInTheNextTile {
@@ -37,19 +32,19 @@ public class TheOrganizerAndTittleOfTheNextMeetingIsDisplayedInTheNextTile {
 	
 	@BeforeClass
 	public void createNextMeeting() {
-		HomeTabletPage home = new HomeTabletPage();
+		HomeTabletPage homePage = new HomeTabletPage();
 		String minStartTime = "20";
 		String minEndTime = "55";
-		SchedulePage schedule = home.clickScheduleBtn();
+		SchedulePage schedule = homePage.clickScheduleBtn();
 		schedule.createMeeting(organizer, subject, minStartTime, minEndTime, 
 				attendee, password).clickBackBtn();
 	}
 	
 	@Test(groups = "UI")
 	public void testOrganizerOfTheNextMeetingIsDisplayedInTheNextTile () {
-		HomeTabletPage home = new HomeTabletPage();
-		Assert.assertTrue(home.getNextMeetingOrganizerNameLbl().equals(organizer)
-				&&home.getNextTileLbl().equals(subject));
+		HomeTabletPage homePage = new HomeTabletPage();
+		Assert.assertTrue(homePage.getNextMeetingOrganizerNameLbl().equals(organizer)
+				&&homePage.getNextTileLbl().equals(subject));
 	}
 
 	@AfterClass

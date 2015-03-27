@@ -14,19 +14,17 @@ import org.testng.annotations.Test;
 
 import framework.pages.tablet.HomeTabletPage;
 import framework.pages.tablet.SchedulePage;
-import framework.pages.tablet.SearchPage;
 import framework.rest.RootRestMethods;
 import framework.utils.readers.ExcelReader;
 
 /**
- * @title  TC22: Verify the schedule of a meeting can be changed by moving it inside the timeline
+ * TC22: Verify the schedule of a meeting can be changed by moving it inside the timeline
  * and click update
  * @author Jose Cabrera
  */
 public class ScheduleOfAMeetingIsChangedByMovingItInsideTheTimeLineIfUpdateButtonIsClicked {
-	HomeTabletPage home = new HomeTabletPage();
-	SchedulePage schedule = new SchedulePage();
-	SearchPage search = new SearchPage();
+	HomeTabletPage homePage = new HomeTabletPage();
+	SchedulePage schedulePage = new SchedulePage();
 	ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
 	List<Map<String, String>> meetingData = excelReader.getMapValues("MeetingData");
 	String organizer = meetingData.get(1).get("Organizer");
@@ -38,22 +36,22 @@ public class ScheduleOfAMeetingIsChangedByMovingItInsideTheTimeLineIfUpdateButto
 	public void createNextMeeting() {
 		String minStartTime = "20";
 		String minEndTime = "55";
-		home.clickScheduleBtn();
-		schedule.createMeeting(organizer, subject, minStartTime, minEndTime, 
+		homePage.clickScheduleBtn();
+		schedulePage.createMeeting(organizer, subject, minStartTime, minEndTime, 
 				attendee, password)
 				.clickBackBtn();
 	}
 	
 	@Test(groups = "UI")
 	public void testMeetingDurationIsNotChangedResizingInTimelineAndClickingUpdate () {
-		home.clickScheduleBtn();
-		schedule.clickOverMeetingCreated(subject);
-		String start = schedule.getStartTimeTxtBoxValue();
-		schedule.moveMeeting(3000)
+		homePage.clickScheduleBtn();
+		schedulePage.clickOverMeetingCreated(subject);
+		String start = schedulePage.getStartTimeTxtBoxValue();
+		schedulePage.moveMeeting(3000)
 		.clickUpdateBtn().confirmCredentials(password);
-		schedule.isMessageMeetingUpdatedDisplayed();
-		schedule.clickOverMeetingCreated(subject);
-		Assert.assertFalse(schedule.getStartTimeTxtBoxValue().equals(start));
+		schedulePage.isMessageMeetingUpdatedDisplayed();
+		schedulePage.clickOverMeetingCreated(subject);
+		Assert.assertFalse(schedulePage.getStartTimeTxtBoxValue().equals(start));
 	}
 
 	@AfterClass
@@ -62,6 +60,6 @@ public class ScheduleOfAMeetingIsChangedByMovingItInsideTheTimeLineIfUpdateButto
 		List<Map<String, String>> testData = excelReader.getMapValues("Search");
 		String roomName = testData.get(0).get("Room Name");
 		RootRestMethods.deleteMeeting(roomName, subject, "administrator:Control123");
-		schedule.clickBackBtn();
+		schedulePage.clickBackBtn();
 	}
 }

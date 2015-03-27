@@ -1,10 +1,5 @@
 package tests.tablet.search;
 
-/**
- * Created by Jose Cabrera
- * 1/28/15
- * 
- */
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
@@ -23,28 +18,28 @@ import framework.rest.RootRestMethods;
 import framework.utils.readers.ExcelReader;
 
 /**
- * @title TC3: Verify when put a letter on "Room Name" field, 
+ * TC3: Verify when put a letter on "Room Name" field, 
  * the rooms that match with that criteria is filtered
  * @author Jose Cabrera
  */
 public class WhenPutLetterOnRoomNameFieldRoomsThatMatchAreFiltered {
-	ExcelReader excelReader = new ExcelReader(AppConfigConstants.EXCEL_INPUT_DATA);
-	List<Map<String, String>> testData = excelReader.getMapValues("Search");
-	String roomName = testData.get(1).get("Room Name");
-	SearchPage search = new SearchPage();
+	SearchPage searchPage;
 	
 	@Test(groups = "ACCEPTANCE")
 	public void testPutLetterOnRoomNameFieldRoomsAreFiltered ()throws BiffException, IOException {
-		HomeTabletPage home = new HomeTabletPage();
+		ExcelReader excelReader = new ExcelReader(AppConfigConstants.EXCEL_INPUT_DATA);
+		List<Map<String, String>> testData = excelReader.getMapValues("Search");
+		String roomName = testData.get(1).get("Room Name");
+		HomeTabletPage homePage = new HomeTabletPage();
 		LinkedList<String> condition = RootRestMethods.getRoomsByName(roomName);
-		search = home.clickSearchBtn()
+		searchPage = homePage.clickSearchBtn()
 			  .clickCollapseAdvancedBtn()
 			  .setName(roomName);
-		Assert.assertTrue(search.roomsInList(condition));
+		Assert.assertTrue(searchPage.roomsInList(condition));
 	}
 	
 	@AfterMethod
 	public void toHome() {
-		search.clickBackBtn();
+		searchPage.clickBackBtn();
 	}
 }

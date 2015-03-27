@@ -1,10 +1,5 @@
 package tests.tablet.search;
 
-/**
- * Created by Jose Cabrera
- * 1/28/15
- * 
- */
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
@@ -23,29 +18,28 @@ import framework.rest.RootRestMethods;
 import framework.utils.readers.ExcelReader;
 
 /**
- * @title  TC20: Verify on search page if filter by "resource"
+ * TC20: Verify on search page if filter by "resource"
  * only the rooms that contains that especifications are displayed
  * @author Jose Cabrera
  */
 public class WhenSelectResourceRoomsThatMatchAreFiltered {
-	SearchPage search = new SearchPage();
-	ExcelReader excelReader = new ExcelReader(AppConfigConstants.EXCEL_INPUT_DATA);
-	List<Map<String, String>> testData = excelReader.getMapValues("Search");
-	String resourceName = testData.get(1).get("Resource");
+	SearchPage searchPage;
 	
 	@Test(groups = "FUNCTIONAL")
 	public void testWhenSelectResourceRoomsThatMatchAreFiltered() throws BiffException, IOException {
-		HomeTabletPage home = new HomeTabletPage();
-		
+		ExcelReader excelReader = new ExcelReader(AppConfigConstants.EXCEL_INPUT_DATA);
+		List<Map<String, String>> testData = excelReader.getMapValues("Search");
+		String resourceName = testData.get(1).get("Resource");
+		HomeTabletPage homePage = new HomeTabletPage();
 		LinkedList<String> resCond = RootRestMethods.getRoomNamesByResource(resourceName);
-		search = home.clickSearchBtn()
+		searchPage = homePage.clickSearchBtn()
 				.clickCollapseAdvancedBtn()
 			    .selectResource(resourceName);
-		Assert.assertTrue(search.roomsInList(resCond));
+		Assert.assertTrue(searchPage.roomsInList(resCond));
 	}
 	
 	@AfterMethod
 	public void toHome() {
-		search.clickBackBtn();
+		searchPage.clickBackBtn();
 	}
 }

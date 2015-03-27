@@ -1,10 +1,5 @@
 package tests.tablet.search;
 
-/**
- * Created by Jose Cabrera
- * 1/28/15
- * 
- */
 import java.util.List;
 import java.util.Map;
 
@@ -19,23 +14,22 @@ import framework.pages.tablet.SearchPage;
 import framework.utils.readers.ExcelReader;
 
 /**
- * @title  TC7: Verify on search page when you press over some room, 
+ * TC7: Verify on search page when you press over some room, 
  * the sheduler page is displayed of that room
  * @author Jose Cabrera
  */
 public class WhenSelectRoomSchedulerofThisAreDisplayed {
-	SearchPage search = new SearchPage();
-	SchedulePage schedule = new SchedulePage();
-	ExcelReader excelReader = new ExcelReader(AppConfigConstants.EXCEL_INPUT_DATA);
-	List<Map<String, String>> testData = excelReader.getMapValues("Search");
-	String roomName = testData.get(1).get("Room Name");
-	
+	SearchPage searchPage;
+	SchedulePage schedule;
 	@Test(groups = "ACCEPTANCE")
 	public void testSelectRoomSchedulerofThisAreDisplayed () throws InterruptedException {
-		HomeTabletPage home = new HomeTabletPage();
-		search = home.clickSearchBtn()
+		ExcelReader excelReader = new ExcelReader(AppConfigConstants.EXCEL_INPUT_DATA);
+		List<Map<String, String>> testData = excelReader.getMapValues("Search");
+		String roomName = testData.get(1).get("Room Name");
+		HomeTabletPage homePage = new HomeTabletPage();
+		searchPage = homePage.clickSearchBtn()
 				.clickCollapseAdvancedBtn();
-		schedule = search.selectRoom(roomName);
+		schedule = searchPage.selectRoom(roomName);
 		Assert.assertTrue(schedule.isSchedulerLblDisplayed());
 	}
 	

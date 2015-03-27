@@ -1,18 +1,18 @@
-<suite name="RoomManager">
+<suite name = "RoomManager">
 <listeners>
-            <listener class-name="org.uncommons.reportng.HTMLReporter"/>
-            <listener class-name="org.uncommons.reportng.JUnitXMLReporter"/>
-            <listener class-name="framework.utils.ReportNGListener"/>
+            <listener class-name = "org.uncommons.reportng.HTMLReporter"/>
+            <listener class-name = "org.uncommons.reportng.JUnitXMLReporter"/>
+            <listener class-name = "framework.utils.ReportNGListener"/>
 </listeners>
-	<test name="Home Suite" >
+	<test name = "Home Suite" >
 		<classes>
-			<class name="tests.tablet.StartSuite"/>
+			<class name = "tests.tablet.StartSuite"/>
 			<!--TC21-->
-			<class name="tests.tablet.homeUI.SchedulePageIsDisplayedWhenNowTapeIsClicked"/>
-			<!--TC12, TC13-->
-			<class name="tests.tablet.homeUI.TheOrganizerAndTittleOfTheNextMeetingIsDisplayedInTheNextTile"/>
+			<class name = "tests.tablet.homeUI.SchedulePageIsDisplayedWhenNowTapeIsClicked"/>
+			<!--TC12, TC13--> 
+			<class name = "tests.tablet.homeUI.TheOrganizerAndTittleOfTheNextMeetingIsDisplayedInTheNextTile"/>
 			<!--TC34-->
-			<class name="tests.tablet.homeUI.TheRedLineInTheTimelineIsInTheCurrentTime"/>			
+			<class name = "tests.tablet.homeUI.TheRedLineInTheTimelineIsInTheCurrentTime"/>			
 		</classes>
 	</test>
 </suite>

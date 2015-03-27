@@ -1,10 +1,5 @@
 package tests.tablet.search;
 
-/**
- * Created by Jose Cabrera
- * 1/28/15
- * 
- */
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.LinkedList;
@@ -19,25 +14,25 @@ import framework.pages.tablet.SearchPage;
 import framework.rest.RootRestMethods;
 
 /**
- * @title TC2: Verify that all resources are displayed on search page 
+ * TC2: Verify that all resources are displayed on search page 
  * on "filter by resource" field 
  * @author Jose Cabrera
  */
 public class AllResourcesAreDisplayed {
-	SearchPage search = new SearchPage();
+	SearchPage searchPage;
 	
 	@Test(groups = "ACCEPTANCE")
 	public void testAllResourcesAreDisplayed () throws JSONException, MalformedURLException, IOException {
-		HomeTabletPage home = new HomeTabletPage();
+		HomeTabletPage homePage = new HomeTabletPage();
 		LinkedList<String> condition = RootRestMethods.getAllNameResources();
-		search = home.clickSearchBtn()
+		searchPage = homePage.clickSearchBtn()
 				.clickCollapseAdvancedBtn();
-		Assert.assertTrue(search.resourcesInList(condition));
+		Assert.assertTrue(searchPage.resourcesInList(condition));
 	}
 	
 	@AfterMethod
 	public void toHome() {
-		search.clickBackBtn();
+		searchPage.clickBackBtn();
 	}
 	
 	

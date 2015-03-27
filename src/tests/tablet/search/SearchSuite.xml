@@ -1,50 +1,50 @@
-<suite name="RoomManager">
+<suite name = "RoomManager">
 <listeners>
-            <listener class-name="org.uncommons.reportng.HTMLReporter"/>
-            <listener class-name="org.uncommons.reportng.JUnitXMLReporter"/>
-            <listener class-name="framework.utils.ReportNGListener"/>
+            <listener class-name = "org.uncommons.reportng.HTMLReporter"/>
+            <listener class-name = "org.uncommons.reportng.JUnitXMLReporter"/>
+            <listener class-name = "framework.utils.ReportNGListener"/>
 </listeners>
-	<test name="Search test" >
+	<test name = "Search test" >
 		<classes>
-			<class name="tests.tablet.StartSuite"/>
+			<class name = "tests.tablet.StartSuite"/>
 			<!--TC2-->
-			<class name="tests.tablet.search.AllResourcesAreDisplayed"/>
+			<class name = "tests.tablet.search.AllResourcesAreDisplayed"/>
 			<!--TC6-->
-			<class name="tests.tablet.search.AllRoomsareDisplayedWhenPageisLoaded"/>
+			<class name = "tests.tablet.search.AllRoomsareDisplayedWhenPageisLoaded"/>
 			<!--TC18-->
-			<class name="tests.tablet.search.DateDisplayedIsTheCurrent"/>
+			<class name = "tests.tablet.search.DateDisplayedIsTheCurrent"/>
 			<!--TC14-->
-			<class name="tests.tablet.search.MinimumCapacityOnlyAllowNumbers"/>
+			<class name = "tests.tablet.search.MinimumCapacityOnlyAllowNumbers"/>
 			<!--TC12-->
-			<class name="tests.tablet.search.MinimumCapacityShowAmessageWhenInsertInvalidValues"/>
+			<class name = "tests.tablet.search.MinimumCapacityShowAmessageWhenInsertInvalidValues"/>
 			<!--TC19-->
-			<class name="tests.tablet.search.TimeLineDisplayedIsInCurrentTime"/>
+			<class name = "tests.tablet.search.TimeLineDisplayedIsInCurrentTime"/>
 			<!--TC13-->
-			<class name="tests.tablet.search.WhenPressAdvancedallCriteriasAreDisplayed"/>
+			<class name = "tests.tablet.search.WhenPressAdvancedallCriteriasAreDisplayed"/>
 			<!--TC16-->
-			<class name="tests.tablet.search.WhenPressAdvancedTwiceAllSearchCriteriasAreHidden"/>
+			<class name = "tests.tablet.search.WhenPressAdvancedTwiceAllSearchCriteriasAreHidden"/>
 			<!--TC15-->
-			<class name="tests.tablet.search.WhenPressClearAllCriteriasAreCleaned"/>
+			<class name = "tests.tablet.search.WhenPressClearAllCriteriasAreCleaned"/>
 			<!--TC3-->
-			<class name="tests.tablet.search.WhenPutLetterOnRoomNameFieldRoomsThatMatchAreFiltered"/>
+			<class name = "tests.tablet.search.WhenPutLetterOnRoomNameFieldRoomsThatMatchAreFiltered"/>
 			<!--TC9-->
-			<class name="tests.tablet.search.WhenPutMinimumCapFieldAndLocationRoomsThatMatchAreFiltered"/>
+			<class name = "tests.tablet.search.WhenPutMinimumCapFieldAndLocationRoomsThatMatchAreFiltered"/>
 			<!--TC4-->
-			<class name="tests.tablet.search.WhenPutMinimumCapFieldRoomsThatMatchAreFiltered"/>
+			<class name = "tests.tablet.search.WhenPutMinimumCapFieldRoomsThatMatchAreFiltered"/>
 			<!--TC8-->
-			<class name="tests.tablet.search.WhenPutRoomNameFieldAndLocationRoomsThatMatchAreFiltered"/>
+			<class name = "tests.tablet.search.WhenPutRoomNameFieldAndLocationRoomsThatMatchAreFiltered"/>
 			<!--TC10-->
-			<class name="tests.tablet.search.WhenPutRoomNameFieldAndResourceRoomsThatMatchAreFiltered"/>
+			<class name = "tests.tablet.search.WhenPutRoomNameFieldAndResourceRoomsThatMatchAreFiltered"/>
 			<!--TC11-->
-			<class name="tests.tablet.search.WhenPutRoomNameMinimumCapFieldRoomsThatMatchAreFiltered"/>
+			<class name = "tests.tablet.search.WhenPutRoomNameMinimumCapFieldRoomsThatMatchAreFiltered"/>
 			<!--TC17-->
-			<class name="tests.tablet.search.WhenSelectBackButtonSchedulerPageAreDisplayed"/>
+			<class name = "tests.tablet.search.WhenSelectBackButtonSchedulerPageAreDisplayed"/>
 			<!--TC5-->
-			<class name="tests.tablet.search.WhenSelectLocationRoomsThatMatchAreFiltered"/>
+			<class name = "tests.tablet.search.WhenSelectLocationRoomsThatMatchAreFiltered"/>
 			<!--TC20-->
-			<class name="tests.tablet.search.WhenSelectResourceRoomsThatMatchAreFiltered"/>
+			<class name = "tests.tablet.search.WhenSelectResourceRoomsThatMatchAreFiltered"/>
 			<!--TC7-->
-			<class name="tests.tablet.search.WhenSelectRoomSchedulerofThisAreDisplayed"/>
+			<class name = "tests.tablet.search.WhenSelectRoomSchedulerofThisAreDisplayed"/>
 		</classes>
 	</test>
 </suite>
