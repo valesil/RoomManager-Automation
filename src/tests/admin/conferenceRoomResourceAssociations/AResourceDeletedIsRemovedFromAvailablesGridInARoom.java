@@ -29,13 +29,13 @@ public class AResourceDeletedIsRemovedFromAvailablesGridInARoom {
 	ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
 	List<Map<String, String>> testData = excelReader.getMapValues("APIResources");
 	String roomName = testData.get(0).get("Room Name");
-	String quantity = testData.get(0).get("Value");
 
 	//Reading json resource information
 	JsonReader jsonValue = new JsonReader();
 	String resourceFileJSON = "\\src\\tests\\Resource1.json";
 	String filePath = System.getProperty("user.dir") + resourceFileJSON;
-	String resourceDisplayName = jsonValue.readJsonFile("name" , resourceFileJSON);
+	String resourceName = jsonValue.readJsonFile("name" , resourceFileJSON);
+	String resourceDisplayName = jsonValue.readJsonFile("customName" , resourceFileJSON);
 
 	@BeforeClass
 	public void precondition() throws MalformedURLException, IOException {
@@ -55,7 +55,7 @@ public class AResourceDeletedIsRemovedFromAvailablesGridInARoom {
 		ResourcesPage resourcesPage = new ResourcesPage();
 		RoomsPage roomsPage = resourcesPage.clickConferenceRoomsLink();
 		resourcesPage = roomsPage.clickResourcesLink();
-		RootRestMethods.deleteResource(testData.get(0).get("ResourceName"));
+		RootRestMethods.deleteResource(resourceName);
 		UIMethods.refresh();
 		roomsPage = resourcesPage.clickConferenceRoomsLink();
 		RoomInfoPage roomInfoPage = roomsPage.doubleClickOverRoomName(roomName);

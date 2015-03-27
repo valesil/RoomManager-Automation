@@ -33,7 +33,8 @@ public class AResourceCanBeAssociatedToARoomEnabled {
 	JsonReader jsonValue = new JsonReader();
 	String resourceFileJSON = "\\src\\tests\\Resource1.json";
 	String filePath = System.getProperty("user.dir") + resourceFileJSON;
-	String resourceDisplayName = jsonValue.readJsonFile("name" , resourceFileJSON);
+	String resourceName = jsonValue.readJsonFile("name" , resourceFileJSON);
+	String resourceDisplayName = jsonValue.readJsonFile("customName" , resourceFileJSON);
 
 	@BeforeClass
 	public void precondition() throws MalformedURLException, IOException {
@@ -69,7 +70,7 @@ public class AResourceCanBeAssociatedToARoomEnabled {
 		//delete resource with API rest method
 		HomeAdminPage homeAdminPage = new HomeAdminPage();;	
 		homeAdminPage.clickResourcesLink();
-		RootRestMethods.deleteResource(testData.get(0).get("ResourceName"));
+		RootRestMethods.deleteResource(resourceName);
 		UIMethods.refresh();
 	}
 }
