@@ -20,34 +20,31 @@ import framework.utils.readers.ExcelReader;
  * TC10:Verify that a enabled room is available in the tablet
  * @author Juan Carlos Guevara
  */
-public class ARoomEnableIsAvailableInTheTablet {
+public class AnEnabledRoomIsAvailableInTheTablet {
 	ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
 	List<Map<String, String>> testData = excelReader.getMapValues("Resources");
 	String roomName = testData.get(0).get("Room Name");
-	String roomName1 = testData.get(1).get("Room Name");
 
 	@Test(groups = {"FUNCTIONAL"})
 	public void testARoomEnableIsAvailableInTheTablet() throws InterruptedException{
 
 		//Checking room status in Admin 
-		HomeAdminPage homePage = new HomeAdminPage();
-
-		RoomsPage confRoomPage = homePage.clickConferenceRoomsLink();
-		if(!confRoomPage.stateEnableDisableBtn(roomName)) {
-			confRoomPage.enableDisableIcon(roomName);
-		} else {
-
-			//Open tablet to see changes
-			HomeTabletPage homeTablet = new HomeTabletPage();
-			SettingsPage settingsPage = homeTablet.clickSettingsBtn();
-			homeTablet = settingsPage.selectRoom(roomName);	
-			SearchPage searchPage = homeTablet.clickSearchBtn();
-			searchPage.clickCollapseAdvancedBtn();
-			searchPage.setName(roomName);
-
-			//Assertion for TC10 
-			Assert.assertTrue(searchPage.roomIsDiplayed(roomName));
+		HomeAdminPage homeAdminPage = new HomeAdminPage();
+		RoomsPage roomsPage = homeAdminPage.clickConferenceRoomsLink();
+		if(!roomsPage.stateEnableDisableBtn(roomName)) {
+			roomsPage.enableDisableIcon(roomName);
 		}
+
+		//Open tablet to see changes
+		HomeTabletPage homeTabletPage = new HomeTabletPage();
+		SettingsPage settingsPage = homeTabletPage.clickSettingsBtn();
+		homeTabletPage = settingsPage.selectRoom(roomName);	
+		SearchPage searchPage = homeTabletPage.clickSearchBtn();
+		searchPage.clickCollapseAdvancedBtn();
+		searchPage.setName(roomName);
+
+		//Assertion for TC10 
+		Assert.assertTrue(searchPage.roomIsDiplayed(roomName));
 	}
 
 	@AfterClass
@@ -55,9 +52,9 @@ public class ARoomEnableIsAvailableInTheTablet {
 
 		//Enable room in admin
 		HomeAdminPage homeAdminPage = new HomeAdminPage();
-		RoomsPage confRoomPage = homeAdminPage.clickConferenceRoomsLink();
-		if(!confRoomPage.stateEnableDisableBtn(roomName)) {
-			confRoomPage.enableDisableIcon(roomName);
+		RoomsPage roomsPage = homeAdminPage.clickConferenceRoomsLink();
+		if(!roomsPage.stateEnableDisableBtn(roomName)) {
+			roomsPage.enableDisableIcon(roomName);
 		}		
 	}
 }

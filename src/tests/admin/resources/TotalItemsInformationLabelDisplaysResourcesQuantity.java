@@ -3,10 +3,9 @@ package tests.admin.resources;
 import static framework.common.AppConfigConstants.EXCEL_INPUT_DATA;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.util.List;
 import java.util.Map;
-
-import jxl.read.biff.BiffException;
 
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
@@ -30,21 +29,20 @@ public class TotalItemsInformationLabelDisplaysResourcesQuantity {
 
 	@Test(groups = {"FUNCTIONAL"})
 	public void testTotalItemsInformationLabelDisplaysResourcesQuantity() 
-			throws InterruptedException, BiffException, IOException {
-
+			throws InterruptedException {
+		int counter = 0;
 		HomeAdminPage homeAdminPage = new HomeAdminPage();
 		ResourcesPage resourcesPage = homeAdminPage.clickResourcesLink();
-		int counter = 0;
 		for(Map<String, String> resource : testData){	
 
 			//create a resource
-			ResourceCreatePage newResourcePage = resourcesPage.clickAddResourceBtn();		
-			newResourcePage.clickResourceIcon()
+			ResourceCreatePage resourceCreatePage = resourcesPage.clickAddResourceBtn();		
+			resourceCreatePage.clickResourceIcon()
 			.selectResourceIcon(resource.get("Icon"))
 			.setResourceName(resource.get("ResourceName"))
 			.setResourceDisplayName(resource.get("ResourceDisplayName"))
 			.setResourceDescription(resource.get("Description"));
-			resourcesPage = newResourcePage.clickSaveResourceBtn();
+			resourcesPage = resourceCreatePage.clickSaveResourceBtn();
 			counter = counter + 1;
 
 			//Assertion for TC18 
@@ -53,7 +51,7 @@ public class TotalItemsInformationLabelDisplaysResourcesQuantity {
 	}
 
 	@AfterClass
-	public void cleanRoom() throws InterruptedException, BiffException, IOException {
+	public void cleanRoom() throws MalformedURLException, IOException  {
 		HomeAdminPage homeAdminPage = new HomeAdminPage();
 		homeAdminPage.clickResourcesLink();
 		for(Map<String, String> resource : testData){					

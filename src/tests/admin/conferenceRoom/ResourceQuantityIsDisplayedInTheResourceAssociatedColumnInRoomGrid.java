@@ -17,7 +17,6 @@ import framework.pages.admin.HomeAdminPage;
 import framework.pages.admin.conferencerooms.RoomInfoPage;
 import framework.pages.admin.conferencerooms.RoomResourceAssociationsPage;
 import framework.pages.admin.conferencerooms.RoomsPage;
-import framework.pages.admin.resources.ResourcesPage;
 import framework.rest.RootRestMethods;
 import framework.utils.readers.ExcelReader;
 import framework.utils.readers.JsonReader;
@@ -42,11 +41,7 @@ public class ResourceQuantityIsDisplayedInTheResourceAssociatedColumnInRoomGrid 
 	@BeforeClass
 	public void precondition() throws MalformedURLException, IOException {
 		HomeAdminPage homeAdminPage = new HomeAdminPage();				
-		ResourcesPage resourcesPage = homeAdminPage.clickResourcesLink();
-		if(resourcesPage.isResourceNameDisplayedInResourcesPage(resourceDisplayName)){
-			RootRestMethods.deleteResource(resourceDisplayName);
-			UIMethods.refresh();
-		}
+		homeAdminPage.clickResourcesLink();		
 
 		//Create resource by Rest
 		RootRestMethods.createResource(filePath, "");
@@ -57,23 +52,23 @@ public class ResourceQuantityIsDisplayedInTheResourceAssociatedColumnInRoomGrid 
 	public void testAResourceIsDisplayedAsAColumnWhenItsIconIsSelectedInTheTopOfRoomGrid() {
 
 		HomeAdminPage homeAdminPage = new HomeAdminPage();
-		RoomsPage confRoomsPage = homeAdminPage.clickConferenceRoomsLink();
+		RoomsPage roomsPage = homeAdminPage.clickConferenceRoomsLink();
 
 		//Associate resource to a room
-		RoomInfoPage infoPage = confRoomsPage.doubleClickOverRoomName(roomName);
-		RoomResourceAssociationsPage roomResourceAssociationsPage = infoPage
+		RoomInfoPage roomInfoPage = roomsPage.doubleClickOverRoomName(roomName);
+		RoomResourceAssociationsPage roomResourceAssociationsPage = roomInfoPage
 				.clickResourceAssociationsLink();
 		roomResourceAssociationsPage.clickAddResourceToARoom(resourceDisplayName);
 		roomResourceAssociationsPage.changeValueForResourceFromAssociatedList(resourceDisplayName,
 				quantity);
-		confRoomsPage = roomResourceAssociationsPage.clickSaveBtn();
-		confRoomsPage.clickResourceIcon(resourceDisplayName);
+		roomsPage = roomResourceAssociationsPage.clickSaveBtn();
+		roomsPage.clickResourceIcon(resourceDisplayName);
 
 		//Assertion for TC27 
-		Assert.assertEquals(confRoomsPage.getResourceQuantity(roomName),"x " + quantity);
+		Assert.assertEquals(roomsPage.getResourceQuantity(roomName),"x " + quantity);
 
 		//Assertion for TC32 
-		Assert.assertTrue(confRoomsPage.isResourcePresentInTableHeader(resourceDisplayName));
+		Assert.assertTrue(roomsPage.isResourcePresentInTableHeader(resourceDisplayName));
 	}
 
 	@AfterClass

@@ -34,22 +34,23 @@ public class AnErrorMessageIsDisplayedWhenTextBoxesAreLeftEmptyInAddForm {
 		ResourcesPage resourcesPage = homeAdminPage.clickResourcesLink();	
 
 		//attempt to create a resource with name TextBox empty
-		ResourceCreatePage newResourcePage = resourcesPage.clickAddResourceBtn();		
-		newResourcePage.setResourceDisplayName(resourceDisplayName)
+		ResourceCreatePage resourceCreatePage = resourcesPage.clickAddResourceBtn();		
+		resourceCreatePage.setResourceDisplayName(resourceDisplayName)
 		.clickSaveResourceWithErrorBtn();
 
 		//Assertion for TC41 		
-		Assert.assertTrue(newResourcePage.verifyErrorMessage(RESOURCE_NAME_TEXTBOX_EMPTY));	
+		Assert.assertTrue(resourceCreatePage.verifyErrorMessage(RESOURCE_NAME_TEXTBOX_EMPTY));	
 		UIMethods.refresh();
 
 		//attempt to create a resource with display name TextBox empty		
-		newResourcePage = resourcesPage.clickAddResourceBtn();
-		newResourcePage.setResourceName(resourceName)
+		resourceCreatePage = resourcesPage.clickAddResourceBtn();
+		resourceCreatePage.setResourceName(resourceName)
 		.clearResourceDisplayName()
 		.clickSaveResourceWithErrorBtn();
 
 		//Assertion for TC40  		
-		Assert.assertTrue(newResourcePage.verifyErrorMessage(RESOURCE_DISPLAY_NAME_TEXTBOX_EMPTY));	
-		resourcesPage = newResourcePage.clickCancelResourceBtn();
+		Assert.assertTrue(resourceCreatePage
+				.verifyErrorMessage(RESOURCE_DISPLAY_NAME_TEXTBOX_EMPTY));	
+		resourcesPage = resourceCreatePage.clickCancelResourceBtn();
 	}
 }

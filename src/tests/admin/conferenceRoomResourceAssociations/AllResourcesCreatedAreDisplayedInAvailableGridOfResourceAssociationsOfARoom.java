@@ -35,31 +35,28 @@ public class AllResourcesCreatedAreDisplayedInAvailableGridOfResourceAssociation
 	public void testAllResourcesCreatedAreDisplayedInAvailableGridOfResourceAssociationsOfARoom() 
 			throws MalformedURLException, IOException {
 		HomeAdminPage homeAdminPage = new HomeAdminPage();
-
 		for(Map<String, String> resource : testData){
 			ResourcesPage resourcesPage = homeAdminPage.clickResourcesLink();
 
 			//create a resource	
-			ResourceCreatePage newResourcePage = resourcesPage.clickAddResourceBtn();		
-			newResourcePage.clickResourceIcon()
+			ResourceCreatePage resourceCreatePage = resourcesPage.clickAddResourceBtn();		
+			resourceCreatePage.clickResourceIcon()
 			.selectResourceIcon(resource.get("Icon"))
 			.setResourceName(resource.get("ResourceName"))
 			.setResourceDisplayName(resource.get("ResourceDisplayName"))
 			.setResourceDescription(resource.get("Description"))
 			.clickSaveResourceBtn();			
 
-
 			//Associate the resource to a room
-			RoomsPage confRoomsPage = resourcesPage.clickConferenceRoomsLink();
-			RoomInfoPage infoPage = confRoomsPage.doubleClickOverRoomName(roomName);
-			RoomResourceAssociationsPage roomResourceAssociationsPage = infoPage.
+			RoomsPage roomsPage = resourcesPage.clickConferenceRoomsLink();
+			RoomInfoPage roomInfoPage = roomsPage.doubleClickOverRoomName(roomName);
+			RoomResourceAssociationsPage roomResourceAssociationsPage = roomInfoPage.
 					clickResourceAssociationsLink();
 
 			//Assertion for TC05 
 			Assert.assertTrue(roomResourceAssociationsPage.searchResource(resource
 					.get("ResourceDisplayName")));
-			confRoomsPage = roomResourceAssociationsPage.clickCancelBtn();	
-
+			roomsPage = roomResourceAssociationsPage.clickCancelBtn();	
 		}
 	}
 

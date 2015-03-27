@@ -42,8 +42,8 @@ public class AnErrorMessageIsDisplayedWhenAResourceIsUpdatedWithANameAlreadyRegi
 		//create resources
 		for(Map<String, String> resource : testData){
 			ResourcesPage resourcesPage = homeAdminPage.clickResourcesLink();
-			ResourceCreatePage newResourcePage = resourcesPage.clickAddResourceBtn();		
-			newResourcePage.clickResourceIcon()
+			ResourceCreatePage resourceCreatePage = resourcesPage.clickAddResourceBtn();		
+			resourceCreatePage.clickResourceIcon()
 			.selectResourceIcon(resource.get("Icon"))
 			.setResourceName(resource.get("ResourceName"))
 			.setResourceDisplayName(resource.get("ResourceDisplayName"))

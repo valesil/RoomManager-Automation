@@ -19,7 +19,6 @@ import framework.pages.admin.HomeAdminPage;
 import framework.pages.admin.conferencerooms.RoomInfoPage;
 import framework.pages.admin.conferencerooms.RoomResourceAssociationsPage;
 import framework.pages.admin.conferencerooms.RoomsPage;
-import framework.pages.admin.resources.ResourcesPage;
 import framework.rest.RootRestMethods;
 import framework.utils.readers.ExcelReader;
 import framework.utils.readers.JsonReader;
@@ -42,12 +41,8 @@ public class ResourcesAddedAreListedInTheTopOfRoomListPane {
 	@BeforeClass
 	public void precondition() throws MalformedURLException, IOException {
 		HomeAdminPage homeAdminPage = new HomeAdminPage();				
-		ResourcesPage resourcesPage = homeAdminPage.clickResourcesLink();
-		if(resourcesPage.isResourceNameDisplayedInResourcesPage(resourceDisplayName)){
-			RootRestMethods.deleteResource(resourceDisplayName);
-			UIMethods.refresh();
-		}
-
+		homeAdminPage.clickResourcesLink();
+		
 		//Create resource by Rest
 		RootRestMethods.createResource(filePath, "");
 		UIMethods.refresh();		
@@ -56,19 +51,18 @@ public class ResourcesAddedAreListedInTheTopOfRoomListPane {
 	@Test(groups = {"FUNCTIONAL"})
 	public void testResourcesAddedAreListedInTheTopOfRoomListPane() 
 			throws InterruptedException, BiffException, IOException {
-		RoomsPage confRoomPage = new RoomsPage();
-		confRoomPage.clickConferenceRoomsLink();
+		RoomsPage roomsPage = new RoomsPage();
+		roomsPage.clickConferenceRoomsLink();
 
 		//Associate resource to a room
-		RoomInfoPage infoPage = confRoomPage.doubleClickOverRoomName(roomName);
-		RoomResourceAssociationsPage roomResourceAssociationsPage = infoPage
+		RoomInfoPage roomInfoPage = roomsPage.doubleClickOverRoomName(roomName);
+		RoomResourceAssociationsPage roomResourceAssociationsPage = roomInfoPage
 				.clickResourceAssociationsLink();
 		roomResourceAssociationsPage.clickAddResourceToARoom(resourceDisplayName)
 		.clickSaveBtn();
-		confRoomPage = new RoomsPage();
 
 		//Assertion for TC08 
-		Assert.assertTrue(confRoomPage.searchResource(resourceDisplayName));
+		Assert.assertTrue(roomsPage.searchResource(resourceDisplayName));
 	}
 
 	@AfterClass

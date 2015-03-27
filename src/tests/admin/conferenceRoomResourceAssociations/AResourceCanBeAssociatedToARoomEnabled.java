@@ -16,7 +16,6 @@ import framework.pages.admin.HomeAdminPage;
 import framework.pages.admin.conferencerooms.RoomInfoPage;
 import framework.pages.admin.conferencerooms.RoomResourceAssociationsPage;
 import framework.pages.admin.conferencerooms.RoomsPage;
-import framework.pages.admin.resources.ResourcesPage;
 import framework.rest.RootRestMethods;
 import framework.utils.readers.ExcelReader;
 import framework.utils.readers.JsonReader;
@@ -39,11 +38,7 @@ public class AResourceCanBeAssociatedToARoomEnabled {
 	@BeforeClass
 	public void precondition() throws MalformedURLException, IOException {
 		HomeAdminPage homeAdminPage = new HomeAdminPage();				
-		ResourcesPage resourcesPage = homeAdminPage.clickResourcesLink();
-		if(resourcesPage.isResourceNameDisplayedInResourcesPage(resourceDisplayName)){
-			RootRestMethods.deleteResource(resourceDisplayName);
-			UIMethods.refresh();
-		}
+		homeAdminPage.clickResourcesLink();
 
 		//Create resource by Rest
 		RootRestMethods.createResource(filePath, "");
@@ -54,15 +49,15 @@ public class AResourceCanBeAssociatedToARoomEnabled {
 	public void testAResourceCanBeAssociatedToARoomEnabled() {
 
 		//Associate the resource to a room
-		RoomsPage confRoomsPage = new RoomsPage();
-		confRoomsPage.clickConferenceRoomsLink();
-		RoomInfoPage infoPage = confRoomsPage.doubleClickOverRoomName(roomName);
-		RoomResourceAssociationsPage roomsResourceAssociationsPage = infoPage
+		RoomsPage roomsPage = new RoomsPage();
+		roomsPage.clickConferenceRoomsLink();
+		RoomInfoPage roomInfoPage = roomsPage.doubleClickOverRoomName(roomName);
+		RoomResourceAssociationsPage roomsResourceAssociationsPage = roomInfoPage
 				.clickResourceAssociationsLink();
 		roomsResourceAssociationsPage.clickAddResourceToARoom(resourceDisplayName);
-		confRoomsPage = roomsResourceAssociationsPage.clickSaveBtn();
+		roomsPage = roomsResourceAssociationsPage.clickSaveBtn();
 		UIMethods.refresh();
-		confRoomsPage.clickConferenceRoomsLink();
+		roomsPage.clickConferenceRoomsLink();
 
 		//Assertion for TC02 
 		Assert.assertTrue(roomsResourceAssociationsPage.searchResource(resourceDisplayName));	

@@ -30,7 +30,6 @@ public class AnErrorMessageIsDisplayedWhenAResourceWithANameRegisteredIsAdded {
 
 	ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
 	List<Map<String, String>> testData = excelReader.getMapValues("Resources");
-	String roomName = testData.get(0).get("Room Name");
 	String resourceName = testData.get(0).get("ResourceName");
 	String resourceDisplayName = testData.get(0).get("ResourceDisplayName");
 	String resourceDescription = testData.get(0).get("Description");
@@ -43,8 +42,8 @@ public class AnErrorMessageIsDisplayedWhenAResourceWithANameRegisteredIsAdded {
 		ResourcesPage resourcesPage = homeAdminPage.clickResourcesLink();	
 
 		//create a resource
-		ResourceCreatePage newResourcePage = resourcesPage.clickAddResourceBtn();		
-		newResourcePage.clickResourceIcon()
+		ResourceCreatePage resourceCreatePage = resourcesPage.clickAddResourceBtn();		
+		resourceCreatePage.clickResourceIcon()
 		.selectResourceIcon(iconTitle)
 		.setResourceName(resourceName)
 		.setResourceDisplayName(resourceDisplayName)
@@ -57,14 +56,14 @@ public class AnErrorMessageIsDisplayedWhenAResourceWithANameRegisteredIsAdded {
 		ResourcesPage resourcesPage = new ResourcesPage();	
 
 		//create a resource with the same name
-		ResourceCreatePage newResourcePage = resourcesPage.clickAddResourceBtn();		
-		newResourcePage.setResourceName(resourceName)
+		ResourceCreatePage resourceCreatePage = resourcesPage.clickAddResourceBtn();		
+		resourceCreatePage.setResourceName(resourceName)
 		.setResourceDisplayName(resourceDisplayName)
 		.clickSaveResourceWithErrorBtn();
 
 		//Assertion for TC35  		
-		Assert.assertTrue(newResourcePage.verifyErrorMessage(RESOURCE_NAME_DUPLICATED));	
-		newResourcePage.clickCancelResourceBtn();
+		Assert.assertTrue(resourceCreatePage.verifyErrorMessage(RESOURCE_NAME_DUPLICATED));	
+		resourceCreatePage.clickCancelResourceBtn();
 	}
 
 	@AfterClass

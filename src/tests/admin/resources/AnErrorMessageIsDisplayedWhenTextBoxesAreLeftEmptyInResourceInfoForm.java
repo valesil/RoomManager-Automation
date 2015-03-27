@@ -33,7 +33,6 @@ import framework.utils.readers.ExcelReader;
 public class AnErrorMessageIsDisplayedWhenTextBoxesAreLeftEmptyInResourceInfoForm {
 	ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
 	List<Map<String, String>> testData = excelReader.getMapValues("Resources");
-	String roomName = testData.get(0).get("Room Name");
 	String resourceName = testData.get(0).get("ResourceName");
 	String resourceDisplayName = testData.get(0).get("ResourceDisplayName");
 	String resourceDescription = testData.get(0).get("Description");
@@ -45,8 +44,8 @@ public class AnErrorMessageIsDisplayedWhenTextBoxesAreLeftEmptyInResourceInfoFor
 		ResourcesPage resourcesPage = homeAdminPage.clickResourcesLink();	
 
 		//create a resource
-		ResourceCreatePage newResourcePage = resourcesPage.clickAddResourceBtn();		
-		newResourcePage.clickResourceIcon()
+		ResourceCreatePage resourceCreatePage = resourcesPage.clickAddResourceBtn();		
+		resourceCreatePage.clickResourceIcon()
 		.selectResourceIcon(iconTitle)
 		.setResourceName(resourceName)
 		.setResourceDisplayName(resourceDisplayName)

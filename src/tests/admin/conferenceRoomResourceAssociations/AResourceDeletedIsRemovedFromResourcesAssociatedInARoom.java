@@ -34,47 +34,43 @@ public class AResourceDeletedIsRemovedFromResourcesAssociatedInARoom {
 	JsonReader jsonValue = new JsonReader();
 	String resourceFileJSON = "\\src\\tests\\Resource1.json";
 	String filePath = System.getProperty("user.dir") + resourceFileJSON;
-	String resourceDisplayName = jsonValue.readJsonFile("name" , resourceFileJSON);
+	String resourceName = jsonValue.readJsonFile("name" , resourceFileJSON);
+	String resourceDisplayName = jsonValue.readJsonFile("customName" , resourceFileJSON);
 
 	@BeforeClass
 	public void precondition() throws MalformedURLException, IOException {
 		HomeAdminPage homeAdminPage = new HomeAdminPage();				
 		ResourcesPage resourcesPage = homeAdminPage.clickResourcesLink();
-		if(resourcesPage.isResourceNameDisplayedInResourcesPage(resourceDisplayName)){
-			RootRestMethods.deleteResource(resourceDisplayName);
-			UIMethods.refresh();
-		}
 
 		//Create resource by Rest
 		RootRestMethods.createResource(filePath, "");
 		UIMethods.refresh();		
 
 		//Associate resource to a room
-		RoomsPage confRoomsPage = resourcesPage.clickConferenceRoomsLink();
-		RoomInfoPage infoPage = confRoomsPage.doubleClickOverRoomName(roomName);
-		RoomResourceAssociationsPage roomsResourceAssociationsPage = infoPage
+		RoomsPage roomsPage = resourcesPage.clickConferenceRoomsLink();
+		RoomInfoPage roomInfoPage = roomsPage.doubleClickOverRoomName(roomName);
+		RoomResourceAssociationsPage roomsResourceAssociationsPage = roomInfoPage
 				.clickResourceAssociationsLink();
 		roomsResourceAssociationsPage.clickAddResourceToARoom(resourceDisplayName);
-		confRoomsPage = roomsResourceAssociationsPage.clickSaveBtn();
-
+		roomsPage = roomsResourceAssociationsPage.clickSaveBtn();
 	}
 
 	@Test(groups = {"FUNCTIONAL"})
 	public void testAResourceDeletedIsRemovedFromResourcesAssociatedInARoom() 
 			throws MalformedURLException, IOException {
 		ResourcesPage resourcesPage = new ResourcesPage();
-		RoomsPage conferenceRoomPage = resourcesPage.clickConferenceRoomsLink();
-		resourcesPage = conferenceRoomPage.clickResourcesLink();
+		RoomsPage roomsPage = resourcesPage.clickConferenceRoomsLink();
+		resourcesPage = roomsPage.clickResourcesLink();
 
 		//Delete resource
-		RootRestMethods.deleteResource(resourceDisplayName);
+		RootRestMethods.deleteResource(resourceName);
 		UIMethods.refresh();
-		conferenceRoomPage = resourcesPage.clickConferenceRoomsLink();
-		RoomInfoPage infoPage = conferenceRoomPage.doubleClickOverRoomName(roomName);
-		RoomResourceAssociationsPage crresourceAssociationsPage = infoPage.
+		roomsPage = resourcesPage.clickConferenceRoomsLink();
+		RoomInfoPage roomInfoPage = roomsPage.doubleClickOverRoomName(roomName);
+		RoomResourceAssociationsPage roomResourceAssociationsPage = roomInfoPage.
 				clickResourceAssociationsLink();
 
 		//Assertion for TC01  
-		Assert.assertFalse(crresourceAssociationsPage.searchResource(resourceDisplayName));		
+		Assert.assertFalse(roomResourceAssociationsPage.searchResource(resourceDisplayName));		
 	}	
 }

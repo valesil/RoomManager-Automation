@@ -40,11 +40,7 @@ public class AResourceDeletedIsRemovedFromAvailablesGridInARoom {
 	@BeforeClass
 	public void precondition() throws MalformedURLException, IOException {
 		HomeAdminPage homeAdminPage = new HomeAdminPage();				
-		ResourcesPage resourcesPage = homeAdminPage.clickResourcesLink();
-		if(resourcesPage.isResourceNameDisplayedInResourcesPage(resourceDisplayName)){
-			RootRestMethods.deleteResource(resourceDisplayName);
-			UIMethods.refresh();
-		}
+		homeAdminPage.clickResourcesLink();
 
 		//Create resource by Rest
 		RootRestMethods.createResource(filePath, "");
@@ -57,17 +53,17 @@ public class AResourceDeletedIsRemovedFromAvailablesGridInARoom {
 
 		//Delete Resource
 		ResourcesPage resourcesPage = new ResourcesPage();
-		RoomsPage confRoomsPage = resourcesPage.clickConferenceRoomsLink();
-		resourcesPage = confRoomsPage.clickResourcesLink();
+		RoomsPage roomsPage = resourcesPage.clickConferenceRoomsLink();
+		resourcesPage = roomsPage.clickResourcesLink();
 		RootRestMethods.deleteResource(testData.get(0).get("ResourceName"));
 		UIMethods.refresh();
-		confRoomsPage = resourcesPage.clickConferenceRoomsLink();
-		RoomInfoPage infoPage = confRoomsPage.doubleClickOverRoomName(roomName);
-		RoomResourceAssociationsPage roomResourceAssociationsPage = infoPage
+		roomsPage = resourcesPage.clickConferenceRoomsLink();
+		RoomInfoPage roomInfoPage = roomsPage.doubleClickOverRoomName(roomName);
+		RoomResourceAssociationsPage roomResourceAssociationsPage = roomInfoPage
 				.clickResourceAssociationsLink();
 
 		//Assertion for TC04 
 		Assert.assertFalse(roomResourceAssociationsPage.searchResource(resourceDisplayName));
-		confRoomsPage = roomResourceAssociationsPage.clickCancelBtn();
+		roomsPage = roomResourceAssociationsPage.clickCancelBtn();
 	}
 }

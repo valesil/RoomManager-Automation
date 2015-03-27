@@ -37,31 +37,26 @@ public class ResourcesAssociatedToARoomEnabledCanBeRemoved {
 	JsonReader jsonValue = new JsonReader();
 	String resourceFileJSON = "\\src\\tests\\Resource1.json";
 	String filePath = System.getProperty("user.dir") + resourceFileJSON;
-	String resourceDisplayName = jsonValue.readJsonFile("name" , resourceFileJSON);	
-
+	String resourceName = jsonValue.readJsonFile("name" , resourceFileJSON);	
+	String resourceDisplayName = jsonValue.readJsonFile("customName" , resourceFileJSON);
+	
 	@BeforeClass
 	public void preconditions() throws MalformedURLException, IOException {
 		UIMethods.refresh();
 		HomeAdminPage homeAdminPage = new HomeAdminPage();				
 		ResourcesPage resourcesPage = homeAdminPage.clickResourcesLink();
-		if(resourcesPage.isResourceNameDisplayedInResourcesPage(resourceDisplayName)){
-			RootRestMethods.deleteResource(resourceDisplayName);
-			UIMethods.refresh();
-		}
 
 		//Create resource by Rest
 		RootRestMethods.createResource(filePath, "");
 		UIMethods.refresh();		
 
-
 		//Associating resource to a room
-		RoomsPage conferenceRoomPage = resourcesPage.clickConferenceRoomsLink();
-		RoomInfoPage infoPage = conferenceRoomPage.doubleClickOverRoomName(roomName);
-		RoomResourceAssociationsPage crresourceAssociationsPage = infoPage
+		RoomsPage roomsPage = resourcesPage.clickConferenceRoomsLink();
+		RoomInfoPage roomInfoPage = roomsPage.doubleClickOverRoomName(roomName);
+		RoomResourceAssociationsPage roomResourceAssociationsPage = roomInfoPage
 				.clickResourceAssociationsLink();
-		crresourceAssociationsPage.clickAddResourceToARoom(resourceDisplayName)
+		roomResourceAssociationsPage.clickAddResourceToARoom(resourceDisplayName)
 		.clickSaveBtn();
-
 	}
 
 	@Test(groups = {"ACCEPTANCE"})
@@ -69,16 +64,16 @@ public class ResourcesAssociatedToARoomEnabledCanBeRemoved {
 	BiffException, IOException{
 
 		//Disassociate resource
-		RoomsPage conferenceRoomPage = new RoomsPage();
-		conferenceRoomPage.clickConferenceRoomsLink();
-		RoomInfoPage infoPage = conferenceRoomPage.doubleClickOverRoomName(roomName);
-		RoomResourceAssociationsPage crresourceAssociationsPage = infoPage
+		RoomsPage roomsPage = new RoomsPage();
+		roomsPage.clickConferenceRoomsLink();
+		RoomInfoPage roomInfoPage = roomsPage.doubleClickOverRoomName(roomName);
+		RoomResourceAssociationsPage roomResourceAssociationsPage = roomInfoPage
 				.clickResourceAssociationsLink();
-		crresourceAssociationsPage.removeResourceFromAssociatedList(resourceDisplayName);
-		conferenceRoomPage = crresourceAssociationsPage.clickSaveBtn();
+		roomResourceAssociationsPage.removeResourceFromAssociatedList(resourceDisplayName);
+		roomsPage = roomResourceAssociationsPage.clickSaveBtn();
 
 		//Assertion for TC03
-		Assert.assertTrue(crresourceAssociationsPage.searchResource(resourceDisplayName));
+		Assert.assertTrue(roomResourceAssociationsPage.searchResource(resourceDisplayName));
 	}
 
 	@AfterClass
@@ -87,7 +82,7 @@ public class ResourcesAssociatedToARoomEnabledCanBeRemoved {
 		//delete resource with API rest method
 		HomeAdminPage homeAdminPage = new HomeAdminPage();;	
 		homeAdminPage.clickResourcesLink();
-		RootRestMethods.deleteResource(resourceDisplayName);
+		RootRestMethods.deleteResource(resourceName);
 		UIMethods.refresh();	
 	}
 }

@@ -28,7 +28,7 @@ public class SelectedItemsLblInformationDisplaysTheNumberOfCheckedResources {
 	List<Map<String, String>> testData = excelReader.getMapValues("Resources");
 
 	@Test(groups = {"FUNCTIONAL"})
-	public void testSelectedItemsLblInformationDisplaysTheNumberOfCheckedResources()
+	public void testSelectedItemsLblInformationDisplaysTheNumberOfCheckedResources() 
 			throws InterruptedException {
 		int counter = 0;
 		HomeAdminPage homeAdminPage = new HomeAdminPage();
@@ -36,13 +36,13 @@ public class SelectedItemsLblInformationDisplaysTheNumberOfCheckedResources {
 		for(Map<String, String> resource : testData) {
 
 			//create a resource
-			ResourceCreatePage newResourcePage = resourcesPage.clickAddResourceBtn();		
-			newResourcePage.clickResourceIcon()
+			ResourceCreatePage resourceCreatePage = resourcesPage.clickAddResourceBtn();		
+			resourceCreatePage.clickResourceIcon()
 			.selectResourceIcon(resource.get("Icon"))
 			.setResourceName(resource.get("ResourceName"))
 			.setResourceDisplayName(resource.get("ResourceDisplayName"))
 			.setResourceDescription(resource.get("Description"));
-			resourcesPage = newResourcePage.clickSaveResourceBtn();
+			resourcesPage = resourceCreatePage.clickSaveResourceBtn();
 			counter = counter + 1;	
 		}
 		resourcesPage.clickSelectAllResources();

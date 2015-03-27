@@ -22,21 +22,18 @@ import framework.utils.readers.ExcelReader;
 public class RoomAvailabilityCanBeEnabledOrDisabledWithEnableDisableButton {
 	ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
 	List<Map<String, String>> testData = excelReader.getMapValues("Resources");
-	String roomName = testData.get(0).get("Room Name");
+	String roomName = testData.get(2).get("Room Name");
 
 	@Test(groups = {"ACCEPTANCE"})
 	public void testRoomAvailabilityCanBeDisabled() {
 
 		//disabling a room 
 		HomeAdminPage homeAdminPage = new HomeAdminPage();
-		RoomsPage confRoomsPage = homeAdminPage.clickConferenceRoomsLink();
-		if(confRoomsPage.stateEnableDisableBtn(roomName)) {
-			confRoomsPage.enableDisableIcon(roomName);
-		} else {
+		RoomsPage confRoomsPage = homeAdminPage.clickConferenceRoomsLink();	
+		confRoomsPage.enableDisableIcon(roomName);
 
-			//Assertion for TC12 
-			Assert.assertTrue(confRoomsPage.stateEnableDisableBtn(roomName));
-		}
+		//Assertion for TC12 
+		Assert.assertTrue(confRoomsPage.stateEnableDisableBtn(roomName));
 		if(confRoomsPage.stateEnableDisableBtn(roomName)) {
 			confRoomsPage.enableDisableIcon(roomName);
 		} else {

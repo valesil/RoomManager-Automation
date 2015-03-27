@@ -28,27 +28,18 @@ public class ForARoomDisabledTheTabletDoesNotScheduleMeetings {
 	public void testForARoomDisabledTheTabletDoesNotScheduleMeetings() {
 
 		//Disabling room in Admin 
-		HomeAdminPage homePage = new HomeAdminPage();
-		RoomsPage confRoomPage = homePage.clickConferenceRoomsLink();
-		if(confRoomPage.stateEnableDisableBtn(roomName)) {
-			confRoomPage.enableDisableIcon(roomName);
-		} else {
+		HomeAdminPage homeAdminPage = new HomeAdminPage();
+		RoomsPage roomsPage = homeAdminPage.clickConferenceRoomsLink();		
+		roomsPage.enableDisableIcon(roomName);		
 
-			//Open tablet to see changes
-			HomeTabletPage homeTablet = new HomeTabletPage();
-			
-			/**
-			 * if this test case runs first this two lines should be without comments
-			 * SettingsPage settingsPage = homeTablet.clickSettingsBtn();
-			 * homeTablet = settingsPage.selectRoom(roomName);
-			 */
-			SearchPage searchPage = homeTablet.clickSearchBtn();
-			searchPage.clickCollapseAdvancedBtn();
-			searchPage.setName(roomName);
+		//Open tablet to see changes
+		HomeTabletPage homeTabletPage = new HomeTabletPage();
+		SearchPage searchPage = homeTabletPage.clickSearchBtn();
+		searchPage.clickCollapseAdvancedBtn();
+		searchPage.setName(roomName);
 
-			//Assertion for TC24 
-			Assert.assertFalse(searchPage.roomIsDiplayed(roomName));
-		}
+		//Assertion for TC24 
+		Assert.assertFalse(searchPage.roomIsDiplayed(roomName));		
 	}
 
 	@AfterClass
@@ -56,7 +47,7 @@ public class ForARoomDisabledTheTabletDoesNotScheduleMeetings {
 
 		//Enable room in admin
 		HomeAdminPage homeAdminPage = new HomeAdminPage();
-		RoomsPage confRoomsPage = homeAdminPage.clickConferenceRoomsLink();	
-		confRoomsPage.enableDisableIcon(roomName);
+		RoomsPage roomsPage = homeAdminPage.clickConferenceRoomsLink();	
+		roomsPage.enableDisableIcon(roomName);
 	}
 }
