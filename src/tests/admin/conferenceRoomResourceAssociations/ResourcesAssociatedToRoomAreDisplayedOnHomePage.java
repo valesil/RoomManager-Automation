@@ -31,23 +31,23 @@ import framework.utils.readers.ExcelReader;
  */
 public class ResourcesAssociatedToRoomAreDisplayedOnHomePage {
 
-	ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
-	List<Map<String, String>> testData = excelReader.getMapValues("Resources");
-	String roomName = testData.get(0).get("Room Name");
-	String resourceName = testData.get(0).get("ResourceName");
-	String resourceDisplayName = testData.get(0).get("ResourceDisplayName");
-	String resourceDescription = testData.get(0).get("Description");
-	String iconTitle = testData.get(0).get("Icon");	
-	String quantity = testData.get(0).get("Value");
+	//reading to excel to create variables
+	private ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
+	private List<Map<String, String>> testData = excelReader.getMapValues("Resources");
+	private String roomName = testData.get(0).get("Room Name");
+	private String resourceName = testData.get(0).get("ResourceName");
+	private String resourceDisplayName = testData.get(0).get("ResourceDisplayName");
+	private String resourceDescription = testData.get(0).get("Description");
+	private String iconTitle = testData.get(0).get("Icon");	
+	private String quantity = testData.get(0).get("Value");
     	
 	@BeforeClass
-	public void precondition() throws BiffException, IOException {
+	public void precondition() {
 		HomeAdminPage homeAdminPage = new HomeAdminPage();
 		ResourcesPage resourcesPage = homeAdminPage.clickResourcesLink();	
-		ResourceCreatePage newResourcePage = new ResourceCreatePage();
+		ResourceCreatePage newResourcePage = resourcesPage.clickAddResourceBtn();
 		
 		//create a resource
-		newResourcePage = resourcesPage.clickAddResourceBtn();		
 		resourcesPage = newResourcePage
 			.clickResourceIcon()
 			.selectResourceIcon(iconTitle)
@@ -66,14 +66,16 @@ public class ResourcesAssociatedToRoomAreDisplayedOnHomePage {
 
 	@Test(groups = {"FUNCTIONAL"})
 	public void testResourcesAssociatedToRoomAreDisplayedOnHomePage() throws BiffException, IOException {
+		//reading to excel to create variables
 		ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
 		List<Map<String, String>> testData2 = excelReader.getMapValues("RoomInfo");
 		String displayName = testData2.get(0).get("DisplayName").trim();		
 
-	
 		HomeTabletPage home = new HomeTabletPage();
 		SettingsPage sett = home.clickSettingsBtn();
 		sett.selectRoom(displayName);
+		
+		//Assertion for TC07
 		Assert.assertTrue(home.VerifyResourceIsAsociated(resourceDisplayName, quantity));
 	}
 

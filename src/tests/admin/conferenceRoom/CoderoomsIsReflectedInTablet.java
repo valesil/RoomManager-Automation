@@ -2,11 +2,8 @@ package tests.admin.conferenceRoom;
 
 import static framework.common.AppConfigConstants.EXCEL_INPUT_DATA;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.Map;
-
-import jxl.read.biff.BiffException;
 
 import org.junit.Assert;
 import org.testng.annotations.AfterClass;
@@ -26,16 +23,15 @@ import framework.utils.readers.ExcelReader;
  *
  */
 public class CoderoomsIsReflectedInTablet {
-
-	ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
-	List<Map<String, String>> testData1 = excelReader.getMapValues("RoomInfo");
-	String displayName =testData1.get(0).get("DisplayName");	  	  
-	String roomCode = testData1.get(0).get("Code");
-	String empty = "";
+	//reading to excel to create variables
+	private ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
+	private List<Map<String, String>> testData1 = excelReader.getMapValues("RoomInfo");
+	private String displayName =testData1.get(0).get("DisplayName");	  	  
+	private String roomCode = testData1.get(0).get("Code");
+	private String empty = "";
 	
 	@Test(groups = {"FUNCTIONAL"})
-	public void testChangesInRoomCodeAreReflectedIntablet() throws InterruptedException,
-	IOException, BiffException {
+	public void testChangesInRoomCodeAreReflectedIntablet() {
 		HomeAdminPage homePage = new HomeAdminPage();
 		RoomsPage confRoomPage = homePage.clickConferenceRoomsLink();
 		RoomInfoPage roomInf = confRoomPage.doubleClickOverRoomName(displayName);
@@ -51,6 +47,8 @@ public class CoderoomsIsReflectedInTablet {
 		SettingsPage sett = home.clickSettingsBtn();
 		sett.selectRoom(displayName);   
 		String tabletRoomCode = home.getRoomCodeLbl();
+		
+		//Assertion for TC09
 		Assert.assertEquals(SavedCode, tabletRoomCode);
 	}
 	

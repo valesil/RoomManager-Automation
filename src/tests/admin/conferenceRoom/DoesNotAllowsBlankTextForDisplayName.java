@@ -1,6 +1,7 @@
 package tests.admin.conferenceRoom;
 
 import static framework.common.AppConfigConstants.EXCEL_INPUT_DATA;
+import static framework.common.MessageConstants.ROOM_DISPLAY_NAME_EMPTY;
 
 import java.util.List;
 import java.util.Map;
@@ -21,10 +22,12 @@ import framework.utils.readers.ExcelReader;
  */
 public class DoesNotAllowsBlankTextForDisplayName {
 
+	//empty string to set room display name
 	private String empty = "";
 	
 	@Test(groups = {"NEGATIVE"})
 	public void testDoesNotAllowsBlankTextForDisplayName() {
+		//reading to excel to create variables
 		ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
 		List<Map<String, String>> testData1 = excelReader.getMapValues("RoomInfo");
 		String displayName =testData1.get(0).get("DisplayName");
@@ -35,7 +38,10 @@ public class DoesNotAllowsBlankTextForDisplayName {
 		roomInf
 			.setDisplayName(empty)
 			.clickSaveWithErrorBtn();
-		Assert.assertTrue(roomInf.isDisplaynameErrorMessageDisplayed());
+		String errorMessage = roomInf.getErrorMessageDisplayName();
+		
+		//Assertion for TC12
+		Assert.assertEquals(errorMessage, ROOM_DISPLAY_NAME_EMPTY);
 	}
 	
 	@AfterClass

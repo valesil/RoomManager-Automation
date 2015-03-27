@@ -27,10 +27,11 @@ import framework.utils.readers.ExcelReader;
  */
 public class DisplayNameIsReflectedInTablet {
 	
-	ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
-	List<Map<String, String>> testData1 = excelReader.getMapValues("RoomInfo");
-	String displayName = testData1.get(0).get("DisplayName");	  	  
-	String newDisplayName = testData1.get(0).get("NewDisplayName");	  	  
+	//reading to excel to create variables
+	private ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
+	private List<Map<String, String>> testData1 = excelReader.getMapValues("RoomInfo");
+	private String displayName = testData1.get(0).get("DisplayName");	  	  
+	private String newDisplayName = testData1.get(0).get("NewDisplayName");	  	  
 	
 	@Test(groups = {"FUNCTIONAL"})
 	public void testChangesInDisplayNameAreReflectedIntablet() throws InterruptedException, IOException, BiffException {
@@ -46,6 +47,8 @@ public class DisplayNameIsReflectedInTablet {
 		SettingsPage sett = home.clickSettingsBtn();
 		sett.selectRoom(newDisplayName); 	   
 		String tabletDisplayName = home.getRoomDisplayNameLbl();
+		
+		//Assertion for TC10
 		Assert.assertEquals(SavedDisplayName, tabletDisplayName);
 	}
 	
@@ -54,6 +57,8 @@ public class DisplayNameIsReflectedInTablet {
 		HomeAdminPage homePage = new HomeAdminPage();
 		RoomsPage confRoomPage = homePage.clickConferenceRoomsLink();
 		RoomInfoPage roomInf = confRoomPage.doubleClickOverRoomName(newDisplayName);
+		
+		//Clean room display name with default value
 		roomInf
 			.setDisplayName(displayName)
 			.clickSaveBtn();

@@ -25,13 +25,14 @@ import framework.utils.readers.ExcelReader;
  */
 public class SaveButtonSaveChangesMadeInRoomInfoPage {
 
-	ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
-	List<Map<String, String>> testData1 = excelReader.getMapValues("RoomInfo");
-	String displayName =testData1.get(0).get("DisplayName");// "room01 changed";	  	  
-	String capacity = testData1.get(0).get("Capacity");
-	String location = testData1.get(0).get("Location");
-	String roomCode = testData1.get(0).get("Code");
-	String empty = "";
+	//reading to excel to create variables
+	private ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
+	private List<Map<String, String>> testData1 = excelReader.getMapValues("RoomInfo");
+	private String displayName =testData1.get(0).get("DisplayName");// "room01 changed";	  	  
+	private String capacity = testData1.get(0).get("Capacity");
+	private String location = testData1.get(0).get("Location");
+	private String roomCode = testData1.get(0).get("Code");
+	private String empty = "";
 	
 	@Test(groups = {"FUNCTIONAL"})
 	public void testSaveButtonSaveChangesMadeInRoomInfoPage() throws JSONException, 
@@ -46,14 +47,17 @@ public class SaveButtonSaveChangesMadeInRoomInfoPage {
 			.setRoomCode(roomCode)
 			.setLocation(location)
 			.clickSaveBtn();
+		
+		//Assertion for TC23
 		Assert.assertTrue(confRoomPage.verifyChangesMade(displayName));
 	}
 	
 	@AfterTest
 	public void postcondition() {
-		
 		RoomsPage rooms = new RoomsPage();
 		RoomInfoPage roomInf = rooms.doubleClickOverRoomName(displayName);
+		
+		//clean display name and capacity with empty value
 		roomInf
 			.setDisplayName(displayName)
 			.setRoomCode(empty)

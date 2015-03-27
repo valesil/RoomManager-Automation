@@ -25,6 +25,7 @@ public class DefaultRoomInformationAreDisplayedInConferenceRoomPage {
 	
 	@Test(groups = {"FUNCTIONAL"})
 	public void testDefaultRoomInfomationAreDisplayedInConferenceRoomPage() {
+		//reading to excel to create variables
 		ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
 		List<Map<String, String>> testData1 = excelReader.getMapValues("RoomInfo");
 		String displayName =testData1.get(0).get("DisplayName");
@@ -35,6 +36,8 @@ public class DefaultRoomInformationAreDisplayedInConferenceRoomPage {
 			.clickResourcesLink()
 			.clickConferenceRoomsLink();
 		RoomInfoPage roomInf = rooms.doubleClickOverRoomName(displayName);
+		
+		//Assertion for TC11
 		Assert.assertTrue(roomInf.verifyRoomDefaultValues(displayName));
 	}
 	

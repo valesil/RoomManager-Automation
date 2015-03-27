@@ -25,34 +25,32 @@ import framework.utils.readers.ExcelReader;
  */
 public class ChangesInCapacityisReflectedInTablet {
 
-	ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
-	List<Map<String, String>> testData1 = excelReader.getMapValues("RoomInfo");
-	String displayName =testData1.get(0).get("DisplayName");
-	String capacity = testData1.get(0).get("Capacity");
-	String empty = "";
+	//reading to excel to create variables
+	private ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
+	private List<Map<String, String>> roomList = excelReader.getMapValues("RoomInfo");
+	private String displayName =roomList.get(0).get("DisplayName");
+	private String capacity = roomList.get(0).get("Capacity");
+	private String empty = "";
 
 	@Test(groups = {"FUNCTIONAL"})
 	public void testChangesInCapacityisReflectedInTablet() {
-		
 		UIMethods.refresh();
-		
 		HomeAdminPage homePage = new HomeAdminPage();
 		RoomsPage confRoomPage = homePage.clickConferenceRoomsLink();
-		System.out.println("entrando a room -"+displayName);
 		RoomInfoPage roomInf = confRoomPage.doubleClickOverRoomName(displayName);
-		System.out.println("cambio de capacida");
 		roomInf
 			.setRoomCapacity(capacity)
 			.clickSaveBtn();
 		
-		System.out.println("cambio de page");
 		HomeTabletPage home = new HomeTabletPage();
 		SettingsPage sett = home.clickSettingsBtn();
 		sett.selectRoom(displayName);
         SearchPage searchPage = home
-        		.clickSearchBtn()
-        		.clickCollapseAdvancedBtn()
-        		.setMinimumCap(capacity);
+        	.clickSearchBtn()
+        	.clickCollapseAdvancedBtn()
+        	.setMinimumCap(capacity);
+      
+        //Assertion for TC08
         Assert.assertTrue(searchPage.roomIsDiplayed(displayName));
 	}
 
@@ -61,6 +59,8 @@ public class ChangesInCapacityisReflectedInTablet {
 		HomeAdminPage homePage = new HomeAdminPage();
 		RoomsPage confRoomPage = homePage.clickConferenceRoomsLink();
 		RoomInfoPage roomInf = confRoomPage.doubleClickOverRoomName(displayName);
+		
+		//clean room capacity 
 		roomInf
 			.setRoomCapacity(empty)
 			.clickSaveBtn();

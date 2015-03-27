@@ -2,18 +2,15 @@ package tests.admin.conferenceRoom;
 
 import static framework.common.AppConfigConstants.EXCEL_INPUT_DATA;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.Map;
-
-import jxl.read.biff.BiffException;
 
 import org.junit.Assert;
 import org.testng.annotations.Test;
 
 import framework.pages.admin.HomeAdminPage;
-import framework.pages.admin.conferencerooms.RoomsPage;
 import framework.pages.admin.conferencerooms.RoomInfoPage;
+import framework.pages.admin.conferencerooms.RoomsPage;
 import framework.utils.readers.ExcelReader;
 
 /**
@@ -24,8 +21,8 @@ import framework.utils.readers.ExcelReader;
 public class RoomCapacityCanBeInserted {
 
 	@Test(groups = {"FUNCTIONAL"})
-	public void testRoomCapacityCanBeInserted() throws InterruptedException, 
-	BiffException, IOException {
+	public void testRoomCapacityCanBeInserted()  {
+		//reading to excel to create variables
 		ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
 		List<Map<String, String>> testData1 = excelReader.getMapValues("RoomInfo");
 		String displayName =testData1.get(0).get("DisplayName");// "room01 changed";	  	  
@@ -42,6 +39,8 @@ public class RoomCapacityCanBeInserted {
 			.doubleClickOverRoomName(displayName)
 			.getRoomCapacity();
 		roomInf.clickCancelBtn();
+		
+		//Assertion fot TC06
 		Assert.assertEquals(capacity, roomCapacity);
 	}
 }

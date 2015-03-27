@@ -2,11 +2,8 @@ package tests.admin.conferenceRoom;
 
 import static framework.common.AppConfigConstants.EXCEL_INPUT_DATA;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.Map;
-
-import jxl.read.biff.BiffException;
 
 import org.junit.Assert;
 import org.testng.annotations.AfterClass;
@@ -28,10 +25,11 @@ import framework.utils.readers.ExcelReader;
  */
 public class RoomAvailabilityCanBeDisableFromRoomInfoPage {
 	
-	ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
-	List<Map<String, String>> testData2 = excelReader.getMapValues("RoomInfo");
-	String displayName = testData2.get(0).get("DisplayName");
-	String auxRoom = testData2.get(1).get("DisplayName");
+	//reading to excel to create variables
+	private ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
+	private List<Map<String, String>> testData2 = excelReader.getMapValues("RoomInfo");
+	private String displayName = testData2.get(0).get("DisplayName");
+	private String auxRoom = testData2.get(1).get("DisplayName");
 	
 	@Test(groups = {"FUNCTIONAL"})
 	public void testRoomAvailabilityCanBeDisableFromRoomInfoPage() {
@@ -46,14 +44,15 @@ public class RoomAvailabilityCanBeDisableFromRoomInfoPage {
 		SettingsPage sett = home.clickSettingsBtn();
 		sett.selectRoom(auxRoom);
 		SearchPage search = home.clickSearchBtn();
+		
+		//Assertion for TC01
 		Assert.assertFalse(search.roomIsDiplayed(displayName));
 	}
 	
 	@AfterClass
-	public void cleanRoom() throws InterruptedException, BiffException, IOException {
+	public void cleanRoom() {
 		HomeAdminPage home = new HomeAdminPage();
-		home.clickConferenceRoomsLink();
-		RoomsPage confPage = new RoomsPage();
+		RoomsPage confPage = home.clickConferenceRoomsLink();
 		confPage.enableDisableIcon(displayName);
 		UIMethods.refresh();
 	}

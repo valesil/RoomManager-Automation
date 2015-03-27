@@ -3,6 +3,7 @@ package tests.admin.conferenceRoomResourceAssociations;
 import static framework.common.AppConfigConstants.EXCEL_INPUT_DATA;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.util.List;
 import java.util.Map;
 
@@ -30,21 +31,22 @@ import framework.utils.readers.ExcelReader;
  *
  */
 public class ChangesInResourcesAssociationsFormAreDiscardedWhenTheyAreCanceled {
-	ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
-	List<Map<String, String>> testData = excelReader.getMapValues("Resources");
-	String resourceName = testData.get(0).get("ResourceName");
-	String resourceDisplayName = testData.get(0).get("ResourceDisplayName");
-	String resourceDescription = testData.get(0).get("Description");
-	String iconTitle = testData.get(0).get("Icon");
+	
+	//reading to excel to create variables
+	private ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
+	private List<Map<String, String>> testData = excelReader.getMapValues("Resources");
+	private String resourceName = testData.get(0).get("ResourceName");
+	private String resourceDisplayName = testData.get(0).get("ResourceDisplayName");
+	private String resourceDescription = testData.get(0).get("Description");
+	private String iconTitle = testData.get(0).get("Icon");
 
 	@BeforeClass
 	public void precondition() throws BiffException, IOException {
 		HomeAdminPage homeAdminPage = new HomeAdminPage();
 		ResourcesPage resourcesPage = homeAdminPage.clickResourcesLink();	
-		ResourceCreatePage newResourcePage = new ResourceCreatePage();
+		ResourceCreatePage newResourcePage = resourcesPage.clickAddResourceBtn();
 
 		//create a resource
-		newResourcePage = resourcesPage.clickAddResourceBtn();		
 		resourcesPage = newResourcePage.clickResourceIcon()
 			.selectResourceIcon(iconTitle)
 			.setResourceName(resourceName)
@@ -55,6 +57,7 @@ public class ChangesInResourcesAssociationsFormAreDiscardedWhenTheyAreCanceled {
 
 	@Test(groups = {"FUNCTIONAL"})
 	public void testChangesInResourcesAssociationsFormAreDiscardedWhenTheyAreCanceled() {
+		//reading to excel to create variables
 		ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
 		List<Map<String, String>> testData = excelReader.getMapValues("RoomInfo");
 		String resourceName = testData.get(0).get("AssociatedResource").trim();
@@ -73,13 +76,17 @@ public class ChangesInResourcesAssociationsFormAreDiscardedWhenTheyAreCanceled {
 		conferenceRoomPage = home.clickConferenceRoomsLink();
 		infoPage = conferenceRoomPage.doubleClickOverRoomName(roomName);
 		crresourceAssociationsPage = infoPage.clickResourceAssociationsLink();
+		
+		//verify if changes are discarted
 		boolean existChanges = crresourceAssociationsPage.verifyChanges(resourceName);
 		infoPage.clickCancelBtn();
+		
+		//Assertion for TC11
 		Assert.assertTrue(existChanges);	
 	}
 
 	@AfterClass
-	public void cleanRoom() throws InterruptedException, BiffException, IOException {
+	public void cleanRoom() throws MalformedURLException, IOException {
 		//Delete resource
 		RootRestMethods.deleteResource(resourceName);
 		UIMethods.refresh();

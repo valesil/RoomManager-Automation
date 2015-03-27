@@ -25,24 +25,24 @@ import framework.utils.readers.ExcelReader;
  */
 public class RoomAvailabilityCanBeEnableFromRoomInfoPage {
 
-	ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
-	List<Map<String, String>> testData2 = excelReader.getMapValues("RoomInfo");
-	String displayName = testData2.get(0).get("DisplayName");
-	String auxRoom = testData2.get(1).get("DisplayName");
+	//reading to excel to create variables
+	private ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
+	private List<Map<String, String>> testData2 = excelReader.getMapValues("RoomInfo");
+	private String displayName = testData2.get(0).get("DisplayName");
+	private String auxRoom = testData2.get(1).get("DisplayName");
 
 	@BeforeClass
 	public void precondition() {
-		System.out.println("pre");
 		UIMethods.refresh();
 		HomeAdminPage home = new HomeAdminPage();
-		home.clickConferenceRoomsLink();
-		RoomsPage confPage = new RoomsPage();
+		RoomsPage confPage = home.clickConferenceRoomsLink();
+		
+		//click to disable the selected room
 		confPage.enableDisableIcon(displayName);
 	}
 	
 	@Test(groups = {"FUNCTIONAL"})
 	public void testRoomAvailabilityCanBeEnableFromRoomInfoPage() {
-		System.out.println("Start test");
 		HomeAdminPage homePage = new HomeAdminPage();
 		RoomsPage conferencePage = homePage.clickConferenceRoomsLink();
 		RoomInfoPage infoPage = conferencePage
@@ -55,6 +55,8 @@ public class RoomAvailabilityCanBeEnableFromRoomInfoPage {
 		SettingsPage sett = home.clickSettingsBtn();
 		sett.selectRoom(auxRoom);
 		SearchPage search = home.clickSearchBtn();
+		
+		//Assertion for TC 02
 		Assert.assertTrue(search.roomIsDiplayed(displayName));
 	}
 	

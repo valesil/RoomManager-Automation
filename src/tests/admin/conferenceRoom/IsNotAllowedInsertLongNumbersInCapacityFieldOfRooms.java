@@ -21,12 +21,13 @@ import framework.utils.readers.ExcelReader;
  *
  */
 public class IsNotAllowedInsertLongNumbersInCapacityFieldOfRooms {
-
-	ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
-	List<Map<String, String>> testData1 = excelReader.getMapValues("RoomInfo");
-	String displayName =testData1.get(0).get("DisplayName");// "room01 changed";	  	  
-	String capacity = testData1.get(0).get("longValues");
-	String empty = "";
+	
+	//reading to excel to create variables
+	private ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
+	private List<Map<String, String>> testData1 = excelReader.getMapValues("RoomInfo");
+	private String displayName =testData1.get(0).get("DisplayName");	  	  
+	private String capacity = testData1.get(0).get("longValues");
+	private String empty = "";
 	
 	@Test(groups = {"NEGATIVE"})
 	public void testIsNotAllowedInsertLongNumbersInCapacityFieldOfRooms() {
@@ -38,12 +39,16 @@ public class IsNotAllowedInsertLongNumbersInCapacityFieldOfRooms {
 			.clickSaveBtn();
 		confRoomPage.doubleClickOverRoomName(displayName);
 		String newCapacity = roomInf.getRoomCapacity();
+		
+		//Assertion for TC13
 		Assert.assertTrue(roomInf.capacityIsLong(newCapacity));
 	}
 	
 	@AfterClass
 	public void postcondition() {
 		RoomInfoPage roomInf = new RoomInfoPage();
+		
+		//clean room capacity
 		roomInf
 			.setRoomCapacity(empty)
 			.clickSaveBtn();

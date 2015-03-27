@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.junit.Assert;
-import org.testng.annotations.BeforeClass;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.Test;
 
 import framework.common.UIMethods;
@@ -23,25 +23,30 @@ import framework.utils.readers.ExcelReader;
  */
 public class IsNotAllowedInsertNonNumberInputsIntoCapacityFieldOfRooms {
 	
-	ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
-	List<Map<String, String>> testData1 = excelReader.getMapValues("RoomInfo");
-	String displayName =testData1.get(0).get("DisplayName");	  	  
-	String capacity = testData1.get(0).get("invalidCapacity");
-	
-	@BeforeClass
-	private void precondition() {
-		UIMethods.refresh();
-	}
+	//reading to excel to create variables
+	private ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
+	private List<Map<String, String>> testData1 = excelReader.getMapValues("RoomInfo");
+	private String displayName =testData1.get(0).get("DisplayName");	  	  
+	private String capacity = testData1.get(0).get("invalidCapacity");
 	
 	@Test(groups = {"NEGATIVE"})
 	public void testIsNotAllowedInsertNonNumberInputsIntoCapacityFieldOfRooms() {
 		HomeAdminPage homePage = new HomeAdminPage();
 		RoomsPage confRoomPage = homePage.clickConferenceRoomsLink()
-				.clickResourcesLink().clickConferenceRoomsLink();
+			.clickResourcesLink().clickConferenceRoomsLink();
 		RoomInfoPage roomInf = confRoomPage.doubleClickOverRoomName(displayName);
 		roomInf.setRoomCapacity(capacity);
+		
+		//get the new room capacity
 		String newCapacity = roomInf.getRoomCapacity();
 		roomInf.clickCancelBtn();
-		Assert.assertNotEquals(capacity,newCapacity);
+		
+		//Assertion for TC14
+		Assert.assertNotEquals(capacity, newCapacity);
+	}
+	
+	@AfterClass
+	private void precondition() {
+		UIMethods.refresh();
 	}
 }

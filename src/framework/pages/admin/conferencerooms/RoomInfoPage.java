@@ -95,7 +95,7 @@ public class RoomInfoPage extends RoomBaseAbstractPage{
 	/**
 	 * [RB]This method sets the location of a room
 	 * @param location
-	 * @return
+	 * @return the same page
 	 */
 	public RoomInfoPage setLocation(String location) {
 		locationCmbBox.click();
