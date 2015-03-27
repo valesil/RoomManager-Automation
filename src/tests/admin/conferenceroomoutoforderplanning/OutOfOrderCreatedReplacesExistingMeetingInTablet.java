@@ -13,6 +13,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import framework.pages.admin.HomeAdminPage;
+import framework.pages.admin.conferencerooms.RoomInfoPage;
 import framework.pages.admin.conferencerooms.RoomOutOfOrderPlanningPage;
 import framework.pages.admin.conferencerooms.RoomsPage;
 import framework.pages.tablet.HomeTabletPage;
@@ -32,33 +33,28 @@ import framework.utils.readers.ExcelReader;
  *
  */
 public class OutOfOrderCreatedReplacesExistingMeetingInTablet {
-
 	ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
 	List<Map<String, String>> outOfOrderData = excelReader.getMapValues("OutOfOrderPlanning");
 	String roomName = outOfOrderData.get(10).get("Room Name");
-	String startDate = outOfOrderData.get(10).get("Start date");
-	String endDate = outOfOrderData.get(10).get("End date");
 	String title = outOfOrderData.get(10).get("Title");
-
 	List<Map<String, String>> meetingData = excelReader.getMapValues("MeetingData");
 	String organizer = meetingData.get(7).get("Organizer");
-	String attendees = meetingData.get(7).get("Attendee");
-	String body = meetingData.get(7).get("Body");
 	String password = meetingData.get(7).get("Password");
 	String meetingSubject;
 
 	@BeforeClass
-	public void selectRoominTablet() {
+	public void selectRoomInTablet() {
 		HomeTabletPage homeTabletPage = new HomeTabletPage();
 		SettingsPage settingsPage = homeTabletPage.clickSettingsBtn();
 		homeTabletPage = settingsPage.selectRoom(roomName);
 	}
-	
-	@Test(dataProvider = "OutOfOrderAndMeeting", dataProviderClass = DataProviders.class)
-	public void testOutOfOrderCreatedReplacesExistingMeetingInTablet (String subject, 
+
+	@Test(dataProvider = "OutOfOrderAndMeeting", dataProviderClass = DataProviders.class, groups = "ACCEPTANCE")
+	public void testOutOfOrderCreatedReplacesExistingMeetingInTablet(String subject, 
 			String meetingStartTime, String meetingEndTime, String outStartTime, String outEndTime ) {
+		String attendees = meetingData.get(7).get("Attendee");
 		meetingSubject = subject;
-		
+
 		//Meeting creation in tablet
 		HomeTabletPage homeTabletPage = new HomeTabletPage();
 		SchedulePage schedulePage = homeTabletPage
@@ -70,28 +66,24 @@ public class OutOfOrderCreatedReplacesExistingMeetingInTablet {
 		HomeAdminPage homeAdminPage = new HomeAdminPage();
 		RoomsPage roomsPage = homeAdminPage
 				.clickConferenceRoomsLink();
-		RoomOutOfOrderPlanningPage outOfOrderPage = roomsPage
-				.doubleClickOverRoomName(roomName)
-				.clickOutOfOrderPlanningLink();
+		RoomInfoPage roomInfoPage = roomsPage.doubleClickOverRoomName(roomName);
+		RoomOutOfOrderPlanningPage outOfOrderPage = roomInfoPage.clickOutOfOrderPlanningLink();
 		roomsPage = outOfOrderPage.setStartTime(outStartTime)
 				.setEndTime(outEndTime)
 				.setTitleTxtBox(title)
 				.activateOutOfOrder()
 				.clickSaveBtn();
 
-		homeTabletPage = new HomeTabletPage();
-		SearchPage searchPage = homeTabletPage.clickSearchBtn();
-
-		//Assertion for TC15
-		Assert.assertTrue(searchPage.isOutOfOrderBoxDisplayed(title));
-		Assert.assertTrue(searchPage.isMeetingBoxDisplayed(subject));
-
 		//Assertion for TC14
-		schedulePage = searchPage
-				.clickBackBtn()
-				.clickScheduleBtn();
+		homeTabletPage = new HomeTabletPage();
+		schedulePage = homeTabletPage.clickScheduleBtn();
 		Assert.assertTrue(schedulePage.isOutOfOrderBoxDisplayed(title));
 		Assert.assertTrue(schedulePage.isMeetingBoxDisplayed(subject));
+
+		//Assertion for TC15
+		SearchPage searchPage = schedulePage.clickSearchBtn();
+		Assert.assertTrue(searchPage.isOutOfOrderBoxDisplayed(title));
+		Assert.assertTrue(searchPage.isMeetingBoxDisplayed(subject));
 	}
 
 	@AfterMethod

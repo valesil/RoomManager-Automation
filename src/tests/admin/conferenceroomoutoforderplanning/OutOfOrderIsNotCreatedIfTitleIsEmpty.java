@@ -13,39 +13,40 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 
 import framework.pages.admin.HomeAdminPage;
+import framework.pages.admin.conferencerooms.RoomInfoPage;
 import framework.pages.admin.conferencerooms.RoomOutOfOrderPlanningPage;
 import framework.pages.admin.conferencerooms.RoomsPage;
 import framework.rest.RootRestMethods;
 import framework.utils.readers.ExcelReader;
 
 /**
- * TC18: Verify an Out Of Order cannot be created if title is empty
- * TC29: Verify that when title is empty the message "Out of order should have a title" is displayed
+ * TC22: Verify an Out Of Order cannot be created if title is empty
+ * TC33: Verify that when title is empty the message "Out of order should have a title" is displayed
  * @author Yesica Acha
  *
  */
 public class OutOfOrderIsNotCreatedIfTitleIsEmpty {
 	RoomOutOfOrderPlanningPage outOfOrderPage;
-	ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
-	List<Map<String, String>> testData = excelReader.getMapValues("OutOfOrderPlanning");
-	String roomName = testData.get(6).get("Room Name");
-	String title = testData.get(6).get("Title");
-
+	
 	@Test(groups = {"FUNCTIONAL", "UI"})
 	public void testOutOfOrderIsNotCreatedIfTitleIsEmpty() throws JSONException, MalformedURLException, IOException {
-
+		ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
+		List<Map<String, String>> testData = excelReader.getMapValues("OutOfOrderPlanning");
+		String roomName = testData.get(6).get("Room Name");
+		String title = testData.get(6).get("Title");
+		
+		//Out Of Order Creation
 		HomeAdminPage homeAdminPage = new HomeAdminPage(); 
 		RoomsPage roomsPage = homeAdminPage.clickConferenceRoomsLink();
-		outOfOrderPage = roomsPage
-				.doubleClickOverRoomName(roomName)
-				.clickOutOfOrderPlanningLink();
+		RoomInfoPage roomInfoPage = roomsPage.doubleClickOverRoomName(roomName);
+		outOfOrderPage = roomInfoPage.clickOutOfOrderPlanningLink();
 		outOfOrderPage = outOfOrderPage.setTitleTxtBox(title)
 				.clickSaveWithErrorBtn();
 
-		//Assertion for TC18
+		//Assertion for TC22
 		Assert.assertFalse(RootRestMethods.isOutOfOrderCreated(roomName, title));
 
-		//Assertion for TC29
+		//Assertion for TC33
 		Assert.assertTrue(outOfOrderPage.isErrorMessagePresent());
 		Assert.assertTrue(outOfOrderPage.isOutOfOrderShouldHaveTitleErrorDisplayed());
 	}

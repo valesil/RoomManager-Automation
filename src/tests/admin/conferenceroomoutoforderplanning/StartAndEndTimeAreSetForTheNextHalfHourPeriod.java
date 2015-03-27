@@ -10,38 +10,38 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 
 import framework.pages.admin.HomeAdminPage;
+import framework.pages.admin.conferencerooms.RoomInfoPage;
 import framework.pages.admin.conferencerooms.RoomOutOfOrderPlanningPage;
 import framework.pages.admin.conferencerooms.RoomsPage;
 import framework.utils.readers.ExcelReader;
 
 /**
- * TC36: Verify that start time  (hours and minutes) is set for the beginning of the next half hour 
- * to current time when the room has no Out Of Order Period
- * TC37: Verify that end time  (hours and minutes) is set for the end of the next half hour period 
+ * TC40: Verify that start time (hours and minutes) is set for the beginning of the next half hour period
+ * to current time when the room has no Out Of Order established
+ * TC41: Verify that end time (hours and minutes) is set for the end of the next half hour period 
  * to current time when the room has no Out Of Order Period established
  * @author Yesica Acha
  *
  */
 public class StartAndEndTimeAreSetForTheNextHalfHourPeriod {
-	HomeAdminPage homeAdminPage = new HomeAdminPage(); 
-	RoomOutOfOrderPlanningPage outOfOrderPage;
-	RoomsPage roomsPage;
-	ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
-	List<Map<String, String>> testData = excelReader.getMapValues("OutOfOrderPlanning");
-	String roomName = testData.get(0).get("Room Name");
-	
+	RoomOutOfOrderPlanningPage outOfOrderPage;	
 	
 	@Test (groups = "UI")
 	public void testStartAndEndTimeAreSetForTheNextHalfHourPeriod() {
-		roomsPage = homeAdminPage.clickConferenceRoomsLink();
-		outOfOrderPage = roomsPage
-				.doubleClickOverRoomName(roomName)
-				.clickOutOfOrderPlanningLink();	
+		ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
+		List<Map<String, String>> testData = excelReader.getMapValues("OutOfOrderPlanning");
+		String roomName = testData.get(0).get("Room Name");
 		
-		//Assert for TC36:
+		//Opening Out Of Order Planning
+		HomeAdminPage homeAdminPage = new HomeAdminPage(); 
+		RoomsPage roomsPage = homeAdminPage.clickConferenceRoomsLink();
+		RoomInfoPage roomInfoPage = roomsPage.doubleClickOverRoomName(roomName);
+		outOfOrderPage = roomInfoPage.clickOutOfOrderPlanningLink();
+		
+		//Assertion for TC40:
 		Assert.assertEquals(outOfOrderPage.getStartTimeValue(), outOfOrderPage.getDefaultStartTimeValue());
 		
-		//Assert for TC37:
+		//Assertion for TC41:
 		Assert.assertEquals(outOfOrderPage.getEndTimeValue(), outOfOrderPage.getDefaultEndTimeValue());
 	}
 	

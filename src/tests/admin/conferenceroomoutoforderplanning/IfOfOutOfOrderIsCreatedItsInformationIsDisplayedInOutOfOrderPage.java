@@ -12,6 +12,7 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 
 import framework.pages.admin.HomeAdminPage;
+import framework.pages.admin.conferencerooms.RoomInfoPage;
 import framework.pages.admin.conferencerooms.RoomOutOfOrderPlanningPage;
 import framework.pages.admin.conferencerooms.RoomsPage;
 import framework.rest.RootRestMethods;
@@ -28,16 +29,17 @@ public class IfOfOutOfOrderIsCreatedItsInformationIsDisplayedInOutOfOrderPage {
 	ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
 	List<Map<String, String>> testData = excelReader.getMapValues("OutOfOrderPlanning");
 	String roomName = testData.get(4).get("Room Name");
-	String startDate = testData.get(4).get("Start date");
-	String endDate = testData.get(4).get("End date");
-	String startTime = testData.get(4).get("Start time (minutes to add)");
-	String endTime = testData.get(4).get("End time (minutes to add)");
 	String title = testData.get(4).get("Title");
-	String description = testData.get(4).get("Description");
-
-
+	
 	@Test(groups = "ACCEPTANCE")
 	public void testIfOfOutOfOrderIsCreatedItsInformationIsDisplayedInOutOfOrderPage() {
+		String startDate = testData.get(4).get("Start date");
+		String endDate = testData.get(4).get("End date");
+		String startTime = testData.get(4).get("Start time (minutes to add)");
+		String endTime = testData.get(4).get("End time (minutes to add)");
+		String description = testData.get(4).get("Description");
+		
+		//Changing date and time format to compare with actual values
 		String expectedStartDate = TimeManager.changeDateFormat(startDate, "yyyy/MMM/dd", "MMM dd YYYY");
 		String expectedEndDate = TimeManager.changeDateFormat(endDate, "yyyy/MMM/dd", "MMM dd YYYY");
 		String expectedStartTime = TimeManager.getTime(Integer.parseInt(startTime), "hh:mm");
@@ -46,8 +48,8 @@ public class IfOfOutOfOrderIsCreatedItsInformationIsDisplayedInOutOfOrderPage {
 		//Out Of Order Creation
 		HomeAdminPage homeAdminPage = new HomeAdminPage(); 
 		RoomsPage roomsPage = homeAdminPage.clickConferenceRoomsLink();
-		RoomOutOfOrderPlanningPage outOfOrderPage = roomsPage.doubleClickOverRoomName(roomName)
-				.clickOutOfOrderPlanningLink();
+		RoomInfoPage roomInfoPage = roomsPage.doubleClickOverRoomName(roomName);
+		RoomOutOfOrderPlanningPage outOfOrderPage = roomInfoPage.clickOutOfOrderPlanningLink();
 		roomsPage = outOfOrderPage.setOutOfOrderPeriodInformation(startDate, endDate, 
 				startTime, endTime, title, description)
 				.activateOutOfOrder()
