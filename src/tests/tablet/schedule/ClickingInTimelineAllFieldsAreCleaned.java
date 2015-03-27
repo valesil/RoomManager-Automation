@@ -17,6 +17,7 @@ import framework.pages.tablet.HomeTabletPage;
 import framework.pages.tablet.SchedulePage;
 import framework.rest.RootRestMethods;
 import framework.utils.readers.ExcelReader;
+import framework.utils.readers.JsonReader;
 
 /**
  * TC35: Verify that Clicking in the timeline erases all the content in Organizer, 
@@ -25,14 +26,16 @@ import framework.utils.readers.ExcelReader;
  *
  */
 public class ClickingInTimelineAllFieldsAreCleaned {
-	SchedulePage schedule = new SchedulePage();
+	String filePath = EXCEL_PATH + "\\meeting01.json";
 	ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
-	List<Map<String, String>> meetingData = excelReader.getMapValues("MeetingData");; 
+	JsonReader jsonReader = new JsonReader();
+	List<Map<String, String>> meetingData = excelReader.getMapValues("MeetingData"); 
+	
+	String subject = jsonReader.readJsonFile("title", filePath);
+	String roomName = meetingData.get(1).get("Room");	
 	String password = meetingData.get(0).get("Password");
-	String organizer = meetingData.get(1).get("Organizer");
-	String subject = meetingData.get(1).get("Subject");
-	String roomName = meetingData.get(1).get("Room");
-	String path = System.getProperty("user.dir") + EXCEL_PATH + "\\meeting01.json";
+	String organizer = jsonReader.readJsonFile("organizer", filePath);
+	String path = System.getProperty("user.dir") + filePath;
 	String authentication = organizer + ":" + password;
 	
 	@BeforeMethod
@@ -42,16 +45,16 @@ public class ClickingInTimelineAllFieldsAreCleaned {
 	
 	@Test(groups = "UI")
     public void testClickingInTimeLineAllFiledsAreCleaned() {
-	    HomeTabletPage home = new HomeTabletPage();
-	    home
+	    HomeTabletPage homePage = new HomeTabletPage();
+	    SchedulePage schedulePage = homePage
 	    	.clickScheduleBtn()
 	    	.clickOverMeetingCreated(subject)
 	    	.clickOverTimeline();
-	    SchedulePage schedule = new SchedulePage();
-	    String actualOrganizer = schedule.getMeetingOrganizerValue();
-		String actualSubject = schedule.getMeetingSubjectValue();
-		String actualAttendee = schedule.getEmailAttendeeTxtBoxValue();
-		String actualBody = schedule.getBodyTxtBoxValue();
+	    
+	    String actualOrganizer = schedulePage.getMeetingOrganizerValue();
+		String actualSubject = schedulePage.getMeetingSubjectValue();
+		String actualAttendee = schedulePage.getEmailAttendeeTxtBoxValue();
+		String actualBody = schedulePage.getBodyTxtBoxValue();
 		
 		Assert.assertEquals("", actualOrganizer);
 		Assert.assertEquals("", actualSubject);

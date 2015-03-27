@@ -17,14 +17,15 @@ import framework.utils.readers.ExcelReader;
  *
  */
 public class ComeBackToHomeWhenClickingOnBack {
-	ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
-	List<Map<String, String>> meetingData = excelReader.getMapValues("MeetingData");
-	String roomName = meetingData.get(1).get("Room");
 	
 	@Test(groups = "UI")
 	public void testComeBackToHomeWhenClickBackButton() {
-		HomeTabletPage home = new HomeTabletPage();
-		String actual = home
+		ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
+		List<Map<String, String>> meetingData = excelReader.getMapValues("MeetingData");
+		String roomName = meetingData.get(1).get("Room");
+		
+		HomeTabletPage homePage = new HomeTabletPage();
+		String actual = homePage
 				.clickScheduleBtn()
 				.clickBackBtn()
 				.getRoomDisplayNameLbl();

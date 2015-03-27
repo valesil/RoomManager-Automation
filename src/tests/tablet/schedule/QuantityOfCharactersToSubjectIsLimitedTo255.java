@@ -22,35 +22,30 @@ import framework.utils.readers.ExcelReader;
  *
  */
 public class QuantityOfCharactersToSubjectIsLimitedTo255 {
-	SchedulePage schedule = new SchedulePage();
 	ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
 	List<Map<String, String>> meetingData = excelReader.getMapValues("MeetingData");
+	
 	String organizer = meetingData.get(3).get("Organizer");
 	String subject = meetingData.get(3).get("Subject");
-	String startTime = meetingData.get(3).get("Start time");
-	String endTime = meetingData.get(3).get("End time");
-	String attendee = meetingData.get(3).get("Attendee");
-	String body = meetingData.get(3).get("Body");
 	String password = meetingData.get(3).get("Password");
 	String roomName = meetingData.get(1).get("Room");
 	String authentication = organizer + ":" + password;
 
 	@Test(groups = "NEGATIVE")
 	public void testQuantityOfCharactersToSubjectIsLimitedTo255() {
-		HomeTabletPage home = new HomeTabletPage();
-		home.clickScheduleBtn()
-		.setOrganizerTxtBox(organizer)
-		.setSubjectTxtBox(subject)
-		.setAttendeeTxtBoxPressingEnter(attendee)
-		.setBodyTxtBox(body)
-		.setStartTimeDate(startTime)
-		.setEndTimeDate(endTime)
-		.clickCreateBtn()
-		.setPasswordTxtBox(password)
-		.clickOkButton();
+		String startTime = meetingData.get(3).get("Start time");
+		String endTime = meetingData.get(3).get("End time");
+		String attendee = meetingData.get(3).get("Attendee");
+		String body = meetingData.get(3).get("Body");
+		
+		HomeTabletPage homePage = new HomeTabletPage();
+		SchedulePage schedulePage = homePage
+				.clickScheduleBtn()
+				.createMeeting(organizer, subject, startTime, endTime, attendee, body, password)
+				.clickOkButton();
 
 		//Fails, It should be displays an error message
-		Assert.assertTrue(schedule.isMessageErrorPopUpDisplayed());
+		Assert.assertTrue(schedulePage.isMessageErrorPopUpDisplayed());
 	}
 
 	@AfterMethod

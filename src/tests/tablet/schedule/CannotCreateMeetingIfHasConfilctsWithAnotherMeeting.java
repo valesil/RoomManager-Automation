@@ -17,6 +17,7 @@ import framework.pages.tablet.HomeTabletPage;
 import framework.pages.tablet.SchedulePage;
 import framework.rest.RootRestMethods;
 import framework.utils.readers.ExcelReader;
+import framework.utils.readers.JsonReader;
 
 /**
  * TC15: Verify a user cannot create a meeting that has conflicts with the schedule of another meeting
@@ -24,17 +25,20 @@ import framework.utils.readers.ExcelReader;
  *
  */
 public class CannotCreateMeetingIfHasConfilctsWithAnotherMeeting {
+	String filePath = EXCEL_PATH + "\\meeting01.json";
 	ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
-	List<Map<String, String>> meetingData = excelReader.getMapValues("MeetingData");; 
+	JsonReader jsonReader = new JsonReader();
+	List<Map<String, String>> meetingData = excelReader.getMapValues("MeetingData");
+
+	String preOrganizer = jsonReader.readJsonFile("organizer", filePath);
 	String password = meetingData.get(0).get("Password");
-	String organizer = meetingData.get(1).get("Organizer");
-	String subject = meetingData.get(1).get("Subject");
-	String roomName = meetingData.get(1).get("Room");
-	String path = System.getProperty("user.dir") + EXCEL_PATH + "\\meeting01.json";
-	String authentication = organizer + ":" + password;
-	
+	String preSubject = jsonReader.readJsonFile("title", filePath);
+	String roomName = meetingData.get(1).get("Room");	
+	String authentication = preOrganizer + ":" + password;
+
 	@BeforeClass
 	public void preconditionToUpdateAMeeting() throws MalformedURLException, IOException {
+		String path = System.getProperty("user.dir") + filePath;
 		RootRestMethods.createMeeting(roomName, path, authentication);
 	}
 
@@ -47,27 +51,18 @@ public class CannotCreateMeetingIfHasConfilctsWithAnotherMeeting {
 		String attendee = meetingData.get(2).get("Attendee");
 		String body = meetingData.get(2).get("Body");
 		String password = meetingData.get(2).get("Password");
-		HomeTabletPage home = new HomeTabletPage();
-		home
+		HomeTabletPage homePage = new HomeTabletPage();
+		SchedulePage schedulePage = homePage
 				.clickScheduleBtn()
-				.setOrganizerTxtBox(organizer)
-				.setSubjectTxtBox(subject)
-				.setStartTimeDate(startTime)
-				.setEndTimeDate(endTime)
-				.setAttendeeTxtBoxPressingEnter(attendee)
-				.setBodyTxtBox(body)
-				.clickCreateBtn()
-				.setPasswordTxtBox(password)
-				.clickOkButton();
-		SchedulePage schedule = new SchedulePage();
-		schedule.clickCancelButton();
-		
+				.createMeeting(organizer, subject, startTime, endTime, attendee, body, password)
+				.clickCancelButton();
+
 		//Fails because the message displayed is incorrect
-		Assert.assertTrue(schedule.isMessageErrorCreationMeetingPopUpDisplayed());
+		Assert.assertTrue(schedulePage.isMessageErrorCreationMeetingPopUpDisplayed());
 	}
 
 	@AfterMethod
 	public void goHome() throws MalformedURLException, IOException {
-		RootRestMethods.deleteMeeting(roomName, subject, authentication);
+		RootRestMethods.deleteMeeting(roomName, preSubject, authentication);
 	}
 }

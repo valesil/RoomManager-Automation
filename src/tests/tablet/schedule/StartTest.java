@@ -6,8 +6,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.openqa.selenium.WebDriver;
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeTest;
+import org.testng.annotations.AfterSuite;
+import org.testng.annotations.BeforeSuite;
 
 import framework.pages.tablet.HomeTabletPage;
 import framework.pages.tablet.SettingsPage;
@@ -25,14 +25,14 @@ public class StartTest {
 	List<Map<String, String>> meetingData = excelReader.getMapValues("MeetingData");
 	String roomName = meetingData.get(1).get("Room");
 	
-	@BeforeTest
+	@BeforeSuite
 	public void start() throws InterruptedException {
 		HomeTabletPage homePage = new HomeTabletPage();
 		SettingsPage settingsPage = homePage.clickSettingsBtn();
 		homePage = settingsPage.selectRoom(roomName);
 	}
 	
-	@AfterTest
+	@AfterSuite
 	public void end() {
 		driver.quit();
 	}

@@ -24,16 +24,15 @@ import framework.utils.readers.ExcelReader;
  *
  */
 public class UpdateMeetingIfItNotHasConflictsWithOtherMeeting {	
-	SchedulePage schedule = new SchedulePage();
 	ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
 	List<Map<String, String>> meetingData = excelReader.getMapValues("MeetingData");
 	String password = meetingData.get(0).get("Password");
 	String preOrganizer = meetingData.get(1).get("Organizer");
 	String preSubject = meetingData.get(1).get("Subject");
-	String newSubject;
 	String roomName = meetingData.get(1).get("Room");
 	String path = System.getProperty("user.dir") + EXCEL_PATH + "\\meeting01.json";
 	String authentication = preOrganizer + ":" + password;
+	String newSubject = meetingData.get(4).get("Subject");
 
 	@BeforeMethod
 	public void preconditionToUpdateAMeeting() throws MalformedURLException, IOException {
@@ -42,13 +41,12 @@ public class UpdateMeetingIfItNotHasConflictsWithOtherMeeting {
 
 	@Test(groups = "ACCEPTANCE")
 	public void testAUserCanUpdateAMeetingIfItNotHasConflictsWithOtherMeeting() {
-		newSubject = meetingData.get(4).get("Subject");
 		String startTime = meetingData.get(4).get("Start time");
 		String endTime = meetingData.get(4).get("End time");
 		String attendee = meetingData.get(4).get("Attendee");
 		String body = meetingData.get(4).get("Body");
-		HomeTabletPage home = new HomeTabletPage();
-		home
+		HomeTabletPage homePage = new HomeTabletPage();
+		SchedulePage schedulePage = homePage
 				.clickScheduleBtn()
 				.clickOverMeetingCreated(preSubject)
 				.setSubjectTxtBox(newSubject)
@@ -60,7 +58,7 @@ public class UpdateMeetingIfItNotHasConflictsWithOtherMeeting {
 				.setPasswordTxtBox(password)
 				.clickOkButton();
 		
-		Assert.assertTrue(schedule.isMessageMeetingUpdatedDisplayed());
+		Assert.assertTrue(schedulePage.isMessageMeetingUpdatedDisplayed());
 	}
 
 	@AfterMethod

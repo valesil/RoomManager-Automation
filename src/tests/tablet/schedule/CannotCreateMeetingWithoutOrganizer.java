@@ -18,19 +18,19 @@ import framework.utils.readers.ExcelReader;
  *
  */
 public class CannotCreateMeetingWithoutOrganizer {
-	SchedulePage schedule = new SchedulePage();
-	ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
-	List<Map<String, String>> meetingData = excelReader.getMapValues("MeetingData");; 
 	
 	@Test(groups = "ACCEPTANCE")
 	public void testAUserCannotCreateMeetingWithoutOrganizer() {
+		ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
+		List<Map<String, String>> meetingData = excelReader.getMapValues("MeetingData");
 		String subject = meetingData.get(0).get("Subject");
 		String startTime = meetingData.get(0).get("Start time");
 		String endTime = meetingData.get(0).get("End time");
 		String attendee = meetingData.get(0).get("Attendee");
 		String body = meetingData.get(0).get("Body");
-		HomeTabletPage home = new HomeTabletPage();
-		home
+		
+		HomeTabletPage homePage = new HomeTabletPage();
+		SchedulePage schedulePage = homePage
 				.clickScheduleBtn()
 				.setSubjectTxtBox(subject)
 				.setStartTimeDate(startTime)
@@ -39,6 +39,6 @@ public class CannotCreateMeetingWithoutOrganizer {
 				.setBodyTxtBox(body)
 				.clickCreateBtn();
 
-		Assert.assertTrue(schedule.isErrorOrganizerLblDisplayed());
+		Assert.assertTrue(schedulePage.isErrorOrganizerLblDisplayed());
 	}
 }

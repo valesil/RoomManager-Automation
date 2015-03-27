@@ -22,26 +22,27 @@ import framework.utils.readers.ExcelReader;
  *
  */
 public class CreateMeetingIfRoomIsAvailable {
-	SchedulePage schedule = new SchedulePage();
 	ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
 	List<Map<String, String>> meetingData = excelReader.getMapValues("MeetingData");
+	
 	String organizer = meetingData.get(0).get("Organizer");
 	String subject = meetingData.get(0).get("Subject");
-	String startTime = meetingData.get(0).get("Start time");
-	String endTime = meetingData.get(0).get("End time");
-	String attendee = meetingData.get(0).get("Attendee");
-	String body = meetingData.get(0).get("Body");
 	String password = meetingData.get(0).get("Password");
 	String roomName = meetingData.get(1).get("Room");
 	String authentication = organizer + ":" + password;
 	
 	@Test(groups = "ACCEPTANCE")
 	public void testAUserCanCreateMeetingIfRoomIsAvailable() {
-		HomeTabletPage home = new HomeTabletPage();
-		home.clickScheduleBtn();
-		schedule.createMeeting(organizer, subject, startTime, endTime, attendee, body, password);
+		String startTime = meetingData.get(0).get("Start time");
+		String endTime = meetingData.get(0).get("End time");
+		String attendee = meetingData.get(0).get("Attendee");
+		String body = meetingData.get(0).get("Body");
+		
+		HomeTabletPage homePage = new HomeTabletPage();
+		SchedulePage schedulePage = homePage.clickScheduleBtn();
+		schedulePage.createMeeting(organizer, subject, startTime, endTime, attendee, body, password);
 
-		Assert.assertTrue(schedule.isMessageMeetingCreatedDisplayed());
+		Assert.assertTrue(schedulePage.isMessageMeetingCreatedDisplayed());
 	}
 
 	@AfterMethod

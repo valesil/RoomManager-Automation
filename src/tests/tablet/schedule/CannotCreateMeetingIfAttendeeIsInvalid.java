@@ -18,29 +18,28 @@ import framework.utils.readers.ExcelReader;
  *
  */
 public class CannotCreateMeetingIfAttendeeIsInvalid {
-	SchedulePage schedule = new SchedulePage();
-	ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
-	List<Map<String, String>> meetingData = excelReader.getMapValues("MeetingData");
-	String organizer = meetingData.get(9).get("Organizer");
-	String subject = meetingData.get(9).get("Subject");
-	String startTime = meetingData.get(9).get("Start time");
-	String endTime = meetingData.get(9).get("End time");
-	String attendee = meetingData.get(9).get("Attendee");
-	String body = meetingData.get(9).get("Body");
-	String password = meetingData.get(9).get("Password");
-	
+
 	@Test(groups = "UI")
 	public void testAUserCannotCreateMeetingIfAttendeeIsInvalid() {
-		HomeTabletPage home = new HomeTabletPage();
-		home.clickScheduleBtn()
-			.setOrganizerTxtBox(organizer)
-			.setSubjectTxtBox(subject)
-			.setStartTimeDate(startTime)
-			.setEndTimeDate(endTime)
-			.setAttendeeTxtBoxPressingEnter(attendee)
-			.setBodyTxtBox(body)
-			.clickCreateBtn();
+		ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
+		List<Map<String, String>> meetingData = excelReader.getMapValues("MeetingData");
+		String organizer = meetingData.get(9).get("Organizer");
+		String subject = meetingData.get(9).get("Subject");
+		String startTime = meetingData.get(9).get("Start time");
+		String endTime = meetingData.get(9).get("End time");
+		String attendee = meetingData.get(9).get("Attendee");
+		String body = meetingData.get(9).get("Body");
 
-		Assert.assertTrue(schedule.isErrorAttendeeInvalidLblDisplayed());
+		HomeTabletPage homePage = new HomeTabletPage();
+		SchedulePage schedulePage = homePage.clickScheduleBtn()
+				.setOrganizerTxtBox(organizer)
+				.setSubjectTxtBox(subject)
+				.setStartTimeDate(startTime)
+				.setEndTimeDate(endTime)
+				.setAttendeeTxtBoxPressingEnter(attendee)
+				.setBodyTxtBox(body)
+				.clickCreateBtn();
+
+		Assert.assertTrue(schedulePage.isErrorAttendeeInvalidLblDisplayed());
 	}
 }

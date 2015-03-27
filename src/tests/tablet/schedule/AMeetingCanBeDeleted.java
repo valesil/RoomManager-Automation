@@ -16,6 +16,7 @@ import framework.pages.tablet.HomeTabletPage;
 import framework.pages.tablet.SchedulePage;
 import framework.rest.RootRestMethods;
 import framework.utils.readers.ExcelReader;
+import framework.utils.readers.JsonReader;
 
 /**
  * TC13: Verify a user can remove meetings
@@ -23,35 +24,31 @@ import framework.utils.readers.ExcelReader;
  *
  */
 public class AMeetingCanBeDeleted {
-	SchedulePage schedule = new SchedulePage();
 	ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
-	List<Map<String, String>> meetingData = excelReader.getMapValues("MeetingData");; 
+	JsonReader jsonReader = new JsonReader();
+	String filePath = EXCEL_PATH + "\\meeting01.json";
+	List<Map<String, String>> meetingData = excelReader.getMapValues("MeetingData");
 	String password = meetingData.get(0).get("Password");
-	String organizer = meetingData.get(1).get("Organizer");
-	String subject = meetingData.get(1).get("Subject");
-	String startTime = meetingData.get(1).get("Start time");
-	String endTime = meetingData.get(1).get("End time");
-	String attendee = meetingData.get(1).get("Attendee");
-	String body = meetingData.get(1).get("Body");
-	String roomName = meetingData.get(1).get("Room");
-	String path = System.getProperty("user.dir") + EXCEL_PATH + "\\meeting01.json";
-	String authentication = organizer + ":" + password;
-	
+
 	@BeforeMethod
 	public void creationMeetingPreCondition() throws MalformedURLException, IOException {
+		String roomName = meetingData.get(1).get("Room");
+		String organizer = jsonReader.readJsonFile("organizer", filePath);
+		String path = System.getProperty("user.dir") + filePath;
+		String authentication = organizer + ":" + password;
 		RootRestMethods.createMeeting(roomName, path, authentication);
 	}
 	
 	@Test(groups = "ACCEPTANCE")
     public void testAMeetingCanBeDeleted() {
-	    HomeTabletPage home = new HomeTabletPage();
-	    home
-	    	.clickScheduleBtn()
+		String subject = jsonReader.readJsonFile("title", filePath);
+		
+	    HomeTabletPage homePage = new HomeTabletPage();
+	    SchedulePage schedulePage = homePage.clickScheduleBtn()
 	    	.clickOverMeetingCreated(subject)
 	    	.clickRemoveBtn()
-	    	.setPasswordTxtBox(password)
-	    	.clickOkButton();
+	    	.confirmCredentials(password);
 	    
-		Assert.assertTrue(schedule.isMessageMeetingDeletedDisplayed());
+		Assert.assertTrue(schedulePage.isMessageMeetingDeletedDisplayed());
     }
 }

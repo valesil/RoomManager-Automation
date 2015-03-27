@@ -18,21 +18,20 @@ import framework.utils.readers.ExcelReader;
  *
  */
 public class QuantityOfCharactersOfOrganizerIsLimitedTo25 {
-	SchedulePage schedule = new SchedulePage();
-	ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
-	List<Map<String, String>> meetingData = excelReader.getMapValues("MeetingData"); 
-	String organizer = meetingData.get(4).get("Organizer");
-	String subject = meetingData.get(4).get("Subject");
-	String startTime = meetingData.get(4).get("Start time");
-	String endTime = meetingData.get(4).get("End time");
-	String attendee = meetingData.get(4).get("Attendee");
-	String body = meetingData.get(4).get("Body");
-	String password = meetingData.get(4).get("Password");
 	
 	@Test(groups = "NEGATIVE")
 	public void testQuantityOfCharactersToOrganazerIsLimitedTo25() {
-		HomeTabletPage home = new HomeTabletPage();
-		home.clickScheduleBtn()
+		ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
+		List<Map<String, String>> meetingData = excelReader.getMapValues("MeetingData"); 
+		String organizer = meetingData.get(4).get("Organizer");
+		String subject = meetingData.get(4).get("Subject");
+		String startTime = meetingData.get(4).get("Start time");
+		String endTime = meetingData.get(4).get("End time");
+		String attendee = meetingData.get(4).get("Attendee");
+		String body = meetingData.get(4).get("Body");
+		
+		HomeTabletPage homePage = new HomeTabletPage();
+		SchedulePage schedulePage = homePage.clickScheduleBtn()
 			.setOrganizerTxtBox(organizer)
 			.setSubjectTxtBox(subject)
 			.setAttendeeTxtBoxPressingEnter(attendee)
@@ -43,6 +42,6 @@ public class QuantityOfCharactersOfOrganizerIsLimitedTo25 {
 			.clickCancelButton();
 		
 		//Fails, It should be displays an error message
-		Assert.assertTrue(schedule.isMessageErrorPopUpDisplayed());
+		Assert.assertTrue(schedulePage.isMessageErrorPopUpDisplayed());
 	}
 }

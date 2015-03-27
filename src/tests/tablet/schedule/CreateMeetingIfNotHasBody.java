@@ -26,40 +26,41 @@ import framework.utils.readers.ExcelReader;
 public class CreateMeetingIfNotHasBody {
 	ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
 	List<Map<String, String>> meetingData = excelReader.getMapValues("MeetingData");
-	String organizer = meetingData.get(0).get("Organizer");
+
 	String subject = meetingData.get(0).get("Subject");
-	String startTime = meetingData.get(0).get("Start time");
-	String endTime = meetingData.get(0).get("End time");
-	String attendee1 = meetingData.get(0).get("Attendee");
-	String attendee2 = meetingData.get(0).get("Attendee");
+	String organizer = meetingData.get(0).get("Organizer");
 	String password = meetingData.get(0).get("Password");
 	String roomName = meetingData.get(1).get("Room");
 	String authentication = organizer + ":" + password;
-	
-	@Test(groups = {"FUNCTIONAL", "UI", "UI"})
+
+	@Test(groups = {"FUNCTIONAL", "UI"})
 	public void testCreateMeetingIfNotHasBody() {
-		HomeTabletPage home = new HomeTabletPage();
-		SchedulePage schedule = new SchedulePage();
-		home.clickScheduleBtn()
-			.setOrganizerTxtBox(organizer)
-			.setSubjectTxtBox(subject)
-			.setStartTimeDate(startTime)
-			.setEndTimeDate(endTime);
-		
+		String startTime = meetingData.get(0).get("Start time");
+		String endTime = meetingData.get(0).get("End time");
+		String attendee1 = meetingData.get(0).get("Attendee");
+		String attendee2 = meetingData.get(0).get("Attendee");
+		HomeTabletPage homePage = new HomeTabletPage();
+		SchedulePage schedulePage = homePage
+				.clickScheduleBtn()
+				.setOrganizerTxtBox(organizer)
+				.setSubjectTxtBox(subject)
+				.setStartTimeDate(startTime)
+				.setEndTimeDate(endTime);
+
 		//TC's 28
-		schedule.setAttendeeTxtBoxPressingEnter(attendee1);
-		Assert.assertEquals(schedule.getEmailAttendeeLblValue(attendee1), attendee1);
-		
+		schedulePage.setAttendeeTxtBoxPressingEnter(attendee1);
+		Assert.assertEquals(schedulePage.getEmailAttendeeLblValue(attendee1), attendee1);
+
 		//TC's 29
-		schedule.setAttendeeTxtBoxPressingSemicolon(attendee2);
-		Assert.assertEquals(schedule.getEmailAttendeeLblValue(attendee2), attendee2);		
-		
-		schedule.clickCreateBtn()
-				.setPasswordTxtBox(password)
-				.clickOkButton();
-		
+		schedulePage.setAttendeeTxtBoxPressingSemicolon(attendee2);
+		Assert.assertEquals(schedulePage.getEmailAttendeeLblValue(attendee2), attendee2);		
+
+		schedulePage.clickCreateBtn()
+		.setPasswordTxtBox(password)
+		.clickOkButton();
+
 		//TC's 18
-		Assert.assertTrue(schedule.isMessageMeetingCreatedDisplayed());
+		Assert.assertTrue(schedulePage.isMessageMeetingCreatedDisplayed());
 	}
 
 	@AfterMethod

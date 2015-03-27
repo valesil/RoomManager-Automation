@@ -18,19 +18,19 @@ import framework.utils.readers.ExcelReader;
  *
  */
 public class CannotCreateMeetingWithoutAttendees {
-	SchedulePage schedule = new SchedulePage();
-	ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
-	List<Map<String, String>> meetingData  = excelReader.getMapValues("MeetingData");
-	String organizer = meetingData.get(0).get("Organizer");
-	String subject = meetingData.get(0).get("Subject");
-	String startTime = meetingData.get(0).get("Start time");
-	String endTime = meetingData.get(0).get("End time");
-	String body = meetingData.get(0).get("Body");
-
+	
 	@Test(groups = "ACCEPTANCE")
 	public void testAUserCannotCreateMeetingWithoutAttendees() {
-		HomeTabletPage home = new HomeTabletPage();
-		home
+		ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
+		List<Map<String, String>> meetingData  = excelReader.getMapValues("MeetingData");
+		String organizer = meetingData.get(0).get("Organizer");
+		String subject = meetingData.get(0).get("Subject");
+		String startTime = meetingData.get(0).get("Start time");
+		String endTime = meetingData.get(0).get("End time");
+		String body = meetingData.get(0).get("Body");
+		
+		HomeTabletPage homePage = new HomeTabletPage();
+		SchedulePage schedulePage = homePage
 		.clickScheduleBtn()
 		.setOrganizerTxtBox(organizer)
 		.setSubjectTxtBox(subject)
@@ -40,7 +40,7 @@ public class CannotCreateMeetingWithoutAttendees {
 		.clickCreateBtn()
 		.clickCancelButton();
 
-		//This test case fail because the meeting allows create meeting without attendees
-		Assert.assertTrue(schedule.isErrorAttendeeLblDisplayed());
+		//Fails because allows create meeting without attendees
+		Assert.assertTrue(schedulePage.isErrorAttendeeLblDisplayed());
 	}
 }

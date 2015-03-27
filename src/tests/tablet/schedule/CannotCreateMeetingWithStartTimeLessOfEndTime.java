@@ -18,21 +18,20 @@ import framework.utils.readers.ExcelReader;
  *
  */
 public class CannotCreateMeetingWithStartTimeLessOfEndTime {
-	SchedulePage schedule = new SchedulePage();
-	ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
-	List<Map<String, String>> meetingData = excelReader.getMapValues("MeetingData");
-	String organizer = meetingData.get(8).get("Organizer");
-	String subject = meetingData.get(8).get("Subject");
-	String startTime = meetingData.get(8).get("Start time");
-	String endTime = meetingData.get(8).get("End time");
-	String attendee = meetingData.get(8).get("Attendee");
-	String body = meetingData.get(8).get("Body");
-	String password = meetingData.get(8).get("Password");
 	
 	@Test(groups = "FUNCTIONAL")
 	public void testAUserCannotCreateMeetingWithStartTimeLessOfEndTime() {
-		HomeTabletPage home = new HomeTabletPage();
-		home.clickScheduleBtn()
+		ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
+		List<Map<String, String>> meetingData = excelReader.getMapValues("MeetingData");
+		String organizer = meetingData.get(8).get("Organizer");
+		String subject = meetingData.get(8).get("Subject");
+		String startTime = meetingData.get(8).get("Start time");
+		String endTime = meetingData.get(8).get("End time");
+		String attendee = meetingData.get(8).get("Attendee");
+		String body = meetingData.get(8).get("Body");
+		
+		HomeTabletPage homePage = new HomeTabletPage();
+		SchedulePage schedulePage = homePage.clickScheduleBtn()
 			.setOrganizerTxtBox(organizer)
 			.setSubjectTxtBox(subject)
 			.setStartTimeDate(startTime)
@@ -41,6 +40,6 @@ public class CannotCreateMeetingWithStartTimeLessOfEndTime {
 			.setBodyTxtBox(body)
 			.clickCreateBtn();
 		
-		Assert.assertTrue(schedule.isMessageOfTimeErrorDisplayed());
+		Assert.assertTrue(schedulePage.isMessageOfTimeErrorDisplayed());
 	}
 }

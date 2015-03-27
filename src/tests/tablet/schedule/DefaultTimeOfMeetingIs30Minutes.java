@@ -18,19 +18,19 @@ import framework.utils.readers.ExcelReader;
  *
  */
 public class DefaultTimeOfMeetingIs30Minutes {
-	SchedulePage schedule = new SchedulePage();
-	ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
-	List<Map<String, String>> meetingData = excelReader.getMapValues("MeetingData");
-	String organizer = meetingData.get(0).get("Organizer");
-	String subject = meetingData.get(0).get("Subject");
-	String attendee = meetingData.get(0).get("Attendee");
-	String body = meetingData.get(0).get("Body");
 	
 	@Test(groups = "UI")
 	public void testTheDefaultTimeOfMeetingIs30Minutes() {
-		HomeTabletPage home = new HomeTabletPage();
-		home.clickScheduleBtn();
-		int durationMeeting = schedule.setOrganizerTxtBox(organizer)
+		ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
+		List<Map<String, String>> meetingData = excelReader.getMapValues("MeetingData");
+		String organizer = meetingData.get(0).get("Organizer");
+		String subject = meetingData.get(0).get("Subject");
+		String attendee = meetingData.get(0).get("Attendee");
+		String body = meetingData.get(0).get("Body");
+		
+		HomeTabletPage homePage = new HomeTabletPage();
+		SchedulePage schedulePage = homePage.clickScheduleBtn();
+		int durationMeeting = schedulePage.setOrganizerTxtBox(organizer)
 						.setSubjectTxtBox(subject)
 						.setAttendeeTxtBoxPressingEnter(attendee)
 						.setBodyTxtBox(body)
