@@ -32,6 +32,9 @@ public class RoomInfoPage extends RoomBaseAbstractPage{
 	@FindBy(xpath = "//button[@ng-click='enableDisableRoom(selectedRoom)']")
 	WebElement disableIcon;
 	
+	@FindBy(xpath = "//button[@ng-hide='selectedRoom.enabled']")
+	WebElement enableIcon;
+	
 	@FindBy(xpath = "//input[@role='combobox']")
 	WebElement locationTxtBox;
 	
@@ -172,6 +175,15 @@ public class RoomInfoPage extends RoomBaseAbstractPage{
 	 */
 	public RoomInfoPage clickDisableIcon() {
 		disableIcon.click();
+		return this;
+	}
+	
+	/**
+	 * [RB]This method enables a room 
+	 * @return
+	 */
+	public RoomInfoPage clickEnableIcon() {
+		enableIcon.click();
 		return this;
 	}
 	
