@@ -166,13 +166,12 @@ public class HomeTabletPage {
 	/**
 	 * [EN] Return Setting page when {Settings} button is clicked.
 	 * @return
-	 * @throws InterruptedException 
 	 */
 	public SettingsPage clickSettingsBtn() {
 		
 		//If current page is not Settings
 		if (!UIMethods.isElementPresent(By.xpath("//button[@ng-click='saveSelectedRoom()']"))) {
-			settingsBtn.click();	
+			settingsBtn.click();
 		}
 		return new SettingsPage();
 	}
