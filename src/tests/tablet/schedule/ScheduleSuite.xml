@@ -3,7 +3,7 @@
       <listener class-name = "org.uncommons.reportng.HTMLReporter"/>
       <listener class-name = "org.uncommons.reportng.JUnitXMLReporter"/>    
       <listener class-name = "framework.utils.ReportNGListener"/>
-      <listener class-name = "tests.common.StartSuite"/>
+      <listener class-name = "tests.tablet.StartSuite"/>
 </listeners>
 
     <test name = "SchedulePage">         
@@ -11,7 +11,9 @@
           <!---TC24  -->
           <class name = "tests.tablet.schedule.DoubleClickingATimelinePeriodCreatesAMeetingBoxAndSetNewMeetingTime"/>
           <!---TC32, TC44 -->
-          <class name = "tests.tablet.schedule.TimeTextDisplayedInTimeLine"/>          
+          <class name = "tests.tablet.schedule.TimeTextDisplayedInTimeLine"/>    
+          <!---TC46 -->
+          <class name = "tests.tablet.schedule.AlertMessageIsDisplayedWhenAmeetingIsCreatedInThePast"/>       
        </classes>
      </test>  
       

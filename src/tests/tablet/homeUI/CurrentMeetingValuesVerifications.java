@@ -31,23 +31,19 @@ import framework.utils.readers.ExcelReader;
  * 
  */
 public class CurrentMeetingValuesVerifications {
-	Logger log = Logger.getLogger(getClass());
-	HomeTabletPage homeTabletPage = new HomeTabletPage();
-	SchedulePage schedulePage;
+	private Logger log = Logger.getLogger(getClass());
+	private HomeTabletPage homeTabletPage = new HomeTabletPage();
+	private SchedulePage schedulePage;
 
-	//Data to create and use to assertions
-	ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
-	List<Map<String, String>> meetingData = excelReader.getMapValues("MeetingData");
-	String organizer = meetingData.get(0).get("Organizer");
-	String expectedMeetingSubject = meetingData.get(0).get("Subject");
-	String attendee = meetingData.get(0).get("Attendee");
-	String minStartTime = meetingData.get(0).get("Start time (minutes to add)");
-	String minEndTime = meetingData.get(0).get("End time (minutes to add)");
-	String password = meetingData.get(0).get("Password");
-	String authentication = organizer + ":" + password;
+	private ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
+	private List<Map<String, String>> meetingData = excelReader.getMapValues("MeetingData");
+	private String organizer = meetingData.get(0).get("Organizer");
+	private String expectedMeetingSubject = meetingData.get(0).get("Subject");
+	private String password = meetingData.get(0).get("Password");
+	private String authentication = organizer + ":" + password;
 
-	String expectedMeetingOrganizer = "";
-	String expectedEndTime = "";
+	private String expectedMeetingOrganizer = "";
+	private String expectedEndTime = "";
 
 	/**
 	 * 1. Meeting in progress in the room.
@@ -57,12 +53,14 @@ public class CurrentMeetingValuesVerifications {
 	public void init() {
 		schedulePage = homeTabletPage.clickScheduleBtn();
 		schedulePage.createMeeting(organizer, expectedMeetingSubject, 
-				minStartTime, minEndTime, attendee, password)
+				meetingData.get(0).get("Start time (minutes to add)"),
+				meetingData.get(0).get("End time (minutes to add)"),
+				meetingData.get(0).get("Attendee"), password)
 				.clickOverMeetingCreated(expectedMeetingSubject);
-		
+
 		expectedMeetingOrganizer = schedulePage.getMeetingOrganizerValue();
 		expectedEndTime = schedulePage.getEndTimeTxtBoxValue().substring(0, 5);
-		
+
 		schedulePage.clickBackBtn();
 	}
 

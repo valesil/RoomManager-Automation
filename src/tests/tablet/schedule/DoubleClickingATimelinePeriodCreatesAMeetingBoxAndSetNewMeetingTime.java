@@ -13,15 +13,14 @@ import framework.pages.tablet.SchedulePage;
  *
  */
 public class DoubleClickingATimelinePeriodCreatesAMeetingBoxAndSetNewMeetingTime {
-	HomeTabletPage homeTabletPage = new HomeTabletPage();
-	SchedulePage schedulePage;
 
 	@Test (groups = "UI")
 	public void testDoubleClickingATimelinePeriodCreatesAMeetingBoxAndSetNewMeetingTime() {
-		schedulePage = homeTabletPage.clickScheduleBtn();
+		HomeTabletPage homeTabletPage = new HomeTabletPage();
+		SchedulePage schedulePage = homeTabletPage.clickScheduleBtn();
 		schedulePage.doubleClickTimeLineGroup();
 		
-		//Verify that the duration time displayed in From and to are 30 that is the default value.
+		// Verify that the default duration between the times of "From" and "to" text boxes is 30.
         Assert.assertEquals(schedulePage.getDurationOfMeetingByDefault(), 30);
 	}
 }

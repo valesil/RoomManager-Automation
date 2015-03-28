@@ -19,24 +19,22 @@ import framework.utils.readers.ExcelReader;
  * 
  */
 public class NextMeetingInformationIsDeletedWhenItIsRemoved {
-	HomeTabletPage homeTabletPage = new HomeTabletPage();
-	SchedulePage schedulePage;
+	private HomeTabletPage homeTabletPage = new HomeTabletPage();
+	private SchedulePage schedulePage;
 
 	//Data to create and use to assertions
-	ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
-	List<Map<String, String>> meetingData = excelReader.getMapValues("MeetingData");
-	String organizer = meetingData.get(1).get("Organizer");
-	String expectedMeetingSubject = meetingData.get(1).get("Subject");
-	String attendee = meetingData.get(1).get("Attendee");
-	String minStartTime = meetingData.get(1).get("Start time (minutes to add)");
-	String minEndTime = meetingData.get(1).get("End time (minutes to add)");
-	String password = meetingData.get(1).get("Password");
+	private ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
+	private List<Map<String, String>> meetingData = excelReader.getMapValues("MeetingData");
+	private String expectedMeetingSubject = meetingData.get(1).get("Subject");
+	private String password = meetingData.get(1).get("Password");
 
 	@Test (groups = "ACCEPTANCE")
 	public void testNextMeetingInformationIsDeletedWhenItIsRemoved() {
 		schedulePage = homeTabletPage.clickScheduleBtn();
-		schedulePage.createMeeting(organizer, expectedMeetingSubject, 
-				minStartTime, minEndTime, attendee, password);
+		schedulePage.createMeeting(meetingData.get(1).get("Organizer"), expectedMeetingSubject, 
+				meetingData.get(1).get("Start time (minutes to add)"), 
+				meetingData.get(1).get("End time (minutes to add)"), 
+				meetingData.get(1).get("Attendee"), password);
 
 		schedulePage.clickBackBtn();
 

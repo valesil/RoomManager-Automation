@@ -38,8 +38,7 @@ public class TimeTextDisplayedInTimeLine {
 	public void testTimeTextDisplayedInTimeline() {
 		HomeTabletPage homeTabletPage = new HomeTabletPage();
 		SchedulePage schedulePage = homeTabletPage.clickScheduleBtn();
-		schedulePage.moveTimeLine(-100000);
-		
+		schedulePage.moveTimeLine(-100000);	
         Assert.assertTrue(schedulePage.isTextHourDisplayed("23:00"));
         
         schedulePage.moveTimeLine(100000);

@@ -26,8 +26,8 @@ import framework.utils.readers.ExcelReader;
  * 
  */
 public class HomePageInformation {
-	ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
-	List<Map<String, String>> meetingData = excelReader.getMapValues("MeetingData");
+	private ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
+	private List<Map<String, String>> meetingData = excelReader.getMapValues("MeetingData");
 	
 	/**
 	 * TC27: This test case verifies that room display name is displayed 

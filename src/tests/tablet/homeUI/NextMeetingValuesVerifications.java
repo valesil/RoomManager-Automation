@@ -21,31 +21,27 @@ import framework.rest.RootRestMethods;
 import framework.utils.readers.ExcelReader;
 
 /**
- * This TCs verify that {now} tile is set whit correct information
- * when a meeting created in the current time.
- * TC06: Interval hours of next meeting.
- * TC03: Time left.
- * TC32: Busy color of next tile.
+ * This TCs verify that {next} tile is set whit correct information
+ * when a meeting is scheduled in the future in the room.
+ * TC06: Interval hours of next meeting is the time set in "From" and "To" text boxes.
+ * TC03: Time left displayed in now tape is current time - start time next meeting.
+ * TC32: Verify the color of next tile.
  * @author Eliana Navia
  */
 public class NextMeetingValuesVerifications {
-	Logger log = Logger.getLogger(getClass());
-	HomeTabletPage homeTabletPage = new HomeTabletPage();
-	SchedulePage schedulePage;
+	private Logger log = Logger.getLogger(getClass());
+	private HomeTabletPage homeTabletPage = new HomeTabletPage();
+	private SchedulePage schedulePage;
 
-	//Data to create and use to assertions
-	ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
-	List<Map<String, String>> meetingData = excelReader.getMapValues("MeetingData");
-	String organizer = meetingData.get(1).get("Organizer");
-	String expectedMeetingSubject = meetingData.get(1).get("Subject");
-	String attendee = meetingData.get(1).get("Attendee");
-	String minStartTime = meetingData.get(1).get("Start time (minutes to add)");
-	String minEndTime = meetingData.get(1).get("End time (minutes to add)");
-	String password = meetingData.get(1).get("Password");
-	String authentication = organizer + ":" + password;
+	private ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
+	private List<Map<String, String>> meetingData = excelReader.getMapValues("MeetingData");
+	private String organizer = meetingData.get(1).get("Organizer");
+	private String expectedMeetingSubject = meetingData.get(1).get("Subject");
+	private String password = meetingData.get(1).get("Password");
+	private String authentication = organizer + ":" + password;
 
-	String expectedStartTime = "";
-	String expectedEndTime = "";
+	private String expectedStartTime = "";
+	private String expectedEndTime = "";
 
 	/**
 	 * Meeting scheduled in the room.
@@ -54,8 +50,9 @@ public class NextMeetingValuesVerifications {
 	public void init() {
 		schedulePage = homeTabletPage.clickScheduleBtn();
 		schedulePage.createMeeting(organizer, expectedMeetingSubject, 
-				minStartTime, minEndTime, attendee, password)
-
+				meetingData.get(1).get("Start time (minutes to add)"), 
+				meetingData.get(1).get("End time (minutes to add)"), 
+				meetingData.get(1).get("Attendee"), password)
 				.clickOverMeetingCreated(expectedMeetingSubject);
 		expectedStartTime =  schedulePage.getStartTimeTxtBoxValue().substring(0, 5);
 		expectedEndTime =  schedulePage.getEndTimeTxtBoxValue().substring(0, 5);

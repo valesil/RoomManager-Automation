@@ -25,28 +25,27 @@ import framework.utils.readers.ExcelReader;
  * 
  */
 public class UpdateOfNextMeetingSubjetWhenItIsChanged {
-	Logger log = Logger.getLogger(getClass());
-	HomeTabletPage homeTabletPage = new HomeTabletPage();
-	SchedulePage schedulePage;
+	private Logger log = Logger.getLogger(getClass());
+	private HomeTabletPage homeTabletPage = new HomeTabletPage();
+	private SchedulePage schedulePage;
 
-	//Data to create and use to assertions
-	ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
-	List<Map<String, String>> meetingData = excelReader.getMapValues("MeetingData");	
-	String organizer = meetingData.get(1).get("Organizer");
-	String subject = meetingData.get(1).get("Subject");
-	String attendee = meetingData.get(1).get("Attendee");
-	String minStartTime = meetingData.get(1).get("Start time (minutes to add)");
-	String minEndTime = meetingData.get(1).get("End time (minutes to add)");
-	String password = meetingData.get(1).get("Password");
-	String authentication = organizer + ":" + password;
+	private ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
+	private List<Map<String, String>> meetingData = excelReader.getMapValues("MeetingData");	
+	private String organizer = meetingData.get(1).get("Organizer");
+	private String subject = meetingData.get(1).get("Subject");
+	private String password = meetingData.get(1).get("Password");
+	private String room = meetingData.get(0).get("Room");
+	private String authentication = organizer + ":" + password;
 
-	String expectedNewSubject = meetingData.get(2).get("Subject");
+	private String expectedNewSubject = meetingData.get(2).get("Subject");
 
 	@BeforeClass (groups = "ACCEPTANCE")
 	public void init() {
 		schedulePage = homeTabletPage.clickScheduleBtn();
 		schedulePage.createMeeting(organizer, subject, 
-				minStartTime, minEndTime, attendee, password);	
+				meetingData.get(1).get("Start time (minutes to add)"), 
+				meetingData.get(1).get("End time (minutes to add)"),  
+				meetingData.get(1).get("Attendee"), password);	
 	}
 
 	@Test (groups = "ACCEPTANCE")
@@ -73,8 +72,7 @@ public class UpdateOfNextMeetingSubjetWhenItIsChanged {
 	public void end() {
 		PropertyConfigurator.configure("log4j.properties");
 		try {
-			RootRestMethods.deleteMeeting(meetingData.get(0).get("Room"), expectedNewSubject , 
-					authentication);
+			RootRestMethods.deleteMeeting(room, expectedNewSubject, authentication);
 			log.info("The meeting:" + expectedNewSubject + "has been deleted successfully.");
 		} catch (IOException e) {
 			log.error(e.getMessage());

@@ -17,23 +17,24 @@ import framework.utils.DataProviders;
 import framework.utils.readers.ExcelReader;
 
 /**
- * Data provider to verify that {now} tile and {next} tile displayed correctly meeting subject.
+ * Data provider to verify that {now} tile displays correctly the meeting subject.
  * @author Eliana Navia
  *
  */
 public class MeetingSubjectIsCorrectlyDisplayedInNowTile {	
-	HomeTabletPage homeTabletPage = new HomeTabletPage();
-	SchedulePage schedulePage;
+	private HomeTabletPage homeTabletPage = new HomeTabletPage();
+	private SchedulePage schedulePage;
 
-	ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
-	List<Map<String, String>> meetingData = excelReader.getMapValues("MeetingData");
-	String password = meetingData.get(0).get("Password");
-	String organizer = meetingData.get(0).get("Organizer");
-	String authentication = organizer + ":" + password;
+	private ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
+	private List<Map<String, String>> meetingData = excelReader.getMapValues("MeetingData");
+	private String password = meetingData.get(0).get("Password");
+	private String organizer = meetingData.get(0).get("Organizer");
+	private String room = meetingData.get(0).get("Room");
+	private String authentication = organizer + ":" + password;
 
 	/**
 	 * @param organizer
-	 * @param subject 1: simple, 2: 100 characters, 3: With space before characters  
+	 * @param subject 1: Letters and numbers less than 10 characters, 2: 100 characters, 3: XML syntax 
 	 * @param minutesFrom
 	 * @param minutesTo
 	 * @param attendee
@@ -53,6 +54,6 @@ public class MeetingSubjectIsCorrectlyDisplayedInNowTile {
 		.clickBackBtn();
 
 		Assert.assertEquals(homeTabletPage.getNowTileLbl(), subject);
-		RootRestMethods.deleteMeeting(meetingData.get(0).get("Room"), subject, authentication);
+		RootRestMethods.deleteMeeting(room, subject, authentication);
 	}
 }
