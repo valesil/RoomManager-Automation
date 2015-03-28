@@ -1,17 +1,15 @@
 package framework.common;
 
-import java.io.File; 
- import java.io.IOException; 
- 
- import org.apache.commons.io.FileUtils; 
- import org.openqa.selenium.By; 
- import org.openqa.selenium.NoSuchElementException; 
- import org.openqa.selenium.OutputType; 
- import org.openqa.selenium.TakesScreenshot; 
- import org.openqa.selenium.WebDriver; 
- import org.openqa.selenium.WebElement; 
- import org.openqa.selenium.interactions.Actions; 
+import java.io.File;
+import java.io.IOException;
 
+import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 
 import framework.selenium.SeleniumDriverManager;
 
@@ -20,11 +18,10 @@ import framework.selenium.SeleniumDriverManager;
  * @author Ruben Blanco
  *
  */
-public class UIMethods {
-	static WebDriver driver = SeleniumDriverManager.getManager().getDriver();	
+public class UIMethods {	
 
 	public static void doubleClick(WebElement webElement) {
-		Actions action = new Actions(driver);
+		Actions action = new Actions(SeleniumDriverManager.getManager().getDriver());
 		action.doubleClick(webElement);
 		action.perform();
 	}
@@ -32,7 +29,7 @@ public class UIMethods {
 	public static boolean isElementPresent(By element) {
 		boolean present;
 		try {			
-			driver.findElement(element);
+			SeleniumDriverManager.getManager().getDriver().findElement(element);
 			present=true;
 		} catch (NoSuchElementException ex) {
 			present = false;
@@ -41,7 +38,7 @@ public class UIMethods {
 	}
 
 	public static void refresh() {
-		driver.navigate().refresh();
+		SeleniumDriverManager.getManager().getDriver().navigate().refresh();
 	}
 
 	/**
@@ -69,7 +66,7 @@ public class UIMethods {
 	 */ 
 	public static void takeScreenShot(String filePath, String fileName) throws IOException { 
 		try { 
-			File scrFile = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE); 
+			File scrFile = ((TakesScreenshot)SeleniumDriverManager.getManager().getDriver()).getScreenshotAs(OutputType.FILE); 
 			FileUtils.copyFile(scrFile, new File(filePath + fileName)); 
 		} catch (Exception e) { 
 			e.printStackTrace(); 
