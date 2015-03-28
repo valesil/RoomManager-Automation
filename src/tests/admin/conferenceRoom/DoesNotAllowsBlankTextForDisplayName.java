@@ -29,8 +29,8 @@ public class DoesNotAllowsBlankTextForDisplayName {
 	public void testDoesNotAllowsBlankTextForDisplayName() {
 		//reading to excel to create variables
 		ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
-		List<Map<String, String>> testData1 = excelReader.getMapValues("RoomInfo");
-		String displayName = testData1.get(0).get("DisplayName");
+		List<Map<String, String>> roomList = excelReader.getMapValues("RoomInfo");
+		String displayName = roomList.get(0).get("DisplayName");
 
 		HomeAdminPage homeAdminPage = new HomeAdminPage();
 		RoomsPage roomsPage = homeAdminPage.clickConferenceRoomsLink();

@@ -25,9 +25,9 @@ public class IsNotAllowedInsertNonNumberInputsIntoCapacityFieldOfRooms {
 	
 	//reading to excel to create variables
 	private ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
-	private List<Map<String, String>> testData1 = excelReader.getMapValues("RoomInfo");
-	private String displayName = testData1.get(0).get("DisplayName");	  	  
-	private String capacity = testData1.get(0).get("invalidCapacity");
+	private List<Map<String, String>> roomList = excelReader.getMapValues("RoomInfo");
+	private String displayName = roomList.get(0).get("DisplayName");	  	  
+	private String capacity = roomList.get(0).get("invalidCapacity");
 	
 	@Test(groups = {"NEGATIVE"})
 	public void testIsNotAllowedInsertNonNumberInputsIntoCapacityFieldOfRooms() {

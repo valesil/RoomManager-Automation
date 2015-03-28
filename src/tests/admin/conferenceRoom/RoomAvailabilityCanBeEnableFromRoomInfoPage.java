@@ -26,9 +26,9 @@ public class RoomAvailabilityCanBeEnableFromRoomInfoPage {
 
 	//reading to excel to create variables
 	private ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
-	private List<Map<String, String>> testData2 = excelReader.getMapValues("RoomInfo");
-	private String displayName = testData2.get(0).get("DisplayName");
-	private String auxRoom = testData2.get(1).get("DisplayName");
+	private List<Map<String, String>> roomList = excelReader.getMapValues("RoomInfo");
+	private String displayName = roomList.get(0).get("DisplayName");
+	private String auxRoom = roomList.get(1).get("DisplayName");
 
 	@BeforeClass(groups = {"FUNCTIONAL"})
 	public void precondition() {

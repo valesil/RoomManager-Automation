@@ -29,9 +29,9 @@ public class DisplayNameIsReflectedInTablet {
 	
 	//reading to excel to create variables
 	private ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
-	private List<Map<String, String>> testData1 = excelReader.getMapValues("RoomInfo");
-	private String displayName = testData1.get(0).get("DisplayName");	  	  
-	private String newDisplayName = testData1.get(0).get("NewDisplayName");	  	  
+	private List<Map<String, String>> roomList = excelReader.getMapValues("RoomInfo");
+	private String displayName = roomList.get(0).get("DisplayName");	  	  
+	private String newDisplayName = roomList.get(0).get("NewDisplayName");	  	  
 	
 	@Test(groups = {"FUNCTIONAL"})
 	public void testChangesInDisplayNameAreReflectedIntablet() throws InterruptedException, IOException, BiffException {

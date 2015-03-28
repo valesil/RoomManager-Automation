@@ -24,9 +24,9 @@ public class RoomLocationCanBeInserted {
 	public void testRoomLocationCanBeInserted() {
 		//reading to excel to create variables
 		ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
-		List<Map<String, String>> testData1 = excelReader.getMapValues("RoomInfo");
-		String displayName = testData1.get(0).get("DisplayName");	  	  
-		String location = testData1.get(0).get("Location");
+		List<Map<String, String>> roomList = excelReader.getMapValues("RoomInfo");
+		String displayName = roomList.get(0).get("DisplayName");	  	  
+		String location = roomList.get(0).get("Location");
 		
 		HomeAdminPage homeAdminPage = new HomeAdminPage();
 		RoomsPage roomsPage = homeAdminPage.clickConferenceRoomsLink();

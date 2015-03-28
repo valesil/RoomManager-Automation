@@ -27,11 +27,11 @@ public class RoomDisplayNameCanBeChanged {
 
 	//reading to excel to create variables
 	private ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
-	private List<Map<String, String>> testData1 = excelReader.getMapValues("RoomInfo");
-	private String displayName =testData1.get(0).get("DisplayName");  	  
-	private String capacity = testData1.get(0).get("Capacity");
-	private String roomCode = testData1.get(0).get("Code");
-	private String location = testData1.get(0).get("Location");
+	private List<Map<String, String>> roomList = excelReader.getMapValues("RoomInfo");
+	private String displayName = roomList.get(0).get("DisplayName");  	  
+	private String capacity = roomList.get(0).get("Capacity");
+	private String roomCode = roomList.get(0).get("Code");
+	private String location = roomList.get(0).get("Location");
 	private String empty = "";
 
 	@Test(groups = {"FUNCTIONAL"})
