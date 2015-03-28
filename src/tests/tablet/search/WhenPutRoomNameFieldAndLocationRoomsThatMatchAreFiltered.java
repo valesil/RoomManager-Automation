@@ -23,7 +23,7 @@ import framework.utils.readers.ExcelReader;
  * @author Jose Cabrera
  */
 public class WhenPutRoomNameFieldAndLocationRoomsThatMatchAreFiltered {
-	SearchPage searchPage;
+	private SearchPage searchPage;
 
 	@Test(groups="FUNCTIONAL")
 	public void testRoomNameFieldAndLocationRoomsThatMatchAreFiltered() 
@@ -43,7 +43,7 @@ public class WhenPutRoomNameFieldAndLocationRoomsThatMatchAreFiltered {
 		Assert.assertTrue(searchPage.roomsInList(RootRestMethods.mergeLists(roomNameCond, locationCond)));
 	}
 
-	@AfterMethod
+	@AfterMethod(groups="FUNCTIONAL")
 	public void toHome() {
 		searchPage.clickBackBtn();
 	}

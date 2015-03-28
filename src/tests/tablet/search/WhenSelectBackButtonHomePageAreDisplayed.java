@@ -11,11 +11,11 @@ import framework.pages.tablet.SearchPage;
  * is pressed the home page is displayed
  * @author Jose Cabrera
  */
-public class WhenSelectBackButtonSchedulerPageAreDisplayed {
-	SearchPage searchPage;
+public class WhenSelectBackButtonHomePageAreDisplayed {
+	private SearchPage searchPage;
 	
 	@Test(groups = "UI")
-	public void testSelectBackButtonSchedulerPageAreDisplayed () {
+	public void testSelectBackButtonHomePageAreDisplayed () {
 		HomeTabletPage homePage = new HomeTabletPage();
 		searchPage = homePage.clickSearchBtn();
 		homePage = searchPage.clickBackBtn();

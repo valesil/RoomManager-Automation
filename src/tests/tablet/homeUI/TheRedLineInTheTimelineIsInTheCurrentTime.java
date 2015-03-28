@@ -9,7 +9,7 @@ import framework.pages.tablet.HomeTabletPage;
 import framework.utils.TimeManager;
 
 /**
- * @title TC34: Verify the red line in the timeline is in the current time 
+ * TC34: Verify the red line in the timeline is in the current time 
  * @author Jose Cabrera
  */
 public class TheRedLineInTheTimelineIsInTheCurrentTime {

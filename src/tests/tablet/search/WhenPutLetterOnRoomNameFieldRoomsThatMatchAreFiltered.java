@@ -23,7 +23,7 @@ import framework.utils.readers.ExcelReader;
  * @author Jose Cabrera
  */
 public class WhenPutLetterOnRoomNameFieldRoomsThatMatchAreFiltered {
-	SearchPage searchPage;
+	private SearchPage searchPage;
 	
 	@Test(groups = "ACCEPTANCE")
 	public void testPutLetterOnRoomNameFieldRoomsAreFiltered ()throws BiffException, IOException {
@@ -38,7 +38,7 @@ public class WhenPutLetterOnRoomNameFieldRoomsThatMatchAreFiltered {
 		Assert.assertTrue(searchPage.roomsInList(condition));
 	}
 	
-	@AfterMethod
+	@AfterMethod(groups = "ACCEPTANCE")
 	public void toHome() {
 		searchPage.clickBackBtn();
 	}

@@ -23,25 +23,31 @@ import framework.utils.readers.ExcelReader;
  * @author Jose Cabrera
  */
 public class WhenPressClearAllCriteriasAreCleaned {
-
-	SearchPage searchPage;
+	private SearchPage searchPage;
 
 	@Test(groups = "UI")
 	public void testPressClearAllCriteriasAreCleaned () throws JSONException, 
-	MalformedURLException, IOException {
+	MalformedURLException, IOException, InterruptedException {
 		ExcelReader excelReader = new ExcelReader(AppConfigConstants.EXCEL_INPUT_DATA);
 		List<Map<String, String>> testData = excelReader.getMapValues("Search");
-		String roomName = testData.get(0).get("Room Name");
+		String roomName = testData.get(1).get("Room Name");
+		String location = testData.get(1).get("Location");
+		String capacity = testData.get(1).get("Capacity");
+		String resourceName = testData.get(1).get("Resource");
 		HomeTabletPage homePage = new HomeTabletPage();
-		LinkedList<String> condition = RootRestMethods.getNamesAssociatedResources(roomName);
+		LinkedList<String> condition = RootRestMethods.getAllNameResources();
 		searchPage = homePage.clickSearchBtn()
 				.clickCollapseAdvancedBtn()
+				.selectResource(resourceName)
+				.setName(roomName)
+				.setMinimumCap(capacity)
+				.setLocation(location)
 				.clickClearBtn();
 		Assert.assertFalse(searchPage.resourcesAreSelected(condition)&&
 				searchPage.allFiltersAreCleaned());
 	}
 
-	@AfterMethod
+	@AfterMethod(groups = "UI")
 	public void toHome() {
 		searchPage.clickBackBtn();
 	}

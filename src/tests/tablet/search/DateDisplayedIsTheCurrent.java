@@ -13,7 +13,7 @@ import framework.pages.tablet.SearchPage;
  * @author Jose Cabrera
  */
 public class DateDisplayedIsTheCurrent {
-	SearchPage searchPage;
+	private SearchPage searchPage;
 	
 	@Test(groups = "UI")
 	public void testDateDisplayedIsTheCurrent (){
@@ -22,7 +22,7 @@ public class DateDisplayedIsTheCurrent {
 		Assert.assertTrue(searchPage.dateIsPresent());
 	}
 	
-	@AfterMethod
+	@AfterMethod(groups = "UI")
 	public void toHome() {
 		searchPage.clickBackBtn();
 	}	

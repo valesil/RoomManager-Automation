@@ -13,7 +13,7 @@ import framework.utils.TimeManager;
  * @author Jose Cabrera
  */
 public class TimeLineDisplayedIsInCurrentTime {
-	SearchPage searchPage;
+	private SearchPage searchPage;
 	
 	@Test(groups = "UI")
 	public void testTimeDisplayedIsTheCurrent () {
@@ -23,7 +23,7 @@ public class TimeLineDisplayedIsInCurrentTime {
 		Assert.assertTrue(searchPage.getTimeLineDate().contains(currentDate));
 	}
 	
-	@AfterMethod
+	@AfterMethod(groups = "UI")
 	public void toHome() {
 		searchPage.clickBackBtn();
 	}

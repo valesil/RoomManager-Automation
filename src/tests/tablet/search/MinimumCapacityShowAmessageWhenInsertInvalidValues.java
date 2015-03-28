@@ -21,7 +21,7 @@ import framework.utils.readers.ExcelReader;
  * @author Jose Cabrera
  */
 public class MinimumCapacityShowAmessageWhenInsertInvalidValues { 
-	SearchPage searchPage;
+	private SearchPage searchPage;
 	
 	@Test(groups = "NEGATIVE")
 	public void testMinimumCapacityShowAmessageifInsertInvalidValues () 
@@ -36,7 +36,7 @@ public class MinimumCapacityShowAmessageWhenInsertInvalidValues {
 		Assert.assertFalse(searchPage.isEmptyMinimumCap());
 	}
 
-	@AfterMethod
+	@AfterMethod(groups = "NEGATIVE")
 	public void toHome() {
 		searchPage.clickBackBtn();
 	}

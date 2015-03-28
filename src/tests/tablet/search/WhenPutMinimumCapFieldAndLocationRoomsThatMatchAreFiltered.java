@@ -23,7 +23,7 @@ import framework.utils.readers.ExcelReader;
  * @author Jose Cabrera
  */
 public class WhenPutMinimumCapFieldAndLocationRoomsThatMatchAreFiltered {
-	SearchPage searchPage = new SearchPage();
+	private SearchPage searchPage;
 	
 	@Test(groups = "FUNCTIONAL")
 	public void testPutMinimumCapFieldAndLocationRoomsAreFiltered () throws BiffException, IOException {
@@ -43,7 +43,7 @@ public class WhenPutMinimumCapFieldAndLocationRoomsThatMatchAreFiltered {
 		Assert.assertTrue(searchPage.roomsInList(
 				RootRestMethods.mergeLists(locationCond, capacityCond)));
 	}
-	@AfterMethod
+	@AfterMethod(groups = "FUNCTIONAL")
 	public void toHome() {
 		searchPage.clickBackBtn();
 	}

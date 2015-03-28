@@ -23,7 +23,7 @@ import framework.utils.readers.ExcelReader;
  * @author Jose Cabrera
  */
 public class WhenSelectResourceRoomsThatMatchAreFiltered {
-	SearchPage searchPage;
+	private SearchPage searchPage;
 	
 	@Test(groups = "FUNCTIONAL")
 	public void testWhenSelectResourceRoomsThatMatchAreFiltered() throws BiffException, IOException {
@@ -38,7 +38,7 @@ public class WhenSelectResourceRoomsThatMatchAreFiltered {
 		Assert.assertTrue(searchPage.roomsInList(resCond));
 	}
 	
-	@AfterMethod
+	@AfterMethod(groups = "FUNCTIONAL")
 	public void toHome() {
 		searchPage.clickBackBtn();
 	}

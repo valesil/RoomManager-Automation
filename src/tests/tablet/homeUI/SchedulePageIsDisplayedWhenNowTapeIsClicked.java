@@ -8,22 +8,21 @@ import framework.pages.tablet.HomeTabletPage;
 import framework.pages.tablet.SchedulePage;
 
 /**
- * @title  TC21: Verify that schedule page is displayed when Now Tape is clicked when no 
+ * TC21: Verify that schedule page is displayed when Now Tape is clicked when no 
  * event is scheduled
  * @author Jose Cabrera
  */
 public class SchedulePageIsDisplayedWhenNowTapeIsClicked {
-		
+	SchedulePage schedulePage;
 	@Test(groups = "UI")
 	public void testSchedulePageIsDisplayedWhenNowTapeIsClicked () {
 		HomeTabletPage homePage = new HomeTabletPage();
-		SchedulePage schedulePage = homePage.clickNowTileLbl();
+		schedulePage = homePage.clickNowTileLbl();
 		Assert.assertTrue(schedulePage.isSchedulerLblDisplayed());
 	}
-	
-	@AfterClass
+
+	@AfterClass(groups = "UI")
 	public void toHome() {
-		SchedulePage schedule = new SchedulePage();
-		schedule.clickBackBtn();
+		schedulePage.clickBackBtn();
 	}
 }

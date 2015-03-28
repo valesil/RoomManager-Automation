@@ -13,7 +13,7 @@ import framework.pages.tablet.SearchPage;
  * @author Jose Cabrera
  */
 public class WhenPressAdvancedallCriteriasAreDisplayed {
-	SearchPage searchPage;
+	private SearchPage searchPage;
 	
 	@Test(groups = "UI")
 	public void testPressAdvancedallCriteriasAreDisplayed () {
@@ -23,7 +23,7 @@ public class WhenPressAdvancedallCriteriasAreDisplayed {
 		Assert.assertTrue(searchPage.filtersArePresent());
 	}
 
-	@AfterMethod
+	@AfterMethod(groups = "UI")
 	public void toHome() {
 		searchPage.clickBackBtn();
 	}

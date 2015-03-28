@@ -21,7 +21,7 @@ import framework.utils.readers.ExcelReader;
  * @author Jose Cabrera
  */
 public class MinimumCapacityOnlyAllowNumbers {
-	SearchPage searchPage;
+	private SearchPage searchPage;
 	
 	@Test(groups = "NEGATIVE")
 	public void testMinimumCapacityOnlyAllowNumbers () throws BiffException, IOException {
@@ -35,7 +35,7 @@ public class MinimumCapacityOnlyAllowNumbers {
 		Assert.assertFalse(searchPage.isEmptyMinimumCap());
 	}
 
-	@AfterMethod
+	@AfterMethod(groups = "NEGATIVE")
 	public void toHome() {
 		searchPage.clickBackBtn();
 	}

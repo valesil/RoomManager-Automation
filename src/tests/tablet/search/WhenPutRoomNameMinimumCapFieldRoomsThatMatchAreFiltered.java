@@ -23,7 +23,7 @@ import framework.utils.readers.ExcelReader;
  * @author Jose Cabrera
  */
 public class WhenPutRoomNameMinimumCapFieldRoomsThatMatchAreFiltered {
-	SearchPage searchPage;
+	private SearchPage searchPage;
 	
 	@Test(groups = "FUNCTIONAL")
 	public void verifyPutRoomNameMinimumCapFieldRoomsThatMatchAreFiltered () 
@@ -44,7 +44,7 @@ public class WhenPutRoomNameMinimumCapFieldRoomsThatMatchAreFiltered {
 				RootRestMethods.mergeLists(roomNameCond, capacityCond)));
 	}
 
-	@AfterMethod
+	@AfterMethod(groups = "FUNCTIONAL")
 	public void toHome() {
 		searchPage.clickBackBtn();
 	}

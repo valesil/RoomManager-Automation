@@ -19,7 +19,7 @@ import framework.rest.RootRestMethods;
  * @author Jose Cabrera
  */
 public class AllRoomsareDisplayedWhenPageisLoaded {
-	SearchPage searchPage;
+	private SearchPage searchPage;
 
 	@Test(groups = "UI")
 	public void testAllRoomsareDisplayedPageLoaded () throws JSONException, MalformedURLException, 
@@ -30,7 +30,7 @@ public class AllRoomsareDisplayedWhenPageisLoaded {
 		Assert.assertTrue(searchPage.roomsInList(condition));
 	}
 
-	@AfterMethod
+	@AfterMethod(groups = "UI")
 	public void toHome() {
 		searchPage.clickBackBtn();
 	}

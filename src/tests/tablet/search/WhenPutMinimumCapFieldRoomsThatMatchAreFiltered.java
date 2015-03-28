@@ -23,7 +23,7 @@ import framework.utils.readers.ExcelReader;
  * @author Jose Cabrera
  */
 public class WhenPutMinimumCapFieldRoomsThatMatchAreFiltered {
-	SearchPage searchPage;
+	private SearchPage searchPage;
 	
 	@Test(groups = "ACCEPTANCE")
 	public void testPutMinimumCapFieldRoomsAreFiltered ()throws BiffException, IOException {
@@ -39,7 +39,7 @@ public class WhenPutMinimumCapFieldRoomsThatMatchAreFiltered {
 		Assert.assertTrue(searchPage.roomsInList(capacityCond));
 	}
 
-	@AfterMethod
+	@AfterMethod(groups = "ACCEPTANCE")
 	public void toHome() {
 		searchPage.clickBackBtn();
 	}

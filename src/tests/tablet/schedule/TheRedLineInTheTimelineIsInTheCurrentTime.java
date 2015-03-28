@@ -13,7 +13,7 @@ import framework.utils.TimeManager;
  * @author Jose Cabrera
  */
 public class TheRedLineInTheTimelineIsInTheCurrentTime {
-	SchedulePage schedulePage;
+	private SchedulePage schedulePage;
 	
 	@Test(groups = "UI")
 	public void testRedLineInTheTimelineIsInTheCurrentTime (){
@@ -23,7 +23,7 @@ public class TheRedLineInTheTimelineIsInTheCurrentTime {
 		Assert.assertTrue(schedulePage.getTimeLineDate().contains(currentDate));
 	}
 
-	@AfterClass
+	@AfterClass(groups = "UI")
 	public void toHome() {
 		schedulePage.clickBackBtn();
 	}

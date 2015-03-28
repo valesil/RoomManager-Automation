@@ -19,7 +19,7 @@ import framework.rest.RootRestMethods;
  * @author Jose Cabrera
  */
 public class AllResourcesAreDisplayed {
-	SearchPage searchPage;
+	private SearchPage searchPage;
 	
 	@Test(groups = "ACCEPTANCE")
 	public void testAllResourcesAreDisplayed () throws JSONException, MalformedURLException, IOException {
@@ -30,7 +30,7 @@ public class AllResourcesAreDisplayed {
 		Assert.assertTrue(searchPage.resourcesInList(condition));
 	}
 	
-	@AfterMethod
+	@AfterMethod(groups = "ACCEPTANCE")
 	public void toHome() {
 		searchPage.clickBackBtn();
 	}

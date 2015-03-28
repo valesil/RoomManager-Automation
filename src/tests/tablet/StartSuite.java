@@ -25,10 +25,10 @@ import static framework.common.AppConfigConstants.EXCEL_INPUT_DATA;
 public class StartSuite {
 	WebDriver driver = SeleniumDriverManager.getManager().getDriver();
 	ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
-	List<Map<String, String>> testData = excelReader.getMapValues("Search");
-	String roomName = testData.get(0).get("Room Name");
+	List<Map<String, String>> meetingData = excelReader.getMapValues("MeetingData");
+	String roomName = meetingData.get(2).get("Room");
 	
-	@BeforeSuite
+	@BeforeSuite(groups = {"ACCEPTANCE", "UI", "NEGATIVE", "FUNCTIONAL"})
 	public void start() throws InterruptedException, MalformedURLException, IOException {
         String resourceFileJSON = "\\src\\tests\\Resource1.json";
         String filePath = System.getProperty("user.dir") + resourceFileJSON;

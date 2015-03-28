@@ -23,20 +23,20 @@ import framework.utils.readers.ExcelReader;
  * @author Jose Cabrera
  */
 public class TheDurationOfTheMeetingIsChangedResizingInTimelineAndClickingUpdate {
-	HomeTabletPage homePage = new HomeTabletPage();
-	SchedulePage schedulePage = new SchedulePage();
-	ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
-	List<Map<String, String>> meetingData = excelReader.getMapValues("MeetingData");
-	String organizer = meetingData.get(1).get("Organizer");
-	String subject = meetingData.get(1).get("Subject");
-	String attendee = meetingData.get(1).get("Attendee");
-	String password = meetingData.get(1).get("Password");
+	private HomeTabletPage homePage = new HomeTabletPage();
+	private SchedulePage schedulePage;
+	private ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
+	private List<Map<String, String>> meetingData = excelReader.getMapValues("MeetingData");
+	private String organizer = meetingData.get(1).get("Organizer");
+	private String subject = meetingData.get(1).get("Subject");
+	private String attendee = meetingData.get(1).get("Attendee");
+	private String password = meetingData.get(1).get("Password");
+	private String minStartTime = meetingData.get(1).get("Start time (minutes to add)");
+	private String minEndTime = meetingData.get(1).get("End time (minutes to add)");
 	
-	@BeforeClass
+	@BeforeClass(groups = "UI")
 	public void createNextMeeting() {
-		String minStartTime = "20";
-		String minEndTime = "55";
-		homePage.clickScheduleBtn();
+		schedulePage = homePage.clickScheduleBtn();
 		schedulePage.createMeeting(organizer, subject, minStartTime, minEndTime, 
 				attendee, password)
 				.clickBackBtn();
@@ -54,12 +54,11 @@ public class TheDurationOfTheMeetingIsChangedResizingInTimelineAndClickingUpdate
 		Assert.assertFalse(schedulePage.getStartTimeTxtBoxValue().equals(startTime));
 	}
 
-	@AfterClass
+	@AfterClass(groups = "UI")
 	public void toHome() throws MalformedURLException, IOException {
-		ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
-		List<Map<String, String>> testData = excelReader.getMapValues("Search");
-		String roomName = testData.get(0).get("Room Name");
-		RootRestMethods.deleteMeeting(roomName, subject, "administrator:Control123");
+		String roomName = meetingData.get(2).get("Room");
+		String user = meetingData.get(1).get("User");
+		RootRestMethods.deleteMeeting(roomName, subject, user+":"+password);
 		schedulePage.clickBackBtn();
 	}
 }

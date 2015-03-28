@@ -38,7 +38,7 @@
 			<!--TC11-->
 			<class name = "tests.tablet.search.WhenPutRoomNameMinimumCapFieldRoomsThatMatchAreFiltered"/>
 			<!--TC17-->
-			<class name = "tests.tablet.search.WhenSelectBackButtonSchedulerPageAreDisplayed"/>
+			<class name = "tests.tablet.search.WhenSelectBackButtonHomePageAreDisplayed"/>
 			<!--TC5-->
 			<class name = "tests.tablet.search.WhenSelectLocationRoomsThatMatchAreFiltered"/>
 			<!--TC20-->

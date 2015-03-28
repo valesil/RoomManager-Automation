@@ -19,8 +19,8 @@ import framework.utils.readers.ExcelReader;
  * @author Jose Cabrera
  */
 public class WhenSelectRoomSchedulerofThisAreDisplayed {
-	SearchPage searchPage;
-	SchedulePage schedule;
+	private SearchPage searchPage;
+	private SchedulePage schedule;
 	@Test(groups = "ACCEPTANCE")
 	public void testSelectRoomSchedulerofThisAreDisplayed () throws InterruptedException {
 		ExcelReader excelReader = new ExcelReader(AppConfigConstants.EXCEL_INPUT_DATA);
@@ -33,7 +33,7 @@ public class WhenSelectRoomSchedulerofThisAreDisplayed {
 		Assert.assertTrue(schedule.isSchedulerLblDisplayed());
 	}
 	
-	@AfterMethod
+	@AfterMethod(groups = "ACCEPTANCE")
 	public void toHome() {
 		schedule.clickBackBtn();
 	}
