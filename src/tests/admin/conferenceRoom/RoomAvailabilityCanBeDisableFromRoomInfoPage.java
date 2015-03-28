@@ -9,7 +9,6 @@ import org.junit.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.Test;
 
-import framework.common.UIMethods;
 import framework.pages.admin.HomeAdminPage;
 import framework.pages.admin.conferencerooms.RoomInfoPage;
 import framework.pages.admin.conferencerooms.RoomsPage;
@@ -54,6 +53,5 @@ public class RoomAvailabilityCanBeDisableFromRoomInfoPage {
 		HomeAdminPage homeAdminPage = new HomeAdminPage();
 		RoomsPage roomsPage = homeAdminPage.clickConferenceRoomsLink();
 		roomsPage.enableDisableIcon(displayName);
-		UIMethods.refresh();
 	}
 }

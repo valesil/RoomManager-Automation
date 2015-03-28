@@ -9,7 +9,6 @@ import org.junit.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.Test;
 
-import framework.common.UIMethods;
 import framework.pages.admin.HomeAdminPage;
 import framework.pages.admin.conferencerooms.RoomInfoPage;
 import framework.pages.admin.conferencerooms.RoomsPage;
@@ -31,7 +30,7 @@ public class CoderoomsIsReflectedInTablet {
 	private String empty = "";
 	
 	@Test(groups = "FUNCTIONAL")
-	public void testChangesInRoomCodeAreReflectedIntablet() {
+	public void testCoderoomsIsReflectedInTablet() {
 		HomeAdminPage homeAdminPage = new HomeAdminPage();
 		RoomsPage roomsPage = homeAdminPage.clickConferenceRoomsLink();
 		RoomInfoPage roomInfoPage = roomsPage.doubleClickOverRoomName(displayName);
@@ -60,6 +59,5 @@ public class CoderoomsIsReflectedInTablet {
 		RoomInfoPage roomInfoPage = roomsPage.doubleClickOverRoomName(displayName);
 		roomInfoPage.setRoomCode(empty)
 			.clickSaveBtn();
-		UIMethods.refresh();
 	}
 }

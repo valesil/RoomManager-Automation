@@ -13,7 +13,6 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-import framework.common.UIMethods;
 import framework.pages.admin.HomeAdminPage;
 import framework.pages.admin.conferencerooms.RoomInfoPage;
 import framework.pages.admin.conferencerooms.RoomResourceAssociationsPage;
@@ -86,6 +85,5 @@ public class ResourcesAssociatedToRoomAreDisplayedOnHomePage {
 		
 		//Delete resource
 	    RootRestMethods.deleteResource(resourceName);
-	    UIMethods.refresh();
 	}
 }
