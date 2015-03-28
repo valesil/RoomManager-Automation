@@ -25,32 +25,30 @@ public class IsNotAllowedInsertLongNumbersInCapacityFieldOfRooms {
 	//reading to excel to create variables
 	private ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
 	private List<Map<String, String>> testData1 = excelReader.getMapValues("RoomInfo");
-	private String displayName =testData1.get(0).get("DisplayName");	  	  
+	private String displayName = testData1.get(0).get("DisplayName");	  	  
 	private String capacity = testData1.get(0).get("longValues");
 	private String empty = "";
 	
 	@Test(groups = {"NEGATIVE"})
 	public void testIsNotAllowedInsertLongNumbersInCapacityFieldOfRooms() {
-		HomeAdminPage homePage = new HomeAdminPage();
-		RoomsPage confRoomPage = homePage.clickConferenceRoomsLink();
-		RoomInfoPage roomInf = confRoomPage.doubleClickOverRoomName(displayName);
-		roomInf
-			.setRoomCapacity(capacity)
+		HomeAdminPage homeAdminPage = new HomeAdminPage();
+		RoomsPage roomsPage = homeAdminPage.clickConferenceRoomsLink();
+		RoomInfoPage roomInfoPage = roomsPage.doubleClickOverRoomName(displayName);
+		roomInfoPage.setRoomCapacity(capacity)
 			.clickSaveBtn();
-		confRoomPage.doubleClickOverRoomName(displayName);
-		String newCapacity = roomInf.getRoomCapacity();
+		roomsPage.doubleClickOverRoomName(displayName);
+		String newCapacity = roomInfoPage.getRoomCapacity();
 		
 		//Assertion for TC13
-		Assert.assertTrue(roomInf.capacityIsLong(newCapacity));
+		Assert.assertTrue(roomInfoPage.capacityIsLong(newCapacity));
 	}
 	
-	@AfterClass
+	@AfterClass(groups = {"NEGATIVE"})
 	public void postcondition() {
 		RoomInfoPage roomInf = new RoomInfoPage();
 		
 		//clean room capacity
-		roomInf
-			.setRoomCapacity(empty)
+		roomInf.setRoomCapacity(empty)
 			.clickSaveBtn();
 		UIMethods.refresh();
 	}

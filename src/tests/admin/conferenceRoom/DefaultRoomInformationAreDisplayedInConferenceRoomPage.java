@@ -28,23 +28,23 @@ public class DefaultRoomInformationAreDisplayedInConferenceRoomPage {
 		//reading to excel to create variables
 		ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
 		List<Map<String, String>> testData1 = excelReader.getMapValues("RoomInfo");
-		String displayName =testData1.get(0).get("DisplayName");
+		String displayName = testData1.get(0).get("DisplayName");
 		
-		HomeAdminPage home = new HomeAdminPage();	
-		RoomsPage rooms = home.clickResourcesLink()
+		HomeAdminPage homeAdminPage = new HomeAdminPage();	
+		RoomsPage roomsPage = homeAdminPage.clickResourcesLink()
 			.clickConferenceRoomsLink()
 			.clickResourcesLink()
 			.clickConferenceRoomsLink();
-		RoomInfoPage roomInf = rooms.doubleClickOverRoomName(displayName);
+		RoomInfoPage roomInfoPage = roomsPage.doubleClickOverRoomName(displayName);
 		
 		//Assertion for TC11
-		Assert.assertTrue(roomInf.verifyRoomDefaultValues(displayName));
+		Assert.assertTrue(roomInfoPage.verifyRoomDefaultValues(displayName));
 	}
 	
-	@AfterClass
+	@AfterClass(groups = {"FUNCTIONAL"})
 	public void postcondition() {
-		RoomInfoPage roomInfo = new RoomInfoPage();
-		roomInfo.clickCancelBtn();
+		RoomInfoPage roomInfoPage = new RoomInfoPage();
+		roomInfoPage.clickCancelBtn();
 		UIMethods.refresh();		
 	}
 	

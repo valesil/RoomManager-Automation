@@ -13,6 +13,7 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
+import framework.common.UIMethods;
 import framework.pages.admin.HomeAdminPage;
 import framework.pages.admin.conferencerooms.RoomInfoPage;
 import framework.pages.admin.conferencerooms.RoomResourceAssociationsPage;
@@ -41,25 +42,23 @@ public class ResourceAssociatedToRoomThatIsDeletedIsRemovedOnHomePage {
 	private String iconTitle = testData.get(0).get("Icon");	
 	private String quantity = testData.get(0).get("Value");
 	
-	@BeforeClass
+	@BeforeClass(groups = {"FUNCTIONAL"})
 	public void precondition() {
 		HomeAdminPage homeAdminPage = new HomeAdminPage();
-		ResourcesPage resourcesPage = homeAdminPage.clickResourcesLink();	
-		ResourceCreatePage newResourcePage = resourcesPage.clickAddResourceBtn();
+		ResourcesPage ResourcesPage = homeAdminPage.clickResourcesLink();	
+		ResourceCreatePage resourceCreatePage = ResourcesPage.clickAddResourceBtn();
 		
 		//create a resource
-		resourcesPage = newResourcePage
-			.clickResourceIcon()
+		ResourcesPage = resourceCreatePage.clickResourceIcon()
 			.selectResourceIcon(iconTitle)
 			.setResourceName(resourceName)
 			.setResourceDisplayName(resourceDisplayName)
 			.setResourceDescription(resourceDescription)
 			.clickSaveResourceBtn();
-		RoomsPage conferenceRoomPage = resourcesPage.clickConferenceRoomsLink();
-		RoomInfoPage infoPage = conferenceRoomPage.doubleClickOverRoomName(roomName);
-		RoomResourceAssociationsPage crresourceAssociationsPage = infoPage.clickResourceAssociationsLink();
-		crresourceAssociationsPage
-			.clickAddResourceToARoom(resourceDisplayName)
+		RoomsPage roomsPage = ResourcesPage.clickConferenceRoomsLink();
+		RoomInfoPage roomInfoPage = roomsPage.doubleClickOverRoomName(roomName);
+		RoomResourceAssociationsPage resourceAssociation = roomInfoPage.clickResourceAssociationsLink();
+		resourceAssociation.clickAddResourceToARoom(resourceDisplayName)
 			.changeValueForResourceFromAssociatedList(resourceDisplayName,quantity)
 			.clickSaveBtn();
 	}
@@ -73,27 +72,28 @@ public class ResourceAssociatedToRoomThatIsDeletedIsRemovedOnHomePage {
 		String amount = testData2.get(0).get("Quantity");
 		String displayName = testData2.get(0).get("DisplayName");
         
-		HomeAdminPage homePage = new HomeAdminPage();
-		RoomsPage conferencePage = homePage.clickConferenceRoomsLink();
-		RoomInfoPage infoPage = conferencePage.doubleClickOverRoomName(displayName);
-		RoomResourceAssociationsPage crresourceAssociationsPage = infoPage.clickResourceAssociationsLink();
+		HomeAdminPage homeAdminPage = new HomeAdminPage();
+		RoomsPage roomsPage = homeAdminPage.clickConferenceRoomsLink();
+		RoomInfoPage roomInfoPage = roomsPage.doubleClickOverRoomName(displayName);
+		RoomResourceAssociationsPage resourceAssociation = roomInfoPage
+			.clickResourceAssociationsLink();
 		
 		//remove resource of a room
-		crresourceAssociationsPage
-			.removeResourceFromAssociatedList(resourceName)
+		resourceAssociation.removeResourceFromAssociatedList(resourceName)
 			.clickSaveBtn();
 
-		HomeTabletPage home = new HomeTabletPage();
-		SettingsPage sett = home.clickSettingsBtn();
-		sett.selectRoom(displayName);
+		HomeTabletPage homeTabletPage = new HomeTabletPage();
+		SettingsPage settingsPage = homeTabletPage.clickSettingsBtn();
+		settingsPage.selectRoom(displayName);
 		
 		//Assertion for TC08
-		Assert.assertFalse(home.VerifyResourceIsAsociated(resourceName, amount));
+		Assert.assertFalse(homeTabletPage.VerifyResourceIsAsociated(resourceName, amount));
 	}
 	
-	@AfterClass
+	@AfterClass(groups = {"FUNCTIONAL"})
 	public void cleanRoom() throws InterruptedException, BiffException, IOException {
 		//Delete resource
 	    RootRestMethods.deleteResource(resourceName);
+	    UIMethods.refresh();
 	}
 }

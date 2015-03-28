@@ -9,7 +9,6 @@ import org.junit.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-import framework.common.UIMethods;
 import framework.pages.admin.HomeAdminPage;
 import framework.pages.admin.conferencerooms.RoomInfoPage;
 import framework.pages.admin.conferencerooms.RoomsPage;
@@ -31,33 +30,30 @@ public class RoomAvailabilityCanBeEnableFromRoomInfoPage {
 	private String displayName = testData2.get(0).get("DisplayName");
 	private String auxRoom = testData2.get(1).get("DisplayName");
 
-	@BeforeClass
+	@BeforeClass(groups = {"FUNCTIONAL"})
 	public void precondition() {
-		UIMethods.refresh();
-		HomeAdminPage home = new HomeAdminPage();
-		RoomsPage confPage = home.clickConferenceRoomsLink();
+		HomeAdminPage homeAdminPage = new HomeAdminPage();
+		RoomsPage roomsPage = homeAdminPage.clickConferenceRoomsLink();
 		
 		//click to disable the selected room
-		confPage.enableDisableIcon(displayName);
+		roomsPage.enableDisableIcon(displayName);
 	}
 	
 	@Test(groups = {"FUNCTIONAL"})
 	public void testRoomAvailabilityCanBeEnableFromRoomInfoPage() {
-		HomeAdminPage homePage = new HomeAdminPage();
-		RoomsPage conferencePage = homePage.clickConferenceRoomsLink();
-		RoomInfoPage infoPage = conferencePage
-			.doubleClickOverRoomName(displayName);
-		infoPage
-			.clickEnableIcon()
+		HomeAdminPage homeAdminPage = new HomeAdminPage();
+		RoomsPage roomsPage = homeAdminPage.clickConferenceRoomsLink();
+		RoomInfoPage roomInfoPage = roomsPage.doubleClickOverRoomName(displayName);
+		roomInfoPage.clickEnableIcon()
 			.clickSaveBtn();
 		
-		HomeTabletPage home = new HomeTabletPage();
-		SettingsPage sett = home.clickSettingsBtn();
-		sett.selectRoom(auxRoom);
-		SearchPage search = home.clickSearchBtn();
+		HomeTabletPage homeTabletPage = new HomeTabletPage();
+		SettingsPage settingsPage = homeTabletPage.clickSettingsBtn();
+		settingsPage.selectRoom(auxRoom);
+		SearchPage searchPage = homeTabletPage.clickSearchBtn();
 		
 		//Assertion for TC 02
-		Assert.assertTrue(search.roomIsDiplayed(displayName));
+		Assert.assertTrue(searchPage.roomIsDiplayed(displayName));
 	}
 	
 }

@@ -36,36 +36,34 @@ public class RoomDisplayNameCanBeChanged {
 
 	@Test(groups = {"FUNCTIONAL"})
 	public void testDisplayNameRoomsCanBeChanged() {
-		HomeAdminPage homePage = new HomeAdminPage();
-		RoomsPage confRoomPage = homePage.clickConferenceRoomsLink();
-		RoomInfoPage roomInf = confRoomPage.doubleClickOverRoomName(
-		confRoomPage.getRoomDisplayName(displayName));
-		roomInf
-			.setDisplayName(displayName)
+		HomeAdminPage homeAdminPage = new HomeAdminPage();
+		RoomsPage roomsPage = homeAdminPage.clickConferenceRoomsLink();
+		RoomInfoPage roomInfoPage = roomsPage.doubleClickOverRoomName(
+		roomsPage.getRoomDisplayName(displayName));
+		roomInfoPage.setDisplayName(displayName)
 			.setRoomCode(roomCode)
 			.setRoomCapacity(capacity)
 			.setLocation(location)
 			.clickSaveBtn();
-		confRoomPage.doubleClickOverRoomName(confRoomPage.getRoomDisplayName(displayName));
+		roomsPage.doubleClickOverRoomName(roomsPage.getRoomDisplayName(displayName));
 		
 		//Assertion for TC04
-		Assert.assertEquals(roomInf.getRoomDisplayName(), displayName);
+		Assert.assertEquals(roomInfoPage.getRoomDisplayName(), displayName);
 
 		//Assertion for TC05
-		Assert.assertEquals(roomInf.getRoomCode(), roomCode);
+		Assert.assertEquals(roomInfoPage.getRoomCode(), roomCode);
 
 		//Assertion for TC06
-		Assert.assertEquals(roomInf.getRoomCapacity(), capacity);
+		Assert.assertEquals(roomInfoPage.getRoomCapacity(), capacity);
 
 		//Assertion for TC04
-		Assert.assertEquals(roomInf.getRoomLocation(), location);
+		Assert.assertEquals(roomInfoPage.getRoomLocation(), location);
 	}
 
-	@AfterClass
+	@AfterClass(groups = {"FUNCTIONAL"})
 	public void postcondition() {
-		RoomInfoPage roomInf = new RoomInfoPage();
-		roomInf
-			.setDisplayName(displayName)
+		RoomInfoPage roomInfoPage = new RoomInfoPage();
+		roomInfoPage.setDisplayName(displayName)
 			.setRoomCode(empty)
 			.setRoomCapacity(empty)
 			.clickSaveBtn();

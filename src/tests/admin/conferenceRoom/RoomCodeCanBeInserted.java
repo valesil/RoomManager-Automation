@@ -25,19 +25,18 @@ public class RoomCodeCanBeInserted {
 		//reading to excel to create variables
 		ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
 		List<Map<String, String>> testData1 = excelReader.getMapValues("RoomInfo");
-		String displayName =testData1.get(0).get("DisplayName");// "room01 changed";	  	  
+		String displayName = testData1.get(0).get("DisplayName");// "room01 changed";	  	  
 		String roomCode = testData1.get(0).get("Code");
 
-		HomeAdminPage homePage = new HomeAdminPage();
-		RoomsPage confRoomPage = homePage.clickConferenceRoomsLink();
-		RoomInfoPage roomInf = confRoomPage.doubleClickOverRoomName(displayName);
-		roomInf
-			.setRoomCode(roomCode)
+		HomeAdminPage homeAdminPage = new HomeAdminPage();
+		RoomsPage roomsPage = homeAdminPage.clickConferenceRoomsLink();
+		RoomInfoPage roomInfoPage = roomsPage.doubleClickOverRoomName(displayName);
+		roomInfoPage.setRoomCode(roomCode)
 			.clickSaveBtn();
 
-		String getCode = confRoomPage.doubleClickOverRoomName(displayName)
+		String getCode = roomsPage.doubleClickOverRoomName(displayName)
 			.getRoomCode();
-		roomInf.clickCancelBtn();
+		roomInfoPage.clickCancelBtn();
 		
 		//Assertion for TC05
 		Assert.assertEquals(roomCode, getCode);

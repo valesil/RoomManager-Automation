@@ -33,27 +33,26 @@ public class RoomAvailabilityCanBeDisableFromRoomInfoPage {
 	
 	@Test(groups = {"FUNCTIONAL"})
 	public void testRoomAvailabilityCanBeDisableFromRoomInfoPage() {
-		HomeAdminPage homePage = new HomeAdminPage();
-		RoomsPage conferencePage = homePage.clickConferenceRoomsLink();
-		RoomInfoPage infoPage = conferencePage.doubleClickOverRoomName(displayName);
-		infoPage
-			.clickDisableIcon()
+		HomeAdminPage homeAdminPage = new HomeAdminPage();
+		RoomsPage roomsPage = homeAdminPage.clickConferenceRoomsLink();
+		RoomInfoPage roomInfoPage = roomsPage.doubleClickOverRoomName(displayName);
+		roomInfoPage.clickDisableIcon()
 			.clickSaveBtn();
 		
-		HomeTabletPage home = new HomeTabletPage();
-		SettingsPage sett = home.clickSettingsBtn();
-		sett.selectRoom(auxRoom);
-		SearchPage search = home.clickSearchBtn();
+		HomeTabletPage homeTabletPage = new HomeTabletPage();
+		SettingsPage settingsPage = homeTabletPage.clickSettingsBtn();
+		settingsPage.selectRoom(auxRoom);
+		SearchPage searchPage = homeTabletPage.clickSearchBtn();
 		
 		//Assertion for TC01
-		Assert.assertFalse(search.roomIsDiplayed(displayName));
+		Assert.assertFalse(searchPage.roomIsDiplayed(displayName));
 	}
 	
-	@AfterClass
+	@AfterClass(groups = {"FUNCTIONAL"})
 	public void cleanRoom() {
-		HomeAdminPage home = new HomeAdminPage();
-		RoomsPage confPage = home.clickConferenceRoomsLink();
-		confPage.enableDisableIcon(displayName);
+		HomeAdminPage homeAdminPage = new HomeAdminPage();
+		RoomsPage roomsPage = homeAdminPage.clickConferenceRoomsLink();
+		roomsPage.enableDisableIcon(displayName);
 		UIMethods.refresh();
 	}
 }

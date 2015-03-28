@@ -26,39 +26,37 @@ public class CoderoomsIsReflectedInTablet {
 	//reading to excel to create variables
 	private ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
 	private List<Map<String, String>> testData1 = excelReader.getMapValues("RoomInfo");
-	private String displayName =testData1.get(0).get("DisplayName");	  	  
+	private String displayName = testData1.get(0).get("DisplayName");	  	  
 	private String roomCode = testData1.get(0).get("Code");
 	private String empty = "";
 	
 	@Test(groups = {"FUNCTIONAL"})
 	public void testChangesInRoomCodeAreReflectedIntablet() {
-		HomeAdminPage homePage = new HomeAdminPage();
-		RoomsPage confRoomPage = homePage.clickConferenceRoomsLink();
-		RoomInfoPage roomInf = confRoomPage.doubleClickOverRoomName(displayName);
-		roomInf
-			.setRoomCode(roomCode)
+		HomeAdminPage homeAdminPage = new HomeAdminPage();
+		RoomsPage roomsPage = homeAdminPage.clickConferenceRoomsLink();
+		RoomInfoPage roomInfoPage = roomsPage.doubleClickOverRoomName(displayName);
+		roomInfoPage.setRoomCode(roomCode)
 			.clickCancelBtn();
-		String SavedCode = confRoomPage
-			.doubleClickOverRoomName(displayName)
-			.getRoomCode();  
-		roomInf.clickCancelBtn();
 		
-		HomeTabletPage home = new HomeTabletPage();
-		SettingsPage sett = home.clickSettingsBtn();
-		sett.selectRoom(displayName);   
-		String tabletRoomCode = home.getRoomCodeLbl();
+		String savedCode = roomsPage.doubleClickOverRoomName(displayName)
+			.getRoomCode();  
+		roomInfoPage.clickCancelBtn();
+		
+		HomeTabletPage homeTabletPage = new HomeTabletPage();
+		SettingsPage settingsPage = homeTabletPage.clickSettingsBtn();
+		settingsPage.selectRoom(displayName);   
+		String tabletRoomCode = homeTabletPage.getRoomCodeLbl();
 		
 		//Assertion for TC09
-		Assert.assertEquals(SavedCode, tabletRoomCode);
+		Assert.assertEquals(savedCode, tabletRoomCode);
 	}
 	
-	@AfterClass
+	@AfterClass(groups = {"FUNCTIONAL"})
 	public void postcondition() {
-		HomeAdminPage homePage = new HomeAdminPage();
-		RoomsPage confRoomPage = homePage.clickConferenceRoomsLink();
-		RoomInfoPage roomInf = confRoomPage.doubleClickOverRoomName(displayName);
-		roomInf
-			.setRoomCode(empty)
+		HomeAdminPage homeAdminPage = new HomeAdminPage();
+		RoomsPage roomsPage = homeAdminPage.clickConferenceRoomsLink();
+		RoomInfoPage roomInfoPage = roomsPage.doubleClickOverRoomName(displayName);
+		roomInfoPage.setRoomCode(empty)
 			.clickSaveBtn();
 		UIMethods.refresh();
 	}

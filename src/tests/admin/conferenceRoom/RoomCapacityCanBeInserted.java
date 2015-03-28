@@ -25,20 +25,18 @@ public class RoomCapacityCanBeInserted {
 		//reading to excel to create variables
 		ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
 		List<Map<String, String>> testData1 = excelReader.getMapValues("RoomInfo");
-		String displayName =testData1.get(0).get("DisplayName");// "room01 changed";	  	  
+		String displayName = testData1.get(0).get("DisplayName");// "room01 changed";	  	  
 		String capacity = testData1.get(0).get("Capacity");
 
-		HomeAdminPage homePage = new HomeAdminPage();
-		RoomsPage confRoomPage = homePage.clickConferenceRoomsLink();
-		RoomInfoPage roomInf = confRoomPage.doubleClickOverRoomName(displayName);
-		roomInf
-			.setRoomCapacity(capacity)
+		HomeAdminPage homeAdminPage = new HomeAdminPage();
+		RoomsPage roomsPage = homeAdminPage.clickConferenceRoomsLink();
+		RoomInfoPage roomInfoPage = roomsPage.doubleClickOverRoomName(displayName);
+		roomInfoPage.setRoomCapacity(capacity)
 			.clickSaveBtn();
 
-		String roomCapacity = confRoomPage
-			.doubleClickOverRoomName(displayName)
+		String roomCapacity = roomsPage.doubleClickOverRoomName(displayName)
 			.getRoomCapacity();
-		roomInf.clickCancelBtn();
+		roomInfoPage.clickCancelBtn();
 		
 		//Assertion fot TC06
 		Assert.assertEquals(capacity, roomCapacity);

@@ -25,20 +25,18 @@ public class RoomLocationCanBeInserted {
 		//reading to excel to create variables
 		ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
 		List<Map<String, String>> testData1 = excelReader.getMapValues("RoomInfo");
-		String displayName =testData1.get(0).get("DisplayName");	  	  
+		String displayName = testData1.get(0).get("DisplayName");	  	  
 		String location = testData1.get(0).get("Location");
 		
-		HomeAdminPage homePage = new HomeAdminPage();
-		RoomsPage confRoomPage = homePage.clickConferenceRoomsLink();
-		RoomInfoPage roomInf = confRoomPage.doubleClickOverRoomName(displayName);
-		roomInf
-			.setLocation(location)
+		HomeAdminPage homeAdminPage = new HomeAdminPage();
+		RoomsPage roomsPage = homeAdminPage.clickConferenceRoomsLink();
+		RoomInfoPage roomInfoPage = roomsPage.doubleClickOverRoomName(displayName);
+		roomInfoPage.setLocation(location)
 			.clickSaveBtn();
 		
-		String roomLocation = confRoomPage
-			.doubleClickOverRoomName(displayName)
+		String roomLocation = roomsPage.doubleClickOverRoomName(displayName)
 			.getRoomLocation();  
-		roomInf.clickCancelBtn();
+		roomInfoPage.clickCancelBtn();
 		
 		//Assertion for TC07
 		Assert.assertEquals(location, roomLocation);

@@ -28,25 +28,22 @@ public class ChangesInCapacityisReflectedInTablet {
 	//reading to excel to create variables
 	private ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
 	private List<Map<String, String>> roomList = excelReader.getMapValues("RoomInfo");
-	private String displayName =roomList.get(0).get("DisplayName");
+	private String displayName = roomList.get(0).get("DisplayName");
 	private String capacity = roomList.get(0).get("Capacity");
 	private String empty = "";
 
 	@Test(groups = {"FUNCTIONAL"})
 	public void testChangesInCapacityisReflectedInTablet() {
-		UIMethods.refresh();
-		HomeAdminPage homePage = new HomeAdminPage();
-		RoomsPage confRoomPage = homePage.clickConferenceRoomsLink();
-		RoomInfoPage roomInf = confRoomPage.doubleClickOverRoomName(displayName);
-		roomInf
-			.setRoomCapacity(capacity)
+		HomeAdminPage homeAdminPage = new HomeAdminPage();
+		RoomsPage roomsPage = homeAdminPage.clickConferenceRoomsLink();
+		RoomInfoPage roomInfoPage = roomsPage.doubleClickOverRoomName(displayName);
+		roomInfoPage.setRoomCapacity(capacity)
 			.clickSaveBtn();
 		
-		HomeTabletPage home = new HomeTabletPage();
-		SettingsPage sett = home.clickSettingsBtn();
-		sett.selectRoom(displayName);
-        SearchPage searchPage = home
-        	.clickSearchBtn()
+		HomeTabletPage homeTabletPage = new HomeTabletPage();
+		SettingsPage settingsPage = homeTabletPage.clickSettingsBtn();
+		settingsPage.selectRoom(displayName);
+        SearchPage searchPage = homeTabletPage.clickSearchBtn()
         	.clickCollapseAdvancedBtn()
         	.setMinimumCap(capacity);
       
@@ -54,15 +51,16 @@ public class ChangesInCapacityisReflectedInTablet {
         Assert.assertTrue(searchPage.roomIsDiplayed(displayName));
 	}
 
-	@AfterClass
+	@AfterClass(groups = {"FUNCTIONAL"})
 	public void postcondition() {
-		HomeAdminPage homePage = new HomeAdminPage();
-		RoomsPage confRoomPage = homePage.clickConferenceRoomsLink();
-		RoomInfoPage roomInf = confRoomPage.doubleClickOverRoomName(displayName);
+		HomeAdminPage homeAdminPage = new HomeAdminPage();
+		RoomsPage roomsPage = homeAdminPage.clickConferenceRoomsLink();
+		RoomInfoPage roomInfoPage = roomsPage.doubleClickOverRoomName(displayName);
 		
 		//clean room capacity 
-		roomInf
-			.setRoomCapacity(empty)
+		roomInfoPage.setRoomCapacity(empty)
 			.clickSaveBtn();
+		
+		UIMethods.refresh();
 	}
 }

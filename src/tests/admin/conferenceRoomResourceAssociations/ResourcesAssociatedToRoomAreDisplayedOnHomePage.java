@@ -13,6 +13,7 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
+import framework.common.UIMethods;
 import framework.pages.admin.HomeAdminPage;
 import framework.pages.admin.conferencerooms.RoomInfoPage;
 import framework.pages.admin.conferencerooms.RoomResourceAssociationsPage;
@@ -41,25 +42,24 @@ public class ResourcesAssociatedToRoomAreDisplayedOnHomePage {
 	private String iconTitle = testData.get(0).get("Icon");	
 	private String quantity = testData.get(0).get("Value");
     	
-	@BeforeClass
+	@BeforeClass(groups = {"FUNCTIONAL"})
 	public void precondition() {
 		HomeAdminPage homeAdminPage = new HomeAdminPage();
 		ResourcesPage resourcesPage = homeAdminPage.clickResourcesLink();	
-		ResourceCreatePage newResourcePage = resourcesPage.clickAddResourceBtn();
+		ResourceCreatePage resourceCreatePage = resourcesPage.clickAddResourceBtn();
 		
 		//create a resource
-		resourcesPage = newResourcePage
-			.clickResourceIcon()
+		resourcesPage = resourceCreatePage.clickResourceIcon()
 			.selectResourceIcon(iconTitle)
 			.setResourceName(resourceName)
 			.setResourceDisplayName(resourceDisplayName)
 			.setResourceDescription(resourceDescription)
 			.clickSaveResourceBtn();
-		RoomsPage conferenceRoomPage = resourcesPage.clickConferenceRoomsLink();
-		RoomInfoPage infoPage = conferenceRoomPage.doubleClickOverRoomName(roomName);
-		RoomResourceAssociationsPage crresourceAssociationsPage = infoPage.clickResourceAssociationsLink();
-		crresourceAssociationsPage
-			.clickAddResourceToARoom(resourceDisplayName)
+		RoomsPage roomsPage = resourcesPage.clickConferenceRoomsLink();
+		RoomInfoPage roomInfoPage = roomsPage.doubleClickOverRoomName(roomName);
+		RoomResourceAssociationsPage resourceAssociation = roomInfoPage
+			.clickResourceAssociationsLink();
+		resourceAssociation.clickAddResourceToARoom(resourceDisplayName)
 			.changeValueForResourceFromAssociatedList(resourceDisplayName,quantity)
 			.clickSaveBtn();
 	}
@@ -71,17 +71,18 @@ public class ResourcesAssociatedToRoomAreDisplayedOnHomePage {
 		List<Map<String, String>> testData2 = excelReader.getMapValues("RoomInfo");
 		String displayName = testData2.get(0).get("DisplayName").trim();		
 
-		HomeTabletPage home = new HomeTabletPage();
-		SettingsPage sett = home.clickSettingsBtn();
-		sett.selectRoom(displayName);
+		HomeTabletPage homeTabletPage = new HomeTabletPage();
+		SettingsPage settingsPage = homeTabletPage.clickSettingsBtn();
+		settingsPage.selectRoom(displayName);
 		
 		//Assertion for TC07
-		Assert.assertTrue(home.VerifyResourceIsAsociated(resourceDisplayName, quantity));
+		Assert.assertTrue(homeTabletPage.VerifyResourceIsAsociated(resourceDisplayName, quantity));
 	}
 
-	@AfterClass
+	@AfterClass(groups = {"FUNCTIONAL"})
 	public void cleanRoom() throws InterruptedException, BiffException, IOException {
 		//Delete resource
 	    RootRestMethods.deleteResource(resourceName);
+	    UIMethods.refresh();
 	}
 }

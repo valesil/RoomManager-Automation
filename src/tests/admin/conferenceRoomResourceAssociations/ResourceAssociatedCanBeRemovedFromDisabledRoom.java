@@ -39,15 +39,14 @@ public class ResourceAssociatedCanBeRemovedFromDisabledRoom {
 	private String resourceDescription = testData.get(0).get("Description");
 	private String iconTitle = testData.get(0).get("Icon");	
 
-	@BeforeClass
+	@BeforeClass(groups = {"FUNCTIONAL"})
 	public void precondition() {
 		HomeAdminPage homeAdminPage = new HomeAdminPage();
 		ResourcesPage resourcesPage = homeAdminPage.clickResourcesLink();	
-		ResourceCreatePage newResourcePage = resourcesPage.clickAddResourceBtn();
+		ResourceCreatePage resourceCreatePage = resourcesPage.clickAddResourceBtn();
 
 		//create a resource
-		resourcesPage = newResourcePage
-			.clickResourceIcon()
+		resourcesPage = resourceCreatePage.clickResourceIcon()
 			.selectResourceIcon(iconTitle)
 			.setResourceName(resourceName)
 			.setResourceDisplayName(resourceDisplayName)
@@ -70,23 +69,22 @@ public class ResourceAssociatedCanBeRemovedFromDisabledRoom {
 		String roomDisplayName = roomName;
 		String resourceName = testData.get(0).get("AssociatedResource");
 		
-		HomeAdminPage homePage = new HomeAdminPage();
-		RoomsPage confPage = homePage.clickConferenceRoomsLink();
-		confPage.enableDisableIcon(roomDisplayName);
-		RoomInfoPage infoPage = confPage.doubleClickOverRoomName(roomDisplayName);
-		RoomResourceAssociationsPage resourceAssociation = infoPage.clickResourceAssociationsLink();
-		resourceAssociation
-			.removeResourceFromAssociatedList(resourceName)
+		HomeAdminPage homeAdminPage = new HomeAdminPage();
+		RoomsPage roomsPage = homeAdminPage.clickConferenceRoomsLink();
+		roomsPage.enableDisableIcon(roomDisplayName);
+		RoomInfoPage roomInfoPage = roomsPage.doubleClickOverRoomName(roomDisplayName);
+		RoomResourceAssociationsPage resourceAssociation = roomInfoPage.clickResourceAssociationsLink();
+		resourceAssociation.removeResourceFromAssociatedList(resourceName)
 			.clickSaveBtn();
 		
 		//Assertion for TC10
 		Assert.assertTrue(resourceAssociation.searchResource(resourceName));
 	}
 
-	@AfterClass
+	@AfterClass(groups = {"FUNCTIONAL"})
 	public void cleanRoom() throws InterruptedException, BiffException, IOException {
-		RoomsPage confPage = new RoomsPage();
-		confPage.enableDisableIcon(roomName);
+		RoomsPage roomsPage = new RoomsPage();
+		roomsPage.enableDisableIcon(roomName);
 			
 		//Delete resource
 		RootRestMethods.deleteResource(resourceName);

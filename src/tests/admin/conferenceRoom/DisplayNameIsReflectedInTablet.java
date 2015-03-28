@@ -35,32 +35,30 @@ public class DisplayNameIsReflectedInTablet {
 	
 	@Test(groups = {"FUNCTIONAL"})
 	public void testChangesInDisplayNameAreReflectedIntablet() throws InterruptedException, IOException, BiffException {
-		HomeAdminPage homePage = new HomeAdminPage();
-		RoomsPage confRoomPage = homePage.clickConferenceRoomsLink();
-		RoomInfoPage roomInf = confRoomPage.doubleClickOverRoomName(displayName);
-		roomInf
-			.setDisplayName(newDisplayName)
+		HomeAdminPage homeAdminPage = new HomeAdminPage();
+		RoomsPage roomsPage = homeAdminPage.clickConferenceRoomsLink();
+		RoomInfoPage roomInfoPage = roomsPage.doubleClickOverRoomName(displayName);
+		roomInfoPage.setDisplayName(newDisplayName)
 			.clickSaveBtn();		
 		
-		String SavedDisplayName = confRoomPage.getRoomDisplayName(newDisplayName);
-		HomeTabletPage home = new HomeTabletPage();
-		SettingsPage sett = home.clickSettingsBtn();
-		sett.selectRoom(newDisplayName); 	   
-		String tabletDisplayName = home.getRoomDisplayNameLbl();
+		String savedDisplayName = roomsPage.getRoomDisplayName(newDisplayName);
+		HomeTabletPage homeTabletPage = new HomeTabletPage();
+		SettingsPage settingsPage = homeTabletPage.clickSettingsBtn();
+		settingsPage.selectRoom(newDisplayName); 	   
+		String tabletDisplayName = homeTabletPage.getRoomDisplayNameLbl();
 		
 		//Assertion for TC10
-		Assert.assertEquals(SavedDisplayName, tabletDisplayName);
+		Assert.assertEquals(savedDisplayName, tabletDisplayName);
 	}
 	
-	@AfterClass
+	@AfterClass(groups = {"FUNCTIONAL"})
 	public void preconditions() throws InterruptedException, BiffException, IOException{
-		HomeAdminPage homePage = new HomeAdminPage();
-		RoomsPage confRoomPage = homePage.clickConferenceRoomsLink();
-		RoomInfoPage roomInf = confRoomPage.doubleClickOverRoomName(newDisplayName);
+		HomeAdminPage homeAdminPage = new HomeAdminPage();
+		RoomsPage roomsPage = homeAdminPage.clickConferenceRoomsLink();
+		RoomInfoPage roomInfoPage = roomsPage.doubleClickOverRoomName(newDisplayName);
 		
 		//Clean room display name with default value
-		roomInf
-			.setDisplayName(displayName)
+		roomInfoPage.setDisplayName(displayName)
 			.clickSaveBtn();
 		UIMethods.refresh();
 	}

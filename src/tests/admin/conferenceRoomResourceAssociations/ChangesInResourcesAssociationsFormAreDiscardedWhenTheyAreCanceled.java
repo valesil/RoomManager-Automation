@@ -40,14 +40,14 @@ public class ChangesInResourcesAssociationsFormAreDiscardedWhenTheyAreCanceled {
 	private String resourceDescription = testData.get(0).get("Description");
 	private String iconTitle = testData.get(0).get("Icon");
 
-	@BeforeClass
+	@BeforeClass(groups = {"FUNCTIONAL"})
 	public void precondition() throws BiffException, IOException {
 		HomeAdminPage homeAdminPage = new HomeAdminPage();
 		ResourcesPage resourcesPage = homeAdminPage.clickResourcesLink();	
-		ResourceCreatePage newResourcePage = resourcesPage.clickAddResourceBtn();
+		ResourceCreatePage resourceCreatePage = resourcesPage.clickAddResourceBtn();
 
 		//create a resource
-		resourcesPage = newResourcePage.clickResourceIcon()
+		resourcesPage = resourceCreatePage.clickResourceIcon()
 			.selectResourceIcon(iconTitle)
 			.setResourceName(resourceName)
 			.setResourceDisplayName(resourceDisplayName)
@@ -64,28 +64,28 @@ public class ChangesInResourcesAssociationsFormAreDiscardedWhenTheyAreCanceled {
 		String quantityToAdd = testData.get(0).get("ValueToModify").trim();
 		String roomName = testData.get(0).get("DisplayName");
 		
-		HomeAdminPage home = new HomeAdminPage();
-		RoomsPage conferenceRoomPage = home.clickConferenceRoomsLink();
-		RoomInfoPage infoPage = conferenceRoomPage.doubleClickOverRoomName(roomName);
-		RoomResourceAssociationsPage crresourceAssociationsPage = infoPage.clickResourceAssociationsLink();
-		crresourceAssociationsPage
-			.clickAddResourceToARoom(resourceName)
+		HomeAdminPage homeAdminPage = new HomeAdminPage();
+		RoomsPage roomsPage = homeAdminPage.clickConferenceRoomsLink();
+		RoomInfoPage roomInfoPage = roomsPage.doubleClickOverRoomName(roomName);
+		RoomResourceAssociationsPage resourceAssociation = roomInfoPage
+			.clickResourceAssociationsLink();
+		resourceAssociation.clickAddResourceToARoom(resourceName)
 			.changeValueForResourceFromAssociatedList(resourceName, quantityToAdd)
 			.clickCancelBtn();
 
-		conferenceRoomPage = home.clickConferenceRoomsLink();
-		infoPage = conferenceRoomPage.doubleClickOverRoomName(roomName);
-		crresourceAssociationsPage = infoPage.clickResourceAssociationsLink();
+		roomsPage = homeAdminPage.clickConferenceRoomsLink();
+		roomInfoPage = roomsPage.doubleClickOverRoomName(roomName);
+		resourceAssociation = roomInfoPage.clickResourceAssociationsLink();
 		
 		//verify if changes are discarted
-		boolean existChanges = crresourceAssociationsPage.verifyChanges(resourceName);
-		infoPage.clickCancelBtn();
+		boolean existChanges = resourceAssociation.verifyChanges(resourceName);
+		roomInfoPage.clickCancelBtn();
 		
 		//Assertion for TC11
 		Assert.assertTrue(existChanges);	
 	}
 
-	@AfterClass
+	@AfterClass(groups = {"FUNCTIONAL"})
 	public void cleanRoom() throws MalformedURLException, IOException {
 		//Delete resource
 		RootRestMethods.deleteResource(resourceName);

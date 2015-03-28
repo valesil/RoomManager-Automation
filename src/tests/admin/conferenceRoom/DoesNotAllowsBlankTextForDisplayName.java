@@ -30,23 +30,22 @@ public class DoesNotAllowsBlankTextForDisplayName {
 		//reading to excel to create variables
 		ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
 		List<Map<String, String>> testData1 = excelReader.getMapValues("RoomInfo");
-		String displayName =testData1.get(0).get("DisplayName");
+		String displayName = testData1.get(0).get("DisplayName");
 
-		HomeAdminPage home = new HomeAdminPage();
-		RoomsPage rooms = home.clickConferenceRoomsLink();
-		RoomInfoPage roomInf = rooms.doubleClickOverRoomName(displayName);
-		roomInf
-			.setDisplayName(empty)
+		HomeAdminPage homeAdminPage = new HomeAdminPage();
+		RoomsPage roomsPage = homeAdminPage.clickConferenceRoomsLink();
+		RoomInfoPage roomInfoPage = roomsPage.doubleClickOverRoomName(displayName);
+		roomInfoPage.setDisplayName(empty)
 			.clickSaveWithErrorBtn();
-		String errorMessage = roomInf.getErrorMessageDisplayName();
+		String errorMessage = roomInfoPage.getErrorMessageDisplayName();
 		
 		//Assertion for TC12
 		Assert.assertEquals(errorMessage, ROOM_DISPLAY_NAME_EMPTY);
 	}
 	
-	@AfterClass
+	@AfterClass(groups = {"NEGATIVE"})
 	public void postcondition() {
-		RoomInfoPage roomInfo = new RoomInfoPage();
-		roomInfo.clickCancelBtn();
+		RoomInfoPage roomInfoPage = new RoomInfoPage();
+		roomInfoPage.clickCancelBtn();
 	}
 }

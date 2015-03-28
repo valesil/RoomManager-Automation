@@ -37,29 +37,26 @@ public class SaveButtonSaveChangesMadeInRoomInfoPage {
 	@Test(groups = {"FUNCTIONAL"})
 	public void testSaveButtonSaveChangesMadeInRoomInfoPage() throws JSONException, 
 	MalformedURLException, IOException {
-		HomeAdminPage homePage = new HomeAdminPage();
-		UIMethods.refresh();
-		RoomsPage confRoomPage = homePage.clickConferenceRoomsLink();
-		RoomInfoPage roomInf = confRoomPage.doubleClickOverRoomName(displayName);
-		roomInf
-			.setDisplayName(displayName)
+		HomeAdminPage homeAdminPage = new HomeAdminPage();
+		RoomsPage roomsPage = homeAdminPage.clickConferenceRoomsLink();
+		RoomInfoPage roomInfoPage = roomsPage.doubleClickOverRoomName(displayName);
+		roomInfoPage.setDisplayName(displayName)
 			.setRoomCapacity(capacity)
 			.setRoomCode(roomCode)
 			.setLocation(location)
 			.clickSaveBtn();
 		
 		//Assertion for TC23
-		Assert.assertTrue(confRoomPage.verifyChangesMade(displayName));
+		Assert.assertTrue(roomsPage.verifyChangesMade(displayName));
 	}
 	
-	@AfterTest
+	@AfterTest(groups = {"FUNCTIONAL"})
 	public void postcondition() {
-		RoomsPage rooms = new RoomsPage();
-		RoomInfoPage roomInf = rooms.doubleClickOverRoomName(displayName);
+		RoomsPage roomsPage = new RoomsPage();
+		RoomInfoPage roomInfoPage = roomsPage.doubleClickOverRoomName(displayName);
 		
 		//clean display name and capacity with empty value
-		roomInf
-			.setDisplayName(displayName)
+		roomInfoPage.setDisplayName(displayName)
 			.setRoomCode(empty)
 			.setRoomCapacity(empty)
 			.clickSaveBtn();
