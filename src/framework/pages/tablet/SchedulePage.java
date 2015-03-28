@@ -695,7 +695,7 @@ public class SchedulePage {
 	 * when a meeting is created with past time values.
 	 * @return boolean
 	 */
-	public boolean isInformationMessageOfPastMeetingDisplayed() {
+	public boolean isMessageInformationOfPastMeetingDisplayed() {
 		return UIMethods.isElementPresent(By.xpath("//small[contains(text(),'" 
 				+ MEETING_PAST_CREATED_INFORMATION + "')]"));
 	}

@@ -1,11 +1,10 @@
 package tests.tablet.homeUI;
 
-import static tests.tablet.homeUI.HomeTabletSettings.createMeetingFromExcel;
-import static tests.tablet.homeUI.HomeTabletSettings.getAuthenticationValue;
-import static tests.tablet.homeUI.HomeTabletSettings.getMeetingSubject;
-import static tests.tablet.homeUI.HomeTabletSettings.getRoomDisplayName;
+import static framework.common.AppConfigConstants.EXCEL_INPUT_DATA;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
@@ -17,6 +16,7 @@ import org.testng.annotations.Test;
 import framework.pages.tablet.HomeTabletPage;
 import framework.pages.tablet.SchedulePage;
 import framework.rest.RootRestMethods;
+import framework.utils.readers.ExcelReader;
 
 /**
  * TC14: This test case verifies that next meeting subject is updated in {Next} Tile 
@@ -28,22 +28,33 @@ public class UpdateOfNextMeetingSubjetWhenItIsChanged {
 	Logger log = Logger.getLogger(getClass());
 	HomeTabletPage homeTabletPage = new HomeTabletPage();
 	SchedulePage schedulePage;
-	String password = getAuthenticationValue(1);
-	String nextMeetingSubject = getMeetingSubject(1);
-	String updateMeetingSubject = getMeetingSubject(2);
 
-	@BeforeClass
+	//Data to create and use to assertions
+	ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
+	List<Map<String, String>> meetingData = excelReader.getMapValues("MeetingData");	
+	String organizer = meetingData.get(1).get("Organizer");
+	String subject = meetingData.get(1).get("Subject");
+	String attendee = meetingData.get(1).get("Attendee");
+	String minStartTime = meetingData.get(1).get("Start time (minutes to add)");
+	String minEndTime = meetingData.get(1).get("End time (minutes to add)");
+	String password = meetingData.get(1).get("Password");
+	String authentication = organizer + ":" + password;
+
+	String expectedNewSubject = meetingData.get(2).get("Subject");
+
+	@BeforeClass (groups = "ACCEPTANCE")
 	public void init() {
 		schedulePage = homeTabletPage.clickScheduleBtn();
-		createMeetingFromExcel(1);	
+		schedulePage.createMeeting(organizer, subject, 
+				minStartTime, minEndTime, attendee, password);	
 	}
 
-	@Test (groups = {"ACCEPTANCE"})
-	public void testRefreshOfNextMeetingNameWhenItIsUpdated() {
+	@Test (groups = "ACCEPTANCE")
+	public void testUpdateOfNextMeetingSubjetWhenItIsChanged() {
 
 		schedulePage
-		.clickOverMeetingCreated(nextMeetingSubject)
-		.setSubjectTxtBox(updateMeetingSubject)
+		.clickOverMeetingCreated(subject)
+		.setSubjectTxtBox(expectedNewSubject)
 		.clickUpdateBtn()
 		.confirmCredentials(password)
 		.isMessageMeetingUpdatedDisplayed();
@@ -52,19 +63,19 @@ public class UpdateOfNextMeetingSubjetWhenItIsChanged {
 
 		String actualMeetingNameUpdated = homeTabletPage.getNextTileLbl();
 
-		Assert.assertEquals(actualMeetingNameUpdated, updateMeetingSubject);
+		Assert.assertEquals(actualMeetingNameUpdated, expectedNewSubject);
 	}
 
 	/**
 	 * Delete meeting by rest API.
 	 */
-	@AfterClass
+	@AfterClass (groups = "ACCEPTANCE")
 	public void end() {
 		PropertyConfigurator.configure("log4j.properties");
 		try {
-			RootRestMethods.deleteMeeting(getRoomDisplayName(), updateMeetingSubject, 
-					getAuthenticationValue(0));
-			log.info("The meeting:" + updateMeetingSubject + "has been deleted successfully.");
+			RootRestMethods.deleteMeeting(meetingData.get(0).get("Room"), expectedNewSubject , 
+					authentication);
+			log.info("The meeting:" + expectedNewSubject + "has been deleted successfully.");
 		} catch (IOException e) {
 			log.error(e.getMessage());
 		}

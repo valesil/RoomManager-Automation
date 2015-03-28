@@ -1,17 +1,19 @@
 package tests.tablet.homeUI;
 
-import static tests.tablet.homeUI.HomeTabletSettings.createMeetingFromExcel;
-import static tests.tablet.homeUI.HomeTabletSettings.getPasswordValue;
-import static tests.tablet.homeUI.HomeTabletSettings.getMeetingSubject;
+import static framework.common.AppConfigConstants.EXCEL_INPUT_DATA;
+
+import java.util.List;
+import java.util.Map;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import framework.pages.tablet.HomeTabletPage;
 import framework.pages.tablet.SchedulePage;
+import framework.utils.readers.ExcelReader;
 
 /**
- * TC N° 16 -> This test case verifies that the next meeting information is removed of Next Tile 
+ * TC16: This test case verifies that the next meeting information is removed of Next Tile 
  * when it is deleted.
  * @author Eliana Navia
  * 
@@ -19,27 +21,38 @@ import framework.pages.tablet.SchedulePage;
 public class NextMeetingInformationIsDeletedWhenItIsRemoved {
 	HomeTabletPage homeTabletPage = new HomeTabletPage();
 	SchedulePage schedulePage;
-	String nextMeetingSubject = getMeetingSubject(1);
-	String password = getPasswordValue(1);
 
-	@Test (groups = {"ACCEPTANCE"})
+	//Data to create and use to assertions
+	ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
+	List<Map<String, String>> meetingData = excelReader.getMapValues("MeetingData");
+	String organizer = meetingData.get(1).get("Organizer");
+	String expectedMeetingSubject = meetingData.get(1).get("Subject");
+	String attendee = meetingData.get(1).get("Attendee");
+	String minStartTime = meetingData.get(1).get("Start time (minutes to add)");
+	String minEndTime = meetingData.get(1).get("End time (minutes to add)");
+	String password = meetingData.get(1).get("Password");
+
+	@Test (groups = "ACCEPTANCE")
 	public void testNextMeetingInformationIsDeletedWhenItIsRemoved() {
 		schedulePage = homeTabletPage.clickScheduleBtn();
-		createMeetingFromExcel(1);
+		schedulePage.createMeeting(organizer, expectedMeetingSubject, 
+				minStartTime, minEndTime, attendee, password);
 
 		schedulePage.clickBackBtn();
-		String expectedMeetingValue = homeTabletPage.getNextTileLbl();
+
+		String actualMeetingSubject = homeTabletPage.getNextTileLbl();
 
 		//Verify that next meeting subject is displayed in {next} to be sure that was created.
-		Assert.assertEquals(nextMeetingSubject, expectedMeetingValue);
+		Assert.assertEquals(actualMeetingSubject, expectedMeetingSubject);
 
 		homeTabletPage.clickScheduleBtn();
-		schedulePage.deleteMeeting(nextMeetingSubject, password);
+
+		schedulePage.deleteMeeting(expectedMeetingSubject, password);
 		schedulePage.clickBackBtn();
 
-		expectedMeetingValue = homeTabletPage.getNextTileLbl();
+		actualMeetingSubject = homeTabletPage.getNextTileLbl();
 
-		//Verify that the next meeting subject is not displayed in {next} tile. 
-		Assert.assertNotEquals(nextMeetingSubject, expectedMeetingValue);	
+		//Verify that the next meeting subject has been deleted in {next} tile. 
+		Assert.assertNotEquals(actualMeetingSubject, expectedMeetingSubject);	
 	}
 }

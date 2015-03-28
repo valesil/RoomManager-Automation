@@ -16,11 +16,11 @@ import framework.pages.tablet.SchedulePage;
 public class TimeTextDisplayedInTimeLine {
 
 	/**
-	 * [EN] This test case verifies that the time interval in the timeline 
+	 * TC32: This test case verifies that the time interval in the timeline 
 	 * can be modified when it is moved with the mouse. 
-	 * TC32
+	 * 
 	 */
-	@Test (groups = {"UI"})
+	@Test (groups = "UI")
 	public void testTimeIntervalOfTimelineIsModified() {
 		HomeTabletPage homeTabletPage = new HomeTabletPage();
 		SchedulePage schedulePage = homeTabletPage.clickScheduleBtn();
@@ -31,10 +31,10 @@ public class TimeTextDisplayedInTimeLine {
 	}
 	
 	/**
-	 * [EN] This test case verifies that timeline displays time text from 00:00 to 23:00.
-	 * TC44
+	 * TC44: This test case verifies that timeline displays time text from 00:00 to 23:00.
+	 * 
 	 */
-	@Test (groups = {"UI"})
+	@Test (groups = "UI")
 	public void testTimeTextDisplayedInTimeline() {
 		HomeTabletPage homeTabletPage = new HomeTabletPage();
 		SchedulePage schedulePage = homeTabletPage.clickScheduleBtn();

@@ -1,17 +1,17 @@
 <suite name = "ScheduleSuite">
 <listeners>
-      <listener class-name="org.uncommons.reportng.HTMLReporter"/>
-      <listener class-name="org.uncommons.reportng.JUnitXMLReporter"/>
-      <listener class-name="framework.utils.ReportNGListener"/>
+      <listener class-name = "org.uncommons.reportng.HTMLReporter"/>
+      <listener class-name = "org.uncommons.reportng.JUnitXMLReporter"/>    
+      <listener class-name = "framework.utils.ReportNGListener"/>
+      <listener class-name = "tests.common.StartSuite"/>
 </listeners>
 
     <test name = "SchedulePage">         
        <classes>
-          <class name = "tests.common.StartSuite"/>
           <!---TC24  -->
           <class name = "tests.tablet.schedule.DoubleClickingATimelinePeriodCreatesAMeetingBoxAndSetNewMeetingTime"/>
           <!---TC32, TC44 -->
-          <class name = "tests.tablet.schedule.TimeTextDisplayedInTimeLine"/>   
+          <class name = "tests.tablet.schedule.TimeTextDisplayedInTimeLine"/>          
        </classes>
      </test>  
       

@@ -16,10 +16,12 @@ public class DoubleClickingATimelinePeriodCreatesAMeetingBoxAndSetNewMeetingTime
 	HomeTabletPage homeTabletPage = new HomeTabletPage();
 	SchedulePage schedulePage;
 
-	@Test (groups = {"UI"})
+	@Test (groups = "UI")
 	public void testDoubleClickingATimelinePeriodCreatesAMeetingBoxAndSetNewMeetingTime() {
 		schedulePage = homeTabletPage.clickScheduleBtn();
 		schedulePage.doubleClickTimeLineGroup();
-        Assert.assertEquals(30, schedulePage.getDurationOfMeetingByDefault());
+		
+		//Verify that the duration time displayed in From and to are 30 that is the default value.
+        Assert.assertEquals(schedulePage.getDurationOfMeetingByDefault(), 30);
 	}
 }
