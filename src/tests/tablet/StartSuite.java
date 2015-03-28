@@ -1,5 +1,7 @@
 package tests.tablet;
 
+import static framework.common.AppConfigConstants.EXCEL_INPUT_DATA;
+
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.List;
@@ -9,13 +11,11 @@ import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
 
-import framework.common.AppConfigConstants;
 import framework.pages.tablet.HomeTabletPage;
 import framework.pages.tablet.SettingsPage;
+import framework.rest.RootRestMethods;
 import framework.selenium.SeleniumDriverManager;
 import framework.utils.readers.ExcelReader;
-import framework.rest.RootRestMethods;
-import static framework.common.AppConfigConstants.EXCEL_INPUT_DATA;
 
 /**
  * 
@@ -40,7 +40,6 @@ public class StartSuite {
 	
 	@AfterSuite
 	public void cleanEnvironment() throws MalformedURLException, IOException {
-		ExcelReader excelReader = new ExcelReader(AppConfigConstants.EXCEL_INPUT_DATA);
 		List<Map<String, String>> testData = excelReader.getMapValues("Search");
 		String resourceName = testData.get(1).get("Resource");
 		RootRestMethods.deleteResource(resourceName);
