@@ -21,12 +21,14 @@ import framework.utils.readers.ExcelReader;
  * @author Juan Carlos Guevara
  */
 public class ForARoomDisabledTheTabletDoesNotScheduleMeetings {
-	ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
-	List<Map<String, String>> testData = excelReader.getMapValues("Resources");
-	String roomName = testData.get(1).get("Room Name");
+	
+	//Reading resource data from an .xls file
+	private ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
+	private List<Map<String, String>> testData = excelReader.getMapValues("Resources");
+	private String roomName = testData.get(1).get("Room Name");
 
-	@BeforeClass
-	public void precondition(){
+	@BeforeClass(groups = "FUNCTIONAL")
+	public void disablingARoom(){
 
 		//Disable room in Admin 
 		HomeAdminPage homeAdminPage = new HomeAdminPage();
@@ -34,23 +36,21 @@ public class ForARoomDisabledTheTabletDoesNotScheduleMeetings {
 		roomsPage.enableDisableIcon(roomName);		
 	}
 
-	@Test(groups = {"FUNCTIONAL"})
+	@Test(groups = "FUNCTIONAL")
 	public void testForARoomDisabledTheTabletDoesNotScheduleMeetings() {
 
 		//Open tablet to see changes
 		HomeTabletPage homeTabletPage = new HomeTabletPage();
-		SearchPage searchPage = homeTabletPage.clickSearchBtn();
-		searchPage.clickCollapseAdvancedBtn();
-		searchPage.setName(roomName);
+		SearchPage searchPage = homeTabletPage.clickSearchBtn()
+				.clickCollapseAdvancedBtn()
+				.setName(roomName);
 
 		//Assertion for TC24 
 		Assert.assertFalse(searchPage.roomIsDiplayed(roomName));		
 	}
 
-	@AfterClass
-	public void postConditions() {
-
-		//Enable room in admin
+	@AfterClass(groups = {"FUNCTIONAL"})
+	public void EnablingTheRoom() {
 		HomeAdminPage homeAdminPage = new HomeAdminPage();
 		RoomsPage roomsPage = homeAdminPage.clickConferenceRoomsLink();	
 		roomsPage.enableDisableIcon(roomName);

@@ -13,7 +13,6 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-import framework.common.UIMethods;
 import framework.pages.admin.HomeAdminPage;
 import framework.pages.admin.resources.ResourceCreatePage;
 import framework.pages.admin.resources.ResourcesPage;
@@ -28,15 +27,16 @@ import framework.utils.readers.ExcelReader;
  */
 public class AnErrorMessageIsDisplayedWhenAResourceWithANameRegisteredIsAdded {
 
-	ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
-	List<Map<String, String>> testData = excelReader.getMapValues("Resources");
-	String resourceName = testData.get(0).get("ResourceName");
-	String resourceDisplayName = testData.get(0).get("ResourceDisplayName");
-	String resourceDescription = testData.get(0).get("Description");
-	String iconTitle = testData.get(0).get("Icon");
+	//Reading resource data from an .xls file
+	private ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
+	private List<Map<String, String>> testData = excelReader.getMapValues("Resources");
+	private String resourceName = testData.get(0).get("ResourceName");
+	private String resourceDisplayName = testData.get(0).get("ResourceDisplayName");
+	private String resourceDescription = testData.get(0).get("Description");
+	private String iconTitle = testData.get(0).get("Icon");
 
-	@BeforeClass
-	public void precondition() {
+	@BeforeClass(groups = "NEGATIVE")
+	public void createAResource() {
 
 		HomeAdminPage homeAdminPage = new HomeAdminPage();
 		ResourcesPage resourcesPage = homeAdminPage.clickResourcesLink();	
@@ -51,7 +51,7 @@ public class AnErrorMessageIsDisplayedWhenAResourceWithANameRegisteredIsAdded {
 		.clickSaveResourceBtn();
 	}
 
-	@Test(groups = {"NEGATIVE"})
+	@Test(groups = "NEGATIVE")
 	public void testAnErrorMessageIsDisplayedWhenAResourceWithANameRegisteredIsAdded() {
 		ResourcesPage resourcesPage = new ResourcesPage();	
 
@@ -66,11 +66,10 @@ public class AnErrorMessageIsDisplayedWhenAResourceWithANameRegisteredIsAdded {
 		resourceCreatePage.clickCancelResourceBtn();
 	}
 
-	@AfterClass
-	public void postCondition() throws MalformedURLException, IOException {	
+	@AfterClass(groups = "NEGATIVE")
+	public void deleteResource() throws MalformedURLException, IOException {	
 
 		//Delete resource with API rest method
 		RootRestMethods.deleteResource(resourceName);
-		UIMethods.refresh();
 	}
 }

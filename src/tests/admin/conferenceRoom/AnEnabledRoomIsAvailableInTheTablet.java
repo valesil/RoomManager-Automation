@@ -18,20 +18,22 @@ import framework.utils.readers.ExcelReader;
  * @author Juan Carlos Guevara
  */
 public class AnEnabledRoomIsAvailableInTheTablet {
-	ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
-	List<Map<String, String>> testData = excelReader.getMapValues("Resources");
-	String roomName = testData.get(0).get("Room Name");
+	
+	//Reading resource data from an .xls file
+	private ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
+	private List<Map<String, String>> testData = excelReader.getMapValues("Resources");
+	private String roomName = testData.get(0).get("Room Name");
 
-	@Test(groups = {"FUNCTIONAL"})
-	public void testAnEnabledRoomIsAvailableInTheTablet() throws InterruptedException{
+	@Test(groups = "FUNCTIONAL")
+	public void testAnEnabledRoomIsAvailableInTheTablet() {
 
 		//Open tablet to see availability of an enable room
 		HomeTabletPage homeTabletPage = new HomeTabletPage();
 		SettingsPage settingsPage = homeTabletPage.clickSettingsBtn();
 		homeTabletPage = settingsPage.selectRoom(roomName);	
-		SearchPage searchPage = homeTabletPage.clickSearchBtn();
-		searchPage.clickCollapseAdvancedBtn();
-		searchPage.setName(roomName);
+		SearchPage searchPage = homeTabletPage.clickSearchBtn()
+				.clickCollapseAdvancedBtn()
+				.setName(roomName);
 
 		//Assertion for TC10 
 		Assert.assertTrue(searchPage.roomIsDiplayed(roomName));

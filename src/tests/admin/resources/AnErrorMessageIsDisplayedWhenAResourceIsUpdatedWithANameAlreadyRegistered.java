@@ -13,7 +13,6 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-import framework.common.UIMethods;
 import framework.pages.admin.HomeAdminPage;
 import framework.pages.admin.conferencerooms.RoomBaseAbstractPage;
 import framework.pages.admin.resources.ResourceCreatePage;
@@ -29,14 +28,15 @@ import framework.utils.readers.ExcelReader;
  */
 public class AnErrorMessageIsDisplayedWhenAResourceIsUpdatedWithANameAlreadyRegistered {
 
-	ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
-	List<Map<String, String>> testData = excelReader.getMapValues("Resources");
-	String resourceName = testData.get(0).get("ResourceName");
-	String resourceDisplayName = testData.get(0).get("ResourceDisplayName");
-	String resourceUpdateName = testData.get(1).get("ResourceName");
+	//Reading resource data from an .xls file
+	private ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
+	private List<Map<String, String>> testData = excelReader.getMapValues("Resources");
+	private String resourceName = testData.get(0).get("ResourceName");
+	private String resourceDisplayName = testData.get(0).get("ResourceDisplayName");
+	private String resourceUpdateName = testData.get(1).get("ResourceName");
 
-	@BeforeClass
-	public void preconditions() {
+	@BeforeClass(groups = "NEGATIVE")
+	public void createResources() {
 		HomeAdminPage homeAdminPage = new HomeAdminPage();
 
 		//Create resources
@@ -52,7 +52,7 @@ public class AnErrorMessageIsDisplayedWhenAResourceIsUpdatedWithANameAlreadyRegi
 		}
 	}
 
-	@Test(groups = {"NEGATIVE"})
+	@Test(groups = "NEGATIVE")
 	public void testAnErrorMessageIsDisplayedWhenAResourceIsUpdatedWithANameAlreadyRegistered() 
 			throws InterruptedException {
 		ResourcesPage resourcesPage = new ResourcesPage();	
@@ -68,13 +68,12 @@ public class AnErrorMessageIsDisplayedWhenAResourceIsUpdatedWithANameAlreadyRegi
 		resourcesPage = resourceInfoPage.clickCancelResourceBtn();
 	}
 
-	@AfterClass
-	public void postCondition() throws MalformedURLException, IOException {
+	@AfterClass(groups = "NEGATIVE")
+	public void deleteResource() throws MalformedURLException, IOException {
 
 		//Delete resource with API rest method
 		for(Map<String, String> resource : testData){					
 			RootRestMethods.deleteResource(resource.get("ResourceName"));
 		}
-		UIMethods.refresh();
 	}
 }

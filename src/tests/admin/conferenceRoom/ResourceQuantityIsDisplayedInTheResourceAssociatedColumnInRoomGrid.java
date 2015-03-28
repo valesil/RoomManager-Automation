@@ -12,7 +12,6 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-import framework.common.UIMethods;
 import framework.pages.admin.HomeAdminPage;
 import framework.pages.admin.conferencerooms.RoomInfoPage;
 import framework.pages.admin.conferencerooms.RoomResourceAssociationsPage;
@@ -28,26 +27,28 @@ import framework.utils.readers.JsonReader;
  * @author Juan Carlos Guevara
  */
 public class ResourceQuantityIsDisplayedInTheResourceAssociatedColumnInRoomGrid {
-	ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
-	List<Map<String, String>> testData = excelReader.getMapValues("APIResources");
-	String roomName = testData.get(0).get("Room Name");
-	String quantity = testData.get(0).get("Value");
+
+	//Reading resource data from an .xls file
+	private ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
+	private List<Map<String, String>> testData = excelReader.getMapValues("APIResources");
+	private String roomName = testData.get(0).get("Room Name");
+	private String quantity = testData.get(0).get("Value");
 
 	//Reading json resource information
-	JsonReader jsonValue = new JsonReader();
-	String resourceFileJSON = "\\src\\tests\\Resource1.json";
-	String filePath = System.getProperty("user.dir") + resourceFileJSON;
-	String resourceDisplayName = jsonValue.readJsonFile("name" , resourceFileJSON);
+	private JsonReader jsonValue = new JsonReader();
+	private String resourceFileJSON = "\\src\\tests\\Resource1.json";
+	private String filePath = System.getProperty("user.dir") + resourceFileJSON;
+	private String resourceName = jsonValue.readJsonFile("name" , resourceFileJSON);
+	private String resourceDisplayName = jsonValue.readJsonFile("customName" , resourceFileJSON);
 
-	@BeforeClass
-	public void precondition() throws MalformedURLException, IOException {
+	@BeforeClass(groups = "FUNCTIONAL")
+	public void createResource() throws MalformedURLException, IOException {
 
 		//Create resource by Rest
-		RootRestMethods.createResource(filePath, "");
-		UIMethods.refresh();		
+		RootRestMethods.createResource(filePath, "");		
 	}
 
-	@Test(groups = {"FUNCTIONAL"})
+	@Test(groups = "FUNCTIONAL")
 	public void testAResourceIsDisplayedAsAColumnWhenItsIconIsSelectedInTheTopOfRoomGrid() {
 		HomeAdminPage homeAdminPage = new HomeAdminPage();
 		RoomsPage roomsPage = homeAdminPage.clickConferenceRoomsLink();
@@ -56,9 +57,8 @@ public class ResourceQuantityIsDisplayedInTheResourceAssociatedColumnInRoomGrid 
 		RoomInfoPage roomInfoPage = roomsPage.doubleClickOverRoomName(roomName);
 		RoomResourceAssociationsPage roomResourceAssociationsPage = roomInfoPage
 				.clickResourceAssociationsLink();
-		roomResourceAssociationsPage.clickAddResourceToARoom(resourceDisplayName);
-		roomResourceAssociationsPage.changeValueForResourceFromAssociatedList(resourceDisplayName,
-				quantity);
+		roomResourceAssociationsPage.clickAddResourceToARoom(resourceDisplayName)
+		.changeValueForResourceFromAssociatedList(resourceDisplayName,quantity);
 		roomsPage = roomResourceAssociationsPage.clickSaveBtn();
 		roomsPage.clickResourceIcon(resourceDisplayName);
 
@@ -72,11 +72,10 @@ public class ResourceQuantityIsDisplayedInTheResourceAssociatedColumnInRoomGrid 
 		Assert.assertTrue(roomsPage.searchResource(resourceDisplayName));
 	}
 
-	@AfterClass
-	public void postConditions() throws MalformedURLException, IOException {
+	@AfterClass(groups = "FUNCTIONAL")
+	public void deleteResource() throws MalformedURLException, IOException {
 
 		//Delete resource with API rest method
-		RootRestMethods.deleteResource(resourceDisplayName);
-		UIMethods.refresh();
+		RootRestMethods.deleteResource(resourceName);
 	}
 }

@@ -11,7 +11,6 @@ import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.Test;
 
-import framework.common.UIMethods;
 import framework.pages.admin.HomeAdminPage;
 import framework.pages.admin.resources.ResourceCreatePage;
 import framework.pages.admin.resources.ResourcesPage;
@@ -24,10 +23,12 @@ import framework.utils.readers.ExcelReader;
  * @author Juan Carlos Guevara 
  */
 public class SelectedItemsLblInformationDisplaysTheNumberOfCheckedResources {
-	ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
-	List<Map<String, String>> testData = excelReader.getMapValues("Resources");
+	
+	//Reading resource data from an .xls file
+	private ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
+	private List<Map<String, String>> testData = excelReader.getMapValues("Resources");
 
-	@Test(groups = {"FUNCTIONAL"})
+	@Test(groups = "FUNCTIONAL")
 	public void testSelectedItemsLblInformationDisplaysTheNumberOfCheckedResources() 
 			throws InterruptedException {
 		int counter = 0;
@@ -51,13 +52,12 @@ public class SelectedItemsLblInformationDisplaysTheNumberOfCheckedResources {
 		Assert.assertTrue(resourcesPage.searchSelectedItemsValue(Integer.toString(counter)));
 	}
 
-	@AfterClass
-	public void postCondition() throws MalformedURLException, IOException {
+	@AfterClass(groups = "FUNCTIONAL")
+	public void deleteResource() throws MalformedURLException, IOException {
 
 		//Delete resources with API rest method
 		for(Map<String, String> resource : testData){					
 			RootRestMethods.deleteResource(resource.get("ResourceName"));
 		}
-		UIMethods.refresh();
 	}
 }

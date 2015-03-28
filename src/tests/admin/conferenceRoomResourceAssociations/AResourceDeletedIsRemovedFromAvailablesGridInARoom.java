@@ -26,26 +26,27 @@ import framework.utils.readers.JsonReader;
  * @author Juan Carlos Guevara 
  */
 public class AResourceDeletedIsRemovedFromAvailablesGridInARoom {
-	ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
-	List<Map<String, String>> testData = excelReader.getMapValues("APIResources");
-	String roomName = testData.get(0).get("Room Name");
+	
+	//Reading resource data from an .xls file
+	private ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
+	private List<Map<String, String>> testData = excelReader.getMapValues("APIResources");
+	private String roomName = testData.get(0).get("Room Name");
 
 	//Reading json resource information
-	JsonReader jsonValue = new JsonReader();
-	String resourceFileJSON = "\\src\\tests\\Resource1.json";
-	String filePath = System.getProperty("user.dir") + resourceFileJSON;
-	String resourceName = jsonValue.readJsonFile("name" , resourceFileJSON);
-	String resourceDisplayName = jsonValue.readJsonFile("customName" , resourceFileJSON);
+	private JsonReader jsonValue = new JsonReader();
+	private String resourceFileJSON = "\\src\\tests\\Resource1.json";
+	private String filePath = System.getProperty("user.dir") + resourceFileJSON;
+	private String resourceName = jsonValue.readJsonFile("name" , resourceFileJSON);
+	private String resourceDisplayName = jsonValue.readJsonFile("customName" , resourceFileJSON);
 
-	@BeforeClass
-	public void precondition() throws MalformedURLException, IOException {
+	@BeforeClass(groups = "FUNCTIONAL")
+	public void createRsource() throws MalformedURLException, IOException {
 
 		//Create resource by Rest
 		RootRestMethods.createResource(filePath, "");
-		UIMethods.refresh();
 	}
 
-	@Test(groups = {"FUNCTIONAL"})
+	@Test(groups = "FUNCTIONAL")
 	public void testAResourceDeletedIsRemovedFromAvailablesGridInARoom() 
 			throws MalformedURLException, IOException {
 		HomeAdminPage homeAdminPage = new HomeAdminPage();

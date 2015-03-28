@@ -14,7 +14,6 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-import framework.common.UIMethods;
 import framework.pages.admin.HomeAdminPage;
 import framework.pages.admin.conferencerooms.RoomInfoPage;
 import framework.pages.admin.conferencerooms.RoomResourceAssociationsPage;
@@ -29,23 +28,24 @@ import framework.utils.readers.JsonReader;
  * @author Juan Carlos Guevara  
  */
 public class ResourcesAssociatedToARoomEnabledCanBeRemoved {
-	ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
-	List<Map<String, String>> testData = excelReader.getMapValues("APIResources");
-	String roomName = testData.get(0).get("Room Name");
+	
+	//Reading resource data from an .xls file
+	private ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
+	private List<Map<String, String>> testData = excelReader.getMapValues("APIResources");
+	private String roomName = testData.get(0).get("Room Name");
 
 	//Reading json resource information
-	JsonReader jsonValue = new JsonReader();
-	String resourceFileJSON = "\\src\\tests\\Resource1.json";
-	String filePath = System.getProperty("user.dir") + resourceFileJSON;
-	String resourceName = jsonValue.readJsonFile("name" , resourceFileJSON);	
-	String resourceDisplayName = jsonValue.readJsonFile("customName" , resourceFileJSON);
+	private JsonReader jsonValue = new JsonReader();
+	private String resourceFileJSON = "\\src\\tests\\Resource1.json";
+	private String filePath = System.getProperty("user.dir") + resourceFileJSON;
+	private String resourceName = jsonValue.readJsonFile("name" , resourceFileJSON);	
+	private String resourceDisplayName = jsonValue.readJsonFile("customName" , resourceFileJSON);
 
-	@BeforeClass
-	public void preconditions() throws MalformedURLException, IOException {
+	@BeforeClass(groups = "ACCEPTANCE")
+	public void associateAResourceCreated() throws MalformedURLException, IOException {
 
 		//Create resource by Rest
 		RootRestMethods.createResource(filePath, "");
-		UIMethods.refresh();
 		HomeAdminPage homeAdminPage = new HomeAdminPage();				
 		ResourcesPage resourcesPage = homeAdminPage.clickResourcesLink();
 
@@ -58,9 +58,8 @@ public class ResourcesAssociatedToARoomEnabledCanBeRemoved {
 		.clickSaveBtn();
 	}
 
-	@Test(groups = {"ACCEPTANCE"})
-	public void testResourcesAssociatedToARoomEnabledCanBeRemoved() throws InterruptedException,
-	BiffException, IOException{
+	@Test(groups = "ACCEPTANCE")
+	public void testResourcesAssociatedToARoomEnabledCanBeRemoved() {
 
 		//Disassociate resource
 		RoomsPage roomsPage = new RoomsPage();
@@ -75,11 +74,10 @@ public class ResourcesAssociatedToARoomEnabledCanBeRemoved {
 		Assert.assertTrue(roomResourceAssociationsPage.searchResource(resourceDisplayName));
 	}
 
-	@AfterClass
-	public void postCondition() throws InterruptedException, BiffException, IOException {
+	@AfterClass(groups = "ACCEPTANCE")
+	public void deleteResource() throws InterruptedException, BiffException, IOException {
 
 		//Delete resource with API rest method
 		RootRestMethods.deleteResource(resourceName);
-		UIMethods.refresh();	
 	}
 }

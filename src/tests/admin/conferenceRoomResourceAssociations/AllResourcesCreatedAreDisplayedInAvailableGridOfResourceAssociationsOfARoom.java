@@ -11,7 +11,6 @@ import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.Test;
 
-import framework.common.UIMethods;
 import framework.pages.admin.HomeAdminPage;
 import framework.pages.admin.conferencerooms.RoomInfoPage;
 import framework.pages.admin.conferencerooms.RoomResourceAssociationsPage;
@@ -27,11 +26,13 @@ import framework.utils.readers.ExcelReader;
  * @author Juan Carlos Guevara
  */
 public class AllResourcesCreatedAreDisplayedInAvailableGridOfResourceAssociationsOfARoom {
-	ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
-	List<Map<String, String>> testData = excelReader.getMapValues("Resources");
-	String roomName = testData.get(0).get("Room Name");
 
-	@Test(groups = {"FUNCTIONAL"})
+	//Reading resource data from an .xls file
+	private ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
+	private List<Map<String, String>> testData = excelReader.getMapValues("Resources");
+	private String roomName = testData.get(0).get("Room Name");
+
+	@Test(groups = "FUNCTIONAL")
 	public void testAllResourcesCreatedAreDisplayedInAvailableGridOfResourceAssociationsOfARoom() 
 			throws MalformedURLException, IOException {
 		HomeAdminPage homeAdminPage = new HomeAdminPage();
@@ -60,13 +61,12 @@ public class AllResourcesCreatedAreDisplayedInAvailableGridOfResourceAssociation
 		}
 	}
 
-	@AfterClass
-	public void postConditions() throws MalformedURLException, IOException {
+	@AfterClass(groups = "FUNCTIONAL")
+	public void deleteResource() throws MalformedURLException, IOException {
 
 		//Delete resource with API rest method
 		for(Map<String, String> resource : testData){					
 			RootRestMethods.deleteResource(resource.get("ResourceName"));
 		}
-		UIMethods.refresh();
 	}
 }
