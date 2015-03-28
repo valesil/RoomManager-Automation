@@ -1,0 +1,45 @@
+<suite name = "RoomManager">
+	<test name = "Schedule test" >
+		<classes>
+			<class name = "tests.tablet.schedule.StartTest"/>
+			<!--TC7-->
+			<class name = "tests.tablet.schedule.CreateMeetingIfRoomIsAvailable"/>
+			<!--TC18,TC28,TC29-->
+			<class name = "tests.tablet.schedule.CreateMeetingIfNotHasBody"/>			
+			<!--TC10-->
+			<class name = "tests.tablet.schedule.CannotCreateMeetingWithoutAttendees"/>
+			<!--TC8-->
+			<class name = "tests.tablet.schedule.CannotCreateMeetingWithoutOrganizer"/>
+			<!--TC9-->
+			<class name = "tests.tablet.schedule.CannotCreateMeetingWithoutSubject"/>
+			<!--TC12-->
+			<class name = "tests.tablet.schedule.CannotUpdateIfHasConflictsWithOtherMeeting"/>
+			<!--TC19,TC20-->
+			<class name = "tests.tablet.schedule.InformationOfMeetingIsDisplayed"/>
+			<!--TC11-->
+			<class name = "tests.tablet.schedule.UpdateMeetingIfItNotHasConflictsWithOtherMeeting"/>
+			<!--TC15-->
+			<class name = "tests.tablet.schedule.CannotCreateMeetingIfHasConfilctsWithAnotherMeeting"/>
+			<!--TC13-->
+			<class name = "tests.tablet.schedule.AMeetingCanBeDeleted"/>
+			<!--TC25-->
+			<class name = "tests.tablet.schedule.QuantityOfCharactersToSubjectIsLimitedTo255"/>
+			<!--TC26-->
+			<class name = "tests.tablet.schedule.QuantityOfCharactersOfOrganizerIsLimitedTo25"/>
+			<!--TC41-->
+			<class name = "tests.tablet.schedule.ComeBackToHomeWhenClickingOnBack"/>
+			<!--TC45-->
+			<class name = "tests.tablet.schedule.AUserCannotUpdateIfDoesnotClickUpdate"/>	
+			<!--TC48-->
+			<class name = "tests.tablet.schedule.CannotCreateMeetingWithStartTimeLessOfEndTime"/>	
+			<!--TC35-->
+			<class name = "tests.tablet.schedule.ClickingInTimelineAllFieldsAreCleaned"/>
+			<!--TC34-->
+			<class name = "tests.tablet.schedule.CannotCreateMeetingIfAttendeeIsInvalid"/>
+			<!--TC30-->
+			<class name = "tests.tablet.schedule.DefaultTimeOfMeetingIs30Minutes"/>
+			<!--TC23-->
+			<class name = "tests.tablet.schedule.CannotCreateAMeetingWhenOutOfOrderIsActive"/>		
+		</classes>
+	</test>
+</suite>
