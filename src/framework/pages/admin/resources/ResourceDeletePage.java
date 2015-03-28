@@ -5,7 +5,6 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
-import framework.common.UIMethods;
 import framework.selenium.SeleniumDriverManager;
 
 /**
@@ -33,7 +32,6 @@ public class ResourceDeletePage extends ResourceBaseAbstractPage {
 	public ResourcesPage clickConfirmRemoveBtn() {
 		wait.until(ExpectedConditions.elementToBeClickable(confirmRemoveBtn));
 		confirmRemoveBtn.click();
-		UIMethods.waitForMaskDisappears(background);
 		return new ResourcesPage();
 	}
 }
