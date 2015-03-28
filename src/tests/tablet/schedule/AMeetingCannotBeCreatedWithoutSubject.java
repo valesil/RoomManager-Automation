@@ -13,33 +13,31 @@ import framework.pages.tablet.SchedulePage;
 import framework.utils.readers.ExcelReader;
 
 /**
- * TC10: Verify a user cannot create a meeting if the attendees are not specified
+ * TC09: Verify that a user cannot create a meeting if the subject is not specified
  * @author Asael Calizaya
  *
  */
-public class CannotCreateMeetingWithoutAttendees {
+public class AMeetingCannotBeCreatedWithoutSubject {
 
 	@Test(groups = "ACCEPTANCE")
-	public void testCannotCreateMeetingWithoutAttendees() {
+	public void testAMeetingCannotBeCreatedWithoutSubject() {
 		ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
-		List<Map<String, String>> meetingData  = excelReader.getMapValues("MeetingData");
+		List<Map<String, String>> meetingData = excelReader.getMapValues("MeetingData");
 		String organizer = meetingData.get(0).get("Organizer");
-		String subject = meetingData.get(0).get("Subject");
 		String startTime = meetingData.get(0).get("Start time");
 		String endTime = meetingData.get(0).get("End time");
+		String attendee = meetingData.get(0).get("Attendee");
 		String body = meetingData.get(0).get("Body");
 
 		HomeTabletPage homePage = new HomeTabletPage();
 		SchedulePage schedulePage = homePage.clickScheduleBtn();
 		schedulePage.setOrganizerTxtBox(organizer)
-		.setSubjectTxtBox(subject)
 		.setStartTimeDate(startTime)
 		.setEndTimeDate(endTime)
+		.setAttendeeTxtBoxPressingEnter(attendee)
 		.setBodyTxtBox(body)
-		.clickCreateBtn()
-		.clickCancelButton();
+		.clickCreateBtn();
 
-		//Fails because allows create meeting without attendees
-		Assert.assertTrue(schedulePage.isErrorAttendeeLblDisplayed());
+		Assert.assertTrue(schedulePage.isErrorSubjectLblDisplayed());
 	}
 }

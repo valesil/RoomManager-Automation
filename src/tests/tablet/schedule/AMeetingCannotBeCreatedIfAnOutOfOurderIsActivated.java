@@ -19,11 +19,11 @@ import framework.rest.RootRestMethods;
 import framework.utils.readers.ExcelReader;
 
 /**
- * TC23: Verify a meeting cannot be created when an Out Of Order is active
+ * TC23: Verify that a meeting cannot be created when an Out Of Order is active
  * @author Asael Calizaya
  *
  */
-public class CannotCreateAMeetingWhenOutOfOrderIsActive {
+public class AMeetingCannotBeCreatedIfAnOutOfOurderIsActivated {
 	private ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
 	private List<Map<String, String>> meetingData = excelReader.getMapValues("MeetingData");
 	private List<Map<String, String>> outOfOrderData = excelReader.getMapValues("OutOfOrderPlanning");
@@ -40,11 +40,12 @@ public class CannotCreateAMeetingWhenOutOfOrderIsActive {
 		String endTime = outOfOrderData.get(11).get("End time (minutes to add)");
 		String description = outOfOrderData.get(11).get("Description");	
 		MeetingMethods meeting = new MeetingMethods();
-		meeting.createAnOutOfOrder(startDate, endDate, startTime, endTime, title, description, roomName);
+		meeting.createAnOutOfOrder(startDate, endDate, startTime, endTime, 
+				title, description, roomName);
 	}
 
 	@Test(groups = "FUNCTIONAL")
-	public void testCannotCreateAMeetingWhenOutOfOrderIsActive() {
+	public void testAMeetingCannotBeCreatedIfAnOutOfOurderIsActivated() {
 		String meetingOrganizer = meetingData.get(10).get("Organizer");
 		String meetingSubject = meetingData.get(10).get("Subject");
 		String meetingStartTime = meetingData.get(10).get("Start time");

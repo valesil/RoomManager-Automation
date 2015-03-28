@@ -33,7 +33,7 @@ public class ClickingInTimelineAllFieldsAreCleaned {
 
 	private String roomName = meetingData.get(1).get("Room");
 	private String organizer = meetingData.get(1).get("Organizer");
-	private String password = meetingData.get(0).get("Password");	
+	private String password = meetingData.get(1).get("Password");	
 	private String authentication = organizer + ":" + password;
 
 	@BeforeMethod(groups = "UI")
@@ -43,7 +43,8 @@ public class ClickingInTimelineAllFieldsAreCleaned {
 		String attendee = meetingData.get(1).get("Attendee");
 		String body = meetingData.get(1).get("Body");
 		MeetingMethods meeting = new MeetingMethods();
-		meeting.createMeetingFromHome(organizer, subject, startTime, endTime, attendee, body, password);
+		meeting.createMeetingFromHome(organizer, subject, startTime, endTime, 
+				attendee, body, password);
 	}
 
 	@Test(groups = "UI")

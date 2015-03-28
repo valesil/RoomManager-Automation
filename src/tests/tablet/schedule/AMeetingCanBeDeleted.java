@@ -15,14 +15,14 @@ import framework.pages.tablet.SchedulePage;
 import framework.utils.readers.ExcelReader;
 
 /**
- * TC13: Verify a user can remove meetings
+ * TC13: Verify that a user can remove meetings
  * @author Asael Calizaya
  *
  */
 public class AMeetingCanBeDeleted {
 	private ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
 	private List<Map<String, String>> meetingData = excelReader.getMapValues("MeetingData");
-	private String password = meetingData.get(0).get("Password");
+	private String password = meetingData.get(1).get("Password");
 	private String subject;
 	
 	@BeforeMethod(groups = "ACCEPTANCE")
@@ -34,7 +34,8 @@ public class AMeetingCanBeDeleted {
 		String attendee = meetingData.get(1).get("Attendee");
 		String body = meetingData.get(1).get("Body");
 		String organizer = meetingData.get(1).get("Organizer");	
-		meeting.createMeetingFromHome(organizer, subject, startTime, endTime, attendee, body, password);
+		meeting.createMeetingFromHome(organizer, subject, startTime, endTime, 
+				attendee, body, password);
 	}
 
 	@Test(groups = "ACCEPTANCE")

@@ -42,7 +42,8 @@ public class AUserCannotUpdateIfDoesnotClickUpdate {
 	@BeforeMethod(groups = "UI")
 	public void creationMeetingPreCondition() {
 		MeetingMethods meeting = new MeetingMethods();
-		meeting.createMeetingFromHome(organizer, subject, startTime, endTime, attendee, body, password);
+		meeting.createMeetingFromHome(organizer, subject, startTime, endTime, 
+				attendee, body, password);
 	}
 
 	@Test(groups = "UI")

@@ -17,10 +17,10 @@ import framework.utils.readers.ExcelReader;
  * @author Asael Calizaya
  *
  */
-public class CannotCreateMeetingIfAttendeeIsInvalid {
+public class AMeetingCannotBeCreatedIfTheAttendeesAreInvaild {
 
 	@Test(groups = "UI")
-	public void testCannotCreateMeetingIfAttendeeIsInvalid() {
+	public void testAMeetingCannotBeCreatedIfTheAttendeesAreInvaild() {
 		ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
 		List<Map<String, String>> meetingData = excelReader.getMapValues("MeetingData");
 		String organizer = meetingData.get(9).get("Organizer");

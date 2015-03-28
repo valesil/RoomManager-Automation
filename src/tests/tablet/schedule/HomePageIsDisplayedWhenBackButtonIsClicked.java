@@ -16,10 +16,10 @@ import framework.utils.readers.ExcelReader;
  * @author Asael Calizaya
  *
  */
-public class ComeBackToHomeWhenClickingOnBack {
-	
+public class HomePageIsDisplayedWhenBackButtonIsClicked {
+
 	@Test(groups = "UI")
-	public void testComeBackToHomeWhenClickingOnBack() {
+	public void testHomePageIsDisplayedWhenBackButtonIsClicked() {
 		ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
 		List<Map<String, String>> meetingData = excelReader.getMapValues("MeetingData");
 		String roomName = meetingData.get(1).get("Room");

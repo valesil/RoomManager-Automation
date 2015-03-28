@@ -19,11 +19,12 @@ import framework.rest.RootRestMethods;
 import framework.utils.readers.ExcelReader;
 
 /**
- * TC15: Verify a user cannot create a meeting that has conflicts with the schedule of another meeting
+ * TC15: Verify that a user cannot create a meeting that has conflicts with 
+ * the schedule of another meeting
  * @author Asael Calizaya
  *
  */
-public class CannotCreateMeetingIfHasConfilctsWithAnotherMeeting {
+public class AMeetingCannotBeCreatedIfItHasConfilctsWithAnotherMeeting {
 	private ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
 	private List<Map<String, String>> meetingData = excelReader.getMapValues("MeetingData");
 
@@ -32,7 +33,7 @@ public class CannotCreateMeetingIfHasConfilctsWithAnotherMeeting {
 
 	private String organizer = meetingData.get(1).get("Organizer");
 	private String roomName = meetingData.get(1).get("Room");
-	private String password = meetingData.get(0).get("Password");
+	private String password = meetingData.get(1).get("Password");
 	private String authentication = organizer + ":" + password;
 
 	@BeforeMethod(groups = "FUNCTIONAL")
@@ -42,11 +43,12 @@ public class CannotCreateMeetingIfHasConfilctsWithAnotherMeeting {
 		String attendee = meetingData.get(1).get("Attendee");
 		String body = meetingData.get(1).get("Body");
 		MeetingMethods meeting = new MeetingMethods();
-		meeting.createMeetingFromHome(organizer, subject, startTime, endTime, attendee, body, password);
+		meeting.createMeetingFromHome(organizer, subject, startTime, endTime, 
+				attendee, body, password);
 	}
 
 	@Test(groups = "FUNCTIONAL")
-	public void testCannotCreateMeetingIfHasConfilctsWithAnotherMeeting() {
+	public void testAMeetingCannotBeCreatedIfItHasConfilctsWithAnotherMeeting() {
 		String newOrganizer = meetingData.get(2).get("Organizer");
 		String newSubject = meetingData.get(2).get("Subject");
 		String newStartTime = meetingData.get(2).get("Start time");
@@ -56,7 +58,8 @@ public class CannotCreateMeetingIfHasConfilctsWithAnotherMeeting {
 		String newPassword = meetingData.get(2).get("Password");
 		HomeTabletPage homePage = new HomeTabletPage();
 		SchedulePage schedulePage = homePage.clickScheduleBtn();
-		schedulePage.createMeeting(newOrganizer, newSubject, newStartTime, newEndTime, newAttendee, newBody, newPassword);
+		schedulePage.createMeeting(newOrganizer, newSubject, newStartTime, 
+				newEndTime, newAttendee, newBody, newPassword);
 
 		//Fails because the message displayed is incorrect
 		Assert.assertTrue(schedulePage.isMessageErrorCreationMeetingPopUpDisplayed());

@@ -17,11 +17,11 @@ import framework.rest.RootRestMethods;
 import framework.utils.readers.ExcelReader;
 
 /**
- * TC25: Verify that the quantity of characters in the subject text box should be limited to 255 characters
+ * TC25: Verify that the quantity of characters in the subject text box should be limited
  * @author Asael Calizaya
  *
  */
-public class QuantityOfCharactersToSubjectIsLimitedTo255 {
+public class QuantityOfCharactersToSubjectIsLimited {
 	private ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
 	private List<Map<String, String>> meetingData = excelReader.getMapValues("MeetingData");
 
@@ -32,7 +32,7 @@ public class QuantityOfCharactersToSubjectIsLimitedTo255 {
 	private String authentication = organizer + ":" + password;
 
 	@Test(groups = "NEGATIVE")
-	public void testQuantityOfCharactersToSubjectIsLimitedTo255() {
+	public void testQuantityOfCharactersToSubjectIsLimited() {
 		String startTime = meetingData.get(3).get("Start time");
 		String endTime = meetingData.get(3).get("End time");
 		String attendee = meetingData.get(3).get("Attendee");

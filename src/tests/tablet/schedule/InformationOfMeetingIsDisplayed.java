@@ -27,7 +27,7 @@ import framework.utils.readers.ExcelReader;
 public class InformationOfMeetingIsDisplayed {
 	private ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
 	private List<Map<String, String>> meetingData = excelReader.getMapValues("MeetingData");
-	private String password = meetingData.get(0).get("Password");
+	private String password = meetingData.get(1).get("Password");
 	private String organizer = meetingData.get(1).get("Organizer");
 	private String subject = meetingData.get(1).get("Subject");
 	private String startTime = meetingData.get(1).get("Start time");
@@ -41,7 +41,8 @@ public class InformationOfMeetingIsDisplayed {
 	@BeforeMethod(groups = "FUNCTIONAL")
 	public void creationMeetingPreCondition() {
 		MeetingMethods meeting = new MeetingMethods();
-		meeting.createMeetingFromHome(organizer, subject, startTime, endTime, attendee, body, password);
+		meeting.createMeetingFromHome(organizer, subject, startTime, endTime, 
+				attendee, body, password);
 	}
 
 	@Test(groups = "FUNCTIONAL")

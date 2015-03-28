@@ -17,7 +17,7 @@ import framework.rest.RootRestMethods;
 import framework.utils.readers.ExcelReader;
 
 /**
- * TC7: verify a user can create meeting if room is Available 
+ * TC07: verify that a user can create meeting if room is Available 
  * @author Asael Calizaya
  *
  */
@@ -40,7 +40,8 @@ public class CreateMeetingIfRoomIsAvailable {
 		
 		HomeTabletPage homePage = new HomeTabletPage();
 		SchedulePage schedulePage = homePage.clickScheduleBtn();
-		schedulePage.createMeeting(organizer, subject, startTime, endTime, attendee, body, password);
+		schedulePage.createMeeting(organizer, subject, startTime, endTime, attendee, 
+				body, password);
 
 		Assert.assertTrue(schedulePage.isMessageMeetingCreatedDisplayed());
 	}

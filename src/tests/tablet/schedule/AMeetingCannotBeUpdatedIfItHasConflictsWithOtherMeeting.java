@@ -19,20 +19,25 @@ import framework.rest.RootRestMethods;
 import framework.utils.readers.ExcelReader;
 
 /**
- * TC12: Verify an existing meeting cannot be updated if it has conflicts with another meeting
+ * TC12: Verify that an existing meeting cannot be updated if it has conflicts 
+ * with another meeting
  * @author Asael Calizaya
  *
  */
-public class CannotUpdateIfHasConflictsWithOtherMeeting {
+public class AMeetingCannotBeUpdatedIfItHasConflictsWithOtherMeeting {
 	private ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
 	private List<Map<String, String>> meetingData = excelReader.getMapValues("MeetingData");
 	private String nameMeeting1 = meetingData.get(0).get("Subject");
-	private String organizer = meetingData.get(0).get("Organizer");
+	private String organizer1 = meetingData.get(0).get("Organizer");
+	private String password1 = meetingData.get(0).get("Password");
+	
 	private String nameMeeting2 = meetingData.get(1).get("Subject");
-
-	private String password = meetingData.get(2).get("Password");
+	private String organizer2 = meetingData.get(1).get("Organizer");	
+	private String password2 = meetingData.get(1).get("Password");
+	
 	private String roomName = meetingData.get(1).get("Room");
-	private String authentication = organizer + ":" + password;
+	private String authentication1 = organizer1 + ":" + password1;
+	private String authentication2 = organizer2 + ":" + password2;
 
 	@BeforeMethod(groups = "ACCEPTANCE")
 	public void creationMeetingsPreCondition() {
@@ -52,13 +57,14 @@ public class CannotUpdateIfHasConflictsWithOtherMeeting {
 	}
 
 	@Test(groups = "ACCEPTANCE")
-	public void testCannotUpdateIfHasConflictsWithOtherMeeting() {
+	public void testAMeetingCannotBeUpdatedIfItHasConflictsWithOtherMeeting() {
 		String subject = meetingData.get(2).get("Subject");
 		String startTime = meetingData.get(2).get("Start time");
 		String endTime = meetingData.get(2).get("End time");
 		String attendee = meetingData.get(2).get("Attendee");
 		String body = meetingData.get(2).get("Body");
-
+		String password = meetingData.get(2).get("Password");
+		
 		HomeTabletPage homePage = new HomeTabletPage();
 		SchedulePage schedulePage = homePage.clickScheduleBtn();
 		schedulePage
@@ -77,7 +83,7 @@ public class CannotUpdateIfHasConflictsWithOtherMeeting {
 
 	@AfterMethod(groups = "ACCEPTANCE")
 	public void deleteMeetings() throws MalformedURLException, IOException {
-		RootRestMethods.deleteMeeting(roomName, nameMeeting2, authentication);
-		RootRestMethods.deleteMeeting(roomName, nameMeeting1, authentication);
+		RootRestMethods.deleteMeeting(roomName, nameMeeting2, authentication2);
+		RootRestMethods.deleteMeeting(roomName, nameMeeting1, authentication1);
 	}
 }

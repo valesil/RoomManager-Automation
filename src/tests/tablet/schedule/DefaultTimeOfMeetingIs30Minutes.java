@@ -13,7 +13,7 @@ import framework.pages.tablet.SchedulePage;
 import framework.utils.readers.ExcelReader;
 
 /**
- * TC30: Verify that The default time of meeting is 30 minutes
+ * TC30: Verify that the default time of meeting is 30 minutes
  * @author Asael Calizaya
  *
  */
