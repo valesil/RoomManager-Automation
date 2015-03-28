@@ -22,7 +22,6 @@ public class NextMeetingInformationIsDeletedWhenItIsRemoved {
 	private HomeTabletPage homeTabletPage = new HomeTabletPage();
 	private SchedulePage schedulePage;
 
-	//Data to create and use to assertions
 	private ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
 	private List<Map<String, String>> meetingData = excelReader.getMapValues("MeetingData");
 	private String expectedMeetingSubject = meetingData.get(1).get("Subject");

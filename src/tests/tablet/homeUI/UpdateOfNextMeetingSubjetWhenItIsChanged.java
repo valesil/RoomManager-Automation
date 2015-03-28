@@ -50,16 +50,13 @@ public class UpdateOfNextMeetingSubjetWhenItIsChanged {
 
 	@Test (groups = "ACCEPTANCE")
 	public void testUpdateOfNextMeetingSubjetWhenItIsChanged() {
-
 		schedulePage
 		.clickOverMeetingCreated(subject)
 		.setSubjectTxtBox(expectedNewSubject)
 		.clickUpdateBtn()
 		.confirmCredentials(password)
 		.isMessageMeetingUpdatedDisplayed();
-
 		schedulePage.clickBackBtn();
-
 		String actualMeetingNameUpdated = homeTabletPage.getNextTileLbl();
 
 		Assert.assertEquals(actualMeetingNameUpdated, expectedNewSubject);

@@ -37,7 +37,6 @@ public class HomePageInformation {
 	@Test (groups = "UI")
 	public void testRoomNameDisplayedInMainWindow() {
 		HomeTabletPage homeTabletPage = new HomeTabletPage();
-
 		String actualRoomDisplayName = homeTabletPage.getRoomDisplayNameLbl();
 		String expectedRoomDisplayName = meetingData.get(0).get("Room");
 
@@ -52,7 +51,6 @@ public class HomePageInformation {
 	@Test (groups = "UI")
 	public void testRoomCodeDisplayedInMainWindow() {
 		HomeTabletPage homeTabletPage = new HomeTabletPage();
-
 		String actualRoomCode = homeTabletPage.getRoomCodeLbl();
 		String expectedRoomCode = meetingData.get(0).get("Room code");
 
@@ -68,7 +66,6 @@ public class HomePageInformation {
 	@Test (groups = "UI")
 	public void testCurrentTimeIsDisplayedInMainWindow() {
 		HomeTabletPage homeTabletPage = new HomeTabletPage();
-
 		String actualCurrentTime = homeTabletPage.getCurrentTimeLbl();
 		String expectedCurentTime = getCurrentDate("HH:mm");
 
@@ -84,7 +81,6 @@ public class HomePageInformation {
 	@Test (groups = "UI")
 	public void testAvailableMessageDisplayedWhenRoomIsFreeEOD() {
 		HomeTabletPage homeTabletPage = new HomeTabletPage();
-
 		String actualNowTileValue = homeTabletPage.getNowTileLbl();
 		String expectedNowTileValue = "Available";
 
@@ -99,7 +95,6 @@ public class HomePageInformation {
 	@Test (groups = "UI")
 	public void testAvailableColorIsDisplayedInNowTileWhenAnyMeetingIsInProgress() {
 		HomeTabletPage homeTabletPage = new HomeTabletPage();
-
 		String actualNowTileColor = homeTabletPage.getNowTileColor();
 		String expectedNowTileColor = meetingData.get(0).get("Available color");
 
@@ -114,7 +109,6 @@ public class HomePageInformation {
 	@Test (groups = "UI")
 	public void testEndOfDayMessageIsDisplayedWhenRoomIsFreeEOD() {
 		HomeTabletPage homeTabletPage = new HomeTabletPage();
-
 		String actualNextTileValue = homeTabletPage.getNextTileLbl();
 		String expectedNextTileValue = "End of day";
 
@@ -130,7 +124,6 @@ public class HomePageInformation {
 	@Test (groups = "UI")
 	public void testTimeLeftUntilMidnightWhenRoomIsFreeAfter() {
 		HomeTabletPage homeTabletPage = new HomeTabletPage();
-
 		String actualTimeLeft = homeTabletPage.getTimeLeftLbl();
 		String expectedTimeLeft = differenceBetweenTimes(getCurrentDate("HH:mm"), "23:59");
 

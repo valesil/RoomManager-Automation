@@ -39,7 +39,7 @@ public class NextMeetingValuesVerifications {
 	private String expectedMeetingSubject = meetingData.get(1).get("Subject");
 	private String password = meetingData.get(1).get("Password");
 	private String authentication = organizer + ":" + password;
-
+	private String room = meetingData.get(0).get("Room");
 	private String expectedStartTime = "";
 	private String expectedEndTime = "";
 
@@ -66,7 +66,6 @@ public class NextMeetingValuesVerifications {
 	 */
 	@Test (groups = "ACCEPTANCE")
 	public void testIntervalTimeDisplayedForNextMeetingInRoom() {
-
 		String actualStartTime = homeTabletPage.getStartTimeNextMeetingLbl();	
 		String actualEndTime = homeTabletPage.getEndTimeNextMeetingLbl();
 
@@ -81,7 +80,6 @@ public class NextMeetingValuesVerifications {
 	 */
 	@Test (groups = "ACCEPTANCE")
 	public void testTimeLeftDisplayTimeUntilNextMeetingWhenRoomIsFreeBeforeInNowTape() {
-
 		String expectedTimeLeft = differenceBetweenTimes(getCurrentDate("HH:mm"),
 				expectedStartTime);
 		String actualTimeLeft = homeTabletPage.getTimeLeftLbl();
@@ -98,7 +96,6 @@ public class NextMeetingValuesVerifications {
 	 */
 	@Test (groups = "ACCEPTANCE")
 	public void testBussyColorIsDisplayedOnNextTileWhenAMeetingIsSetInTheRoom() {
-
 		String actualBusyColorValue = homeTabletPage.getNextTileColor();
 		String expectedBusyColorValue =  meetingData.get(0).get("Busy next color");
 
@@ -112,8 +109,7 @@ public class NextMeetingValuesVerifications {
 	public void end() {
 		PropertyConfigurator.configure("log4j.properties");
 		try {
-			RootRestMethods.deleteMeeting( meetingData.get(0).get("Room"), expectedMeetingSubject, 
-					authentication);
+			RootRestMethods.deleteMeeting(room, expectedMeetingSubject, authentication);
 			log.info("The meeting:" + expectedMeetingSubject + "has been deleted successfully.");
 		} catch (IOException e) {
 			log.error(e.getMessage());

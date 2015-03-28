@@ -22,8 +22,10 @@
           <class name = "tests.tablet.homeUI.UpdateOfNextMeetingSubjetWhenItIsChanged"/>
           <!---TC04 -->
           <class name = "tests.tablet.homeUI.TimeLeftUntilNextMeetingWhenRoomIsBussy"/>
-          <!---Data driven -->
+          <!---Data driven now tile-->
           <class name = "tests.tablet.homeUI.MeetingSubjectIsCorrectlyDisplayedInNowTile"/>
+          <!---Data driven next tile-->
+          <class name = "tests.tablet.homeUI.MeetingSubjectIsCorrectlyDisplayedInNextTile"/> 
        </classes>
      </test>  
       

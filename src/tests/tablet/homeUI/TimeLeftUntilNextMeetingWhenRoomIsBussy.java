@@ -66,7 +66,6 @@ public class TimeLeftUntilNextMeetingWhenRoomIsBussy {
 		String startTime =  schedulePage.getStartTimeTxtBoxValue().substring(0, 5);
 		String endTime =  schedulePage.getEndTimeTxtBoxValue().substring(0, 5);	
 		schedulePage.clickBackBtn();
-
 		String actualTimeLeft = homeTabletPage.getTimeLeftLbl();
 		String expectedTimeLeft = differenceBetweenTimes(getCurrentDate("HH:mm"), startTime);
 
@@ -78,13 +77,11 @@ public class TimeLeftUntilNextMeetingWhenRoomIsBussy {
 
 		//Available message is displayed in next tile
 		Assert.assertEquals(actualMessageNextTile, expectedMessageNextTile);
-
 		String actualColorNextTile = homeTabletPage.getNextTileColor();
 		String expectedColorNextTile = meetingData.get(0).get("Available color"); 
 
 		//Available color is displayed in next tile
 		Assert.assertEquals(actualColorNextTile, expectedColorNextTile);	
-
 		String actualStartTime = homeTabletPage.getStartTimeNextMeetingLbl();	
 		String actualEndTime = homeTabletPage.getEndTimeNextMeetingLbl();
 

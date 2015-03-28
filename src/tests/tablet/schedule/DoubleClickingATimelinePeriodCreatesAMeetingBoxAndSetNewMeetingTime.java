@@ -20,7 +20,8 @@ public class DoubleClickingATimelinePeriodCreatesAMeetingBoxAndSetNewMeetingTime
 		SchedulePage schedulePage = homeTabletPage.clickScheduleBtn();
 		schedulePage.doubleClickTimeLineGroup();
 		
-		// Verify that the default duration between the times of "From" and "to" text boxes is 30.
+		/**Verify that the default duration between the times of "From" and "to" text boxes is 30
+		of meeting box created.*/
         Assert.assertEquals(schedulePage.getDurationOfMeetingByDefault(), 30);
 	}
 }

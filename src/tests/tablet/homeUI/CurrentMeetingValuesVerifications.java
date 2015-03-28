@@ -60,7 +60,6 @@ public class CurrentMeetingValuesVerifications {
 
 		expectedMeetingOrganizer = schedulePage.getMeetingOrganizerValue();
 		expectedEndTime = schedulePage.getEndTimeTxtBoxValue().substring(0, 5);
-
 		schedulePage.clickBackBtn();
 	}
 
@@ -71,7 +70,6 @@ public class CurrentMeetingValuesVerifications {
 	 */
 	@Test (groups = "ACCEPTANCE")
 	public void testCurrentMeetingSubjectDisplayedOnNowTile() {
-
 		String actualMeetingSubject = homeTabletPage.getNowTileLbl();
 
 		Assert.assertEquals(actualMeetingSubject, expectedMeetingSubject);
@@ -84,7 +82,6 @@ public class CurrentMeetingValuesVerifications {
 	 */
 	@Test (groups = "ACCEPTANCE")
 	public void testCurrentMeetingOrganizerIsDisplayedOnNowTile() {
-
 		String actualMeetingOrganizer = homeTabletPage.getCurrentMeetingOrganizerLbl();
 
 		Assert.assertEquals(actualMeetingOrganizer, expectedMeetingOrganizer);
@@ -97,7 +94,6 @@ public class CurrentMeetingValuesVerifications {
 	 */
 	@Test (groups = "ACCEPTANCE")
 	public void testBussyColorIsDisplayedOnNowTileWhenAMeetingIsInProgressInTheRoom() {
-
 		String actualBusyColorValue = homeTabletPage.getNowTileColor();
 		String expectedBusyColorValue = meetingData.get(0).get("Busy now color");
 
@@ -111,7 +107,6 @@ public class CurrentMeetingValuesVerifications {
 	 */
 	@Test (groups = "ACCEPTANCE")
 	public void testAvailableColorIsDisplayedOnNextTileWhenTheToomIsFreeEODAfterAMeeting() {
-
 		String actualAvailableColorValue = homeTabletPage.getNextTileColor();
 		String expectedAvailableColorValue = meetingData.get(0).get("Available color"); 
 
@@ -139,7 +134,6 @@ public class CurrentMeetingValuesVerifications {
 	 */
 	@Test (groups = "ACCEPTANCE")
 	public void testIntervalTimeDisplayedForNextMeetingInRoomIsFromEndTimeCurrentMeetingToMidnight() {
-
 		String actualStartTime = homeTabletPage.getStartTimeNextMeetingLbl();
 
 		//Verify that actual start time of interval is equal to end time of current meeting.
