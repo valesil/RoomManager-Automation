@@ -17,10 +17,10 @@ import framework.utils.readers.ExcelReader;
  * @author Asael Calizaya
  *
  */
-public class AnErrorMessageIsDisplaedWhenStartTimeIsLessToEndTime {
+public class AnErrorMessageIsDisplayedWhenStartTimeIsLessToEndTime {
 
 	@Test(groups = "FUNCTIONAL")
-	public void testAnErrorMessageIsDisplaedWhenStartTimeIsLessToEndTime() {
+	public void testAnErrorMessageIsDisplayedWhenStartTimeIsLessToEndTime() {
 		ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
 		List<Map<String, String>> meetingData = excelReader.getMapValues("MeetingData");
 		String organizer = meetingData.get(8).get("Organizer");
@@ -28,8 +28,8 @@ public class AnErrorMessageIsDisplaedWhenStartTimeIsLessToEndTime {
 		String startTime = meetingData.get(8).get("Start time");
 		String endTime = meetingData.get(8).get("End time");
 
-		HomeTabletPage homePage = new HomeTabletPage();
-		SchedulePage schedulePage = homePage.clickScheduleBtn();
+		HomeTabletPage homeTabletPage = new HomeTabletPage();
+		SchedulePage schedulePage = homeTabletPage.clickScheduleBtn();
 		schedulePage
 		.setOrganizerTxtBox(organizer)
 		.setSubjectTxtBox(subject)

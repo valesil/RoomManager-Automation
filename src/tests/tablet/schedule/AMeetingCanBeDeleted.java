@@ -40,8 +40,8 @@ public class AMeetingCanBeDeleted {
 
 	@Test(groups = "ACCEPTANCE")
 	public void testAMeetingCanBeDeleted() {
-		HomeTabletPage homePage = new HomeTabletPage();
-		SchedulePage schedulePage = homePage
+		HomeTabletPage homeTabletPage = new HomeTabletPage();
+		SchedulePage schedulePage = homeTabletPage
 				.clickScheduleBtn()
 				.clickOverMeetingCreated(subject)
 				.clickRemoveBtn()

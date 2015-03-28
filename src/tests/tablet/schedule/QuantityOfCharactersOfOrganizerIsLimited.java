@@ -25,8 +25,8 @@ public class QuantityOfCharactersOfOrganizerIsLimited {
 		List<Map<String, String>> meetingData = excelReader.getMapValues("MeetingData"); 
 		String organizer = meetingData.get(5).get("Organizer");
 
-		HomeTabletPage homePage = new HomeTabletPage();
-		SchedulePage schedulePage = homePage.clickScheduleBtn();
+		HomeTabletPage homeTabletPage = new HomeTabletPage();
+		SchedulePage schedulePage = homeTabletPage.clickScheduleBtn();
 		schedulePage
 		.setOrganizerTxtBox(organizer)
 		.clickCreateBtn();

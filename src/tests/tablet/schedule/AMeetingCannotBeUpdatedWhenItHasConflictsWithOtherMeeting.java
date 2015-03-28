@@ -24,7 +24,7 @@ import framework.utils.readers.ExcelReader;
  * @author Asael Calizaya
  *
  */
-public class AMeetingCannotBeUpdatedIfItHasConflictsWithOtherMeeting {
+public class AMeetingCannotBeUpdatedWhenItHasConflictsWithOtherMeeting {
 	private ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
 	private List<Map<String, String>> meetingData = excelReader.getMapValues("MeetingData");
 	private String nameMeeting1 = meetingData.get(0).get("Subject");
@@ -57,7 +57,7 @@ public class AMeetingCannotBeUpdatedIfItHasConflictsWithOtherMeeting {
 	}
 
 	@Test(groups = "ACCEPTANCE")
-	public void testAMeetingCannotBeUpdatedIfItHasConflictsWithOtherMeeting() {
+	public void testAMeetingCannotBeUpdatedWhenItHasConflictsWithOtherMeeting() {
 		String subject = meetingData.get(2).get("Subject");
 		String startTime = meetingData.get(2).get("Start time");
 		String endTime = meetingData.get(2).get("End time");
@@ -65,8 +65,8 @@ public class AMeetingCannotBeUpdatedIfItHasConflictsWithOtherMeeting {
 		String body = meetingData.get(2).get("Body");
 		String password = meetingData.get(2).get("Password");
 		
-		HomeTabletPage homePage = new HomeTabletPage();
-		SchedulePage schedulePage = homePage.clickScheduleBtn();
+		HomeTabletPage homeTabletPage = new HomeTabletPage();
+		SchedulePage schedulePage = homeTabletPage.clickScheduleBtn();
 		schedulePage
 		.clickOverMeetingCreated(nameMeeting1)
 		.setSubjectTxtBox(subject)
@@ -77,7 +77,7 @@ public class AMeetingCannotBeUpdatedIfItHasConflictsWithOtherMeeting {
 		.clickUpdateBtn()
 		.confirmCredentials(password);
 
-		//Fails because the message that is displayed is incorrect
+		//Fails because the error message is not related with the error
 		Assert.assertTrue(schedulePage.isMessageErrorUpdateMeetingPopUpDisplayed());
 	}
 

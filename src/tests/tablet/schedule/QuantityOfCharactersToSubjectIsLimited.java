@@ -38,8 +38,8 @@ public class QuantityOfCharactersToSubjectIsLimited {
 		String attendee = meetingData.get(3).get("Attendee");
 		String body = meetingData.get(3).get("Body");
 
-		HomeTabletPage homePage = new HomeTabletPage();
-		SchedulePage schedulePage = homePage.clickScheduleBtn();
+		HomeTabletPage homeTabletPage = new HomeTabletPage();
+		SchedulePage schedulePage = homeTabletPage.clickScheduleBtn();
 		schedulePage
 		.createMeeting(organizer, subject, startTime, endTime, attendee, body, password)
 		.clickOkButton();

@@ -17,10 +17,10 @@ import framework.utils.readers.ExcelReader;
  * @author Asael Calizaya
  *
  */
-public class AMeetingCannotBeCreatedIfTheAttendeesAreInvaild {
+public class AttenddesTxtBoxDoesNotAllowInvalidAttendees {
 
 	@Test(groups = "UI")
-	public void testAMeetingCannotBeCreatedIfTheAttendeesAreInvaild() {
+	public void testAttenddesTxtBoxDoesNotAllowInvalidAttendees() {
 		ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
 		List<Map<String, String>> meetingData = excelReader.getMapValues("MeetingData");
 		String organizer = meetingData.get(9).get("Organizer");
@@ -30,8 +30,8 @@ public class AMeetingCannotBeCreatedIfTheAttendeesAreInvaild {
 		String attendee = meetingData.get(9).get("Attendee");
 		String body = meetingData.get(9).get("Body");
 
-		HomeTabletPage homePage = new HomeTabletPage();
-		SchedulePage schedulePage = homePage.clickScheduleBtn();
+		HomeTabletPage homeTabletPage = new HomeTabletPage();
+		SchedulePage schedulePage = homeTabletPage.clickScheduleBtn();
 		schedulePage
 		.setMeetingInformation(organizer, subject, startTime, endTime, attendee)
 		.setBodyTxtBox(body)

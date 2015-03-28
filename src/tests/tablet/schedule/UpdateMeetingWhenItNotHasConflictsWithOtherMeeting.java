@@ -24,7 +24,7 @@ import framework.utils.readers.ExcelReader;
  * @author Asael Calizaya
  *
  */
-public class UpdateMeetingIfItNotHasConflictsWithOtherMeeting {	
+public class UpdateMeetingWhenItNotHasConflictsWithOtherMeeting {	
 	private ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
 	private List<Map<String, String>> meetingData = excelReader.getMapValues("MeetingData");
 	private String password = meetingData.get(1).get("Password");
@@ -49,14 +49,14 @@ public class UpdateMeetingIfItNotHasConflictsWithOtherMeeting {
 	}
 
 	@Test(groups = "ACCEPTANCE")
-	public void testUpdateMeetingIfItNotHasConflictsWithOtherMeeting() {
+	public void testUpdateMeetingWhenItNotHasConflictsWithOtherMeeting() {
 		newSubject = meetingData.get(4).get("Subject");
 		String newStartTime = meetingData.get(4).get("Start time");
 		String newEndTime = meetingData.get(4).get("End time");
 		String newAttendee = meetingData.get(4).get("Attendee");
 		String newBody = meetingData.get(4).get("Body");
-		HomeTabletPage homePage = new HomeTabletPage();
-		SchedulePage schedulePage = homePage.clickScheduleBtn();
+		HomeTabletPage homeTabletPage = new HomeTabletPage();
+		SchedulePage schedulePage = homeTabletPage.clickScheduleBtn();
 		schedulePage
 		.clickOverMeetingCreated(subject)
 		.setSubjectTxtBox(newSubject)

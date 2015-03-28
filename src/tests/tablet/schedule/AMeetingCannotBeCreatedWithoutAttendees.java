@@ -29,8 +29,8 @@ public class AMeetingCannotBeCreatedWithoutAttendees {
 		String endTime = meetingData.get(0).get("End time");
 		String body = meetingData.get(0).get("Body");
 
-		HomeTabletPage homePage = new HomeTabletPage();
-		SchedulePage schedulePage = homePage.clickScheduleBtn();
+		HomeTabletPage homeTabletPage = new HomeTabletPage();
+		SchedulePage schedulePage = homeTabletPage.clickScheduleBtn();
 		schedulePage.setOrganizerTxtBox(organizer)
 		.setSubjectTxtBox(subject)
 		.setStartTimeDate(startTime)

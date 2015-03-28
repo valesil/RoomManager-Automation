@@ -23,7 +23,7 @@ import framework.utils.readers.ExcelReader;
  * @author Asael Calizaya
  *
  */
-public class AUserCannotUpdateIfDoesnotClickUpdate {
+public class AUserCannotUpdateWhenDoesnotClickUpdate {
 	private ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
 	private List<Map<String, String>> meetingData = excelReader.getMapValues("MeetingData");
 
@@ -47,15 +47,15 @@ public class AUserCannotUpdateIfDoesnotClickUpdate {
 	}
 
 	@Test(groups = "UI")
-	public void testAUserCannotUpdateIfDoesnotClickUpdate() {
+	public void testAUserCannotUpdateWhenDoesnotClickUpdate() {
 		String newSubject = meetingData.get(0).get("Subject");
 		String newStartTime = meetingData.get(0).get("Start time");
 		String newEndTime = meetingData.get(0).get("End time");
 		String newAttendee = meetingData.get(0).get("Attendee");
 		String newBody = meetingData.get(0).get("Body");
 
-		HomeTabletPage home = new HomeTabletPage();
-		SchedulePage schedule = home
+		HomeTabletPage homeTabletPage = new HomeTabletPage();
+		SchedulePage schedulePage = homeTabletPage
 				.clickScheduleBtn()
 				.clickOverMeetingCreated(subject)
 				.setSubjectTxtBox(newSubject)
@@ -67,17 +67,17 @@ public class AUserCannotUpdateIfDoesnotClickUpdate {
 				.clickScheduleBtn()
 				.clickOverMeetingCreated(subject);
 
-		String actualOrganizer = schedule.getMeetingOrganizerValue();
-		String actualSubject = schedule.getMeetingSubjectValue();
-		String actualAttendee = schedule.getEmailAttendeeLblValue(newAttendee);
-		String actualBody = schedule.getBodyTxtBoxValue();
+		String actualOrganizer = schedulePage.getMeetingOrganizerValue();
+		String actualSubject = schedulePage.getMeetingSubjectValue();
+		String actualAttendee = schedulePage.getEmailAttendeeLblValue(newAttendee);
+		String actualBody = schedulePage.getBodyTxtBoxValue();
 
-		Assert.assertEquals(organizer, actualOrganizer);
-		Assert.assertEquals(subject, actualSubject);
-		Assert.assertEquals(attendee, actualAttendee);
+		Assert.assertEquals(actualOrganizer, organizer);
+		Assert.assertEquals(actualSubject, subject);
+		Assert.assertEquals(actualAttendee, attendee);
 
 		//Fails because it does not get the body
-		Assert.assertEquals(body, actualBody);
+		Assert.assertEquals(actualBody, body);
 	}
 
 	@AfterMethod(groups = "UI")

@@ -23,7 +23,7 @@ import framework.utils.readers.ExcelReader;
  * @author Asael Calizaya
  *
  */
-public class CreateMeetingIfNotHasBody {
+public class CreateMeetingWhenNotHasBody {
 	private ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
 	private List<Map<String, String>> meetingData = excelReader.getMapValues("MeetingData");
 
@@ -34,13 +34,13 @@ public class CreateMeetingIfNotHasBody {
 	private String authentication = organizer + ":" + password;
 
 	@Test(groups = {"FUNCTIONAL", "UI"})
-	public void testCreateMeetingIfNotHasBody() {
+	public void testCreateMeetingWhenNotHasBody() {
 		String startTime = meetingData.get(0).get("Start time");
 		String endTime = meetingData.get(0).get("End time");
 		String attendee1 = meetingData.get(0).get("Attendee");
 		String attendee2 = meetingData.get(0).get("Attendee");
-		HomeTabletPage homePage = new HomeTabletPage();
-		SchedulePage schedulePage = homePage.clickScheduleBtn();
+		HomeTabletPage homeTabletPage = new HomeTabletPage();
+		SchedulePage schedulePage = homeTabletPage.clickScheduleBtn();
 		schedulePage
 		.setOrganizerTxtBox(organizer)
 		.setSubjectTxtBox(subject)

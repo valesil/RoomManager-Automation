@@ -23,7 +23,7 @@ import framework.utils.readers.ExcelReader;
  * @author Asael Calizaya
  *
  */
-public class AMeetingCannotBeCreatedIfAnOutOfOurderIsActivated {
+public class AMeetingCannotBeCreatedWhenAnOutOfOurderIsActivated {
 	private ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
 	private List<Map<String, String>> meetingData = excelReader.getMapValues("MeetingData");
 	private List<Map<String, String>> outOfOrderData = excelReader.getMapValues("OutOfOrderPlanning");
@@ -45,15 +45,15 @@ public class AMeetingCannotBeCreatedIfAnOutOfOurderIsActivated {
 	}
 
 	@Test(groups = "FUNCTIONAL")
-	public void testAMeetingCannotBeCreatedIfAnOutOfOurderIsActivated() {
+	public void testAMeetingCannotBeCreatedWhenAnOutOfOurderIsActivated() {
 		String meetingOrganizer = meetingData.get(10).get("Organizer");
 		String meetingSubject = meetingData.get(10).get("Subject");
 		String meetingStartTime = meetingData.get(10).get("Start time");
 		String meetingEndTime = meetingData.get(10).get("End time");
 		String meetingAttendee = meetingData.get(10).get("Attendee");
 		String password = meetingData.get(10).get("Password");
-		HomeTabletPage homePage = new HomeTabletPage();
-		SchedulePage schedulePage = homePage
+		HomeTabletPage homeTabletPage = new HomeTabletPage();
+		SchedulePage schedulePage = homeTabletPage
 				.clickScheduleBtn()
 				.createMeeting(meetingOrganizer, meetingSubject, meetingStartTime,
 						meetingEndTime, meetingAttendee, password);
@@ -61,7 +61,7 @@ public class AMeetingCannotBeCreatedIfAnOutOfOurderIsActivated {
 		//Assertion TC23
 		Assert.assertTrue(schedulePage.isMessageErrorPopUpDisplayed());
 
-		//Fails because the error message is incorrect
+		//Fails because the error message is not related with the error
 		Assert.assertTrue(schedulePage.isMessageErrorCreationMeetingPopUpDisplayed());
 	}
 

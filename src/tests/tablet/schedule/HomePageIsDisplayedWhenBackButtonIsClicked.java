@@ -24,12 +24,12 @@ public class HomePageIsDisplayedWhenBackButtonIsClicked {
 		List<Map<String, String>> meetingData = excelReader.getMapValues("MeetingData");
 		String roomName = meetingData.get(1).get("Room");
 		
-		HomeTabletPage homePage = new HomeTabletPage();
-		String actual = homePage
+		HomeTabletPage homeTabletPage = new HomeTabletPage();
+		String actual = homeTabletPage
 				.clickScheduleBtn()
 				.clickBackBtn()
 				.getRoomDisplayNameLbl();
 
-		Assert.assertEquals(roomName, actual);
+		Assert.assertEquals(actual, roomName);
 	}
 }

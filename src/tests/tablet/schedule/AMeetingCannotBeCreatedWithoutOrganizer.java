@@ -29,8 +29,8 @@ public class AMeetingCannotBeCreatedWithoutOrganizer {
 		String attendee = meetingData.get(0).get("Attendee");
 		String body = meetingData.get(0).get("Body");
 
-		HomeTabletPage homePage = new HomeTabletPage();
-		SchedulePage schedulePage = homePage.clickScheduleBtn();
+		HomeTabletPage homeTabletPage = new HomeTabletPage();
+		SchedulePage schedulePage = homeTabletPage.clickScheduleBtn();
 		schedulePage.setSubjectTxtBox(subject)
 		.setStartTimeDate(startTime)
 		.setEndTimeDate(endTime)

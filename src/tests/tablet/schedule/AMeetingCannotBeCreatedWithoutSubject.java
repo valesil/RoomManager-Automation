@@ -29,8 +29,8 @@ public class AMeetingCannotBeCreatedWithoutSubject {
 		String attendee = meetingData.get(0).get("Attendee");
 		String body = meetingData.get(0).get("Body");
 
-		HomeTabletPage homePage = new HomeTabletPage();
-		SchedulePage schedulePage = homePage.clickScheduleBtn();
+		HomeTabletPage homeTabletPage = new HomeTabletPage();
+		SchedulePage schedulePage = homeTabletPage.clickScheduleBtn();
 		schedulePage.setOrganizerTxtBox(organizer)
 		.setStartTimeDate(startTime)
 		.setEndTimeDate(endTime)

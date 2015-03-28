@@ -3,10 +3,43 @@
 		<classes>
 			<class name = "tests.tablet.schedule.StartTest"/>
 			<!--TC07-->
-			
+			<class name = "tests.tablet.schedule.CreateMeetingWhenRoomIsAvailable"/>
+			<!--TC18, TC28, TC29-->
+			<class name = "tests.tablet.schedule.CreateMeetingWhenNotHasBody"/>			
+			<!--TC10-->
+			<class name = "tests.tablet.schedule.AMeetingCannotBeCreatedWithoutAttendees"/>
+			<!--TC08-->
+			<class name = "tests.tablet.schedule.AMeetingCannotBeCreatedWithoutOrganizer"/>
+			<!--TC9-->
+			<class name = "tests.tablet.schedule.AMeetingCannotBeCreatedWithoutSubject"/>
 			<!--TC12-->
-			<class name = "tests.tablet.schedule.AMeetingCannotBeUpdatedIfItHasConflictsWithOtherMeeting"/>
-					
+			<class name = "tests.tablet.schedule.AMeetingCannotBeUpdatedWhenItHasConflictsWithOtherMeeting"/>
+			<!--TC19, TC20-->
+			<class name = "tests.tablet.schedule.InformationOfMeetingIsDisplayed"/>
+			<!--TC11-->
+			<class name = "tests.tablet.schedule.UpdateMeetingWhenItNotHasConflictsWithOtherMeeting"/>
+			<!--TC15-->
+			<class name = "tests.tablet.schedule.AMeetingCannotBeCreatedWhenItHasConflictsWithAnotherMeeting"/>
+			<!--TC13-->
+			<class name = "tests.tablet.schedule.AMeetingCanBeDeleted"/>
+			<!--TC25-->
+			<class name = "tests.tablet.schedule.QuantityOfCharactersToSubjectIsLimited"/>
+			<!--TC26-->
+			<class name = "tests.tablet.schedule.QuantityOfCharactersOfOrganizerIsLimited"/>
+			<!--TC41-->
+			<class name = "tests.tablet.schedule.HomePageIsDisplayedWhenBackButtonIsClicked"/>
+			<!--TC45-->
+			<class name = "tests.tablet.schedule.AUserCannotUpdateWhenDoesnotClickUpdate"/>	
+			<!--TC48-->
+			<class name = "tests.tablet.schedule.AnErrorMessageIsDisplayedWhenStartTimeIsLessToEndTime"/>	
+			<!--TC35-->
+			<class name = "tests.tablet.schedule.ClickingInTimelineAllFieldsAreCleaned"/>
+			<!--TC34-->
+			<class name = "tests.tablet.schedule.AttenddesTxtBoxDoesNotAllowInvalidAttendees"/>
+			<!--TC30-->
+			<class name = "tests.tablet.schedule.DefaultTimeOfMeetingIs30Minutes"/>
+			<!--TC23-->
+			<class name = "tests.tablet.schedule.AMeetingCannotBeCreatedWhenAnOutOfOurderIsActivated"/>		
 		</classes>
 	</test>
 </suite>

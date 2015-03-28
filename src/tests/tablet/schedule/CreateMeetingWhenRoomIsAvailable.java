@@ -21,7 +21,7 @@ import framework.utils.readers.ExcelReader;
  * @author Asael Calizaya
  *
  */
-public class CreateMeetingIfRoomIsAvailable {
+public class CreateMeetingWhenRoomIsAvailable {
 	private ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
 	private List<Map<String, String>> meetingData = excelReader.getMapValues("MeetingData");
 	
@@ -32,14 +32,14 @@ public class CreateMeetingIfRoomIsAvailable {
 	private String authentication = organizer + ":" + password;
 	
 	@Test(groups = "ACCEPTANCE")
-	public void testCreateMeetingIfRoomIsAvailable() {
+	public void testCreateMeetingWhenRoomIsAvailable() {
 		String startTime = meetingData.get(0).get("Start time");
 		String endTime = meetingData.get(0).get("End time");
 		String attendee = meetingData.get(0).get("Attendee");
 		String body = meetingData.get(0).get("Body");
 		
-		HomeTabletPage homePage = new HomeTabletPage();
-		SchedulePage schedulePage = homePage.clickScheduleBtn();
+		HomeTabletPage homeTabletPage = new HomeTabletPage();
+		SchedulePage schedulePage = homeTabletPage.clickScheduleBtn();
 		schedulePage.createMeeting(organizer, subject, startTime, endTime, attendee, 
 				body, password);
 

@@ -49,8 +49,8 @@ public class ClickingInTimelineAllFieldsAreCleaned {
 
 	@Test(groups = "UI")
 	public void testClickingInTimeLineAllFiledsAreCleaned() {
-		HomeTabletPage homePage = new HomeTabletPage();
-		SchedulePage schedulePage = homePage.clickScheduleBtn();
+		HomeTabletPage homeTabletPage = new HomeTabletPage();
+		SchedulePage schedulePage = homeTabletPage.clickScheduleBtn();
 		schedulePage
 		.clickOverMeetingCreated(subject)
 		.clickOverTimeline();

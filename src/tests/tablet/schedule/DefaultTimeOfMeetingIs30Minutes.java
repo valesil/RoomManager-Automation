@@ -18,7 +18,7 @@ import framework.utils.readers.ExcelReader;
  *
  */
 public class DefaultTimeOfMeetingIs30Minutes {
-	
+
 	@Test(groups = "UI")
 	public void testDefaultTimeOfMeetingIs30Minutes() {
 		ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
@@ -27,15 +27,16 @@ public class DefaultTimeOfMeetingIs30Minutes {
 		String subject = meetingData.get(0).get("Subject");
 		String attendee = meetingData.get(0).get("Attendee");
 		String body = meetingData.get(0).get("Body");
-		
-		HomeTabletPage homePage = new HomeTabletPage();
-		SchedulePage schedulePage = homePage.clickScheduleBtn();
-		int durationMeeting = schedulePage.setOrganizerTxtBox(organizer)
-						.setSubjectTxtBox(subject)
-						.setAttendeeTxtBoxPressingEnter(attendee)
-						.setBodyTxtBox(body)
-						.getDurationOfMeetingByDefault();
 
-		Assert.assertEquals(30, durationMeeting);
+		HomeTabletPage homeTabletPage = new HomeTabletPage();
+		SchedulePage schedulePage = homeTabletPage.clickScheduleBtn();
+		int durationMeeting = schedulePage
+				.setOrganizerTxtBox(organizer)
+				.setSubjectTxtBox(subject)
+				.setAttendeeTxtBoxPressingEnter(attendee)
+				.setBodyTxtBox(body)
+				.getDurationOfMeetingByDefault();
+
+		Assert.assertEquals(durationMeeting, 30);
 	}
 }

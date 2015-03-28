@@ -47,23 +47,23 @@ public class InformationOfMeetingIsDisplayed {
 
 	@Test(groups = "FUNCTIONAL")
 	public void testInformationOfMeetingIsDisplayed() {
-		HomeTabletPage home = new HomeTabletPage();
-		SchedulePage schedule = home
+		HomeTabletPage homeTabletPage = new HomeTabletPage();
+		SchedulePage schedulePage = homeTabletPage
 				.clickScheduleBtn()
 				.clickOverMeetingCreated(subject);
-		String actualOrganizer = schedule.getMeetingOrganizerValue();
-		String actualSubject = schedule.getMeetingSubjectValue();
-		String actualAttendee = schedule.getEmailAttendeeLblValue(attendee);
-		String actualBody = schedule.getBodyTxtBoxValue();
+		String actualOrganizer = schedulePage.getMeetingOrganizerValue();
+		String actualSubject = schedulePage.getMeetingSubjectValue();
+		String actualAttendee = schedulePage.getEmailAttendeeLblValue(attendee);
+		String actualBody = schedulePage.getBodyTxtBoxValue();
 
 		//Assertion TC19
-		Assert.assertEquals(organizer, actualOrganizer);
-		Assert.assertEquals(subject, actualSubject);
-		Assert.assertEquals(attendee, actualAttendee);
+		Assert.assertEquals(actualOrganizer, organizer);
+		Assert.assertEquals(actualSubject, subject);
+		Assert.assertEquals(actualAttendee, attendee);
 
 		//Assertion TC20
 		//Fails because the application does not save the body information 
-		Assert.assertEquals(body, actualBody);
+		Assert.assertEquals(actualBody, body);
 	}
 
 	@AfterMethod(groups = "FUNCTIONAL")

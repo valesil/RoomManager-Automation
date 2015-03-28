@@ -24,7 +24,7 @@ import framework.utils.readers.ExcelReader;
  * @author Asael Calizaya
  *
  */
-public class AMeetingCannotBeCreatedIfItHasConfilctsWithAnotherMeeting {
+public class AMeetingCannotBeCreatedWhenItHasConflictsWithAnotherMeeting {
 	private ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
 	private List<Map<String, String>> meetingData = excelReader.getMapValues("MeetingData");
 
@@ -48,7 +48,7 @@ public class AMeetingCannotBeCreatedIfItHasConfilctsWithAnotherMeeting {
 	}
 
 	@Test(groups = "FUNCTIONAL")
-	public void testAMeetingCannotBeCreatedIfItHasConfilctsWithAnotherMeeting() {
+	public void testAMeetingCannotBeCreatedWhenItHasConflictsWithAnotherMeeting() {
 		String newOrganizer = meetingData.get(2).get("Organizer");
 		String newSubject = meetingData.get(2).get("Subject");
 		String newStartTime = meetingData.get(2).get("Start time");
@@ -56,12 +56,12 @@ public class AMeetingCannotBeCreatedIfItHasConfilctsWithAnotherMeeting {
 		String newAttendee = meetingData.get(2).get("Attendee");
 		String newBody = meetingData.get(2).get("Body");
 		String newPassword = meetingData.get(2).get("Password");
-		HomeTabletPage homePage = new HomeTabletPage();
-		SchedulePage schedulePage = homePage.clickScheduleBtn();
+		HomeTabletPage homeTabletPage = new HomeTabletPage();
+		SchedulePage schedulePage = homeTabletPage.clickScheduleBtn();
 		schedulePage.createMeeting(newOrganizer, newSubject, newStartTime, 
 				newEndTime, newAttendee, newBody, newPassword);
 
-		//Fails because the message displayed is incorrect
+		//Fails because the error message is not related with the error
 		Assert.assertTrue(schedulePage.isMessageErrorCreationMeetingPopUpDisplayed());
 	}
 
