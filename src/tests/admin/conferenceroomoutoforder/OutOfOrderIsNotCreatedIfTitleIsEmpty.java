@@ -1,4 +1,4 @@
-package tests.admin.conferenceroomoutoforderplanning;
+package tests.admin.conferenceroomoutoforder;
 
 import static framework.common.AppConfigConstants.EXCEL_INPUT_DATA;
 
@@ -26,21 +26,25 @@ import framework.utils.readers.ExcelReader;
  *
  */
 public class OutOfOrderIsNotCreatedIfTitleIsEmpty {
-	RoomOutOfOrderPlanningPage outOfOrderPage;
-	
+	private RoomOutOfOrderPlanningPage outOfOrderPage;
+
 	@Test(groups = {"FUNCTIONAL", "UI"})
-	public void testOutOfOrderIsNotCreatedIfTitleIsEmpty() throws JSONException, MalformedURLException, IOException {
+	public void testOutOfOrderIsNotCreatedIfTitleIsEmpty() throws JSONException, 
+	MalformedURLException, IOException {
 		ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
 		List<Map<String, String>> testData = excelReader.getMapValues("OutOfOrderPlanning");
 		String roomName = testData.get(6).get("Room Name");
 		String title = testData.get(6).get("Title");
-		
+		String description = testData.get(6).get("Description");
+
 		//Out Of Order Creation
 		HomeAdminPage homeAdminPage = new HomeAdminPage(); 
 		RoomsPage roomsPage = homeAdminPage.clickConferenceRoomsLink();
 		RoomInfoPage roomInfoPage = roomsPage.doubleClickOverRoomName(roomName);
 		outOfOrderPage = roomInfoPage.clickOutOfOrderPlanningLink();
-		outOfOrderPage = outOfOrderPage.setTitleTxtBox(title)
+		outOfOrderPage = outOfOrderPage
+				.setDescriptionTxtBox(description)
+				.setTitleTxtBox(title)
 				.clickSaveWithErrorBtn();
 
 		//Assertion for TC22
@@ -51,7 +55,7 @@ public class OutOfOrderIsNotCreatedIfTitleIsEmpty {
 		Assert.assertTrue(outOfOrderPage.isOutOfOrderShouldHaveTitleErrorDisplayed());
 	}
 
-	@AfterMethod
+	@AfterMethod(groups = {"FUNCTIONAL", "UI"})
 	public void closeOutOfOrderPage() {
 		outOfOrderPage.clickCancelBtn();
 	}

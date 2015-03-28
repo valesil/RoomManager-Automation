@@ -81,7 +81,7 @@ public abstract class RoomBaseAbstractPage {
 	
 	/**
 	 * [YA]This method verifies if any error message is displayed
-	 * @return
+	 * @return boolean
 	 */
 	public boolean isErrorMessagePresent() {
 		return errorMessageLbl.isDisplayed();

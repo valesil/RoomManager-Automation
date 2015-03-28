@@ -1,4 +1,4 @@
-package tests.admin.conferenceroomoutoforderplanning;
+package tests.admin.conferenceroomoutoforder;
 
 import static framework.common.AppConfigConstants.EXCEL_INPUT_DATA;
 
@@ -29,43 +29,44 @@ import framework.utils.readers.ExcelReader;
  *
  */
 public class IfOutOfOrderIsCreatedInTheFutureCalendarIconEnablesOrDisablesIt {
-	ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
-	List<Map<String, String>> testData = excelReader.getMapValues("OutOfOrderPlanning");
-	String roomName = testData.get(2).get("Room Name");
-	String title = testData.get(2).get("Title");
+	private ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
+	private List<Map<String, String>> testData = excelReader.getMapValues("OutOfOrderPlanning");
+	private String roomName1 = testData.get(2).get("Room Name");
+	private String title = testData.get(2).get("Title");
 
 	@Test(groups = {"ACCEPTANCE", "FUNCTIONAL"})
 	public void testIfOutOfOrderIsCreatedInTheFutureCalendarIconEnablesOrDisablesIt() {
-		String startDate = testData.get(2).get("Start date");
-		String endDate = testData.get(2).get("End date");
+		String startDate = testData.get(2).get("Start date (days to add)");
+		String endDate = testData.get(2).get("End date (days to add)");
 		String startTime = testData.get(2).get("Start time (minutes to add)");
 		String endTime = testData.get(2).get("End time (minutes to add)");
 		String description = testData.get(2).get("Description");
-		String expectedIcon = testData.get(2).get("Icon").toLowerCase().replaceAll(" ", "");
+		String expectedIcon = testData.get(2).get("Icon").toLowerCase();
 		
 		//Out Of Order creation
 		HomeAdminPage homeAdminPage = new HomeAdminPage(); 
 		RoomsPage roomsPage = homeAdminPage.clickConferenceRoomsLink();
-		RoomInfoPage roomInfoPage = roomsPage.doubleClickOverRoomName(roomName);
+		RoomInfoPage roomInfoPage = roomsPage.doubleClickOverRoomName(roomName1);
 		RoomOutOfOrderPlanningPage outOfOrderPage = roomInfoPage.clickOutOfOrderPlanningLink();
 		roomsPage = outOfOrderPage
-				.setOutOfOrderPeriodInformation(startDate, endDate, startTime, endTime, title, description)
+				.setOutOfOrderPeriodInformation(startDate, endDate, startTime, endTime, title,
+						description)
 				.clickSaveOutOfOrderBtn();
 
 		//Assertion for TC04
-		Assert.assertTrue(roomsPage.getOutOfOrderIconClass(roomName).contains(expectedIcon));	
+		Assert.assertTrue(roomsPage.getOutOfOrderIconClass(roomName1).contains(expectedIcon));	
 
 		//Assertion for TC16
-		roomsPage.clickOutOfOrderIcon(roomName);
-		Assert.assertTrue(RootRestMethods.isOutOfOrderEnable(roomName, title));
+		roomsPage.clickOutOfOrderIcon(roomName1);
+		Assert.assertTrue(RootRestMethods.isOutOfOrderEnable(roomName1, title));
 
 		//Assertion for TC17
-		roomsPage.clickOutOfOrderIcon(roomName);
-		Assert.assertFalse(RootRestMethods.isOutOfOrderEnable(roomName, title));
+		roomsPage.clickOutOfOrderIcon(roomName1);
+		Assert.assertFalse(RootRestMethods.isOutOfOrderEnable(roomName1, title));
 	}
 
-	@AfterMethod
+	@AfterMethod(groups = {"ACCEPTANCE", "FUNCTIONAL"})
 	public void deleteOutOfOrder() throws MalformedURLException, IOException {
-		RootRestMethods.deleteOutOfOrder(roomName, title);
+		RootRestMethods.deleteOutOfOrder(roomName1, title);
 	}
 }

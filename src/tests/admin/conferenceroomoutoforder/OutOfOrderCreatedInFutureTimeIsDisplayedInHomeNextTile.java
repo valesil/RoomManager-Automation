@@ -1,4 +1,4 @@
-package tests.admin.conferenceroomoutoforderplanning;
+package tests.admin.conferenceroomoutoforder;
 
 import static framework.common.AppConfigConstants.EXCEL_INPUT_DATA;
 
@@ -16,31 +16,29 @@ import framework.pages.admin.conferencerooms.RoomInfoPage;
 import framework.pages.admin.conferencerooms.RoomOutOfOrderPlanningPage;
 import framework.pages.admin.conferencerooms.RoomsPage;
 import framework.pages.tablet.HomeTabletPage;
-import framework.pages.tablet.SchedulePage;
-import framework.pages.tablet.SearchPage;
 import framework.pages.tablet.SettingsPage;
 import framework.rest.RootRestMethods;
 import framework.utils.readers.ExcelReader;
 
 /**
- * TC07: Verify that an Out Of Order created is displayed in Scheduler page in Tablet
- * TC08: Verify that an Out Of Order created is displayed in Search page in Tablet
+ * TC10: Verify that an Out Of Order created in the future is displayed NEXT tile in Tablet's 
+ * HomePage if the room has no meetings scheduled
  * @author Yesica Acha
  *
  */
-public class OutOfOrderCreatedIsDispayedInTabletTimeline {
-	ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
-	List<Map<String, String>> testData = excelReader.getMapValues("OutOfOrderPlanning");
-	String roomName = testData.get(10).get("Room Name");
-	String title = testData.get(10).get("Title");
-
+public class OutOfOrderCreatedInFutureTimeIsDisplayedInHomeNextTile {
+	private ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
+	private List<Map<String, String>> testData = excelReader.getMapValues("OutOfOrderPlanning");
+	private String roomName = testData.get(2).get("Room Name");
+	private String title = testData.get(2).get("Title");
+	
 	@Test(groups = "ACCEPTANCE")
-	public void testOutOfOrderCreatedIsDispayedInTabletTimeline () throws InterruptedException {
-		String startDate = testData.get(10).get("Start date");
-		String endDate = testData.get(10).get("End date");
-		String startTime = testData.get(10).get("Start time (minutes to add)");
-		String endTime = testData.get(10).get("End time (minutes to add)");
-		String description = testData.get(10).get("Description");
+	public void testOutOfOrderCreatedInFutureTimeIsDisplayedInHomeNextTile() {
+		String startDate = testData.get(2).get("Start date (days to add)");
+		String endDate = testData.get(2).get("End date (days to add)");
+		String startTime = testData.get(2).get("Start time (minutes to add)");
+		String endTime = testData.get(2).get("End time (minutes to add)");
+		String description = testData.get(2).get("Description");
 		
 		//Out Of Order Creation in Admin
 		HomeAdminPage homeAdminPage = new HomeAdminPage(); 
@@ -48,25 +46,21 @@ public class OutOfOrderCreatedIsDispayedInTabletTimeline {
 		RoomInfoPage roomInfoPage = roomsPage.doubleClickOverRoomName(roomName);
 		RoomOutOfOrderPlanningPage outOfOrderPage = roomInfoPage.clickOutOfOrderPlanningLink();
 		roomsPage = outOfOrderPage
-				.setOutOfOrderPeriodInformation(startDate, endDate, startTime, endTime, title, description)
+				.setOutOfOrderPeriodInformation(startDate, endDate, startTime, endTime, title, 
+						description)
 				.activateOutOfOrder()
 				.clickSaveOutOfOrderBtn();
-
-		//Openning Tablet for assertions
+		
+		//Opening Tablet for assertions
 		HomeTabletPage homeTabletPage = new HomeTabletPage();
 		SettingsPage settingsPage = homeTabletPage.clickSettingsBtn();
 		homeTabletPage = settingsPage.selectRoom(roomName);
-		SchedulePage schedulePage = homeTabletPage.clickScheduleBtn();
-
-		//Assertion for TC07
-		Assert.assertTrue(schedulePage.isOutOfOrderBoxDisplayed(title));
-
-		//Assertion for TC08
-		SearchPage search = schedulePage.clickSearchBtn();
-		Assert.assertTrue(search.isOutOfOrderBoxDisplayed(title));
+				
+		//Assert for TC10
+		Assert.assertEquals(homeTabletPage.getNextTileLbl(), title);
 	}
-
-	@AfterClass
+	
+	@AfterClass(groups = "ACCEPTANCE")
 	public void deleteOutOfOrder() throws MalformedURLException, IOException{
 		RootRestMethods.deleteOutOfOrder(roomName, title);
 	}

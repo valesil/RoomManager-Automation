@@ -1,4 +1,4 @@
-package tests.admin.conferenceroomoutoforderplanning;
+package tests.admin.conferenceroomoutoforder;
 
 import static framework.common.AppConfigConstants.EXCEL_INPUT_DATA;
 
@@ -25,10 +25,10 @@ import framework.utils.readers.ExcelReader;
  *
  */
 public class OutOfOrderIsCreatedIfDescriptionIsEmpty {
-	ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
-	List<Map<String, String>> testData = excelReader.getMapValues("OutOfOrderPlanning");
-	String roomName = testData.get(8).get("Room Name");
-	String title = testData.get(8).get("Title");
+	private ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
+	private List<Map<String, String>> testData = excelReader.getMapValues("OutOfOrderPlanning");
+	private String roomName = testData.get(8).get("Room Name");
+	private String title = testData.get(8).get("Title");
 		
 	@Test(groups = "FUNCTIONAL")
 	public void testOutOfOrderIsCreatedIfDescriptionIsEmpty() throws JSONException, MalformedURLException, IOException {
@@ -52,7 +52,7 @@ public class OutOfOrderIsCreatedIfDescriptionIsEmpty {
 		Assert.assertTrue(roomsPage.isOutOfOrderIconDisplayed(roomName));
 	}
 	
-	@AfterMethod
+	@AfterMethod(groups = "FUNCTIONAL")
 	public void deleteOutOfOrder() throws MalformedURLException, IOException {
 		RootRestMethods.deleteOutOfOrder(roomName, title);
 	}

@@ -1,4 +1,4 @@
-package tests.admin.conferenceroomoutoforderplanning;
+package tests.admin.conferenceroomoutoforder;
 
 import static framework.common.AppConfigConstants.EXCEL_INPUT_DATA;
 
@@ -28,23 +28,25 @@ import framework.utils.readers.ExcelReader;
  *
  */
 public class OutOfOrderIsNotCreatedIfEndDateOccursBeforeStartDate {
-	RoomOutOfOrderPlanningPage outOfOrderPage;
-	
+	private RoomOutOfOrderPlanningPage outOfOrderPage;
+
 	@Test(groups = {"FUNCTIONAL", "UI"})
-	public void testOutOfOrderIsNotCreatedIfEndDateOccursBeforeStartDate() throws JSONException, MalformedURLException, IOException {
+	public void testOutOfOrderIsNotCreatedIfEndDateOccursBeforeStartDate() throws JSONException, 
+	MalformedURLException, IOException {
 		ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
 		List<Map<String, String>> testData = excelReader.getMapValues("OutOfOrderPlanning");
 		String title = testData.get(0).get("Title");
-		String startDate = testData.get(0).get("Start date");
-		String endDate = testData.get(0).get("End date");
+		String startDate = testData.get(0).get("Start date (days to add)");
+		String endDate = testData.get(0).get("End date (days to add)");
 		String roomName = testData.get(0).get("Room Name");
-		
+
 		//Out Of Order creation
 		HomeAdminPage homeAdminPage = new HomeAdminPage(); 
 		RoomsPage roomsPage = homeAdminPage.clickConferenceRoomsLink();
 		RoomInfoPage roomInfoPage = roomsPage.doubleClickOverRoomName(roomName);
 		outOfOrderPage = roomInfoPage.clickOutOfOrderPlanningLink();
-		outOfOrderPage = outOfOrderPage.setStartDateWithCalendar(startDate)
+		outOfOrderPage = outOfOrderPage
+				.setStartDateWithCalendar(startDate)
 				.setEndDateWithCalendar(endDate)
 				.clickSaveWithErrorBtn();
 
@@ -56,7 +58,7 @@ public class OutOfOrderIsNotCreatedIfEndDateOccursBeforeStartDate {
 		Assert.assertTrue(outOfOrderPage.isToGreaterThanFromErrorDisplayed());
 	}
 
-	@AfterMethod
+	@AfterMethod(groups = {"FUNCTIONAL", "UI"})
 	public void closeOutOfOrderPage() {
 		outOfOrderPage.clickCancelBtn();
 	}

@@ -1,4 +1,4 @@
-package tests.admin.conferenceroomoutoforderplanning;
+package tests.admin.conferenceroomoutoforder;
 
 import static framework.common.AppConfigConstants.EXCEL_INPUT_DATA;
 
@@ -28,16 +28,17 @@ import framework.utils.readers.ExcelReader;
  *
  */
 public class OutOfOrderIsNotCreatedIfEndTimeOccursBeforeStartTime {
-	RoomOutOfOrderPlanningPage outOfOrderPage;
-	
+	private RoomOutOfOrderPlanningPage outOfOrderPage;
+
 	@Test(groups = {"ACCEPTANCE", "UI"})
-	public void testOutOfOrderIsNotCreatedIfEndTimeOccursBeforeStartTime() throws JSONException, MalformedURLException, IOException {
+	public void testOutOfOrderIsNotCreatedIfEndTimeOccursBeforeStartTime() throws JSONException, 
+	MalformedURLException, IOException {
 		ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
 		List<Map<String, String>> testData = excelReader.getMapValues("OutOfOrderPlanning");
 		String roomName = testData.get(1).get("Room Name");
 		String title = testData.get(1).get("Title");
-		String startDate = testData.get(1).get("Start date");
-		String endDate = testData.get(1).get("End date");
+		String startDate = testData.get(1).get("Start date (days to add)");
+		String endDate = testData.get(1).get("End date (days to add)");
 		String startTime = testData.get(1).get("Start time (minutes to add)");
 		String endTime = testData.get(1).get("End time (minutes to add)");
 
@@ -61,7 +62,7 @@ public class OutOfOrderIsNotCreatedIfEndTimeOccursBeforeStartTime {
 		Assert.assertTrue(outOfOrderPage.isToGreaterThanFromErrorDisplayed());
 	}
 
-	@AfterMethod
+	@AfterMethod(groups = {"ACCEPTANCE", "UI"})
 	public void closeOutOfOrderPage() {
 		outOfOrderPage.clickCancelBtn();
 	}

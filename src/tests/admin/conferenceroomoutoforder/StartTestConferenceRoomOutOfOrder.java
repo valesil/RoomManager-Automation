@@ -1,4 +1,4 @@
-package tests.admin.conferenceroomoutoforderplanning;
+package tests.admin.conferenceroomoutoforder;
 
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterSuite;
@@ -6,15 +6,19 @@ import org.testng.annotations.BeforeSuite;
 
 import framework.selenium.SeleniumDriverManager;
 
-
+/**
+ * This class contains BeforeSuit and AfterSuit methods for conferenceRoomOutOfOrderSuite
+ * @author Yesica Acha
+ *
+ */
 public class StartTestConferenceRoomOutOfOrder {
 	WebDriver driver = SeleniumDriverManager.getManager().getDriver();
 
-	@BeforeSuite
+	@BeforeSuite(groups = {"ACCEPTANCE", "FUNCTIONAL", "NEGATIVE", "UI"})
 	public void start() {
 	}
 	
-	@AfterSuite
+	@AfterSuite(groups = {"ACCEPTANCE", "FUNCTIONAL", "NEGATIVE", "UI"})
 	public void end() {
 		driver.quit();
 	}

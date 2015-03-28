@@ -1,4 +1,4 @@
-package tests.admin.conferenceroomoutoforderplanning;
+package tests.admin.conferenceroomoutoforder;
 
 import static framework.common.AppConfigConstants.EXCEL_INPUT_DATA;
 
@@ -27,15 +27,15 @@ import framework.utils.readers.ExcelReader;
  *
  */
 public class OutOfOrderIsCreatedAndEnabled {
-	ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
-	List<Map<String, String>> testData = excelReader.getMapValues("OutOfOrderPlanning");
-	String roomName = testData.get(4).get("Room Name");
-	String title = testData.get(4).get("Title");
+	private ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
+	private List<Map<String, String>> testData = excelReader.getMapValues("OutOfOrderPlanning");
+	private String roomName = testData.get(4).get("Room Name");
+	private String title = testData.get(4).get("Title");
 		
 	@Test(groups = {"ACCEPTANCE", "UI"})
 	public void testOutOfOrderIsCreatedAndEnabled() throws JSONException, MalformedURLException, IOException {
-		String startDate = testData.get(4).get("Start date");
-		String endDate = testData.get(4).get("End date");
+		String startDate = testData.get(4).get("Start date (days to add)");
+		String endDate = testData.get(4).get("End time (minutes to add)");
 		String startTime = testData.get(4).get("Start time (minutes to add)");
 		String endTime = testData.get(4).get("End time (minutes to add)");
 		String description = testData.get(4).get("Description");
@@ -46,7 +46,8 @@ public class OutOfOrderIsCreatedAndEnabled {
 		RoomInfoPage roomInfoPage = roomsPage.doubleClickOverRoomName(roomName);
 		RoomOutOfOrderPlanningPage outOfOrderPage = roomInfoPage.clickOutOfOrderPlanningLink();
 		roomsPage = outOfOrderPage
-				.setOutOfOrderPeriodInformation(startDate, endDate, startTime, endTime, title, description)
+				.setOutOfOrderPeriodInformation(startDate, endDate, startTime, endTime, title, 
+						description)
 				.activateOutOfOrder()
 				.clickSaveOutOfOrderBtn();
 		
@@ -60,7 +61,7 @@ public class OutOfOrderIsCreatedAndEnabled {
 		Assert.assertTrue(roomsPage.isOutOfOrderSuccessfullyCreatedMessageDisplayed());
 	}
 	
-	@AfterMethod
+	@AfterMethod(groups = {"ACCEPTANCE", "UI"})
 	public void deleteOutOfOrder() throws MalformedURLException, IOException {
 		RootRestMethods.deleteOutOfOrder(roomName, title);
 	}

@@ -1,4 +1,4 @@
-package tests.admin.conferenceroomoutoforderplanning;
+package tests.admin.conferenceroomoutoforder;
 
 import static framework.common.AppConfigConstants.EXCEL_INPUT_DATA;
 
@@ -29,15 +29,15 @@ import framework.utils.readers.ExcelReader;
  *
  */
 public class IfOutOfOrderIsCreatedInThePresentClockIconEnablesOrDisablesIt {
-	ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
-	List<Map<String, String>> testData = excelReader.getMapValues("OutOfOrderPlanning");
-	String roomName = testData.get(3).get("Room Name");
-	String title = testData.get(3).get("Title");
+	private ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
+	private List<Map<String, String>> testData = excelReader.getMapValues("OutOfOrderPlanning");
+	private String roomName = testData.get(3).get("Room Name");
+	private String title = testData.get(3).get("Title");
 
 	@Test(groups = {"ACCEPTANCE", "FUNCTIONAL"})
 	public void testIfOutOfOrderIsCreatedInThePresentClockIconEnablesOrDisablesIt() {
-		String startDate = testData.get(3).get("Start date");
-		String endDate = testData.get(3).get("End date");
+		String startDate = testData.get(3).get("Start date (days to add)");
+		String endDate = testData.get(3).get("End date (days to add)");
 		String startTime = testData.get(3).get("Start time (minutes to add)");
 		String endTime = testData.get(3).get("End time (minutes to add)");
 		String description = testData.get(3).get("Description");
@@ -49,7 +49,8 @@ public class IfOutOfOrderIsCreatedInThePresentClockIconEnablesOrDisablesIt {
 		RoomInfoPage roomInfoPage = roomsPage.doubleClickOverRoomName(roomName);
 		RoomOutOfOrderPlanningPage outOfOrderPage = roomInfoPage.clickOutOfOrderPlanningLink();
 		roomsPage = outOfOrderPage
-				.setOutOfOrderPeriodInformation(startDate, endDate, startTime, endTime, title, description)
+				.setOutOfOrderPeriodInformation(startDate, endDate, startTime, endTime, title, 
+						description)
 				.clickSaveOutOfOrderBtn();
 
 		//Assertion for TC05
@@ -64,7 +65,7 @@ public class IfOutOfOrderIsCreatedInThePresentClockIconEnablesOrDisablesIt {
 		Assert.assertFalse(RootRestMethods.isOutOfOrderEnable(roomName, title));
 	}
 
-	@AfterMethod
+	@AfterMethod(groups = {"ACCEPTANCE", "FUNCTIONAL"})
 	public void deleteOutOfOrder() throws MalformedURLException, IOException {
 		RootRestMethods.deleteOutOfOrder(roomName, title);
 	}

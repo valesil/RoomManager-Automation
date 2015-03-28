@@ -1,4 +1,4 @@
-package tests.admin.conferenceroomoutoforderplanning;
+package tests.admin.conferenceroomoutoforder;
 
 import static framework.common.AppConfigConstants.EXCEL_INPUT_DATA;
 
@@ -27,10 +27,11 @@ import framework.utils.readers.ExcelReader;
  *
  */
 public class OutOfOrderIsNotCreatedIfStartTimeAndEndTimeAreInThePast {
-	RoomOutOfOrderPlanningPage outOfOrderPage;
+	private RoomOutOfOrderPlanningPage outOfOrderPage;
 	
 	@Test(groups = {"ACCEPTANCE", "UI"})
-	public void testOutOfOrderIsNotCreatedIfStartTimeAndEndTimeAreInThePast() throws JSONException, MalformedURLException, IOException {
+	public void testOutOfOrderIsNotCreatedIfStartTimeAndEndTimeAreInThePast() throws JSONException, 
+	MalformedURLException, IOException {
 		ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
 		List<Map<String, String>> testData = excelReader.getMapValues("OutOfOrderPlanning");
 		String roomName = testData.get(5).get("Room Name");
@@ -56,7 +57,7 @@ public class OutOfOrderIsNotCreatedIfStartTimeAndEndTimeAreInThePast {
 		Assert.assertTrue(outOfOrderPage.isOutOfOrderInThePastErrorDisplayed());
 	}
 	
-	@AfterMethod
+	@AfterMethod(groups = {"ACCEPTANCE", "UI"})
 	public void closeOutOfOrderPage() {
 		outOfOrderPage.clickCancelBtn();
 	}

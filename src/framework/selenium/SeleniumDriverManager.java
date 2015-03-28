@@ -58,7 +58,7 @@ public class SeleniumDriverManager {
 	}
 
 	public static SeleniumDriverManager getManager() {
-		if (manager == null) {
+		if (manager == null || manager.driver == null) {
 			manager = new SeleniumDriverManager();
 		}
 		return manager;

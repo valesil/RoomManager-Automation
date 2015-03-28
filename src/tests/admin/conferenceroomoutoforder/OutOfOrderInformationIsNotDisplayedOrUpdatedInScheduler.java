@@ -1,4 +1,4 @@
-package tests.admin.conferenceroomoutoforderplanning;
+package tests.admin.conferenceroomoutoforder;
 
 import static framework.common.AppConfigConstants.EXCEL_INPUT_DATA;
 
@@ -8,7 +8,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.junit.Assert;
-import org.testng.annotations.AfterClass;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import framework.pages.admin.HomeAdminPage;
@@ -19,6 +20,7 @@ import framework.pages.tablet.HomeTabletPage;
 import framework.pages.tablet.SchedulePage;
 import framework.pages.tablet.SettingsPage;
 import framework.rest.RootRestMethods;
+import framework.utils.DataProviders;
 import framework.utils.readers.ExcelReader;
 
 /**
@@ -30,18 +32,22 @@ import framework.utils.readers.ExcelReader;
  *
  */
 public class OutOfOrderInformationIsNotDisplayedOrUpdatedInScheduler {
-	ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
-	List<Map<String, String>> testData = excelReader.getMapValues("OutOfOrderPlanning");
-	String roomName = testData.get(10).get("Room Name");
-	String title = testData.get(10).get("Title");
+	private ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
+	private List<Map<String, String>> testData = excelReader.getMapValues("OutOfOrderPlanning");
+	private String roomName = testData.get(2).get("Room Name");
+	private String title = testData.get(2).get("Title");
 	
-	@Test(groups = "ACCEPTANCE")
-	public void testOutOfOrderInformationIsNotDisplayedOrUpdatedInScheduler() {
-		String startDate = testData.get(10).get("Start date");
-		String endDate = testData.get(10).get("End date");
-		String startTime = testData.get(10).get("Start time (minutes to add)");
-		String endTime = testData.get(10).get("End time (minutes to add)");
-		String description = testData.get(10).get("Description");
+	@BeforeClass(groups = "ACCEPTANCE")
+	public void selectRoomInTablet() {
+		HomeTabletPage homeTabletPage = new HomeTabletPage();
+		SettingsPage settingsPage = homeTabletPage.clickSettingsBtn();
+		homeTabletPage = settingsPage.selectRoom(roomName);
+	}
+	
+	@Test(dataProvider = "OutOfOrderData", dataProviderClass = DataProviders.class, 
+			groups = "ACCEPTANCE")
+	public void testOutOfOrderInformationIsNotDisplayedOrUpdatedInScheduler(String description, String startDate, 
+			String endDate, String startTime, String endTime) {
 		
 		//Out Of Order Creation in Admin
 		HomeAdminPage homeAdminPage = new HomeAdminPage(); 
@@ -55,11 +61,9 @@ public class OutOfOrderInformationIsNotDisplayedOrUpdatedInScheduler {
 		
 		//Openning Tablet for assertions
 		HomeTabletPage homeTabletPage = new HomeTabletPage();
-		SettingsPage settingsPage = homeTabletPage.clickSettingsBtn();
-		homeTabletPage = settingsPage.selectRoom(roomName);
 		SchedulePage schedulerPage = homeTabletPage
 				.clickScheduleBtn()
-				.clickOverMeetingCreated(title);
+				.clickOverOutOfOrder(title);
 		
 		//Assertion for TC12
 		Assert.assertTrue(schedulerPage.getMeetingOrganizerValue().isEmpty());
@@ -69,7 +73,7 @@ public class OutOfOrderInformationIsNotDisplayedOrUpdatedInScheduler {
 		Assert.assertFalse(schedulerPage.isUpdateBtnPresent());
 	}
 	
-	@AfterClass
+	@AfterMethod(groups = "ACCEPTANCE")
 	public void deleteOutOfOrder() throws MalformedURLException, IOException{
 		RootRestMethods.deleteOutOfOrder(roomName, title);
 	}

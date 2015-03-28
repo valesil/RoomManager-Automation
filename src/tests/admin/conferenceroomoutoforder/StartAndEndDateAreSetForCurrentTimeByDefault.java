@@ -1,4 +1,4 @@
-package tests.admin.conferenceroomoutoforderplanning;
+package tests.admin.conferenceroomoutoforder;
 
 import static framework.common.AppConfigConstants.EXCEL_INPUT_DATA;
 
@@ -25,7 +25,7 @@ import framework.utils.readers.ExcelReader;
  *
  */
 public class StartAndEndDateAreSetForCurrentTimeByDefault {
-	RoomOutOfOrderPlanningPage outOfOrderPage;
+	private RoomOutOfOrderPlanningPage outOfOrderPage;
 		
 	@Test(groups = "UI")
 	public void testStartAndEndDateIsSetForCurrentTimeByDefault() {
@@ -47,7 +47,7 @@ public class StartAndEndDateAreSetForCurrentTimeByDefault {
 		Assert.assertEquals(outOfOrderPage.getEndDateValue(), currentDate);
 	}
 	
-	@AfterMethod
+	@AfterMethod(groups = "UI")
 	public void closeOutOfOrderPage() {
 		outOfOrderPage.clickCancelBtn();
 	}
