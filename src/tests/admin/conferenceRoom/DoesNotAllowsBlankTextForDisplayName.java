@@ -25,13 +25,15 @@ public class DoesNotAllowsBlankTextForDisplayName {
 	//empty string to set room display name
 	private String empty = "";
 	
-	@Test(groups = {"NEGATIVE"})
+	@Test(groups = "NEGATIVE")
 	public void testDoesNotAllowsBlankTextForDisplayName() {
+		
 		//reading to excel to create variables
 		ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
 		List<Map<String, String>> roomList = excelReader.getMapValues("RoomInfo");
 		String displayName = roomList.get(0).get("DisplayName");
 
+		//navigate to home admin page
 		HomeAdminPage homeAdminPage = new HomeAdminPage();
 		RoomsPage roomsPage = homeAdminPage.clickConferenceRoomsLink();
 		RoomInfoPage roomInfoPage = roomsPage.doubleClickOverRoomName(displayName);
@@ -43,7 +45,7 @@ public class DoesNotAllowsBlankTextForDisplayName {
 		Assert.assertEquals(errorMessage, ROOM_DISPLAY_NAME_EMPTY);
 	}
 	
-	@AfterClass(groups = {"NEGATIVE"})
+	@AfterClass(groups = "NEGATIVE")
 	public void postcondition() {
 		RoomInfoPage roomInfoPage = new RoomInfoPage();
 		roomInfoPage.clickCancelBtn();

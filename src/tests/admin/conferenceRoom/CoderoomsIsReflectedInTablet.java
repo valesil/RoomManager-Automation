@@ -30,7 +30,7 @@ public class CoderoomsIsReflectedInTablet {
 	private String roomCode = roomList.get(0).get("Code");
 	private String empty = "";
 	
-	@Test(groups = {"FUNCTIONAL"})
+	@Test(groups = "FUNCTIONAL")
 	public void testChangesInRoomCodeAreReflectedIntablet() {
 		HomeAdminPage homeAdminPage = new HomeAdminPage();
 		RoomsPage roomsPage = homeAdminPage.clickConferenceRoomsLink();
@@ -38,10 +38,12 @@ public class CoderoomsIsReflectedInTablet {
 		roomInfoPage.setRoomCode(roomCode)
 			.clickCancelBtn();
 		
+		//get room saved room code
 		String savedCode = roomsPage.doubleClickOverRoomName(displayName)
 			.getRoomCode();  
 		roomInfoPage.clickCancelBtn();
 		
+		//navigate to tablet
 		HomeTabletPage homeTabletPage = new HomeTabletPage();
 		SettingsPage settingsPage = homeTabletPage.clickSettingsBtn();
 		settingsPage.selectRoom(displayName);   
@@ -51,7 +53,7 @@ public class CoderoomsIsReflectedInTablet {
 		Assert.assertEquals(savedCode, tabletRoomCode);
 	}
 	
-	@AfterClass(groups = {"FUNCTIONAL"})
+	@AfterClass(groups = "FUNCTIONAL")
 	public void postcondition() {
 		HomeAdminPage homeAdminPage = new HomeAdminPage();
 		RoomsPage roomsPage = homeAdminPage.clickConferenceRoomsLink();

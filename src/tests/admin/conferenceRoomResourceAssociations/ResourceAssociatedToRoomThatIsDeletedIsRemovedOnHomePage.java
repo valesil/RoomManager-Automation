@@ -65,6 +65,7 @@ public class ResourceAssociatedToRoomThatIsDeletedIsRemovedOnHomePage {
 
 	@Test(groups = {"FUNCTIONAL"})
 	public void testResourcesAssociatedToRoomthatIsDeletedIsRemovedOnHomePage() {
+		
 		//reading to excel to create variables of room
 		ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
 		List<Map<String, String>> testData2 = excelReader.getMapValues("RoomInfo");
@@ -72,6 +73,7 @@ public class ResourceAssociatedToRoomThatIsDeletedIsRemovedOnHomePage {
 		String amount = testData2.get(0).get("Quantity");
 		String displayName = testData2.get(0).get("DisplayName");
         
+		//navigate to home admin page
 		HomeAdminPage homeAdminPage = new HomeAdminPage();
 		RoomsPage roomsPage = homeAdminPage.clickConferenceRoomsLink();
 		RoomInfoPage roomInfoPage = roomsPage.doubleClickOverRoomName(displayName);
@@ -82,6 +84,7 @@ public class ResourceAssociatedToRoomThatIsDeletedIsRemovedOnHomePage {
 		resourceAssociation.removeResourceFromAssociatedList(resourceName)
 			.clickSaveBtn();
 
+		//navigate to tablet
 		HomeTabletPage homeTabletPage = new HomeTabletPage();
 		SettingsPage settingsPage = homeTabletPage.clickSettingsBtn();
 		settingsPage.selectRoom(displayName);
@@ -90,8 +93,9 @@ public class ResourceAssociatedToRoomThatIsDeletedIsRemovedOnHomePage {
 		Assert.assertFalse(homeTabletPage.VerifyResourceIsAsociated(resourceName, amount));
 	}
 	
-	@AfterClass(groups = {"FUNCTIONAL"})
+	@AfterClass(groups = "FUNCTIONAL")
 	public void cleanRoom() throws InterruptedException, BiffException, IOException {
+		
 		//Delete resource
 	    RootRestMethods.deleteResource(resourceName);
 	    UIMethods.refresh();

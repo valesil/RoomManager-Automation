@@ -34,7 +34,7 @@ public class RoomDisplayNameCanBeChanged {
 	private String location = roomList.get(0).get("Location");
 	private String empty = "";
 
-	@Test(groups = {"FUNCTIONAL"})
+	@Test(groups = "FUNCTIONAL")
 	public void testDisplayNameRoomsCanBeChanged() {
 		HomeAdminPage homeAdminPage = new HomeAdminPage();
 		RoomsPage roomsPage = homeAdminPage.clickConferenceRoomsLink();
@@ -60,8 +60,10 @@ public class RoomDisplayNameCanBeChanged {
 		Assert.assertEquals(roomInfoPage.getRoomLocation(), location);
 	}
 
-	@AfterClass(groups = {"FUNCTIONAL"})
+	@AfterClass(groups = "FUNCTIONAL")
 	public void postcondition() {
+		
+		//clean the modified room with a empty value
 		RoomInfoPage roomInfoPage = new RoomInfoPage();
 		roomInfoPage.setDisplayName(displayName)
 			.setRoomCode(empty)

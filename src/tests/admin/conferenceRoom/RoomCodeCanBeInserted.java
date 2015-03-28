@@ -20,20 +20,23 @@ import framework.utils.readers.ExcelReader;
  */
 public class RoomCodeCanBeInserted {
 	
-	@Test(groups = {"FUNCTIONAL"})
+	@Test(groups = "FUNCTIONAL")
 	public void testRoomCodeCanBeInserted() {
+		
 		//reading to excel to create variables
 		ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
 		List<Map<String, String>> roomList = excelReader.getMapValues("RoomInfo");
 		String displayName = roomList.get(0).get("DisplayName");// "room01 changed";	  	  
 		String roomCode = roomList.get(0).get("Code");
 
+		//navigate to home admin page
 		HomeAdminPage homeAdminPage = new HomeAdminPage();
 		RoomsPage roomsPage = homeAdminPage.clickConferenceRoomsLink();
 		RoomInfoPage roomInfoPage = roomsPage.doubleClickOverRoomName(displayName);
 		roomInfoPage.setRoomCode(roomCode)
 			.clickSaveBtn();
 
+		//get room code
 		String getCode = roomsPage.doubleClickOverRoomName(displayName)
 			.getRoomCode();
 		roomInfoPage.clickCancelBtn();

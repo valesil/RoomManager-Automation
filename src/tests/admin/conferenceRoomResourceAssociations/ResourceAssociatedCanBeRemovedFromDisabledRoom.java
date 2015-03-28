@@ -39,7 +39,7 @@ public class ResourceAssociatedCanBeRemovedFromDisabledRoom {
 	private String resourceDescription = roomList.get(0).get("Description");
 	private String iconTitle = roomList.get(0).get("Icon");	
 
-	@BeforeClass(groups = {"FUNCTIONAL"})
+	@BeforeClass(groups = "FUNCTIONAL")
 	public void precondition() {
 		HomeAdminPage homeAdminPage = new HomeAdminPage();
 		ResourcesPage resourcesPage = homeAdminPage.clickResourcesLink();	
@@ -61,14 +61,16 @@ public class ResourceAssociatedCanBeRemovedFromDisabledRoom {
 			.clickSaveBtn();
 	}
 
-	@Test(groups = {"FUNCTIONAL"})
+	@Test(groups = "FUNCTIONAL")
 	public void testResourcesAssociatedCanBeRemovedFromDisabledRoom() {
+		
 		//reading to excel to create variables
 		ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
 		List<Map<String, String>> testData = excelReader.getMapValues("RoomInfo");
 		String roomDisplayName = roomName;
 		String resourceName = testData.get(0).get("AssociatedResource");
 		
+		//navigate to home admin page
 		HomeAdminPage homeAdminPage = new HomeAdminPage();
 		RoomsPage roomsPage = homeAdminPage.clickConferenceRoomsLink();
 		roomsPage.enableDisableIcon(roomDisplayName);
@@ -81,7 +83,7 @@ public class ResourceAssociatedCanBeRemovedFromDisabledRoom {
 		Assert.assertTrue(resourceAssociation.searchResource(resourceName));
 	}
 
-	@AfterClass(groups = {"FUNCTIONAL"})
+	@AfterClass(groups = "FUNCTIONAL")
 	public void cleanRoom() throws InterruptedException, BiffException, IOException {
 		RoomsPage roomsPage = new RoomsPage();
 		roomsPage.enableDisableIcon(roomName);

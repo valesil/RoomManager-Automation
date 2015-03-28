@@ -32,7 +32,7 @@ public class ChangesInCapacityisReflectedInTablet {
 	private String capacity = roomList.get(0).get("Capacity");
 	private String empty = "";
 
-	@Test(groups = {"FUNCTIONAL"})
+	@Test(groups = "FUNCTIONAL")
 	public void testChangesInCapacityisReflectedInTablet() {
 		HomeAdminPage homeAdminPage = new HomeAdminPage();
 		RoomsPage roomsPage = homeAdminPage.clickConferenceRoomsLink();
@@ -40,6 +40,7 @@ public class ChangesInCapacityisReflectedInTablet {
 		roomInfoPage.setRoomCapacity(capacity)
 			.clickSaveBtn();
 		
+		//navigate to tablet
 		HomeTabletPage homeTabletPage = new HomeTabletPage();
 		SettingsPage settingsPage = homeTabletPage.clickSettingsBtn();
 		settingsPage.selectRoom(displayName);
@@ -51,7 +52,7 @@ public class ChangesInCapacityisReflectedInTablet {
         Assert.assertTrue(searchPage.roomIsDiplayed(displayName));
 	}
 
-	@AfterClass(groups = {"FUNCTIONAL"})
+	@AfterClass(groups = "FUNCTIONAL")
 	public void postcondition() {
 		HomeAdminPage homeAdminPage = new HomeAdminPage();
 		RoomsPage roomsPage = homeAdminPage.clickConferenceRoomsLink();
@@ -60,7 +61,6 @@ public class ChangesInCapacityisReflectedInTablet {
 		//clean room capacity 
 		roomInfoPage.setRoomCapacity(empty)
 			.clickSaveBtn();
-		
 		UIMethods.refresh();
 	}
 }

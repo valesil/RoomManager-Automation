@@ -42,7 +42,7 @@ public class ResourcesAssociatedToRoomAreDisplayedOnHomePage {
 	private String iconTitle = roomList.get(0).get("Icon");	
 	private String quantity = roomList.get(0).get("Value");
     	
-	@BeforeClass(groups = {"FUNCTIONAL"})
+	@BeforeClass(groups = "FUNCTIONAL")
 	public void precondition() {
 		HomeAdminPage homeAdminPage = new HomeAdminPage();
 		ResourcesPage resourcesPage = homeAdminPage.clickResourcesLink();	
@@ -66,11 +66,13 @@ public class ResourcesAssociatedToRoomAreDisplayedOnHomePage {
 
 	@Test(groups = {"FUNCTIONAL"})
 	public void testResourcesAssociatedToRoomAreDisplayedOnHomePage() throws BiffException, IOException {
+		
 		//reading to excel to create variables
 		ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
 		List<Map<String, String>> testData2 = excelReader.getMapValues("RoomInfo");
 		String displayName = testData2.get(0).get("DisplayName").trim();		
 
+		//navigate to tablet for select a room
 		HomeTabletPage homeTabletPage = new HomeTabletPage();
 		SettingsPage settingsPage = homeTabletPage.clickSettingsBtn();
 		settingsPage.selectRoom(displayName);
@@ -81,6 +83,7 @@ public class ResourcesAssociatedToRoomAreDisplayedOnHomePage {
 
 	@AfterClass(groups = {"FUNCTIONAL"})
 	public void cleanRoom() throws InterruptedException, BiffException, IOException {
+		
 		//Delete resource
 	    RootRestMethods.deleteResource(resourceName);
 	    UIMethods.refresh();

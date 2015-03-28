@@ -34,7 +34,7 @@ public class SaveButtonSaveChangesMadeInRoomInfoPage {
 	private String roomCode = roomList.get(0).get("Code");
 	private String empty = "";
 	
-	@Test(groups = {"FUNCTIONAL"})
+	@Test(groups = "FUNCTIONAL")
 	public void testSaveButtonSaveChangesMadeInRoomInfoPage() throws JSONException, 
 	MalformedURLException, IOException {
 		HomeAdminPage homeAdminPage = new HomeAdminPage();
@@ -50,7 +50,7 @@ public class SaveButtonSaveChangesMadeInRoomInfoPage {
 		Assert.assertTrue(roomsPage.verifyChangesMade(displayName));
 	}
 	
-	@AfterTest(groups = {"FUNCTIONAL"})
+	@AfterTest(groups = "FUNCTIONAL")
 	public void postcondition() {
 		RoomsPage roomsPage = new RoomsPage();
 		RoomInfoPage roomInfoPage = roomsPage.doubleClickOverRoomName(displayName);

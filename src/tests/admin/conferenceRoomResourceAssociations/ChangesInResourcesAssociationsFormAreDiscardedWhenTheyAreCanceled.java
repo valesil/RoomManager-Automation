@@ -40,7 +40,7 @@ public class ChangesInResourcesAssociationsFormAreDiscardedWhenTheyAreCanceled {
 	private String resourceDescription = roomList.get(0).get("Description");
 	private String iconTitle = roomList.get(0).get("Icon");
 
-	@BeforeClass(groups = {"FUNCTIONAL"})
+	@BeforeClass(groups = "FUNCTIONAL")
 	public void precondition() throws BiffException, IOException {
 		HomeAdminPage homeAdminPage = new HomeAdminPage();
 		ResourcesPage resourcesPage = homeAdminPage.clickResourcesLink();	
@@ -55,8 +55,9 @@ public class ChangesInResourcesAssociationsFormAreDiscardedWhenTheyAreCanceled {
 			.clickSaveResourceBtn();
 	}
 
-	@Test(groups = {"FUNCTIONAL"})
+	@Test(groups = "FUNCTIONAL")
 	public void testChangesInResourcesAssociationsFormAreDiscardedWhenTheyAreCanceled() {
+		
 		//reading to excel to create variables
 		ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
 		List<Map<String, String>> testData = excelReader.getMapValues("RoomInfo");
@@ -64,6 +65,7 @@ public class ChangesInResourcesAssociationsFormAreDiscardedWhenTheyAreCanceled {
 		String quantityToAdd = testData.get(0).get("ValueToModify").trim();
 		String roomName = testData.get(0).get("DisplayName");
 		
+		//navigate to home admin page
 		HomeAdminPage homeAdminPage = new HomeAdminPage();
 		RoomsPage roomsPage = homeAdminPage.clickConferenceRoomsLink();
 		RoomInfoPage roomInfoPage = roomsPage.doubleClickOverRoomName(roomName);
@@ -85,7 +87,7 @@ public class ChangesInResourcesAssociationsFormAreDiscardedWhenTheyAreCanceled {
 		Assert.assertTrue(existChanges);	
 	}
 
-	@AfterClass(groups = {"FUNCTIONAL"})
+	@AfterClass(groups = "FUNCTIONAL")
 	public void cleanRoom() throws MalformedURLException, IOException {
 		//Delete resource
 		RootRestMethods.deleteResource(resourceName);

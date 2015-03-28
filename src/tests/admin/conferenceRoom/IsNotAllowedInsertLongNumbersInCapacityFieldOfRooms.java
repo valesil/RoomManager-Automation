@@ -29,7 +29,7 @@ public class IsNotAllowedInsertLongNumbersInCapacityFieldOfRooms {
 	private String capacity = roomList.get(0).get("longValues");
 	private String empty = "";
 	
-	@Test(groups = {"NEGATIVE"})
+	@Test(groups = "NEGATIVE")
 	public void testIsNotAllowedInsertLongNumbersInCapacityFieldOfRooms() {
 		HomeAdminPage homeAdminPage = new HomeAdminPage();
 		RoomsPage roomsPage = homeAdminPage.clickConferenceRoomsLink();
@@ -37,13 +37,15 @@ public class IsNotAllowedInsertLongNumbersInCapacityFieldOfRooms {
 		roomInfoPage.setRoomCapacity(capacity)
 			.clickSaveBtn();
 		roomsPage.doubleClickOverRoomName(displayName);
+		
+		//get the modified room capacity
 		String newCapacity = roomInfoPage.getRoomCapacity();
 		
 		//Assertion for TC13
 		Assert.assertTrue(roomInfoPage.capacityIsLong(newCapacity));
 	}
 	
-	@AfterClass(groups = {"NEGATIVE"})
+	@AfterClass(groups = "NEGATIVE")
 	public void postcondition() {
 		RoomInfoPage roomInf = new RoomInfoPage();
 		

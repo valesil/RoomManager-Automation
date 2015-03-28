@@ -33,7 +33,7 @@ public class DisplayNameIsReflectedInTablet {
 	private String displayName = roomList.get(0).get("DisplayName");	  	  
 	private String newDisplayName = roomList.get(0).get("NewDisplayName");	  	  
 	
-	@Test(groups = {"FUNCTIONAL"})
+	@Test(groups = "FUNCTIONAL")
 	public void testChangesInDisplayNameAreReflectedIntablet() throws InterruptedException, IOException, BiffException {
 		HomeAdminPage homeAdminPage = new HomeAdminPage();
 		RoomsPage roomsPage = homeAdminPage.clickConferenceRoomsLink();
@@ -41,7 +41,10 @@ public class DisplayNameIsReflectedInTablet {
 		roomInfoPage.setDisplayName(newDisplayName)
 			.clickSaveBtn();		
 		
+		//get the modified room display name
 		String savedDisplayName = roomsPage.getRoomDisplayName(newDisplayName);
+		
+		//navigate to tablet
 		HomeTabletPage homeTabletPage = new HomeTabletPage();
 		SettingsPage settingsPage = homeTabletPage.clickSettingsBtn();
 		settingsPage.selectRoom(newDisplayName); 	   
@@ -51,7 +54,7 @@ public class DisplayNameIsReflectedInTablet {
 		Assert.assertEquals(savedDisplayName, tabletDisplayName);
 	}
 	
-	@AfterClass(groups = {"FUNCTIONAL"})
+	@AfterClass(groups = "FUNCTIONAL")
 	public void preconditions() throws InterruptedException, BiffException, IOException{
 		HomeAdminPage homeAdminPage = new HomeAdminPage();
 		RoomsPage roomsPage = homeAdminPage.clickConferenceRoomsLink();

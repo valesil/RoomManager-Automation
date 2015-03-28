@@ -29,7 +29,7 @@ public class IsNotAllowedInsertNonNumberInputsIntoCapacityFieldOfRooms {
 	private String displayName = roomList.get(0).get("DisplayName");	  	  
 	private String capacity = roomList.get(0).get("invalidCapacity");
 	
-	@Test(groups = {"NEGATIVE"})
+	@Test(groups = "NEGATIVE")
 	public void testIsNotAllowedInsertNonNumberInputsIntoCapacityFieldOfRooms() {
 		HomeAdminPage homeAdminPage = new HomeAdminPage();
 		RoomsPage roomsPage = homeAdminPage.clickConferenceRoomsLink();
@@ -44,7 +44,7 @@ public class IsNotAllowedInsertNonNumberInputsIntoCapacityFieldOfRooms {
 		Assert.assertNotEquals(capacity, newCapacity);
 	}
 	
-	@AfterClass(groups = {"NEGATIVE"})
+	@AfterClass(groups = "NEGATIVE")
 	private void precondition() {
 		UIMethods.refresh();
 	}

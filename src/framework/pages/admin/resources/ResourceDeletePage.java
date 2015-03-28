@@ -33,7 +33,6 @@ public class ResourceDeletePage extends ResourceBaseAbstractPage {
 	public ResourcesPage clickConfirmRemoveBtn() {
 		wait.until(ExpectedConditions.elementToBeClickable(confirmRemoveBtn));
 		confirmRemoveBtn.click();
-		UIMethods.waitForMaskDisappears(background);
 		return new ResourcesPage();
 	}
 }

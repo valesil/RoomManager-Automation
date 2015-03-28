@@ -31,7 +31,7 @@ public class RoomAvailabilityCanBeDisableFromRoomInfoPage {
 	private String displayName = roomList.get(0).get("DisplayName");
 	private String auxRoom = roomList.get(1).get("DisplayName");
 	
-	@Test(groups = {"FUNCTIONAL"})
+	@Test(groups = "FUNCTIONAL")
 	public void testRoomAvailabilityCanBeDisableFromRoomInfoPage() {
 		HomeAdminPage homeAdminPage = new HomeAdminPage();
 		RoomsPage roomsPage = homeAdminPage.clickConferenceRoomsLink();
@@ -39,6 +39,7 @@ public class RoomAvailabilityCanBeDisableFromRoomInfoPage {
 		roomInfoPage.clickDisableIcon()
 			.clickSaveBtn();
 		
+		//navigate to tablet
 		HomeTabletPage homeTabletPage = new HomeTabletPage();
 		SettingsPage settingsPage = homeTabletPage.clickSettingsBtn();
 		settingsPage.selectRoom(auxRoom);
@@ -48,7 +49,7 @@ public class RoomAvailabilityCanBeDisableFromRoomInfoPage {
 		Assert.assertFalse(searchPage.roomIsDiplayed(displayName));
 	}
 	
-	@AfterClass(groups = {"FUNCTIONAL"})
+	@AfterClass(groups = "FUNCTIONAL")
 	public void cleanRoom() {
 		HomeAdminPage homeAdminPage = new HomeAdminPage();
 		RoomsPage roomsPage = homeAdminPage.clickConferenceRoomsLink();

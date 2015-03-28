@@ -30,7 +30,7 @@ public class RoomAvailabilityCanBeEnableFromRoomInfoPage {
 	private String displayName = roomList.get(0).get("DisplayName");
 	private String auxRoom = roomList.get(1).get("DisplayName");
 
-	@BeforeClass(groups = {"FUNCTIONAL"})
+	@BeforeClass(groups = "FUNCTIONAL")
 	public void precondition() {
 		HomeAdminPage homeAdminPage = new HomeAdminPage();
 		RoomsPage roomsPage = homeAdminPage.clickConferenceRoomsLink();
@@ -39,7 +39,7 @@ public class RoomAvailabilityCanBeEnableFromRoomInfoPage {
 		roomsPage.enableDisableIcon(displayName);
 	}
 	
-	@Test(groups = {"FUNCTIONAL"})
+	@Test(groups = "FUNCTIONAL")
 	public void testRoomAvailabilityCanBeEnableFromRoomInfoPage() {
 		HomeAdminPage homeAdminPage = new HomeAdminPage();
 		RoomsPage roomsPage = homeAdminPage.clickConferenceRoomsLink();
@@ -47,6 +47,7 @@ public class RoomAvailabilityCanBeEnableFromRoomInfoPage {
 		roomInfoPage.clickEnableIcon()
 			.clickSaveBtn();
 		
+		//navigate to tablet
 		HomeTabletPage homeTabletPage = new HomeTabletPage();
 		SettingsPage settingsPage = homeTabletPage.clickSettingsBtn();
 		settingsPage.selectRoom(auxRoom);

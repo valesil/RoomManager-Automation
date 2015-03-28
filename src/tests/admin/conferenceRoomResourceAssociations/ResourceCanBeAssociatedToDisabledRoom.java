@@ -39,7 +39,7 @@ public class ResourceCanBeAssociatedToDisabledRoom {
 	private String resourceDescription = roomList.get(0).get("Description");
 	private String iconTitle = roomList.get(0).get("Icon");	
 	
-	@BeforeClass(groups = {"FUNCTIONAL"})
+	@BeforeClass(groups = "FUNCTIONAL")
 	public void precondition() {
 		HomeAdminPage homeAdminPage = new HomeAdminPage();
 		ResourcesPage resourcesPage = homeAdminPage.clickResourcesLink();	
@@ -54,7 +54,7 @@ public class ResourceCanBeAssociatedToDisabledRoom {
 			.clickSaveResourceBtn();
 	}
 
-	@Test(groups = {"FUNCTIONAL"})
+	@Test(groups = "FUNCTIONAL")
 	public void testResourceCanBeAssociatedToDisabledRoom() {
 		HomeAdminPage homeAdminPage = new HomeAdminPage();
 		RoomsPage roomsPage = homeAdminPage.clickConferenceRoomsLink();
@@ -71,7 +71,7 @@ public class ResourceCanBeAssociatedToDisabledRoom {
 		Assert.assertTrue(resourceAssociation.searchResource(resourceDisplayName));	  
 	}
 	
-	@AfterClass(groups = {"FUNCTIONAL"})
+	@AfterClass(groups = "FUNCTIONAL")
 	public void cleanRoom() throws InterruptedException, BiffException, IOException {
 		RoomsPage roomsPage = new RoomsPage();
 		roomsPage.enableDisableIcon(roomName);
