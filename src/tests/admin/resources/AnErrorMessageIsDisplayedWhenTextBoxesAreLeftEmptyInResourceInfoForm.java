@@ -56,9 +56,8 @@ public class AnErrorMessageIsDisplayedWhenTextBoxesAreLeftEmptyInResourceInfoFor
 
 	@Test(groups = "NEGATIVE")
 	public void testAnErrorMessageIsDisplayedWhenNameTextBoxisLeftEmptyInResourceInfoForm()
-			throws InterruptedException {
-		ResourcesPage resourcesPage = new ResourcesPage();	
-
+			throws InterruptedException {	
+		ResourcesPage resourcesPage = new ResourcesPage();
 		//Cleaning resource name textbox 
 		ResourceInfoPage resourceInfoPage = resourcesPage.openResourceInfoPage(resourceName);		
 		resourceInfoPage.clearResourceName()
@@ -76,13 +75,12 @@ public class AnErrorMessageIsDisplayedWhenTextBoxesAreLeftEmptyInResourceInfoFor
 
 		//Assertion for TC42  		
 		Assert.assertTrue(resourceInfoPage
-				.verifyErrorMessage(RESOURCE_DISPLAY_NAME_TEXTBOX_EMPTY));
-		resourceInfoPage.clickCancelResourceBtn();
+				.verifyErrorMessage(RESOURCE_DISPLAY_NAME_TEXTBOX_EMPTY));	
 	}
 
 	@AfterClass(groups = "NEGATIVE")
-	public void deleteResource() throws MalformedURLException, IOException {
-
+	public void postCondition() throws MalformedURLException, IOException {
+		
 		//Delete resource with API rest method
 		RootRestMethods.deleteResource(resourceName);
 	}

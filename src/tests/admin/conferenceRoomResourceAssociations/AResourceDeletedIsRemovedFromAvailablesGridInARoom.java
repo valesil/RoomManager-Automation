@@ -29,6 +29,8 @@ import framework.utils.readers.JsonReader;
  * @author Juan Carlos Guevara 
  */
 public class AResourceDeletedIsRemovedFromAvailablesGridInARoom {
+	RoomResourceAssociationsPage roomResourceAssociationsPage;
+	RoomsPage roomsPage;
 	
 	//Reading resource data from an .xls file
 	private ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
@@ -56,13 +58,13 @@ public class AResourceDeletedIsRemovedFromAvailablesGridInARoom {
 
 		//Delete Resource
 		ResourcesPage resourcesPage = homeAdminPage.clickResourcesLink();
-		RoomsPage roomsPage = resourcesPage.clickConferenceRoomsLink();
+		roomsPage = resourcesPage.clickConferenceRoomsLink();
 		resourcesPage = roomsPage.clickResourcesLink();
 		RootRestMethods.deleteResource(resourceName);
 		UIMethods.refresh();
 		roomsPage = resourcesPage.clickConferenceRoomsLink();
 		RoomInfoPage roomInfoPage = roomsPage.doubleClickOverRoomName(roomName);
-		RoomResourceAssociationsPage roomResourceAssociationsPage = roomInfoPage
+		roomResourceAssociationsPage = roomInfoPage
 				.clickResourceAssociationsLink();
 
 		//Assertion for TC04 
@@ -70,9 +72,6 @@ public class AResourceDeletedIsRemovedFromAvailablesGridInARoom {
 	}
 	@AfterClass(groups = "FUNCTIONAL")
 	public void deleteResource() throws InterruptedException, BiffException, IOException {
-
-		RoomResourceAssociationsPage roomResourceAssociationsPage = 
-				new RoomResourceAssociationsPage();
-		roomResourceAssociationsPage.clickCancelBtn();
+		roomsPage = roomResourceAssociationsPage.clickCancelBtn();
 	}
 }

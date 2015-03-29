@@ -26,7 +26,9 @@ import framework.utils.readers.ExcelReader;
  * @author Juan Carlos Guevara
  */
 public class AllResourcesCreatedAreDisplayedInAvailableGridOfResourceAssociationsOfARoom {
-
+	RoomResourceAssociationsPage roomResourceAssociationsPage;
+	RoomsPage roomsPage;
+	
 	//Reading resource data from an .xls file
 	private ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
 	private List<Map<String, String>> testData = excelReader.getMapValues("Resources");
@@ -62,9 +64,7 @@ public class AllResourcesCreatedAreDisplayedInAvailableGridOfResourceAssociation
 	}
 
 	@AfterClass(groups = "FUNCTIONAL")
-	public void deleteResource() throws MalformedURLException, IOException {
-		RoomResourceAssociationsPage roomResourceAssociationsPage = new RoomResourceAssociationsPage();
-		roomResourceAssociationsPage.clickCancelBtn();	
+	public void deleteResource() throws MalformedURLException, IOException {	
 		
 		//Delete resource with API rest method
 		for(Map<String, String> resource : testData){					

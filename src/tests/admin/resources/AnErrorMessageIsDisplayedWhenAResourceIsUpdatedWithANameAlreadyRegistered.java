@@ -27,7 +27,9 @@ import framework.utils.readers.ExcelReader;
  * @author Juan Carlos Guevara
  */
 public class AnErrorMessageIsDisplayedWhenAResourceIsUpdatedWithANameAlreadyRegistered {
-
+	ResourcesPage resourcesPage;
+	ResourceInfoPage resourceInfoPage;
+	
 	//Reading resource data from an .xls file
 	private ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
 	private List<Map<String, String>> testData = excelReader.getMapValues("Resources");
@@ -41,7 +43,7 @@ public class AnErrorMessageIsDisplayedWhenAResourceIsUpdatedWithANameAlreadyRegi
 
 		//Create resources
 		for(Map<String, String> resource : testData){
-			ResourcesPage resourcesPage = homeAdminPage.clickResourcesLink();
+			 resourcesPage = homeAdminPage.clickResourcesLink();
 			ResourceCreatePage resourceCreatePage = resourcesPage.clickAddResourceBtn();		
 			resourceCreatePage.clickResourceIcon()
 			.selectResourceIcon(resource.get("Icon"))
@@ -54,22 +56,21 @@ public class AnErrorMessageIsDisplayedWhenAResourceIsUpdatedWithANameAlreadyRegi
 
 	@Test(groups = "NEGATIVE")
 	public void testAnErrorMessageIsDisplayedWhenAResourceIsUpdatedWithANameAlreadyRegistered() 
-			throws InterruptedException {
-		ResourcesPage resourcesPage = new ResourcesPage();	
+			throws InterruptedException {	
 
 		//Create a resource with the same name
-		ResourceInfoPage resourceInfoPage = resourcesPage.openResourceInfoPage(resourceUpdateName);		
+		resourceInfoPage = resourcesPage.openResourceInfoPage(resourceUpdateName);		
 		resourceInfoPage.setResourceName(resourceName)
 		.setResourceDisplayName(resourceDisplayName)
 		.clickSaveResourceWithErrorBtn();
 
 		//Assertion for TC37 		
 		Assert.assertTrue(RoomBaseAbstractPage.isErrorMessageCorrect(RESOURCE_NAME_DUPLICATED));	
-		resourceInfoPage.clickCancelResourceBtn();
 	}
 
 	@AfterClass(groups = "NEGATIVE")
 	public void deleteResource() throws MalformedURLException, IOException {
+		resourcesPage = resourceInfoPage.clickCancelResourceBtn();
 		
 		//Delete resource with API rest method
 		for(Map<String, String> resource : testData){					

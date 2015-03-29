@@ -82,9 +82,6 @@ public class ResourcesQuantityCanBeModifyWhenItIsAssociatedToARoom {
 
 	@AfterClass(groups = "ACCEPTANCE")
 	public void deleteResource() throws InterruptedException, BiffException, IOException {
-
-		RoomResourceAssociationsPage roomResourceAssociationsPage = new RoomResourceAssociationsPage();
-		roomResourceAssociationsPage.clickCancelBtn();
 		
 		//Delete resource with API rest method
 		RootRestMethods.deleteResource(resourceName);

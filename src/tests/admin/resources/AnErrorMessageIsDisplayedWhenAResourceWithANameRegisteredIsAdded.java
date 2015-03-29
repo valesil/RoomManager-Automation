@@ -26,7 +26,9 @@ import framework.utils.readers.ExcelReader;
  * @author Juan Carlos Guevara
  */
 public class AnErrorMessageIsDisplayedWhenAResourceWithANameRegisteredIsAdded {
-
+	ResourcesPage resourcesPage;
+	ResourceCreatePage resourceCreatePage;
+	
 	//Reading resource data from an .xls file
 	private ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
 	private List<Map<String, String>> testData = excelReader.getMapValues("Resources");
@@ -41,7 +43,7 @@ public class AnErrorMessageIsDisplayedWhenAResourceWithANameRegisteredIsAdded {
 		ResourcesPage resourcesPage = homeAdminPage.clickResourcesLink();	
 
 		//Create a resource
-		ResourceCreatePage resourceCreatePage = resourcesPage.clickAddResourceBtn();		
+		resourceCreatePage = resourcesPage.clickAddResourceBtn();		
 		resourceCreatePage.clickResourceIcon()
 		.selectResourceIcon(iconTitle)
 		.setResourceName(resourceName)
@@ -52,22 +54,23 @@ public class AnErrorMessageIsDisplayedWhenAResourceWithANameRegisteredIsAdded {
 
 	@Test(groups = "NEGATIVE")
 	public void testAnErrorMessageIsDisplayedWhenAResourceWithANameRegisteredIsAdded() {
-		ResourcesPage resourcesPage = new ResourcesPage();	
+		resourcesPage = new ResourcesPage();	
 
 		//Create a resource with the same name
-		ResourceCreatePage resourceCreatePage = resourcesPage.clickAddResourceBtn();		
+		resourceCreatePage = resourcesPage.clickAddResourceBtn();		
 		resourceCreatePage.setResourceName(resourceName)
 		.setResourceDisplayName(resourceDisplayName)
 		.clickSaveResourceWithErrorBtn();
 
 		//Assertion for TC35  		
 		Assert.assertTrue(resourceCreatePage.verifyErrorMessage(RESOURCE_NAME_DUPLICATED));	
-		resourceCreatePage.clickCancelResourceBtn();
+		
 	}
 
 	@AfterClass(groups = "NEGATIVE")
 	public void deleteResource() throws MalformedURLException, IOException {	
-
+		resourcesPage = resourceCreatePage.clickCancelResourceBtn();
+		
 		//Delete resource with API rest method
 		RootRestMethods.deleteResource(resourceName);
 	}

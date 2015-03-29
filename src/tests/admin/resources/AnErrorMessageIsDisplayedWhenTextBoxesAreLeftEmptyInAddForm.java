@@ -53,6 +53,5 @@ public class AnErrorMessageIsDisplayedWhenTextBoxesAreLeftEmptyInAddForm {
 		//Assertion for TC40  		
 		Assert.assertTrue(resourceCreatePage
 				.verifyErrorMessage(RESOURCE_DISPLAY_NAME_TEXTBOX_EMPTY));	
-		resourcesPage = resourceCreatePage.clickCancelResourceBtn();
 	}
 }
