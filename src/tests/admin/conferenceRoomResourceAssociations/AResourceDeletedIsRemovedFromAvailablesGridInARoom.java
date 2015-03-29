@@ -7,7 +7,10 @@ import java.net.MalformedURLException;
 import java.util.List;
 import java.util.Map;
 
+import jxl.read.biff.BiffException;
+
 import org.testng.Assert;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
@@ -64,6 +67,11 @@ public class AResourceDeletedIsRemovedFromAvailablesGridInARoom {
 
 		//Assertion for TC04 
 		Assert.assertFalse(roomResourceAssociationsPage.searchResource(resourceDisplayName));
-		roomsPage = roomResourceAssociationsPage.clickCancelBtn();
+	}
+	@AfterClass(groups = "FUNCTIONAL")
+	public void deleteResource() throws InterruptedException, BiffException, IOException {
+
+		RoomResourceAssociationsPage roomResourceAssociationsPage = new RoomResourceAssociationsPage();
+		roomResourceAssociationsPage.clickCancelBtn();
 	}
 }

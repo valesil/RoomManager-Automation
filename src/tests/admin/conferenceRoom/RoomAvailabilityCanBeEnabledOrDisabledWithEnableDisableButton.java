@@ -21,7 +21,7 @@ import framework.utils.readers.ExcelReader;
  */
 public class RoomAvailabilityCanBeEnabledOrDisabledWithEnableDisableButton {
 	
-	//Reading resource data from an .xls file
+	//Read resource data from an .xls file
 	private ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
 	private List<Map<String, String>> testData = excelReader.getMapValues("Resources");
 	private String roomName = testData.get(2).get("Room Name");
@@ -29,7 +29,7 @@ public class RoomAvailabilityCanBeEnabledOrDisabledWithEnableDisableButton {
 	@Test(groups = "ACCEPTANCE")
 	public void testRoomAvailabilityCanBeEnabledOrDisabledWithEnableDisableButton() {
 
-		//Disabling a room 
+		//Disable a room 
 		HomeAdminPage homeAdminPage = new HomeAdminPage();
 		RoomsPage confRoomsPage = homeAdminPage.clickConferenceRoomsLink();	
 		confRoomsPage.enableDisableIcon(roomName);

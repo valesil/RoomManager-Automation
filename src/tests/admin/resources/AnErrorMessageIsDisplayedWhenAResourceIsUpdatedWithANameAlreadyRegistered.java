@@ -65,12 +65,14 @@ public class AnErrorMessageIsDisplayedWhenAResourceIsUpdatedWithANameAlreadyRegi
 
 		//Assertion for TC37 		
 		Assert.assertTrue(RoomBaseAbstractPage.isErrorMessageCorrect(RESOURCE_NAME_DUPLICATED));	
-		resourcesPage = resourceInfoPage.clickCancelResourceBtn();
+		
 	}
 
 	@AfterClass(groups = "NEGATIVE")
 	public void deleteResource() throws MalformedURLException, IOException {
 
+		ResourceInfoPage resourceInfoPage = new ResourceInfoPage();
+		resourceInfoPage.clickCancelResourceBtn();
 		//Delete resource with API rest method
 		for(Map<String, String> resource : testData){					
 			RootRestMethods.deleteResource(resource.get("ResourceName"));

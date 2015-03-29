@@ -57,13 +57,14 @@ public class AllResourcesCreatedAreDisplayedInAvailableGridOfResourceAssociation
 			//Assertion for TC05 
 			Assert.assertTrue(roomResourceAssociationsPage.searchResource(resource
 					.get("ResourceDisplayName")));
-			roomsPage = roomResourceAssociationsPage.clickCancelBtn();	
 		}
 	}
 
 	@AfterClass(groups = "FUNCTIONAL")
 	public void deleteResource() throws MalformedURLException, IOException {
-
+		RoomResourceAssociationsPage roomResourceAssociationsPage = new RoomResourceAssociationsPage();
+		roomResourceAssociationsPage.clickCancelBtn();	
+		
 		//Delete resource with API rest method
 		for(Map<String, String> resource : testData){					
 			RootRestMethods.deleteResource(resource.get("ResourceName"));
