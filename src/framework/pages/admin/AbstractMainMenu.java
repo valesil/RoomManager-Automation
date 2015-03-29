@@ -5,6 +5,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
 import framework.pages.admin.conferencerooms.RoomsPage;
 import framework.pages.admin.resources.ResourcesPage;
 import framework.selenium.SeleniumDriverManager;
@@ -41,7 +42,7 @@ public abstract class AbstractMainMenu {
 
 	@FindBy(linkText = "Tablets") 
 	WebElement tabletsLink;	
-
+	
 	public AbstractMainMenu() {
 		driver = SeleniumDriverManager.getManager().getDriver();
 		wait = SeleniumDriverManager.getManager().getWait();
