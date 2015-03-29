@@ -35,8 +35,9 @@ public class AllResourcesCreatedAreDisplayedInAvailableGridOfResourceAssociation
 	@Test(groups = "FUNCTIONAL")
 	public void testAllResourcesCreatedAreDisplayedInAvailableGridOfResourceAssociationsOfARoom() 
 			throws MalformedURLException, IOException {
-		HomeAdminPage homeAdminPage = new HomeAdminPage();
+		
 		for(Map<String, String> resource : testData){
+			HomeAdminPage homeAdminPage = new HomeAdminPage();
 			ResourcesPage resourcesPage = homeAdminPage.clickResourcesLink();
 
 			//Create a resource	

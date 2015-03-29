@@ -37,7 +37,6 @@ public class AnErrorMessageIsDisplayedWhenAResourceWithANameRegisteredIsAdded {
 
 	@BeforeClass(groups = "NEGATIVE")
 	public void createAResource() {
-
 		HomeAdminPage homeAdminPage = new HomeAdminPage();
 		ResourcesPage resourcesPage = homeAdminPage.clickResourcesLink();	
 

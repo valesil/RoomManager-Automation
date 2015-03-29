@@ -32,10 +32,10 @@ public class TotalItemsInformationLabelDisplaysResourcesQuantity {
 	public void testTotalItemsInformationLabelDisplaysResourcesQuantity() 
 			throws InterruptedException {
 		int counter = 0;
-		HomeAdminPage homeAdminPage = new HomeAdminPage();
-		ResourcesPage resourcesPage = homeAdminPage.clickResourcesLink();
 		for(Map<String, String> resource : testData){	
-
+			HomeAdminPage homeAdminPage = new HomeAdminPage();
+			ResourcesPage resourcesPage = homeAdminPage.clickResourcesLink();
+			
 			//Create a resource
 			ResourceCreatePage resourceCreatePage = resourcesPage.clickAddResourceBtn();		
 			resourceCreatePage.clickResourceIcon()

@@ -77,8 +77,7 @@ public class ResourcesQuantityCanBeModifyWhenItIsAssociatedToARoom {
 
 		//Assertion for TC06 
 		Assert.assertEquals(roomResourceAssociationsPage.
-				getResourceAmount(resourceDisplayName),quantity);
-		
+				getResourceAmount(resourceDisplayName),quantity);		
 	}
 
 	@AfterClass(groups = "ACCEPTANCE")
@@ -86,6 +85,7 @@ public class ResourcesQuantityCanBeModifyWhenItIsAssociatedToARoom {
 
 		RoomResourceAssociationsPage roomResourceAssociationsPage = new RoomResourceAssociationsPage();
 		roomResourceAssociationsPage.clickCancelBtn();
+		
 		//Delete resource with API rest method
 		RootRestMethods.deleteResource(resourceName);
 	}

@@ -71,7 +71,8 @@ public class AResourceDeletedIsRemovedFromAvailablesGridInARoom {
 	@AfterClass(groups = "FUNCTIONAL")
 	public void deleteResource() throws InterruptedException, BiffException, IOException {
 
-		RoomResourceAssociationsPage roomResourceAssociationsPage = new RoomResourceAssociationsPage();
+		RoomResourceAssociationsPage roomResourceAssociationsPage = 
+				new RoomResourceAssociationsPage();
 		roomResourceAssociationsPage.clickCancelBtn();
 	}
 }
