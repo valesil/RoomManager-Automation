@@ -26,6 +26,7 @@ public class RoomAllowsBlankTextForRoomCodeAndCapacity {
 	public void testRoomAllowsBlankTextForRoomCodeAndCapacity() {
 		HomeAdminPage homeAdminPage = new HomeAdminPage();
 		roomsPage = homeAdminPage.clickConferenceRoomsLink();
+		String emptyValue = "";
 
 		//ExcelReader is used to read rooms data (roomName) from Excel file and save it into a List
 		ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
@@ -35,15 +36,15 @@ public class RoomAllowsBlankTextForRoomCodeAndCapacity {
 		//Set room capacity to blank text
 		roomsPage.clickConferenceRoomsLink();
 		roomInfoPage = roomsPage.doubleClickOverRoomName(roomName);
-		roomsPage = roomInfoPage.setRoomCapacity("")
-				.setRoomCode("")
+		roomsPage = roomInfoPage.setRoomCapacity(emptyValue)
+				.setRoomCode(emptyValue)
 				.clickSaveBtn();
 		roomInfoPage = roomsPage.doubleClickOverRoomName(roomName);
 
 		//Assertion for TC15
-		Assert.assertEquals(roomInfoPage.getRoomCapacity(), "");
+		Assert.assertEquals(roomInfoPage.getRoomCapacity(), emptyValue);
 
 		//Assertion for TC16
-		Assert.assertEquals(roomInfoPage.getRoomCode(), "");		
+		Assert.assertEquals(roomInfoPage.getRoomCode(), emptyValue);		
 	}
 }

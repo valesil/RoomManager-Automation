@@ -31,25 +31,29 @@ public class RoomAllowsBlankSpaceBetweenTextForDisplayNameAndCode {
 	@Test(groups = "NEGATIVE")
 	public void testRoomAllowsBlankSpaceBetweenTextForDisplayNameAndCode() {
 		HomeAdminPage homeAdminPage = new HomeAdminPage();
-		roomsPage = homeAdminPage.clickConferenceRoomsLink();			
+		roomsPage = homeAdminPage.clickConferenceRoomsLink();
+		String blankSpaceBetweenText = roomName + " " + roomName;
 
 		//Insert blank space between text in room display name and room code
 		roomsPage.clickConferenceRoomsLink();
 		roomInfoPage = roomsPage.doubleClickOverRoomName(roomName);
-		roomsPage = roomInfoPage.setDisplayName(roomName + " " + roomName)
-				.setRoomCode(roomName + " " + roomName)
+		roomsPage = roomInfoPage.setDisplayName(blankSpaceBetweenText)
+				.setRoomCode(blankSpaceBetweenText)
 				.clickSaveBtn();
-		roomInfoPage = roomsPage.doubleClickOverRoomName(roomName + " " + roomName);
+		roomInfoPage = roomsPage.doubleClickOverRoomName(blankSpaceBetweenText);
 
 		//Assertion for TC18		
-		Assert.assertTrue(roomInfoPage.getRoomDisplayName().contains(roomName + " " + roomName));
+		Assert.assertTrue(roomInfoPage.getRoomDisplayName().contains(blankSpaceBetweenText));
 
 		//Assertion for TC19
-		Assert.assertEquals(roomInfoPage.getRoomCode(), roomName + " " + roomName);
+		Assert.assertEquals(roomInfoPage.getRoomCode(), blankSpaceBetweenText);
 	}
 
 	@AfterMethod(groups = "NEGATIVE")
 	public void afterMethod() {	
-		roomsPage = roomInfoPage.setDisplayName(roomName).clickSaveBtn();
+		String emptyValue = "";
+		roomsPage = roomInfoPage.setDisplayName(roomName)
+				.setRoomCode(emptyValue)
+				.clickSaveBtn();
 	}
 }
