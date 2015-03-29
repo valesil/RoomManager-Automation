@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 
 import framework.pages.admin.HomeAdminPage;
@@ -20,26 +21,34 @@ import framework.utils.readers.ExcelReader;
 public class RoomDoesNotAllowsBlankSpaceBetweenTextForCapacity {
 	private RoomsPage roomsPage;
 	private RoomInfoPage roomInfoPage;
+	
+	//ExcelReader is used to read rooms data
+	ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
+	List<Map<String, String>> roomsDataList = excelReader.getMapValues("Resources");
+	String roomName = roomsDataList.get(2).get("Room Name");
 
 	@Test(groups = "NEGATIVE")
 	public void testRoomDoesNotAllowsBlankSpaceBetweenTextForCapacity() {
 		HomeAdminPage homeAdminPage = new HomeAdminPage();
 		roomsPage = homeAdminPage.clickConferenceRoomsLink();
-		
-		//ExcelReader is used to read rooms data
-		ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
-		List<Map<String, String>> roomsDataList = excelReader.getMapValues("Resources");
-		String roomName = roomsDataList.get(2).get("Room Name");
 		String roomCapacity = roomsDataList.get(2).get("Value");
+		String blankSpaceBetweenText = roomCapacity + " " + roomCapacity;		
 
 		//Insert blank space between text in room capacity
 		roomsPage.clickConferenceRoomsLink();
 		roomInfoPage = roomsPage.doubleClickOverRoomName(roomName);
-		roomsPage = roomInfoPage.setRoomCapacity(roomCapacity + " " + roomCapacity)
+		roomsPage = roomInfoPage.setRoomCapacity(blankSpaceBetweenText)
 				.clickSaveBtn();
 
 		//Verify if exist blank space between text for room display name
 		roomInfoPage = roomsPage.doubleClickOverRoomName(roomName);
-		Assert.assertNotSame(roomInfoPage.getRoomCode(), roomCapacity + " " + roomCapacity);
+		Assert.assertNotSame(roomInfoPage.getRoomCode(), blankSpaceBetweenText);
+	}
+
+	@AfterMethod(groups = "NEGATIVE")
+	public void afterMethod() {	
+		String emptyValue="";
+		roomsPage = roomInfoPage.setRoomCapacity(emptyValue)
+				.clickSaveBtn();
 	}
 }
