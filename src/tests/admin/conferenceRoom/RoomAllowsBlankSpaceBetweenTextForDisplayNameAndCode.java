@@ -28,7 +28,7 @@ public class RoomAllowsBlankSpaceBetweenTextForDisplayNameAndCode {
 	private List<Map<String, String>> roomsDataList = excelReader.getMapValues("Resources");
 	private String roomName = roomsDataList.get(0).get("Room Name");
 
-	@Test(groups = {"NEGATIVE"})
+	@Test(groups = "NEGATIVE")
 	public void testRoomAllowsBlankSpaceBetweenTextForDisplayNameAndCode() {
 		HomeAdminPage homeAdminPage = new HomeAdminPage();
 		roomsPage = homeAdminPage.clickConferenceRoomsLink();			
@@ -48,7 +48,7 @@ public class RoomAllowsBlankSpaceBetweenTextForDisplayNameAndCode {
 		Assert.assertEquals(roomInfoPage.getRoomCode(), roomName + " " + roomName);
 	}
 
-	@AfterMethod(groups = {"NEGATIVE"})
+	@AfterMethod(groups = "NEGATIVE")
 	public void afterMethod() {	
 		roomsPage = roomInfoPage.setDisplayName(roomName).clickSaveBtn();
 	}

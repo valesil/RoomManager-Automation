@@ -28,7 +28,7 @@ public class RoomAllowsSpecialCharactersForDisplayName {
 	private List<Map<String, String>> roomsDataList = excelReader.getMapValues("Resources");
 	private String roomName = roomsDataList.get(0).get("Room Name");
 
-	@Test(groups = {"NEGATIVE"})
+	@Test(groups = "NEGATIVE")
 	public void testRoomDoesNotAllowsBlankTextForDisplayName() {
 		HomeAdminPage homeAdminPage = new HomeAdminPage();
 		roomsPage = homeAdminPage.clickConferenceRoomsLink();
@@ -49,7 +49,7 @@ public class RoomAllowsSpecialCharactersForDisplayName {
 		Assert.assertTrue(roomsPage.getRoomDisplayName(specialCharacters).contains(specialCharacters));		
 	}
 
-	@AfterMethod(groups = {"NEGATIVE"})
+	@AfterMethod(groups = "NEGATIVE")
 	public void afterMethod() {	
 		roomsPage = roomInfoPage.setDisplayName(roomName)
 				.clickSaveBtn();

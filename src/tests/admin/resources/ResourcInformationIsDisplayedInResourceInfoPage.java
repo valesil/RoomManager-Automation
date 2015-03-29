@@ -29,7 +29,7 @@ public class ResourcInformationIsDisplayedInResourceInfoPage {
 	private ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
 	private List<Map<String, String>> resourceDataList = excelReader.getMapValues("Resources");
 
-	@Test(groups = {"FUNCTIONAL"})
+	@Test(groups = "FUNCTIONAL")
 	public void testResourcInformationIsDisplayedInResourceInfoPage() throws InterruptedException {
 		HomeAdminPage homeAdminPage = new HomeAdminPage();		
 		resourcesPage = homeAdminPage.clickResourcesLink();	
@@ -57,7 +57,7 @@ public class ResourcInformationIsDisplayedInResourceInfoPage {
 		Assert.assertTrue(resourceInfoPage.getResourceIcon(iconTitle));		
 	}	
 
-	@AfterMethod(groups = {"FUNCTIONAL"})
+	@AfterMethod(groups = "FUNCTIONAL")
 	public void afterMethod() throws MalformedURLException, IOException {
 		resourcesPage = resourceInfoPage.clickCancelResourceBtn();		
 		RootRestMethods.deleteResource(resourceDataList.get(0).get("ResourceName"));

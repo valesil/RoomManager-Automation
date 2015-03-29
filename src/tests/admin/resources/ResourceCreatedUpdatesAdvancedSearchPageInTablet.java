@@ -19,7 +19,6 @@ import framework.pages.admin.resources.ResourceCreatePage;
 import framework.pages.admin.resources.ResourcesPage;
 import framework.pages.tablet.HomeTabletPage;
 import framework.pages.tablet.SearchPage;
-import framework.pages.tablet.SettingsPage;
 import framework.rest.RootRestMethods;
 import framework.utils.readers.ExcelReader;
 
@@ -33,7 +32,7 @@ public class ResourceCreatedUpdatesAdvancedSearchPageInTablet {
 	private ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
 	private List<Map<String, String>> resourcesDataList = excelReader.getMapValues("Resources");
 
-	@Test(groups = {"FUNCTIONAL"})
+	@Test(groups = "FUNCTIONAL")
 	public void testResourceCreatedUpdatesAdvancedSearchPageInTablet() {
 		HomeAdminPage homeAdminPage = new HomeAdminPage();
 		ResourcesPage resourcesPage = homeAdminPage.clickResourcesLink();
@@ -65,10 +64,6 @@ public class ResourceCreatedUpdatesAdvancedSearchPageInTablet {
 
 		//Open Advanced search from tablet
 		HomeTabletPage homeTabletPage =  new HomeTabletPage();
-
-		//Next 2 code lines are needed if in tablet did not already choose a room.
-		SettingsPage settingsPage = homeTabletPage.clickSettingsBtn();
-		homeTabletPage = settingsPage.selectRoom(roomDisplayName);
 		SearchPage searchPage = homeTabletPage.clickSearchBtn();
 		searchPage.clickCollapseAdvancedBtn();
 
@@ -76,7 +71,7 @@ public class ResourceCreatedUpdatesAdvancedSearchPageInTablet {
 		Assert.assertTrue(searchPage.isResourceInAdvancedSearch(resourceDisplayName));
 	}
 
-	@AfterMethod(groups = {"FUNCTIONAL"})
+	@AfterMethod(groups = "FUNCTIONAL")
 	public void afterMethod() throws MalformedURLException, IOException {			
 		RootRestMethods.deleteResource(resourcesDataList.get(0).get("ResourceName"));
 	}

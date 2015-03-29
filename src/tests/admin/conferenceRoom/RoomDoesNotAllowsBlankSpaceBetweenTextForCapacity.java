@@ -21,7 +21,7 @@ public class RoomDoesNotAllowsBlankSpaceBetweenTextForCapacity {
 	private RoomsPage roomsPage;
 	private RoomInfoPage roomInfoPage;
 
-	@Test(groups = {"NEGATIVE"})
+	@Test(groups = "NEGATIVE")
 	public void testRoomDoesNotAllowsBlankSpaceBetweenTextForCapacity() {
 		HomeAdminPage homeAdminPage = new HomeAdminPage();
 		roomsPage = homeAdminPage.clickConferenceRoomsLink();

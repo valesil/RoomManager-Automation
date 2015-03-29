@@ -30,7 +30,7 @@ public class ResourceIconCanBeUpdatedInResourcesPage {
 	private ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
 	private List<Map<String, String>> resourceDataList = excelReader.getMapValues("Resources");
 
-	@Test(groups = {"FUNCTIONAL"})
+	@Test(groups = "FUNCTIONAL")
 	public void testResourceIconCanBeUpdatedInResourcesPage() throws InterruptedException {		
 		HomeAdminPage homeAdminPage = new HomeAdminPage();
 		ResourcesPage resourcesPage = homeAdminPage.clickResourcesLink();
@@ -62,7 +62,7 @@ public class ResourceIconCanBeUpdatedInResourcesPage {
 		Assert.assertTrue(resourceInfoPage.getResourceIcon(newIconTitle));
 	}
 
-	@AfterMethod(groups = {"FUNCTIONAL"})
+	@AfterMethod(groups = "FUNCTIONAL")
 	public void afterMethod() throws MalformedURLException, IOException {		
 		RootRestMethods.deleteResource(resourceDataList.get(2).get("ResourceName"));
 	}

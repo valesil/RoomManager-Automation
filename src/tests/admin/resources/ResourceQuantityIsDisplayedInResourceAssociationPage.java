@@ -35,7 +35,7 @@ public class ResourceQuantityIsDisplayedInResourceAssociationPage {
 	private ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
 	private List<Map<String, String>> resourceDataList = excelReader.getMapValues("Resources");
 
-	@Test(groups = {"FUNCTIONAL"})
+	@Test(groups = "FUNCTIONAL")
 	public void testResourceQuantityIsDisplayedInResourceAssociationPage() throws InterruptedException {
 		HomeAdminPage homeAdminPage = new HomeAdminPage();
 		resourcesPage = homeAdminPage.clickResourcesLink();
@@ -73,7 +73,7 @@ public class ResourceQuantityIsDisplayedInResourceAssociationPage {
 		Assert.assertEquals(result, "x " + quantity);
 	}
 
-	@AfterMethod(groups = {"FUNCTIONAL"})
+	@AfterMethod(groups = "FUNCTIONAL")
 	public void afterMethod() throws MalformedURLException, IOException {	
 		resourcesPage = resourceAssociationsPage.clickCloseBtn();		
 		RootRestMethods.deleteResource(resourceDataList.get(2).get("ResourceName"));

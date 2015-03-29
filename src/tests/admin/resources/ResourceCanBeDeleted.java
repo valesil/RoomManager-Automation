@@ -19,7 +19,7 @@ import framework.utils.readers.ExcelReader;
  * @author Marco Llano
  */
 public class ResourceCanBeDeleted {	
-	@Test(groups = {"ACCEPTANCE"})
+	@Test(groups = "ACCEPTANCE")
 	public void testResourceCanBeDeleted() throws InterruptedException {	
 		HomeAdminPage homeAdminPage = new HomeAdminPage();
 		ResourcesPage resourcesPage = homeAdminPage.clickResourcesLink();

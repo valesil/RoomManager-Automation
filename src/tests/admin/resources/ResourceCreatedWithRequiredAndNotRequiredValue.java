@@ -31,7 +31,7 @@ public class ResourceCreatedWithRequiredAndNotRequiredValue {
 	private ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
 	private List<Map<String, String>> resourcesDataList = excelReader.getMapValues("Resources");
 
-	@Test(groups = {"ACCEPTANCE"})
+	@Test(groups = "ACCEPTANCE")
 	public void testResourceCreatedWithRequiredValue() throws InterruptedException {
 		HomeAdminPage homeAdminPage = new HomeAdminPage();
 		resourcesPage = homeAdminPage.clickResourcesLink();
@@ -61,7 +61,7 @@ public class ResourceCreatedWithRequiredAndNotRequiredValue {
 		Assert.assertTrue(resourceInfoPage.getResourceDescription().contains(resourceDescription));
 	}
 
-	@AfterMethod(groups = {"ACCEPTANCE"})
+	@AfterMethod(groups = "ACCEPTANCE")
 	public void afterMethod() throws MalformedURLException, IOException {
 		resourcesPage = resourceInfoPage.clickCancelResourceBtn();		
 		RootRestMethods.deleteResource(resourcesDataList.get(1).get("ResourceName"));

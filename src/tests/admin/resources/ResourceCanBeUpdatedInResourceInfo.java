@@ -34,7 +34,7 @@ public class ResourceCanBeUpdatedInResourceInfo {
 	private ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
 	private List<Map<String, String>> resourcesDataList = excelReader.getMapValues("Resources");
 
-	@Test(groups = {"FUNCTIONAL"})
+	@Test(groups = "FUNCTIONAL")
 	public void testResourceCanBeUpdatedInResourceInfo() throws InterruptedException {
 		HomeAdminPage homeAdminPage = new HomeAdminPage();
 		resourcesPage = homeAdminPage.clickResourcesLink();
@@ -81,7 +81,7 @@ public class ResourceCanBeUpdatedInResourceInfo {
 		Assert.assertTrue(resourceInfoPage.getResourceDescription().contains(newResourceDescription));
 	}	
 
-	@AfterMethod(groups = {"FUNCTIONAL"})
+	@AfterMethod(groups = "FUNCTIONAL")
 	public void afterMethod() throws MalformedURLException, IOException {	
 		resourcesPage = resourceInfoPage.clickCancelResourceBtn();		
 		RootRestMethods.deleteResource(resourcesDataList.get(1).get("ResourceName"));

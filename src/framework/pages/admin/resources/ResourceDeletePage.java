@@ -17,9 +17,6 @@ public class ResourceDeletePage extends ResourceBaseAbstractPage {
 	@FindBy(css = "button.info")
 	WebElement confirmRemoveBtn;
 
-	@FindBy(xpath = "//div[@class = 'row v-space ng-scope']")
-	WebElement background;
-
 	public ResourceDeletePage() {		
 		driver = SeleniumDriverManager.getManager().getDriver();
 		wait = SeleniumDriverManager.getManager().getWait();
@@ -33,7 +30,6 @@ public class ResourceDeletePage extends ResourceBaseAbstractPage {
 	public ResourcesPage clickConfirmRemoveBtn() {
 		wait.until(ExpectedConditions.elementToBeClickable(confirmRemoveBtn));
 		confirmRemoveBtn.click();
-		UIMethods.waitForMaskDisappears(background);
 		return new ResourcesPage();
 	}
 }

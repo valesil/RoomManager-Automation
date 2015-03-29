@@ -19,7 +19,6 @@ import framework.pages.admin.resources.ResourceDeletePage;
 import framework.pages.admin.resources.ResourcesPage;
 import framework.pages.tablet.HomeTabletPage;
 import framework.pages.tablet.SearchPage;
-import framework.pages.tablet.SettingsPage;
 import framework.rest.RootRestMethods;
 import framework.utils.readers.ExcelReader;
 import framework.utils.readers.JsonReader;
@@ -29,7 +28,7 @@ import framework.utils.readers.JsonReader;
  * @author Marco Llano
  */
 public class ResourceDeletedUpdatesAdvancedSearchPageInTablet {
-	@Test(groups = {"FUNCTIONAL"})
+	@Test(groups = "FUNCTIONAL")
 	public void testResourceDeletedUpdatesAdvancedSearchPageInTablet() throws MalformedURLException,
 	IOException, InterruptedException {
 		HomeAdminPage homeAdminPage = new HomeAdminPage();
@@ -61,10 +60,6 @@ public class ResourceDeletedUpdatesAdvancedSearchPageInTablet {
 
 		//Open Advanced search from tablet
 		HomeTabletPage homeTabletPage =  new HomeTabletPage();
-
-		//Next 2 code lines are needed if in tablet did not already choose a room.
-//		SettingsPage settingsPage = homeTabletPage.clickSettingsBtn();  
-//		homeTabletPage = settingsPage.selectRoom(roomDisplayName);		
 		SearchPage searchPage = homeTabletPage.clickSearchBtn();
 		searchPage.clickCollapseAdvancedBtn();
 

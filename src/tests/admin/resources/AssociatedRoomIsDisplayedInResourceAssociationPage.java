@@ -37,7 +37,7 @@ public class AssociatedRoomIsDisplayedInResourceAssociationPage {
 	private ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
 	private List<Map<String, String>> testData = excelReader.getMapValues("Resources");
 
-	@Test(groups = {"FUNCTIONAL"})
+	@Test(groups = "FUNCTIONAL")
 	public void testAssociatedRoomIsDisplayedInResourceAssociationPage() throws InterruptedException, JSONException, MalformedURLException, IOException {
 		HomeAdminPage homeAdminPage = new HomeAdminPage();
 		ResourceInfoPage resourceInfoPage;
@@ -93,7 +93,7 @@ public class AssociatedRoomIsDisplayedInResourceAssociationPage {
 		}
 	}
 
-	@AfterMethod(groups = {"FUNCTIONAL"})
+	@AfterMethod(groups = "FUNCTIONAL")
 	public void afterMethod() throws MalformedURLException, IOException {	
 		resourcesPage = resourceAssociationsPage.clickCloseBtn();		
 		RootRestMethods.deleteResource(testData.get(0).get("ResourceName"));

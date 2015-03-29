@@ -22,7 +22,7 @@ public class RoomAllowsBlankTextForRoomCodeAndCapacity {
 	private RoomsPage roomsPage;
 	private RoomInfoPage roomInfoPage;
 
-	@Test(groups = {"NEGATIVE"})
+	@Test(groups = "NEGATIVE")
 	public void testRoomAllowsBlankTextForRoomCodeAndCapacity() {
 		HomeAdminPage homeAdminPage = new HomeAdminPage();
 		roomsPage = homeAdminPage.clickConferenceRoomsLink();
