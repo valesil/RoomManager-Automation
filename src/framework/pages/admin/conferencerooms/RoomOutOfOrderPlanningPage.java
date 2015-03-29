@@ -4,8 +4,6 @@ import static framework.common.MessageConstants.OUT_OF_ORDER_IN_THE_PAST;
 import static framework.common.MessageConstants.OUT_OF_ORDER_SHOULD_HAVE_A_TITLE;
 import static framework.common.MessageConstants.TO_GRATER_THAN_FROM;
 
-import java.text.ParseException;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -15,14 +13,11 @@ import framework.common.UIMethods;
 import framework.utils.TimeManager;
 
 /**
- * This class represent Conference Room's Our Of Order Planning page in Admin.
+ * This class represents Conference Room's Our Of Order Planning page in Admin.
  * @author Yesica Acha
  *
  */
 public class RoomOutOfOrderPlanningPage extends RoomBaseAbstractPage {
-
-	TimeManager timeManager = new TimeManager();
-
 	@FindBy(xpath = "//div[@class='check-button']")
 	WebElement activationBtn;
 
@@ -42,20 +37,20 @@ public class RoomOutOfOrderPlanningPage extends RoomBaseAbstractPage {
 	WebElement errorMessageLbl;
 
 	/**
-	 *[YA]This method set the title for the Out Of Order Planning Period
+	 *[YA]This method sets the title for an Out Of Order Planning Period
 	 * @param title
-	 * @return
+	 * @return RoomOutOfOrderPlanningPage
 	 */
 	public RoomOutOfOrderPlanningPage setTitleTxtBox (String title) {
 		titleTxtBox.clear();
 		titleTxtBox.sendKeys(title);
 		return this;
 	}
-	
+
 	/**
-	 *[YA]This method set the description for the Out Of Order Planning Period
+	 *[YA]This method sets the description for an Out Of Order Planning Period
 	 * @param description
-	 * @return
+	 * @return RoomOutOfOrderPlanningPage
 	 */
 	public RoomOutOfOrderPlanningPage setDescriptionTxtBox (String description) {
 		descriptionTxtBox.clear();
@@ -64,9 +59,9 @@ public class RoomOutOfOrderPlanningPage extends RoomBaseAbstractPage {
 	} 
 
 	/**
-	 *[YA]This method select a checkBox to send an email notification to attendees
-	 *  that have a meeting scheduled when an out of order period is established
-	 * @return
+	 *[YA]This method selects a checkBox to send an email notification to attendees
+	 * that have a meeting scheduled when an out of order period is established
+	 * @return RoomOutOfOrderPlanningPage
 	 */
 	public RoomOutOfOrderPlanningPage selectEmailNotificationChkBox() {
 		emailNotificationChkBox.click();
@@ -75,7 +70,7 @@ public class RoomOutOfOrderPlanningPage extends RoomBaseAbstractPage {
 
 	/**
 	 *[YA]This method clicks the activation button (calendar or clock) to confirm an out of order period
-	 * @return
+	 * @return RoomOutOfOrderPlanningPage
 	 */
 	private RoomOutOfOrderPlanningPage clickActivationBtn() {
 		activationBtn.click();
@@ -85,8 +80,7 @@ public class RoomOutOfOrderPlanningPage extends RoomBaseAbstractPage {
 	/**
 	 *[YA]This method sets a start date (DD-MM-YYYY)
 	 * @param date
-	 * @return
-	 * @throws ParseException
+	 * @return RoomOutOfOrderPlanningPage
 	 */
 	public RoomOutOfOrderPlanningPage setStartDateWithCalendar(String date) {
 		setDateWithCalendar(date, "from");
@@ -96,7 +90,7 @@ public class RoomOutOfOrderPlanningPage extends RoomBaseAbstractPage {
 	/**
 	 *[YA]This method sets an end date (DD-MM-YYYY)
 	 * @param date
-	 * @return
+	 * @return RoomOutOfOrderPlanningPage
 	 */
 	public RoomOutOfOrderPlanningPage setEndDateWithCalendar(String date) {
 		setDateWithCalendar(date, "to");
@@ -104,11 +98,11 @@ public class RoomOutOfOrderPlanningPage extends RoomBaseAbstractPage {
 	}
 
 	/**
-	 *[YA]This method sets a date (start or end) in the application using the calendar (DD-MM-YYYY)
+	 *[YA]This method sets a date (start or end) in the application using the calendar
 	 * @param date
 	 * @param dateSelector
 	 */
-	private void setDateWithCalendar(String date, String dateSelector) {
+	private void setDateWithCalendar(String modifierValue, String dateSelector) {
 
 		//to click the calendar button next to date textBox
 		clickCalendarElementBtn("calendarBtn", dateSelector);
@@ -119,6 +113,9 @@ public class RoomOutOfOrderPlanningPage extends RoomBaseAbstractPage {
 		//to click date=picker button (year) as a precondition 
 		clickCalendarElementBtn("datePickerBtn", dateSelector);
 
+		//to get date adding days 
+		String date = TimeManager.getDate(Integer.parseInt(modifierValue), "MMM dd YYYY");
+
 		//to click date's year button
 		clickCalendarElementBtn(TimeManager.getDateElement(date, "year"), dateSelector);
 
@@ -127,11 +124,10 @@ public class RoomOutOfOrderPlanningPage extends RoomBaseAbstractPage {
 
 		//to click date's day button
 		clickCalendarElementBtn(TimeManager.getDateElement(date, "day"), dateSelector);
-
 	}
 
 	/**
-	 *[YA]This method clicks on an element of the calendar (any day, month, year, todayBtn, 
+	 *[YA]This method clicks on an element of the calendar (day, month, year, todayBtn, 
 	 * cancelBtn, clearBtn, etc)
 	 * @param calendarElement
 	 * @param dateSelector
@@ -164,9 +160,9 @@ public class RoomOutOfOrderPlanningPage extends RoomBaseAbstractPage {
 	}
 
 	/**
-	 *[YA]This method set a star time (HH:MM AM/PM)for out of order planning period
+	 *[YA]This method sets a star time (HH:MM AM/PM) for out of order planning period
 	 * @param startTime
-	 * @return
+	 * @return RoomOutOfOrderPlanningPage
 	 */
 	public RoomOutOfOrderPlanningPage setStartTime (String startTime) {
 		setTime(startTime, "from");
@@ -174,9 +170,9 @@ public class RoomOutOfOrderPlanningPage extends RoomBaseAbstractPage {
 	}
 
 	/**
-	 *[YA]This method set an end time (HH:MM AM/PM) for out of order planning period
+	 *[YA]This method sets an end time (HH:MM AM/PM) for out of order planning period
 	 * @param endTime
-	 * @return
+	 * @return oomOutOfOrderPlanningPage
 	 */
 	public RoomOutOfOrderPlanningPage setEndTime (String endTime) {
 		setTime(endTime, "to");
@@ -227,7 +223,7 @@ public class RoomOutOfOrderPlanningPage extends RoomBaseAbstractPage {
 	 *[YA]This method finds hoursTxtBox, minutesTxtBox, or meridianTxtBox based on the parameters
 	 * @param element
 	 * @param timeSelector
-	 * @return
+	 * @return WebElement
 	 */
 	private WebElement findDateElement(String element, String timeSelector) {
 		String locator;
@@ -243,7 +239,7 @@ public class RoomOutOfOrderPlanningPage extends RoomBaseAbstractPage {
 
 	/**
 	 *[YA]This method clicks the arrow to increment hours in start time
-	 * @return
+	 * @return RoomOutOfOrderPlanningPage
 	 */
 	public RoomOutOfOrderPlanningPage clickFromIncrementHoursBtn() {
 		clickArrowBtn("from", "incrementHours");
@@ -252,7 +248,7 @@ public class RoomOutOfOrderPlanningPage extends RoomBaseAbstractPage {
 
 	/**
 	 *[YA]This method clicks the arrow to decrement hours in start time
-	 * @return
+	 * @return RoomOutOfOrderPlanningPage
 	 */
 	public RoomOutOfOrderPlanningPage clickFromDecrementHoursBtn() {
 		clickArrowBtn("from", "decrementHours");
@@ -261,7 +257,7 @@ public class RoomOutOfOrderPlanningPage extends RoomBaseAbstractPage {
 
 	/**
 	 *[YA]This method clicks the arrow to increment minutes in start time
-	 * @return
+	 * @return RoomOutOfOrderPlanningPage
 	 */
 	public RoomOutOfOrderPlanningPage clickFromIncrementMinutesBtn() {
 		clickArrowBtn("from", "incrementMinutes");
@@ -270,6 +266,7 @@ public class RoomOutOfOrderPlanningPage extends RoomBaseAbstractPage {
 
 	/**
 	 * [YA]This method clicks the arrow to decrement minutes in start time
+	 * @return RoomOutOfOrderPlanningPage
 	 */
 	public RoomOutOfOrderPlanningPage clickFromDecrementMinutesBtn() {
 		clickArrowBtn("from", "decrementMinutes");
@@ -278,7 +275,7 @@ public class RoomOutOfOrderPlanningPage extends RoomBaseAbstractPage {
 
 	/**
 	 * [YA]This method clicks the arrow to increment hours in end time
-	 * @return
+	 * @return RoomOutOfOrderPlanningPage
 	 */
 	public RoomOutOfOrderPlanningPage clickToIncrementHoursBtn() {
 		clickArrowBtn("to", "incrementHours");
@@ -287,7 +284,7 @@ public class RoomOutOfOrderPlanningPage extends RoomBaseAbstractPage {
 
 	/**
 	 * [YA]This method clicks the arrow to increment hours in end time
-	 * @return
+	 * @return RoomOutOfOrderPlanningPage
 	 */
 	public RoomOutOfOrderPlanningPage clickToDecrementHoursBtn() {
 		clickArrowBtn("to", "decrementHours");
@@ -296,7 +293,7 @@ public class RoomOutOfOrderPlanningPage extends RoomBaseAbstractPage {
 
 	/**
 	 * [YA]This method clicks the arrow to increment minutes in end time
-	 * @return
+	 * @return RoomOutOfOrderPlanningPage
 	 */
 	public RoomOutOfOrderPlanningPage clickToIncrementMinutesBtn() {
 		clickArrowBtn("to", "incrementMinutes");
@@ -305,6 +302,7 @@ public class RoomOutOfOrderPlanningPage extends RoomBaseAbstractPage {
 
 	/**
 	 * [YA]This method clicks the arrow to decrement minutes in end time
+	 * @return RoomOutOfOrderPlanningPage
 	 */
 	public RoomOutOfOrderPlanningPage clickToDecrementMinutesBtn() {
 		clickArrowBtn("to", "decrementMinutes");
@@ -356,7 +354,7 @@ public class RoomOutOfOrderPlanningPage extends RoomBaseAbstractPage {
 
 	/**
 	 * [YA]This method returns the End date displayed in DateTextBox
-	 * @return
+	 * @return String
 	 */
 	public String getEndDateValue() {
 		return getDateValue("to");
@@ -370,24 +368,27 @@ public class RoomOutOfOrderPlanningPage extends RoomBaseAbstractPage {
 	 * @param finishingTime
 	 * @param title
 	 * @param description
-	 * @return
-	 * @throws ParseException
+	 * @return RoomOutOfOrderPlanningPage
 	 */
-	public RoomOutOfOrderPlanningPage setOutOfOrderPeriodInformation (String startDate, String endDate, 
+	public RoomOutOfOrderPlanningPage setOutOfOrderPeriodInformation(String startDate, String endDate, 
 			String startTime, String endTime, String title, String description) {
 		setTitleTxtBox(title);
 		setEndTime(endTime);
 		setStartTime(startTime);
-		setStartDateWithCalendar(startDate);
-		setEndDateWithCalendar(endDate);
 		setDescriptionTxtBox(description);
-		selectEmailNotificationChkBox();
+		String currentDate = TimeManager.getCurrentDate("MMM dd YYYY");
+		if (!(Integer.parseInt(startDate) == 0) && (getStartDateValue().equals(currentDate))) {
+			setStartDateWithCalendar(startDate);
+		}
+		if(!(Integer.parseInt(endDate)== 0) && (getEndDateValue().equals(currentDate))) {
+			setEndDateWithCalendar(endDate);
+		}
 		return this;
 	}
 
 	/**
 	 * [YA]This method activates an Out Of Order if it is deactivated 
-	 * @return
+	 * @return RoomOutOfOrderPlanningPage
 	 */
 	public RoomOutOfOrderPlanningPage activateOutOfOrder(){
 		if(!isOutOfOrderActivated()) {
@@ -398,7 +399,7 @@ public class RoomOutOfOrderPlanningPage extends RoomBaseAbstractPage {
 
 	/**
 	 * [YA]This method deactivates an Out Of Order if it is activated
-	 * @return 
+	 * @return RoomOutOfOrderPlanningPage
 	 */
 	public RoomOutOfOrderPlanningPage deactivateOutOfOrder(){
 		if(isOutOfOrderActivated()) {
@@ -462,7 +463,49 @@ public class RoomOutOfOrderPlanningPage extends RoomBaseAbstractPage {
 		String minutes = findDateElement("minutes", selector).getAttribute("value"); 
 		return hours + ":" + minutes;
 	}
-	
+
+	/**
+	 * [YA] This methods gets the value in hour TextBox or minute TextBox
+	 * @param selector
+	 * @param element
+	 * @return String
+	 */
+	private String getTimeValue(String selector, String element) {
+		return findDateElement(element, selector).getAttribute("value");
+	}
+
+	/**
+	 * [YA] This method gets the value in hour TextBox of Start time
+	 * @return String
+	 */
+	public String getStartHourValue() {
+		return getTimeValue("from", "hours");
+	}
+
+	/**
+	 * [YA] This method gets the value in minute TextBox of Start time
+	 * @return
+	 */
+	public String getStartMinuteValue() {
+		return getTimeValue("from", "minutes");
+	}
+
+	/**
+	 * [YA] This method gets the value in hour TextBox of End time
+	 * @return String
+	 */
+	public String getEndHourValue() {
+		return getTimeValue("to", "hours");
+	}
+
+	/**
+	 * [YA] This method gets the value in minute TextBox of End time
+	 * @return String
+	 */
+	public String getEndMinuteValue() {
+		return getTimeValue("to", "minutes");
+	}
+
 	/**
 	 * [YA]This method gets the time (hours and minutes) set as start time
 	 * @return String
@@ -470,7 +513,7 @@ public class RoomOutOfOrderPlanningPage extends RoomBaseAbstractPage {
 	public String getStartTimeValue() {
 		return getTimeValue("from");
 	}
-	
+
 	/**
 	 * [YA]This method gets the time (hours and minutes) set as end time
 	 * @return String
@@ -478,7 +521,7 @@ public class RoomOutOfOrderPlanningPage extends RoomBaseAbstractPage {
 	public String getEndTimeValue() {
 		return getTimeValue("to");
 	}
-	
+
 	/**
 	 * [YA]This method clicks saveBtn when an Out Of Order is created
 	 * @return RoomsPage
@@ -491,7 +534,7 @@ public class RoomOutOfOrderPlanningPage extends RoomBaseAbstractPage {
 		}
 		return new RoomsPage();
 	}
-	
+
 	/**
 	 * [YA]This method gets Out Of Order's title
 	 * @return String
@@ -499,7 +542,7 @@ public class RoomOutOfOrderPlanningPage extends RoomBaseAbstractPage {
 	public String getTitleValue() {
 		return titleTxtBox.getAttribute("value");
 	}
-	
+
 	/**
 	 * [YA]This method gets Out Of Order's description
 	 * @return String
@@ -507,10 +550,10 @@ public class RoomOutOfOrderPlanningPage extends RoomBaseAbstractPage {
 	public String getDescriptionValue() {
 		return descriptionTxtBox.getAttribute("value");
 	}
-	
+
 	/**
 	 * [YA] This method verifies if Out Of Order is Activated
-	 * @return
+	 * @return boolean
 	 */
 	public boolean isOutOfOrderActivated() {
 		return !emailNotificationChkBox.getAttribute("class").contains("text-disabled-color");
@@ -520,7 +563,7 @@ public class RoomOutOfOrderPlanningPage extends RoomBaseAbstractPage {
 	 * [YA] This method clicks Save button when an error message is expected and 
 	 * it should stay in the same page
 	 * @param errorMessage
-	 * @return
+	 * @return RoomOutOfOrderPlanningPage
 	 */
 	public RoomOutOfOrderPlanningPage clickSaveWithErrorBtn() {
 		saveBtn.click();

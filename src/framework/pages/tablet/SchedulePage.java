@@ -830,4 +830,12 @@ public class SchedulePage {
 		itemRangeMeeting.click();
 		return this;
 	}
+
+	public SchedulePage clickOverOutOfOrder(String outOfOrderTitle) {
+		WebElement outOfOrderBox = driver.findElement(By.xpath("//span[contains(text(),'" 
+				+ outOfOrderTitle + "')]//ancestor::div[@class='item range out-of-order']"));
+		wait.until(ExpectedConditions.elementToBeClickable(outOfOrderBox));
+		outOfOrderBox.click();
+		return this;
+	}
 }
