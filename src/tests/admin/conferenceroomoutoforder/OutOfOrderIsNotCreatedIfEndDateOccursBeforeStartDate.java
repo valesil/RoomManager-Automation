@@ -33,6 +33,8 @@ public class OutOfOrderIsNotCreatedIfEndDateOccursBeforeStartDate {
 	@Test(groups = {"FUNCTIONAL", "UI"})
 	public void testOutOfOrderIsNotCreatedIfEndDateOccursBeforeStartDate() throws JSONException, 
 	MalformedURLException, IOException {
+		
+		//Getting Out Of Order data from an excel file
 		ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
 		List<Map<String, String>> testData = excelReader.getMapValues("OutOfOrderPlanning");
 		String title = testData.get(0).get("Title");

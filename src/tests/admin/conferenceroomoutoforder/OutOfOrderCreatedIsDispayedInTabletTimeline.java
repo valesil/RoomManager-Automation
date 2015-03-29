@@ -31,6 +31,8 @@ import framework.utils.readers.ExcelReader;
  *
  */
 public class OutOfOrderCreatedIsDispayedInTabletTimeline {
+	
+	//Getting Out Of Order data from an excel file
 	private ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
 	private List<Map<String, String>> testData = excelReader.getMapValues("OutOfOrderPlanning");
 	private String roomName = testData.get(10).get("Room Name");
@@ -45,8 +47,8 @@ public class OutOfOrderCreatedIsDispayedInTabletTimeline {
 	
 	@Test(dataProvider = "OutOfOrderData", dataProviderClass = DataProviders.class, 
 			groups = "ACCEPTANCE")
-	public void testOutOfOrderCreatedIsDispayedInTabletTimeline(String description, String startDate, String endDate, 
-			String startTime, String endTime) {
+	public void testOutOfOrderCreatedIsDispayedInTabletTimeline(String description, 
+			String startDate, String endDate, String startTime, String endTime) {
 		
 		//Out Of Order Creation in Admin
 		HomeAdminPage homeAdminPage = new HomeAdminPage(); 

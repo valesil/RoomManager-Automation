@@ -29,6 +29,8 @@ public class StartAndEndDateAreSetForCurrentTimeByDefault {
 		
 	@Test(groups = "UI")
 	public void testStartAndEndDateIsSetForCurrentTimeByDefault() {
+		
+		//Getting Out Of Order data from an excel file
 		ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
 		List<Map<String, String>> testData = excelReader.getMapValues("OutOfOrderPlanning");
 		String roomName = testData.get(0).get("Room Name");

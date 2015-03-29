@@ -172,7 +172,7 @@ public class RoomOutOfOrderPlanningPage extends RoomBaseAbstractPage {
 	/**
 	 *[YA]This method sets an end time (HH:MM AM/PM) for out of order planning period
 	 * @param endTime
-	 * @return oomOutOfOrderPlanningPage
+	 * @return RoomOutOfOrderPlanningPage
 	 */
 	public RoomOutOfOrderPlanningPage setEndTime (String endTime) {
 		setTime(endTime, "to");
@@ -241,7 +241,7 @@ public class RoomOutOfOrderPlanningPage extends RoomBaseAbstractPage {
 	 *[YA]This method clicks the arrow to increment hours in start time
 	 * @return RoomOutOfOrderPlanningPage
 	 */
-	public RoomOutOfOrderPlanningPage clickFromIncrementHoursBtn() {
+	public RoomOutOfOrderPlanningPage clickStartTimeIncrementHoursBtn() {
 		clickArrowBtn("from", "incrementHours");
 		return this;
 	}
@@ -250,7 +250,7 @@ public class RoomOutOfOrderPlanningPage extends RoomBaseAbstractPage {
 	 *[YA]This method clicks the arrow to decrement hours in start time
 	 * @return RoomOutOfOrderPlanningPage
 	 */
-	public RoomOutOfOrderPlanningPage clickFromDecrementHoursBtn() {
+	public RoomOutOfOrderPlanningPage clickStartTimeDecrementHoursBtn() {
 		clickArrowBtn("from", "decrementHours");
 		return this;
 	}
@@ -259,7 +259,7 @@ public class RoomOutOfOrderPlanningPage extends RoomBaseAbstractPage {
 	 *[YA]This method clicks the arrow to increment minutes in start time
 	 * @return RoomOutOfOrderPlanningPage
 	 */
-	public RoomOutOfOrderPlanningPage clickFromIncrementMinutesBtn() {
+	public RoomOutOfOrderPlanningPage clickStartTimeIncrementMinutesBtn() {
 		clickArrowBtn("from", "incrementMinutes");
 		return this;
 	}
@@ -268,7 +268,7 @@ public class RoomOutOfOrderPlanningPage extends RoomBaseAbstractPage {
 	 * [YA]This method clicks the arrow to decrement minutes in start time
 	 * @return RoomOutOfOrderPlanningPage
 	 */
-	public RoomOutOfOrderPlanningPage clickFromDecrementMinutesBtn() {
+	public RoomOutOfOrderPlanningPage clickStartTimeDecrementMinutesBtn() {
 		clickArrowBtn("from", "decrementMinutes");
 		return this;
 	}
@@ -277,7 +277,7 @@ public class RoomOutOfOrderPlanningPage extends RoomBaseAbstractPage {
 	 * [YA]This method clicks the arrow to increment hours in end time
 	 * @return RoomOutOfOrderPlanningPage
 	 */
-	public RoomOutOfOrderPlanningPage clickToIncrementHoursBtn() {
+	public RoomOutOfOrderPlanningPage clickEndTimeIncrementHoursBtn() {
 		clickArrowBtn("to", "incrementHours");
 		return this;
 	}
@@ -286,7 +286,7 @@ public class RoomOutOfOrderPlanningPage extends RoomBaseAbstractPage {
 	 * [YA]This method clicks the arrow to increment hours in end time
 	 * @return RoomOutOfOrderPlanningPage
 	 */
-	public RoomOutOfOrderPlanningPage clickToDecrementHoursBtn() {
+	public RoomOutOfOrderPlanningPage clickEndTimeDecrementHoursBtn() {
 		clickArrowBtn("to", "decrementHours");
 		return this;
 	}
@@ -295,7 +295,7 @@ public class RoomOutOfOrderPlanningPage extends RoomBaseAbstractPage {
 	 * [YA]This method clicks the arrow to increment minutes in end time
 	 * @return RoomOutOfOrderPlanningPage
 	 */
-	public RoomOutOfOrderPlanningPage clickToIncrementMinutesBtn() {
+	public RoomOutOfOrderPlanningPage clickEndTimeIncrementMinutesBtn() {
 		clickArrowBtn("to", "incrementMinutes");
 		return this;
 	}
@@ -304,7 +304,7 @@ public class RoomOutOfOrderPlanningPage extends RoomBaseAbstractPage {
 	 * [YA]This method clicks the arrow to decrement minutes in end time
 	 * @return RoomOutOfOrderPlanningPage
 	 */
-	public RoomOutOfOrderPlanningPage clickToDecrementMinutesBtn() {
+	public RoomOutOfOrderPlanningPage clickEndTimeDecrementMinutesBtn() {
 		clickArrowBtn("to", "decrementMinutes");
 		return this;
 	}

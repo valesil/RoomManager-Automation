@@ -32,6 +32,8 @@ public class OutOfOrderIsNotCreatedIfTitleContainsOnlySpaces {
 	@Test(groups = {"FUNCTIONAL", "UI"})
 	public void testOutOfOrderIsNotCreatedIfTitleContainsOnlySpaces() throws JSONException, 
 	MalformedURLException, IOException {
+		
+		//Getting Out Of Order data from an excel file
 		ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
 		List<Map<String, String>> testData = excelReader.getMapValues("OutOfOrderPlanning");
 		String roomName = testData.get(7).get("Room Name");

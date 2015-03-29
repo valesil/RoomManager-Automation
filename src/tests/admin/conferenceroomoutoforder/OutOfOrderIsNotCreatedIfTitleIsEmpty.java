@@ -31,6 +31,8 @@ public class OutOfOrderIsNotCreatedIfTitleIsEmpty {
 	@Test(groups = {"FUNCTIONAL", "UI"})
 	public void testOutOfOrderIsNotCreatedIfTitleIsEmpty() throws JSONException, 
 	MalformedURLException, IOException {
+		
+		//Getting Out Of Order data from an excel file
 		ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
 		List<Map<String, String>> testData = excelReader.getMapValues("OutOfOrderPlanning");
 		String roomName = testData.get(6).get("Room Name");

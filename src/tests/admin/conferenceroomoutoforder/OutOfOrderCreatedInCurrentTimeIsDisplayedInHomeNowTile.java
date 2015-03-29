@@ -12,6 +12,7 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.Test;
 
 import framework.pages.admin.HomeAdminPage;
+import framework.pages.admin.conferencerooms.RoomInfoPage;
 import framework.pages.admin.conferencerooms.RoomOutOfOrderPlanningPage;
 import framework.pages.admin.conferencerooms.RoomsPage;
 import framework.pages.tablet.HomeTabletPage;
@@ -26,6 +27,8 @@ import framework.utils.readers.ExcelReader;
  *
  */
 public class OutOfOrderCreatedInCurrentTimeIsDisplayedInHomeNowTile {
+	
+	//Getting Out Of Order data from an excel file
 	private ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
 	private List<Map<String, String>> testData = excelReader.getMapValues("OutOfOrderPlanning");
 	private String roomName = testData.get(3).get("Room Name");
@@ -41,11 +44,10 @@ public class OutOfOrderCreatedInCurrentTimeIsDisplayedInHomeNowTile {
 		
 		//Out Of Order Creation in Admin
 		HomeAdminPage homeAdminPage = new HomeAdminPage(); 
-		RoomsPage conferenceRoom = homeAdminPage.clickConferenceRoomsLink();
-		RoomOutOfOrderPlanningPage outOfOrder = conferenceRoom
-				.doubleClickOverRoomName(roomName)
-				.clickOutOfOrderPlanningLink();
-		conferenceRoom = outOfOrder
+		RoomsPage roomsPage = homeAdminPage.clickConferenceRoomsLink();
+		RoomInfoPage roomInfoPage = roomsPage.doubleClickOverRoomName(roomName);
+		RoomOutOfOrderPlanningPage outOfOrderPage = roomInfoPage.clickOutOfOrderPlanningLink();
+		roomsPage = outOfOrderPage
 				.setOutOfOrderPeriodInformation(startDate, endDate, startTime, endTime, title, 
 						description)
 				.activateOutOfOrder()

@@ -32,6 +32,8 @@ import framework.utils.readers.ExcelReader;
  *
  */
 public class OutOfOrderInformationIsNotDisplayedOrUpdatedInScheduler {
+	
+	//Getting Out Of Order data from an excel file
 	private ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
 	private List<Map<String, String>> testData = excelReader.getMapValues("OutOfOrderPlanning");
 	private String roomName = testData.get(2).get("Room Name");
@@ -39,6 +41,8 @@ public class OutOfOrderInformationIsNotDisplayedOrUpdatedInScheduler {
 	
 	@BeforeClass(groups = "ACCEPTANCE")
 	public void selectRoomInTablet() {
+		
+		//Selecting a room in Tablet
 		HomeTabletPage homeTabletPage = new HomeTabletPage();
 		SettingsPage settingsPage = homeTabletPage.clickSettingsBtn();
 		homeTabletPage = settingsPage.selectRoom(roomName);
@@ -46,8 +50,8 @@ public class OutOfOrderInformationIsNotDisplayedOrUpdatedInScheduler {
 	
 	@Test(dataProvider = "OutOfOrderData", dataProviderClass = DataProviders.class, 
 			groups = "ACCEPTANCE")
-	public void testOutOfOrderInformationIsNotDisplayedOrUpdatedInScheduler(String description, String startDate, 
-			String endDate, String startTime, String endTime) {
+	public void testOutOfOrderInformationIsNotDisplayedOrUpdatedInScheduler(String description, 
+			String startDate, String endDate, String startTime, String endTime) {
 		
 		//Out Of Order Creation in Admin
 		HomeAdminPage homeAdminPage = new HomeAdminPage(); 
@@ -64,6 +68,8 @@ public class OutOfOrderInformationIsNotDisplayedOrUpdatedInScheduler {
 		SchedulePage schedulerPage = homeTabletPage
 				.clickScheduleBtn()
 				.clickOverOutOfOrder(title);
+		
+		
 		
 		//Assertion for TC12
 		Assert.assertTrue(schedulerPage.getMeetingOrganizerValue().isEmpty());

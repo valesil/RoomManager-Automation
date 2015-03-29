@@ -33,10 +33,14 @@ import framework.utils.readers.ExcelReader;
  *
  */
 public class OutOfOrderCreatedReplacesExistingMeetingInTablet {
+	
+	//Getting Out Of Order data from an excel file
 	private ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
 	private List<Map<String, String>> outOfOrderData = excelReader.getMapValues("OutOfOrderPlanning");
 	private String roomName = outOfOrderData.get(10).get("Room Name");
 	private String title = outOfOrderData.get(10).get("Title");
+	
+	//Getting Meeting data from an excel file
 	private List<Map<String, String>> meetingData = excelReader.getMapValues("MeetingData");
 	private String organizer = meetingData.get(7).get("Organizer");
 	private String password = meetingData.get(7).get("Password");

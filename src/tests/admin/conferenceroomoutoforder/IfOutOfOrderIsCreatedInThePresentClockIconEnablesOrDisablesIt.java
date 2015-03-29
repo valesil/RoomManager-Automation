@@ -29,6 +29,8 @@ import framework.utils.readers.ExcelReader;
  *
  */
 public class IfOutOfOrderIsCreatedInThePresentClockIconEnablesOrDisablesIt {
+	
+	//Getting Out Of Order data from an excel file
 	private ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
 	private List<Map<String, String>> testData = excelReader.getMapValues("OutOfOrderPlanning");
 	private String roomName = testData.get(3).get("Room Name");
