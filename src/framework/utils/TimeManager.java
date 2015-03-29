@@ -1,6 +1,5 @@
 package framework.utils;
 
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -12,18 +11,28 @@ import org.joda.time.Hours;
 import org.joda.time.Minutes;
 
 /**
- * This class manage Time elements: hours, minutes, meridian 
+ * This class manages Time elements
  * @author Eliana Navia
  *
  */
 public class TimeManager {
-
 	static Calendar calendar = new GregorianCalendar();
 	static DateTime dateTime = new DateTime();
 
 	/**
+	 * [YA]This method changes a date to String.
+	 * @param date
+	 * @param formatter
+	 * @return String
+	 */
+	private static String dateToString(Date date, String formatter) {
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat(formatter);
+		return simpleDateFormat.format(date);
+	}
+
+	/**
 	 * [YA]This method gets a new time based on the current time and minutes to add or subtract
-	 * @param minutes: minutes to add or subtract
+	 * @param minutes
 	 * @return new time
 	 */
 	private static Date getNewTime(int minutes) {
@@ -33,31 +42,52 @@ public class TimeManager {
 	}
 
 	/**
-	 * [YA]This method changes a date to String. It could be also used for time
-	 * @param date: base date to change format
-	 * @param formatter: format for date (e.g. "hh:mm a")
-	 * @return new date
-	 */
-	private static String dateToString(Date date, String formatter) {
-		SimpleDateFormat simpleDateFormat = new SimpleDateFormat(formatter);
-		return simpleDateFormat.format(date);
-	}
-
-	/**
-	 * [YA]This method returns a new time as a String based on current time and minutes to add/subtract
-	 * It calls two methods: dateToString() and getNewTime
-	 * @param value: minutes to add or subtract
-	 * @return String with any format
+	 * [YA]This method returns a new time as a String based on current time and minutes to add or 
+	 * subtract
+	 * @param value
+	 * @return String
 	 */
 	public static String getTime(int value, String formatter) {
 		return dateToString(getNewTime(value), formatter);
 	}
 
 	/**
+	 * [YA] This method gets a new date based on current time and days to add or subtract
+	 * @param days
+	 * @return Date
+	 */
+	private static Date getNewDate(int days) {
+		calendar.setTime(new Date());
+		calendar.add(Calendar.DAY_OF_MONTH, days);
+		return calendar.getTime();
+	}
+
+	/**
+	 * [YA] This method returns a new date as a String based on current time and days to add or 
+	 * subtract
+	 * @param value
+	 * @param formatter
+	 * @return String
+	 */
+	public static String getDate(int value, String formatter) {
+		String date = dateToString(getNewDate(value), formatter);
+
+		/*This lines should be removed when the calendar lets the user create Out Of Orders on 
+		weekends*/
+		if(value != 0) {
+			String day = dateToString(getNewDate(value), "EEE");
+			if(day.equals("Sat") || day.equals("Sun")) {
+				date = dateToString(getNewDate(2), formatter);
+			} 
+		}
+		return date;
+	}
+
+	/**
 	 * [YA]This element returns a time element: hours, minutes or meridian
-	 * @param time: time to split hh:mm a
-	 * @param element: hours, minutes or meridian
-	 * @return time element
+	 * @param time
+	 * @param element
+	 * @return String
 	 */
 	public static String getTimeElement(String time, String element) {
 		String[] splittedTime = time.split(" ");
@@ -86,18 +116,18 @@ public class TimeManager {
 
 	/**
 	 * [YA]This method returns the following methods of a date: year, month or day
-	 * @param date: Date to split
-	 * @param Element: year, month or day
-	 * @return date element
+	 * @param date
+	 * @param element
+	 * @return String
 	 */
 	public static String getDateElement(String date, String element) {
 		String dateElement = null;
 		switch(element) {
-		case "year": dateElement = date.split("/")[0];
+		case "year": dateElement = date.split(" ")[2];
 		break;
-		case "month": dateElement = date.split("/")[1];
+		case "month": dateElement = date.split(" ")[0];
 		break;
-		case "day" : dateElement = date.split("/")[2];
+		case "day" : dateElement = date.split(" ")[1];
 		break;
 		default : break;
 		}
@@ -106,8 +136,8 @@ public class TimeManager {
 
 	/**
 	 * [YA] This method returns the current date or time in any format
-	 * @param formatter: format for current date or time
-	 * @return
+	 * @param formatter
+	 * @return String
 	 */
 	public static String getCurrentDate(String formatter) {
 		return dateToString(new Date(),formatter);
@@ -116,7 +146,7 @@ public class TimeManager {
 	/**
 	 * [YA] This method returns the next half hour period for a time
 	 * @param time
-	 * @return
+	 * @return String
 	 */
 	public static String getNextHalfHourPeriod(String time) {
 		int hours = Integer.parseInt(getTimeElement(time, "hours"));
