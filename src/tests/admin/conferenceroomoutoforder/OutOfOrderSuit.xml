@@ -1,0 +1,18 @@
+<suite name="ConferenceRoomOutOfOrderSuite">
+ 	<listeners>
+      	<listener class-name="org.uncommons.reportng.HTMLReporter"/>
+      	<listener class-name="org.uncommons.reportng.JUnitXMLReporter"/>
+      	<listener class-name="framework.utils.ReportNGListener"/>
+  	</listeners>
+ 	<test name = "ConferenceRoomOutOfOrderTests">
+		<classes>
+ 			<class name="tests.admin.conferenceroomoutoforder.StartTestConferenceRoomOutOfOrder" />
+ 			 
+ 			
+ 			 <!--TC12, TC13-->
+ 			 <class name="tests.admin.conferenceroomoutoforder.OutOfOrderInformationIsNotDisplayedOrUpdatedInScheduler"/>
+ 			 
+ 		</classes>
+ 	</test>
+</suite>
+
