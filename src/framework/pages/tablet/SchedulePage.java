@@ -830,4 +830,34 @@ public class SchedulePage {
 		itemRangeMeeting.click();
 		return this;
 	}
+
+	/**
+	 * [YA]This method clicks over an Out Of Order
+	 * @param outOfOrderTitle
+	 * @return SchedulePage
+	 */
+	public SchedulePage clickOverOutOfOrder(String outOfOrderTitle) {
+		moveTimelineAccordingToCurrentTime();
+		WebElement outOfOrderBox = driver.findElement(By.xpath("//span[contains(text(),'" 
+				+ outOfOrderTitle + "')]//ancestor::div[@class='item range out-of-order']"));
+		wait.until(ExpectedConditions.elementToBeClickable(outOfOrderBox));
+		outOfOrderBox.click();
+		return this;
+	}
+	
+	/**
+	 * [YA]This method moves the timeLine According to current time
+	 * @return SchedulePage
+	 */
+	public SchedulePage moveTimelineAccordingToCurrentTime() {
+		String currentHour = TimeManager.getCurrentDate("HH");
+		int value = 0;
+		if (Integer.parseInt(currentHour) <= 7) {
+			value = 5000;
+		} else if (Integer.parseInt(currentHour) >= 18) {
+			value = -5000;
+		}
+		moveTimeLine(value);
+		return this;
+	}
 }
