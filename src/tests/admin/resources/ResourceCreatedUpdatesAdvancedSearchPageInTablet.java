@@ -28,36 +28,38 @@ import framework.utils.readers.ExcelReader;
  * @author Marco Llano
  */
 public class ResourceCreatedUpdatesAdvancedSearchPageInTablet {
+	
+	//ExcelReader is used to read rooms data
 	private ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
-	private List<Map<String, String>> testData = excelReader.getMapValues("Resources");
+	private List<Map<String, String>> resourcesDataList = excelReader.getMapValues("Resources");
 
 	@Test(groups = {"FUNCTIONAL"})
 	public void testResourceCreatedUpdatesAdvancedSearchPageInTablet() {
-		HomeAdminPage home = new HomeAdminPage();
-		ResourcesPage resource = home.clickResourcesLink();
+		HomeAdminPage homeAdminPage = new HomeAdminPage();
+		ResourcesPage resourcesPage = homeAdminPage.clickResourcesLink();
 
 		//Variables declaration and initialize
-		String resourceName = testData.get(0).get("ResourceName");
-		String resourceDisplayName = testData.get(0).get("ResourceDisplayName");
-		String resourceDescription = testData.get(0).get("Description");
-		String iconTitle = testData.get(0).get("Icon");
-		String quantity = testData.get(0).get("Value");
-		String roomDisplayName = testData.get(0).get("Room Name");
+		String resourceName = resourcesDataList.get(0).get("ResourceName");
+		String resourceDisplayName = resourcesDataList.get(0).get("ResourceDisplayName");
+		String resourceDescription = resourcesDataList.get(0).get("Description");
+		String iconTitle = resourcesDataList.get(0).get("Icon");
+		String quantity = resourcesDataList.get(0).get("Value");
+		String roomDisplayName = resourcesDataList.get(0).get("Room Name");
 
-		//Create a resource
-		ResourceCreatePage resourceCreate  = resource.clickAddResourceBtn();		
-		resource = resourceCreate.clickResourceIcon()
+		//Create a resourcesPage
+		ResourceCreatePage resourceCreatePage  = resourcesPage.clickAddResourceBtn();		
+		resourcesPage = resourceCreatePage.clickResourceIcon()
 				.selectResourceIcon(iconTitle)
 				.setResourceName(resourceName)
 				.setResourceDisplayName(resourceDisplayName)
 				.setResourceDescription(resourceDescription)
 				.clickSaveResourceBtn();
 
-		//Associate a resource to a room by resource display name
-		RoomsPage roomsPage = home.clickConferenceRoomsLink();
+		//Associate a resourcesPage to a room by resourcesPage display name
+		RoomsPage roomsPage = homeAdminPage.clickConferenceRoomsLink();
 		RoomInfoPage roomInfoPage = roomsPage.doubleClickOverRoomName(roomDisplayName);
-		RoomResourceAssociationsPage roomResourceAssociation = roomInfoPage.clickResourceAssociationsLink();
-		roomsPage = roomResourceAssociation.clickAddResourceToARoom(resourceDisplayName)
+		RoomResourceAssociationsPage roomResourceAssociationsPage = roomInfoPage.clickResourceAssociationsLink();
+		roomsPage = roomResourceAssociationsPage.clickAddResourceToARoom(resourceDisplayName)
 				.changeValueForResourceFromAssociatedList(resourceDisplayName, quantity)
 				.clickSaveBtn();
 
@@ -74,8 +76,8 @@ public class ResourceCreatedUpdatesAdvancedSearchPageInTablet {
 		Assert.assertTrue(searchPage.isResourceInAdvancedSearch(resourceDisplayName));
 	}
 
-	@AfterMethod
+	@AfterMethod(groups = {"FUNCTIONAL"})
 	public void afterMethod() throws MalformedURLException, IOException {			
-		RootRestMethods.deleteResource(testData.get(0).get("ResourceName"));
+		RootRestMethods.deleteResource(resourcesDataList.get(0).get("ResourceName"));
 	}
 }

@@ -8,11 +8,11 @@ import framework.pages.admin.LoginPage;
 public class StartTestSuiteConferenceRoom {
 	LoginPage loginPage = new LoginPage();
 	
-	@BeforeSuite
+	@BeforeSuite(groups = {"FUNCTIONAL","NEGATIVE","ACCEPTANCE"})
 	public void init() {
 	}
 	
-	@AfterSuite
+	@AfterSuite(groups = {"FUNCTIONAL","NEGATIVE","ACCEPTANCE"})
 	public void afterSuite() {
 		loginPage.CloseWindow();
 	}

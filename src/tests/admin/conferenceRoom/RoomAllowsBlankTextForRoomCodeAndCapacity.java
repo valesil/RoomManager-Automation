@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.testng.Assert;
-import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 
 import framework.pages.admin.HomeAdminPage;
@@ -21,31 +20,30 @@ import framework.utils.readers.ExcelReader;
  */
 public class RoomAllowsBlankTextForRoomCodeAndCapacity {
 	private RoomsPage roomsPage;
-	private RoomInfoPage infoPage;
+	private RoomInfoPage roomInfoPage;
 
 	@Test(groups = {"NEGATIVE"})
 	public void testRoomAllowsBlankTextForRoomCodeAndCapacity() {
-		HomeAdminPage home = new HomeAdminPage();
-		roomsPage = home.clickConferenceRoomsLink();
+		HomeAdminPage homeAdminPage = new HomeAdminPage();
+		roomsPage = homeAdminPage.clickConferenceRoomsLink();
+
+		//ExcelReader is used to read rooms data (roomName) from Excel file and save it into a List
 		ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
-		List<Map<String, String>> testData = excelReader.getMapValues("Resources");
-		String roomName = testData.get(0).get("Room Name");
+		List<Map<String, String>> roomsDataList = excelReader.getMapValues("Resources");
+		String roomName = roomsDataList.get(0).get("Room Name");
 
 		//Set room capacity to blank text
 		roomsPage.clickConferenceRoomsLink();
-		infoPage = roomsPage.doubleClickOverRoomName(roomName);
-		roomsPage = infoPage.setRoomCapacity("").setRoomCode("").clickSaveBtn();
-		infoPage = roomsPage.doubleClickOverRoomName(roomName);
+		roomInfoPage = roomsPage.doubleClickOverRoomName(roomName);
+		roomsPage = roomInfoPage.setRoomCapacity("")
+				.setRoomCode("")
+				.clickSaveBtn();
+		roomInfoPage = roomsPage.doubleClickOverRoomName(roomName);
 
 		//Assertion for TC15
-		Assert.assertEquals(infoPage.getRoomCapacity(), "");
+		Assert.assertEquals(roomInfoPage.getRoomCapacity(), "");
 
 		//Assertion for TC16
-		Assert.assertEquals(infoPage.getRoomCode(), "");		
-	}
-
-	@AfterMethod
-	public void afterMethod() {	
-		roomsPage = infoPage.clickCancelBtn();
+		Assert.assertEquals(roomInfoPage.getRoomCode(), "");		
 	}
 }

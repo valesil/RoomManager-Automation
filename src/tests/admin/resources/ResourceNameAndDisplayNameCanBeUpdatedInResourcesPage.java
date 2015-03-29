@@ -11,7 +11,6 @@ import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 
-import framework.common.UIMethods;
 import framework.pages.admin.HomeAdminPage;
 import framework.pages.admin.resources.ResourceCreatePage;
 import framework.pages.admin.resources.ResourceInfoPage;
@@ -27,40 +26,41 @@ import framework.utils.readers.ExcelReader;
  * @author Marco Llano
  */
 public class ResourceNameAndDisplayNameCanBeUpdatedInResourcesPage {
+	
+	//ExcelReader is used to read resources data from excel
 	private ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
-	private List<Map<String, String>> testData = excelReader.getMapValues("Resources");
+	private List<Map<String, String>> resourceDataList = excelReader.getMapValues("Resources");
 
 	@Test(groups = {"FUNCTIONAL"})
 	public void testResourceDisplayNameCanBeUpdatedInResourcePage() throws InterruptedException {
-		HomeAdminPage home = new HomeAdminPage();
-		ResourcesPage resource = home.clickResourcesLink();
+		HomeAdminPage homeAdminPage = new HomeAdminPage();
+		ResourcesPage resourcesPage = homeAdminPage.clickResourcesLink();
 
 		//Variable declaration and initialize
-		String resourceName = testData.get(1).get("ResourceName");
-		String resourceDisplayName = testData.get(1).get("ResourceDisplayName");
-		String newResourceDisplayName = testData.get(2).get("ResourceDisplayName");
+		String resourceName = resourceDataList.get(1).get("ResourceName");
+		String resourceDisplayName = resourceDataList.get(1).get("ResourceDisplayName");
+		String newResourceDisplayName = resourceDataList.get(2).get("ResourceDisplayName");
 
-		//Create new resource
-		ResourceCreatePage resourceCreate = resource.clickAddResourceBtn();		
-		resource = resourceCreate.setResourceName(resourceName)
+		//Create new resourcesPage
+		ResourceCreatePage resourceCreatePage = resourcesPage.clickAddResourceBtn();		
+		resourcesPage = resourceCreatePage.setResourceName(resourceName)
 				.setResourceDisplayName(resourceDisplayName)
 				.clickSaveResourceBtn();
 
 		//Update resourceDisplayName field
-		ResourceInfoPage resourceInfo = resource.openResourceInfoPage(resourceName);		
-		resource = resourceInfo.setResourceDisplayName(newResourceDisplayName)
+		ResourceInfoPage resourceInfoPage = resourcesPage.openResourceInfoPage(resourceName);		
+		resourcesPage = resourceInfoPage.setResourceDisplayName(newResourceDisplayName)
 				.clickSaveResourceBtn();
 
 		//Assertion for TC34
-		Assert.assertTrue(resource.isResourceDisplayNameDisplayedInResourcesPage(newResourceDisplayName));
+		Assert.assertTrue(resourcesPage.isResourceDisplayNameDisplayedInResourcesPage(newResourceDisplayName));
 
 		//Assertion for TC30
-		Assert.assertTrue(resource.isResourceNameDisplayedInResourcesPage(resourceName));
+		Assert.assertTrue(resourcesPage.isResourceNameDisplayedInResourcesPage(resourceName));
 	}
 
-	@AfterMethod
+	@AfterMethod(groups = {"FUNCTIONAL"})
 	public void afterMethod() throws MalformedURLException, IOException {	
-		RootRestMethods.deleteResource(testData.get(1).get("ResourceName"));
-		UIMethods.refresh();
+		RootRestMethods.deleteResource(resourceDataList.get(1).get("ResourceName"));
 	}
 }

@@ -12,11 +12,11 @@ import framework.pages.admin.LoginPage;
 public class StartTestSuiteResources {
 	LoginPage login = new LoginPage();
 
-	@BeforeSuite
+	@BeforeSuite(groups = {"FUNCTIONAL","NEGATIVE","ACCEPTANCE"})
 	public void init() {
 	}
 
-	@AfterSuite
+	@AfterSuite(groups = {"FUNCTIONAL","NEGATIVE","ACCEPTANCE"})
 	public void afterSuite() {
 		login.CloseWindow();
 	}

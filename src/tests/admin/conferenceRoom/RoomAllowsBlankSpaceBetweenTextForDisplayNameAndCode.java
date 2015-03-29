@@ -21,33 +21,35 @@ import framework.utils.readers.ExcelReader;
  */
 public class RoomAllowsBlankSpaceBetweenTextForDisplayNameAndCode {
 	private RoomsPage roomsPage;
-	private RoomInfoPage infoPage;
+	private RoomInfoPage roomInfoPage;
+	
+	//ExcelReader is used to read rooms data (roomName) from Excel file and save it into a List
 	private ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
-	private List<Map<String, String>> testData = excelReader.getMapValues("Resources");
-	private String roomDisplayName = testData.get(0).get("Room Name");
+	private List<Map<String, String>> roomsDataList = excelReader.getMapValues("Resources");
+	private String roomName = roomsDataList.get(0).get("Room Name");
 
 	@Test(groups = {"NEGATIVE"})
 	public void testRoomAllowsBlankSpaceBetweenTextForDisplayNameAndCode() {
-		HomeAdminPage home = new HomeAdminPage();
-		roomsPage = home.clickConferenceRoomsLink();			
+		HomeAdminPage homeAdminPage = new HomeAdminPage();
+		roomsPage = homeAdminPage.clickConferenceRoomsLink();			
 
 		//Insert blank space between text in room display name and room code
 		roomsPage.clickConferenceRoomsLink();
-		infoPage = roomsPage.doubleClickOverRoomName(roomDisplayName);
-		roomsPage = infoPage.setDisplayName(roomDisplayName + " " + roomDisplayName)
-				.setRoomCode(roomDisplayName + " " + roomDisplayName)
+		roomInfoPage = roomsPage.doubleClickOverRoomName(roomName);
+		roomsPage = roomInfoPage.setDisplayName(roomName + " " + roomName)
+				.setRoomCode(roomName + " " + roomName)
 				.clickSaveBtn();
-		infoPage = roomsPage.doubleClickOverRoomName(roomDisplayName + " " + roomDisplayName);
+		roomInfoPage = roomsPage.doubleClickOverRoomName(roomName + " " + roomName);
 
 		//Assertion for TC18		
-		Assert.assertTrue(infoPage.getRoomDisplayName().contains(roomDisplayName + " " + roomDisplayName));
+		Assert.assertTrue(roomInfoPage.getRoomDisplayName().contains(roomName + " " + roomName));
 
 		//Assertion for TC19
-		Assert.assertEquals(infoPage.getRoomCode(), roomDisplayName + " " + roomDisplayName);
+		Assert.assertEquals(roomInfoPage.getRoomCode(), roomName + " " + roomName);
 	}
 
-	@AfterMethod
+	@AfterMethod(groups = {"NEGATIVE"})
 	public void afterMethod() {	
-		roomsPage = infoPage.setDisplayName(roomDisplayName).clickSaveBtn();
+		roomsPage = roomInfoPage.setDisplayName(roomName).clickSaveBtn();
 	}
 }

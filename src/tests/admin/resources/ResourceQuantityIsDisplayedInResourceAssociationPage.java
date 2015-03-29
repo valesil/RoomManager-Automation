@@ -11,7 +11,6 @@ import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 
-import framework.common.UIMethods;
 import framework.pages.admin.HomeAdminPage;
 import framework.pages.admin.conferencerooms.RoomInfoPage;
 import framework.pages.admin.conferencerooms.RoomResourceAssociationsPage;
@@ -24,40 +23,42 @@ import framework.rest.RootRestMethods;
 import framework.utils.readers.ExcelReader;
 
 /**
- * TC32: Verify that resource quantity associated to a room is displayed on {Quantity} column
+ * TC32: Verify that resourcesPage quantity associated to a room is displayed on {Quantity} column
  * in {ResourceInfo>Resource Associations} form when it is selected
  * @author Marco Llano
  */
 public class ResourceQuantityIsDisplayedInResourceAssociationPage {
-	private ResourcesPage resource;
-	private ResourceAssociationsPage resourceAssoiation;
+	private ResourcesPage resourcesPage;
+	private ResourceAssociationsPage resourceAssociationsPage;
+	
+	//ExcelReader is used to read resources data from excel
 	private ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
-	private List<Map<String, String>> testData1 = excelReader.getMapValues("Resources");
+	private List<Map<String, String>> resourceDataList = excelReader.getMapValues("Resources");
 
 	@Test(groups = {"FUNCTIONAL"})
 	public void testResourceQuantityIsDisplayedInResourceAssociationPage() throws InterruptedException {
-		HomeAdminPage home = new HomeAdminPage();
-		resource = home.clickResourcesLink();
+		HomeAdminPage homeAdminPage = new HomeAdminPage();
+		resourcesPage = homeAdminPage.clickResourcesLink();
 
 		//Variables declaration and initialize
-		String resourceName = testData1.get(2).get("ResourceName");
-		String resourceDisplayName = testData1.get(2).get("ResourceDisplayName");
-		String resourceDescription = testData1.get(2).get("Description");
-		String iconTitle = testData1.get(2).get("Icon");
-		String quantity = testData1.get(2).get("Value");
-		String roomDisplayName = testData1.get(2).get("Room Name");
+		String resourceName = resourceDataList.get(2).get("ResourceName");
+		String resourceDisplayName = resourceDataList.get(2).get("ResourceDisplayName");
+		String resourceDescription = resourceDataList.get(2).get("Description");
+		String iconTitle = resourceDataList.get(2).get("Icon");
+		String quantity = resourceDataList.get(2).get("Value");
+		String roomDisplayName = resourceDataList.get(2).get("Room Name");
 
-		//Create a resource
-		ResourceCreatePage resourceCreate  = resource.clickAddResourceBtn();		
-		resource = resourceCreate.clickResourceIcon()
+		//Create a resourcesPage
+		ResourceCreatePage resourceCreatePage  = resourcesPage.clickAddResourceBtn();		
+		resourcesPage = resourceCreatePage.clickResourceIcon()
 				.selectResourceIcon(iconTitle)
 				.setResourceName(resourceName)
 				.setResourceDisplayName(resourceDisplayName)
 				.setResourceDescription(resourceDescription)
 				.clickSaveResourceBtn();
 
-		//Associate a resource to a room by resource display name
-		RoomsPage roomsPage = home.clickConferenceRoomsLink();
+		//Associate a resourcesPage to a room by resourcesPage display name
+		RoomsPage roomsPage = homeAdminPage.clickConferenceRoomsLink();
 		RoomInfoPage roomInfoPage = roomsPage.doubleClickOverRoomName(roomDisplayName);
 		RoomResourceAssociationsPage roomResourceAssociation = roomInfoPage.clickResourceAssociationsLink();
 		roomsPage = roomResourceAssociation.clickAddResourceToARoom(resourceDisplayName)
@@ -65,17 +66,16 @@ public class ResourceQuantityIsDisplayedInResourceAssociationPage {
 				.clickSaveBtn();
 
 		//Assertion for TC32
-		resource = home.clickResourcesLink();
-		ResourceInfoPage resourceInfo = resource.openResourceInfoPage(resourceDisplayName);
-		resourceAssoiation = resourceInfo.clickResourceAssociationLink();
-		String result = resourceAssoiation.getResourceQuantityByRoomDisplayName(roomDisplayName);
+		resourcesPage = homeAdminPage.clickResourcesLink();
+		ResourceInfoPage resourceInfoPage = resourcesPage.openResourceInfoPage(resourceDisplayName);
+		resourceAssociationsPage = resourceInfoPage.clickResourceAssociationLink();
+		String result = resourceAssociationsPage.getResourceQuantityByRoomDisplayName(roomDisplayName);
 		Assert.assertEquals(result, "x " + quantity);
 	}
 
-	@AfterMethod
+	@AfterMethod(groups = {"FUNCTIONAL"})
 	public void afterMethod() throws MalformedURLException, IOException {	
-		resource = resourceAssoiation.clickCloseBtn();		
-		RootRestMethods.deleteResource(testData1.get(2).get("ResourceName"));
-		UIMethods.refresh();
+		resourcesPage = resourceAssociationsPage.clickCloseBtn();		
+		RootRestMethods.deleteResource(resourceDataList.get(2).get("ResourceName"));
 	}
 }

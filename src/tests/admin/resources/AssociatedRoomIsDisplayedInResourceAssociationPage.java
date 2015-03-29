@@ -13,7 +13,6 @@ import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 
-import framework.common.UIMethods;
 import framework.pages.admin.HomeAdminPage;
 import framework.pages.admin.conferencerooms.RoomInfoPage;
 import framework.pages.admin.conferencerooms.RoomResourceAssociationsPage;
@@ -26,21 +25,23 @@ import framework.rest.RootRestMethods;
 import framework.utils.readers.ExcelReader;
 
 /**
- * TC33: Verify that rooms name associated to a resource are displayed on {Name} column in 
+ * TC33: Verify that rooms name associated to a resourcesPage are displayed on {Name} column in 
  * {ResourceInfo>Resource Associations} form when it is selected
  * @author Marco Llano
  */
 public class AssociatedRoomIsDisplayedInResourceAssociationPage {
-	private ResourceAssociationsPage resourceAssociation;
-	private ResourcesPage resource;
+	private ResourceAssociationsPage resourceAssociationsPage;
+	private ResourcesPage resourcesPage;
+	
+	//ExcelReader is used to read rooms data
 	private ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
 	private List<Map<String, String>> testData = excelReader.getMapValues("Resources");
 
 	@Test(groups = {"FUNCTIONAL"})
 	public void testAssociatedRoomIsDisplayedInResourceAssociationPage() throws InterruptedException, JSONException, MalformedURLException, IOException {
-		HomeAdminPage home = new HomeAdminPage();
-		ResourceInfoPage resourceInfo;
-		resource = home.clickResourcesLink();		
+		HomeAdminPage homeAdminPage = new HomeAdminPage();
+		ResourceInfoPage resourceInfoPage;
+		resourcesPage = homeAdminPage.clickResourcesLink();		
 
 		//Variables declaration and initialize
 		String resourceName = testData.get(0).get("ResourceName");
@@ -50,28 +51,28 @@ public class AssociatedRoomIsDisplayedInResourceAssociationPage {
 		String roomDisplayName1 = testData.get(1).get("Room Name");
 		String roomDisplayName2 = testData.get(2).get("Room Name");
 
-		//create a resource					
-		ResourceCreatePage resourceCreate = resource.clickAddResourceBtn();		
-		resource = resourceCreate.setResourceName(resourceName)
+		//create a resourcesPage					
+		ResourceCreatePage resourceCreatePage = resourcesPage.clickAddResourceBtn();		
+		resourcesPage = resourceCreatePage.setResourceName(resourceName)
 				.setResourceDisplayName(resourceDisplayName)
 				.clickSaveResourceBtn();
 
-		//Associate a resource to the room01
-		RoomsPage roomsPage = home.clickConferenceRoomsLink();
+		//Associate a resourcesPage to the room01
+		RoomsPage roomsPage = homeAdminPage.clickConferenceRoomsLink();
 		RoomInfoPage roomInfoPage = roomsPage.doubleClickOverRoomName(roomDisplayName);
 		RoomResourceAssociationsPage roomResourceAssociation = roomInfoPage.clickResourceAssociationsLink();
 		roomsPage = roomResourceAssociation.clickAddResourceToARoom(resourceDisplayName)
 				.changeValueForResourceFromAssociatedList(resourceDisplayName, quantity)
 				.clickSaveBtn();
 
-		//Associate a resource to the room02
+		//Associate a resourcesPage to the room02
 		roomInfoPage = roomsPage.doubleClickOverRoomName(roomDisplayName1);
 		roomResourceAssociation = roomInfoPage.clickResourceAssociationsLink();
 		roomsPage = roomResourceAssociation.clickAddResourceToARoom(resourceDisplayName)
 				.changeValueForResourceFromAssociatedList(resourceDisplayName, quantity)
 				.clickSaveBtn();
 
-		//Associate a resource to the room03
+		//Associate a resourcesPage to the room03
 		roomInfoPage = roomsPage.doubleClickOverRoomName(roomDisplayName2);
 		roomResourceAssociation = roomInfoPage.clickResourceAssociationsLink();
 		roomsPage = roomResourceAssociation.clickAddResourceToARoom(resourceDisplayName)
@@ -79,23 +80,22 @@ public class AssociatedRoomIsDisplayedInResourceAssociationPage {
 				.clickSaveBtn();
 
 		//Open ResourceAssociationsPage
-		resource = home.clickResourcesLink();
-		resourceInfo = resource.openResourceInfoPage(resourceDisplayName);
-		resourceAssociation = resourceInfo.clickResourceAssociationLink();
+		resourcesPage = homeAdminPage.clickResourcesLink();
+		resourceInfoPage = resourcesPage.openResourceInfoPage(resourceDisplayName);
+		resourceAssociationsPage = resourceInfoPage.clickResourceAssociationLink();
 
-		//Recover all rooms associated to a resource in a LinkedList
-		LinkedList<String> list = RootRestMethods.getRoomNamesByResource(resourceName);
+		//Recover all rooms associated to a resourcesPage in a LinkedList
+		LinkedList<String> linkedList = RootRestMethods.getRoomNamesByResource(resourceName);
 
 		//Assertion for TC33
-		for (String l : list) {
-			Assert.assertTrue(resourceAssociation.getRoomDisplayNameFromResourceAssociationPage(l));
+		for (String roomList : linkedList) {
+			Assert.assertTrue(resourceAssociationsPage.getRoomDisplayNameFromResourceAssociationPage(roomList));
 		}
 	}
 
-	@AfterMethod
+	@AfterMethod(groups = {"FUNCTIONAL"})
 	public void afterMethod() throws MalformedURLException, IOException {	
-		resource = resourceAssociation.clickCloseBtn();		
+		resourcesPage = resourceAssociationsPage.clickCloseBtn();		
 		RootRestMethods.deleteResource(testData.get(0).get("ResourceName"));
-		UIMethods.refresh();
 	}
 }

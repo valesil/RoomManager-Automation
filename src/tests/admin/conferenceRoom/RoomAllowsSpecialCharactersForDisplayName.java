@@ -21,33 +21,37 @@ import framework.utils.readers.JsonReader;
  */
 public class RoomAllowsSpecialCharactersForDisplayName {
 	private RoomsPage roomsPage;
-	private RoomInfoPage infoPage;
+	private RoomInfoPage roomInfoPage;
+	
+	//ExcelReader is used to read rooms data (roomName) from Excel file and save it into a List
 	private ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
-	private List<Map<String, String>> testData = excelReader.getMapValues("Resources");
-	private String roomName = testData.get(0).get("Room Name");
+	private List<Map<String, String>> roomsDataList = excelReader.getMapValues("Resources");
+	private String roomName = roomsDataList.get(0).get("Room Name");
 
 	@Test(groups = {"NEGATIVE"})
 	public void testRoomDoesNotAllowsBlankTextForDisplayName() {
-		HomeAdminPage home = new HomeAdminPage();
-		roomsPage = home.clickConferenceRoomsLink();
-		JsonReader value = new JsonReader();
-		String resourceFileJSON = "\\src\\tests\\Resource2.json";		
-		String specialCharacters = value.readJsonFile("customName" , resourceFileJSON);
+		HomeAdminPage homeAdminPage = new HomeAdminPage();
+		roomsPage = homeAdminPage.clickConferenceRoomsLink();
+		
+		//JsonReader is used to read data (specialCharacters) from .json file (Room1.json)
+		JsonReader jsonReader = new JsonReader();
+		String roomJsonFilePath = "\\src\\tests\\Room1.json";		
+		String specialCharacters = jsonReader.readJsonFile("customName" , roomJsonFilePath);
 
 		//Set room capacity to blank text
 		roomsPage.clickConferenceRoomsLink();
-		infoPage = roomsPage.doubleClickOverRoomName(roomName);
-		roomsPage = infoPage.setDisplayName(specialCharacters)
+		roomInfoPage = roomsPage.doubleClickOverRoomName(roomName);
+		roomsPage = roomInfoPage.setDisplayName(specialCharacters)
 				.clickSaveBtn();
-		infoPage = roomsPage.doubleClickOverRoomName(specialCharacters);
+		roomInfoPage = roomsPage.doubleClickOverRoomName(specialCharacters);
 
 		//Assertion for TC17
 		Assert.assertTrue(roomsPage.getRoomDisplayName(specialCharacters).contains(specialCharacters));		
 	}
 
-	@AfterMethod
+	@AfterMethod(groups = {"NEGATIVE"})
 	public void afterMethod() {	
-		roomsPage = infoPage.setDisplayName(roomName)
+		roomsPage = roomInfoPage.setDisplayName(roomName)
 				.clickSaveBtn();
 	}
 }
