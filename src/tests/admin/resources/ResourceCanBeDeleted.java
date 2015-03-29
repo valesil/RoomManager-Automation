@@ -15,7 +15,7 @@ import framework.pages.admin.resources.ResourcesPage;
 import framework.utils.readers.ExcelReader;
 
 /**
- * TC01: Verify that a resourcesPage can be deleted.
+ * TC01: Verify that a resource can be deleted.
  * @author Marco Llano
  */
 public class ResourceCanBeDeleted {	
@@ -34,13 +34,13 @@ public class ResourceCanBeDeleted {
 		String resourceDisplayName = testData1.get(2).get("ResourceDisplayName");
 		String resourceDescription = testData1.get(2).get("Description");
 
-		//Create new resourcesPage
+		//Create new resource
 		resourcesPage = resourceCreatePage.setResourceName(resourceName)
 				.setResourceDisplayName(resourceDisplayName)
 				.setResourceDescription(resourceDescription)
 				.clickSaveResourceBtn();	
 
-		//Delete created resourcesPage
+		//Delete created resource
 		ResourceDeletePage resourceDeletePage = resourcesPage.selectResourceCheckbox(resourceName)
 				.clickRemoveBtn();
 		resourcesPage = resourceDeletePage.clickConfirmRemoveBtn();

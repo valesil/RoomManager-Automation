@@ -40,21 +40,16 @@ public class ResourceCreatedUpdatesAdvancedSearchPageInTablet {
 		//Variables declaration and initialize
 		String resourceName = resourcesDataList.get(0).get("ResourceName");
 		String resourceDisplayName = resourcesDataList.get(0).get("ResourceDisplayName");
-		String resourceDescription = resourcesDataList.get(0).get("Description");
-		String iconTitle = resourcesDataList.get(0).get("Icon");
 		String quantity = resourcesDataList.get(0).get("Value");
 		String roomDisplayName = resourcesDataList.get(0).get("Room Name");
 
-		//Create a resourcesPage
+		//Create a resource
 		ResourceCreatePage resourceCreatePage  = resourcesPage.clickAddResourceBtn();		
-		resourcesPage = resourceCreatePage.clickResourceIcon()
-				.selectResourceIcon(iconTitle)
-				.setResourceName(resourceName)
+		resourcesPage = resourceCreatePage.setResourceName(resourceName)
 				.setResourceDisplayName(resourceDisplayName)
-				.setResourceDescription(resourceDescription)
 				.clickSaveResourceBtn();
 
-		//Associate a resourcesPage to a room by resourcesPage display name
+		//Associate a resource to a room by resource display name
 		RoomsPage roomsPage = homeAdminPage.clickConferenceRoomsLink();
 		RoomInfoPage roomInfoPage = roomsPage.doubleClickOverRoomName(roomDisplayName);
 		RoomResourceAssociationsPage roomResourceAssociationsPage = roomInfoPage.clickResourceAssociationsLink();

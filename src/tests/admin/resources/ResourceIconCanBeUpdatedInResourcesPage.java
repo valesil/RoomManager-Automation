@@ -19,7 +19,7 @@ import framework.rest.RootRestMethods;
 import framework.utils.readers.ExcelReader;
 
 /**
- * TC16: Verify that a resourcesPage is created when the default icon is changed.
+ * TC16: Verify that a resource is created when the default icon is changed.
  * TC29: Verify that the icon displayed in {Icon Column} is changed when it is edited in 
  * {ResourceInfo} form
  * @author Marco Llano
@@ -41,7 +41,7 @@ public class ResourceIconCanBeUpdatedInResourcesPage {
 		String resourceIconTitle = resourceDataList.get(2).get("Icon");
 		String newIconTitle = resourceDataList.get(1).get("Icon");
 
-		//Create new resourcesPage
+		//Create new resource
 		ResourceCreatePage resourceCreatePage = resourcesPage.clickAddResourceBtn();		
 		resourcesPage = resourceCreatePage.clickResourceIcon()
 				.selectResourceIcon(resourceIconTitle)

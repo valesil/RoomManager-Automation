@@ -9,6 +9,7 @@ import java.util.Map;
 
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import framework.pages.admin.HomeAdminPage;
@@ -29,23 +30,27 @@ public class ResourceCanNotBeUpdatedInResourceInfo {
 	//ExcelReader is used to read rooms data
 	private ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
 	private List<Map<String, String>> resourcesDataList = excelReader.getMapValues("Resources");
+	private String resourceName = resourcesDataList.get(0).get("ResourceName");
 
-	@Test(groups = "FUNCTIONAL")
-	public void testResourceCanBeUpdatedInResourceInfo() throws InterruptedException {
+	@BeforeMethod(groups = "FUNCTIONAL")
+	public void beforeMethod() {
 		HomeAdminPage homeAdminPage = new HomeAdminPage();
 		resourcesPage = homeAdminPage.clickResourcesLink();
 
-		//Variables declaration and initialize
-		String resourceName = resourcesDataList.get(0).get("ResourceName");
+		//Variables declaration and initialize		
 		String resourceDisplayName = resourcesDataList.get(0).get("ResourceDisplayName");
-		String newResourceName = resourcesDataList.get(1).get("ResourceName");
-		String newResourceDisplayName = resourcesDataList.get(1).get("ResourceDisplayName");
-
-		//Create a resourcesPage
+		
+		//Create a resource
 		ResourceCreatePage resourceCreatePage  = resourcesPage.clickAddResourceBtn();		
 		resourcesPage = resourceCreatePage.setResourceName(resourceName)
 				.setResourceDisplayName(resourceDisplayName)
 				.clickSaveResourceBtn();
+	}
+	
+	@Test(groups = "FUNCTIONAL")
+	public void testResourceCanBeUpdatedInResourceInfo() throws InterruptedException {
+		String newResourceName = resourcesDataList.get(1).get("ResourceName");
+		String newResourceDisplayName = resourcesDataList.get(1).get("ResourceDisplayName");
 
 		//Update the created resourcesPage then click on cancel to verify that changes are not saved
 		resourceInfoPage = resourcesPage.openResourceInfoPage(resourceName);

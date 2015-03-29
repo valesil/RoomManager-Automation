@@ -11,6 +11,7 @@ import java.util.Map;
 import org.json.JSONException;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import framework.pages.admin.HomeAdminPage;
@@ -25,39 +26,38 @@ import framework.rest.RootRestMethods;
 import framework.utils.readers.ExcelReader;
 
 /**
- * TC33: Verify that rooms name associated to a resourcesPage are displayed on {Name} column in 
+ * TC33: Verify that rooms name associated to a resource are displayed on {Name} column in 
  * {ResourceInfo>Resource Associations} form when it is selected
  * @author Marco Llano
  */
 public class AssociatedRoomIsDisplayedInResourceAssociationPage {
 	private ResourceAssociationsPage resourceAssociationsPage;
 	private ResourcesPage resourcesPage;
-	
+	private HomeAdminPage homeAdminPage = new HomeAdminPage();
+
 	//ExcelReader is used to read rooms data
 	private ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
 	private List<Map<String, String>> testData = excelReader.getMapValues("Resources");
+	private String resourceName = testData.get(0).get("ResourceName");
+	private String resourceDisplayName = testData.get(0).get("ResourceDisplayName");
 
-	@Test(groups = "FUNCTIONAL")
-	public void testAssociatedRoomIsDisplayedInResourceAssociationPage() throws InterruptedException, JSONException, MalformedURLException, IOException {
-		HomeAdminPage homeAdminPage = new HomeAdminPage();
-		ResourceInfoPage resourceInfoPage;
+	@BeforeMethod(groups = "FUNCTIONAL")
+	public void beforeMethod() {		
 		resourcesPage = homeAdminPage.clickResourcesLink();		
 
-		//Variables declaration and initialize
-		String resourceName = testData.get(0).get("ResourceName");
-		String resourceDisplayName = testData.get(0).get("ResourceDisplayName");
+		//Variables declaration and initialize		
 		String quantity = testData.get(0).get("Value");
 		String roomDisplayName = testData.get(0).get("Room Name");
 		String roomDisplayName1 = testData.get(1).get("Room Name");
 		String roomDisplayName2 = testData.get(2).get("Room Name");
 
-		//create a resourcesPage					
+		//create a resource					
 		ResourceCreatePage resourceCreatePage = resourcesPage.clickAddResourceBtn();		
 		resourcesPage = resourceCreatePage.setResourceName(resourceName)
 				.setResourceDisplayName(resourceDisplayName)
 				.clickSaveResourceBtn();
 
-		//Associate a resourcesPage to the room01
+		//Associate a resource to the room01
 		RoomsPage roomsPage = homeAdminPage.clickConferenceRoomsLink();
 		RoomInfoPage roomInfoPage = roomsPage.doubleClickOverRoomName(roomDisplayName);
 		RoomResourceAssociationsPage roomResourceAssociation = roomInfoPage.clickResourceAssociationsLink();
@@ -65,26 +65,31 @@ public class AssociatedRoomIsDisplayedInResourceAssociationPage {
 				.changeValueForResourceFromAssociatedList(resourceDisplayName, quantity)
 				.clickSaveBtn();
 
-		//Associate a resourcesPage to the room02
+		//Associate a resource to the room02
 		roomInfoPage = roomsPage.doubleClickOverRoomName(roomDisplayName1);
 		roomResourceAssociation = roomInfoPage.clickResourceAssociationsLink();
 		roomsPage = roomResourceAssociation.clickAddResourceToARoom(resourceDisplayName)
 				.changeValueForResourceFromAssociatedList(resourceDisplayName, quantity)
 				.clickSaveBtn();
 
-		//Associate a resourcesPage to the room03
+		//Associate a resource to the room03
 		roomInfoPage = roomsPage.doubleClickOverRoomName(roomDisplayName2);
 		roomResourceAssociation = roomInfoPage.clickResourceAssociationsLink();
 		roomsPage = roomResourceAssociation.clickAddResourceToARoom(resourceDisplayName)
 				.changeValueForResourceFromAssociatedList(resourceDisplayName, quantity)
 				.clickSaveBtn();
+	}
+
+	@Test(groups = "FUNCTIONAL")
+	public void testAssociatedRoomIsDisplayedInResourceAssociationPage() throws InterruptedException, JSONException, MalformedURLException, IOException {
+		ResourceInfoPage resourceInfoPage;
 
 		//Open ResourceAssociationsPage
 		resourcesPage = homeAdminPage.clickResourcesLink();
 		resourceInfoPage = resourcesPage.openResourceInfoPage(resourceDisplayName);
 		resourceAssociationsPage = resourceInfoPage.clickResourceAssociationLink();
 
-		//Recover all rooms associated to a resourcesPage in a LinkedList
+		//Recover all rooms associated to a resource in a LinkedList
 		LinkedList<String> linkedList = RootRestMethods.getRoomNamesByResource(resourceName);
 
 		//Assertion for TC33

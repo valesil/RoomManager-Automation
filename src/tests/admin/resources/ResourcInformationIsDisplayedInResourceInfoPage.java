@@ -19,7 +19,7 @@ import framework.rest.RootRestMethods;
 import framework.utils.readers.ExcelReader;
 
 /**
- * TC06: Verify that resourcesPage information is displayed in {ResourceInfo} form when a 
+ * TC06: Verify that resource information is displayed in {ResourceInfo} form when a 
  * resourcesPage is selected
  * @author Marco Llano
  */
@@ -40,7 +40,7 @@ public class ResourcInformationIsDisplayedInResourceInfoPage {
 		String resourceDescription = resourceDataList.get(0).get("Description");
 		String iconTitle = resourceDataList.get(0).get("Icon");
 
-		//Create new resourcesPage
+		//Create new resource
 		ResourceCreatePage resourceCreatePage = resourcesPage.clickAddResourceBtn();
 		resourcesPage = resourceCreatePage.clickResourceIcon()
 				.selectResourceIcon(iconTitle)

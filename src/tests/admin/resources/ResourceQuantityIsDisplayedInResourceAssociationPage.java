@@ -23,7 +23,7 @@ import framework.rest.RootRestMethods;
 import framework.utils.readers.ExcelReader;
 
 /**
- * TC32: Verify that resourcesPage quantity associated to a room is displayed on {Quantity} column
+ * TC32: Verify that resource quantity associated to a room is displayed on {Quantity} column
  * in {ResourceInfo>Resource Associations} form when it is selected
  * @author Marco Llano
  */
@@ -48,7 +48,7 @@ public class ResourceQuantityIsDisplayedInResourceAssociationPage {
 		String quantity = resourceDataList.get(2).get("Value");
 		String roomDisplayName = resourceDataList.get(2).get("Room Name");
 
-		//Create a resourcesPage
+		//Create a resource
 		ResourceCreatePage resourceCreatePage  = resourcesPage.clickAddResourceBtn();		
 		resourcesPage = resourceCreatePage.clickResourceIcon()
 				.selectResourceIcon(iconTitle)
@@ -57,7 +57,7 @@ public class ResourceQuantityIsDisplayedInResourceAssociationPage {
 				.setResourceDescription(resourceDescription)
 				.clickSaveResourceBtn();
 
-		//Associate a resourcesPage to a room by resourcesPage display name
+		//Associate a resource to a room by resourcesPage display name
 		RoomsPage roomsPage = homeAdminPage.clickConferenceRoomsLink();
 		RoomInfoPage roomInfoPage = roomsPage.doubleClickOverRoomName(roomDisplayName);
 		RoomResourceAssociationsPage roomResourceAssociation = roomInfoPage.clickResourceAssociationsLink();

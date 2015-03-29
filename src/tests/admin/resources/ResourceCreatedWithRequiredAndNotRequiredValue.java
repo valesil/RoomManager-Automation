@@ -19,8 +19,8 @@ import framework.rest.RootRestMethods;
 import framework.utils.readers.ExcelReader;
 
 /**
- * TC03: Verify that a resourcesPage is created when required values are inserted in Add form
- * TC15: Verify that a resourcesPage is created when all values (required, optional), are inserted in Add form
+ * TC03: Verify that a resource is created when required values are inserted in Add form
+ * TC15: Verify that a resource is created when all values (required, optional), are inserted in Add form
  * @author Marco Llano
  */
 public class ResourceCreatedWithRequiredAndNotRequiredValue {	
@@ -42,7 +42,7 @@ public class ResourceCreatedWithRequiredAndNotRequiredValue {
 		String resourceDisplayName = resourcesDataList.get(1).get("ResourceDisplayName");
 		String resourceDescription = resourcesDataList.get(1).get("Description");
 
-		//Create new resourcesPage
+		//Create new resource
 		ResourceCreatePage resourceCreatePage  = resourcesPage.clickAddResourceBtn();		
 		resourcesPage = resourceCreatePage.clickResourceIcon()
 				.selectResourceIcon(iconTitle)

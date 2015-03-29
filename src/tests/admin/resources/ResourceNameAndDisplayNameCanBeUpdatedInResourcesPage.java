@@ -41,7 +41,7 @@ public class ResourceNameAndDisplayNameCanBeUpdatedInResourcesPage {
 		String resourceDisplayName = resourceDataList.get(1).get("ResourceDisplayName");
 		String newResourceDisplayName = resourceDataList.get(2).get("ResourceDisplayName");
 
-		//Create new resourcesPage
+		//Create new resource
 		ResourceCreatePage resourceCreatePage = resourcesPage.clickAddResourceBtn();		
 		resourcesPage = resourceCreatePage.setResourceName(resourceName)
 				.setResourceDisplayName(resourceDisplayName)
