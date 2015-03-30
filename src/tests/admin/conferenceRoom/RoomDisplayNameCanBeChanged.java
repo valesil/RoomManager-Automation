@@ -25,7 +25,7 @@ import framework.utils.readers.ExcelReader;
  */
 public class RoomDisplayNameCanBeChanged {
 
-	//reading to excel to create variables
+	//read excel to create variables
 	private ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
 	private List<Map<String, String>> roomList = excelReader.getMapValues("RoomInfo");
 	private String displayName = roomList.get(0).get("DisplayName");  	  

@@ -32,7 +32,7 @@ import framework.utils.readers.ExcelReader;
  */
 public class ResourceAssociatedToRoomThatIsDeletedIsRemovedOnHomePage {
 	
-	//reading to excel to create variables to resource creation
+	//read excel to create variables to resource creation
 	private ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
 	private List<Map<String, String>> roomList = excelReader.getMapValues("Resources");
 	private String roomName = roomList.get(0).get("Room Name");

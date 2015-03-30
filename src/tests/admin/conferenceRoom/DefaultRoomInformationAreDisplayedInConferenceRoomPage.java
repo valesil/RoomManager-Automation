@@ -25,7 +25,7 @@ public class DefaultRoomInformationAreDisplayedInConferenceRoomPage {
 	@Test(groups = "FUNCTIONAL")
 	public void testDefaultRoomInfomationAreDisplayedInConferenceRoomPage() {
 		
-		//reading to excel to create variables
+		//read excel to create variables
 		ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
 		List<Map<String, String>> roomList = excelReader.getMapValues("RoomInfo");
 		String displayName = roomList.get(0).get("DisplayName");
