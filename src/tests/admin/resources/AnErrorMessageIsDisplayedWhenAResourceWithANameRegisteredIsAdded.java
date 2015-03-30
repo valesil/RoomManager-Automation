@@ -1,7 +1,6 @@
 package tests.admin.resources;
 
 import static framework.common.AppConfigConstants.EXCEL_INPUT_DATA;
-import static framework.common.MessageConstants.RESOURCE_NAME_DUPLICATED;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -63,7 +62,7 @@ public class AnErrorMessageIsDisplayedWhenAResourceWithANameRegisteredIsAdded {
 		.clickSaveResourceWithErrorBtn();
 
 		//Assertion for TC35  		
-		Assert.assertTrue(resourceCreatePage.verifyErrorMessage(RESOURCE_NAME_DUPLICATED));	
+		Assert.assertTrue(resourceCreatePage.isNameDuplicatedErrorDisplayed());	
 		
 	}
 

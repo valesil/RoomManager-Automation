@@ -44,7 +44,7 @@ public class ResourceQuantityIsDisplayedInTheResourceAssociatedColumnInRoomGrid 
 	@BeforeClass(groups = "FUNCTIONAL")
 	public void createResource() throws MalformedURLException, IOException {
 
-		//Create resource by Rest
+		//Creating resource by Rest
 		RootRestMethods.createResource(filePath, "");		
 	}
 
@@ -53,7 +53,7 @@ public class ResourceQuantityIsDisplayedInTheResourceAssociatedColumnInRoomGrid 
 		HomeAdminPage homeAdminPage = new HomeAdminPage();
 		RoomsPage roomsPage = homeAdminPage.clickConferenceRoomsLink();
 
-		//Associate resource to a room
+		//Associating resource to a room
 		RoomInfoPage roomInfoPage = roomsPage.doubleClickOverRoomName(roomName);
 		RoomResourceAssociationsPage roomResourceAssociationsPage = roomInfoPage
 				.clickResourceAssociationsLink();
@@ -75,7 +75,7 @@ public class ResourceQuantityIsDisplayedInTheResourceAssociatedColumnInRoomGrid 
 	@AfterClass(groups = "FUNCTIONAL")
 	public void deleteResource() throws MalformedURLException, IOException {
 
-		//Delete resource with API rest method
+		//Deleting resource with API rest method
 		RootRestMethods.deleteResource(resourceName);
 	}
 }

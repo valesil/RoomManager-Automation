@@ -10,7 +10,7 @@ public class StartTestSuiteConferenceRoom {
 	private WebDriver driver = SeleniumDriverManager.getManager().getDriver();
 
 	@BeforeSuite(groups = {"NEGATIVE","ACCEPTANCE","FUNCTIONAL"})
-	public void init() {		
+	public void init() {
 	}
 
 	@AfterSuite(groups = {"NEGATIVE","ACCEPTANCE","FUNCTIONAL"})

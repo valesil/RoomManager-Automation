@@ -22,10 +22,10 @@ import framework.utils.readers.ExcelReader;
 import framework.utils.readers.JsonReader;
 
 /**
- * TC01: Verify that a resource that is deleted it is removed from resources associated in a room
+ * TC01: Verify that a resource deleted is removed from resources associated in a room
  * @author Juan Carlos Guevara 
  */
-public class AResourceDeletedIsRemovedFromResourcesAssociatedInARoom {
+public class ADeletedResourceIsRemovedFromResourcesAssociatedInARoom {
 	
 	//Reading resource data from an .xls file
 	private ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
@@ -42,12 +42,12 @@ public class AResourceDeletedIsRemovedFromResourcesAssociatedInARoom {
 	@BeforeClass(groups = "FUNCTIONAL")
 	public void associateAResourceCreated() throws MalformedURLException, IOException {
 
-		//Create resource by Rest
+		//Creating resource by Rest
 		RootRestMethods.createResource(filePath, "");
 		HomeAdminPage homeAdminPage = new HomeAdminPage();				
 		ResourcesPage resourcesPage = homeAdminPage.clickResourcesLink();
 		
-		//Associate resource to a room
+		//Associating resource to a room
 		RoomsPage roomsPage = resourcesPage.clickConferenceRoomsLink();
 		RoomInfoPage roomInfoPage = roomsPage.doubleClickOverRoomName(roomName);
 		RoomResourceAssociationsPage roomsResourceAssociationsPage = roomInfoPage
@@ -57,13 +57,13 @@ public class AResourceDeletedIsRemovedFromResourcesAssociatedInARoom {
 	}
 
 	@Test(groups = "FUNCTIONAL")
-	public void testAResourceDeletedIsRemovedFromResourcesAssociatedInARoom() 
+	public void testADeletedResourceIsRemovedFromResourcesAssociatedInARoom() 
 			throws MalformedURLException, IOException {
 		ResourcesPage resourcesPage = new ResourcesPage();
 		RoomsPage roomsPage = resourcesPage.clickConferenceRoomsLink();
 		resourcesPage = roomsPage.clickResourcesLink();
 
-		//Delete resource
+		//Deleting resource
 		RootRestMethods.deleteResource(resourceName);
 		UIMethods.refresh();
 		roomsPage = resourcesPage.clickConferenceRoomsLink();

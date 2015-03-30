@@ -28,9 +28,9 @@ public class ForARoomDisabledTheTabletDoesNotScheduleMeetings {
 	private String roomName = testData.get(1).get("Room Name");
 
 	@BeforeClass(groups = "FUNCTIONAL")
-	public void disablingARoom(){
+	public void disableARoom(){
 
-		//Disable room in Admin 
+		//Disabling room in Admin 
 		HomeAdminPage homeAdminPage = new HomeAdminPage();
 		RoomsPage roomsPage = homeAdminPage.clickConferenceRoomsLink();		
 		roomsPage.enableDisableIcon(roomName);		
@@ -39,7 +39,7 @@ public class ForARoomDisabledTheTabletDoesNotScheduleMeetings {
 	@Test(groups = "FUNCTIONAL")
 	public void testForARoomDisabledTheTabletDoesNotScheduleMeetings() {
 
-		//Open tablet to see changes
+		//Opening tablet to see changes
 		HomeTabletPage homeTabletPage = new HomeTabletPage();
 		SearchPage searchPage = homeTabletPage.clickSearchBtn()
 				.clickCollapseAdvancedBtn()

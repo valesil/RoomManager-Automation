@@ -1,13 +1,12 @@
 package tests.admin.resources;
 
 import static framework.common.AppConfigConstants.EXCEL_INPUT_DATA;
-import static framework.common.MessageConstants.RESOURCE_DISPLAY_NAME_TEXTBOX_EMPTY;
-import static framework.common.MessageConstants.RESOURCE_NAME_TEXTBOX_EMPTY;
 
 import java.util.List;
 import java.util.Map;
 
 import org.testng.Assert;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.Test;
 
 import framework.common.UIMethods;
@@ -23,7 +22,9 @@ import framework.utils.readers.ExcelReader;
  * @author Juan Carlos Guevara 
  */
 public class AnErrorMessageIsDisplayedWhenTextBoxesAreLeftEmptyInAddForm {
-	
+	ResourcesPage resourcesPage;
+	ResourceCreatePage resourceCreatePage;
+
 	//Reading resource data from an .xls file
 	private ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
 	private List<Map<String, String>> testData = excelReader.getMapValues("Resources");
@@ -33,15 +34,15 @@ public class AnErrorMessageIsDisplayedWhenTextBoxesAreLeftEmptyInAddForm {
 	@Test(groups = "NEGATIVE")
 	public void testAnErrorMessageIsDisplayedWhenNameTextBoxisLeftEmptyInAddForm() {
 		HomeAdminPage homeAdminPage = new HomeAdminPage();
-		ResourcesPage resourcesPage = homeAdminPage.clickResourcesLink();	
+		resourcesPage = homeAdminPage.clickResourcesLink();	
 
 		//Attempt to create a resource with name TextBox empty
-		ResourceCreatePage resourceCreatePage = resourcesPage.clickAddResourceBtn();		
+		resourceCreatePage = resourcesPage.clickAddResourceBtn();		
 		resourceCreatePage.setResourceDisplayName(resourceDisplayName)
 		.clickSaveResourceWithErrorBtn();
 
 		//Assertion for TC41 		
-		Assert.assertTrue(resourceCreatePage.verifyErrorMessage(RESOURCE_NAME_TEXTBOX_EMPTY));	
+		Assert.assertTrue(resourceCreatePage.isNameTxtBoxEmptyErrorDisplayed());	
 		UIMethods.refresh();
 
 		//attempt to create a resource with display name TextBox empty		
@@ -51,7 +52,11 @@ public class AnErrorMessageIsDisplayedWhenTextBoxesAreLeftEmptyInAddForm {
 		.clickSaveResourceWithErrorBtn();
 
 		//Assertion for TC40  		
-		Assert.assertTrue(resourceCreatePage
-				.verifyErrorMessage(RESOURCE_DISPLAY_NAME_TEXTBOX_EMPTY));	
+		Assert.assertTrue(resourceCreatePage.isDisplayNameTxtBoxEmptyErrorDisplayed());	
+	}
+
+	@AfterClass(groups = "NEGATIVE")
+	public void postCondition()  {
+		resourcesPage = resourceCreatePage.clickCancelResourceBtn();
 	}
 }

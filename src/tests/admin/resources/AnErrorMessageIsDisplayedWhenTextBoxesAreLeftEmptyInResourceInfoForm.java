@@ -1,8 +1,6 @@
 package tests.admin.resources;
 
 import static framework.common.AppConfigConstants.EXCEL_INPUT_DATA;
-import static framework.common.MessageConstants.RESOURCE_DISPLAY_NAME_TEXTBOX_EMPTY;
-import static framework.common.MessageConstants.RESOURCE_NAME_TEXTBOX_EMPTY;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -30,6 +28,8 @@ import framework.utils.readers.ExcelReader;
  * @author Juan Carlos Guevara 
  */
 public class AnErrorMessageIsDisplayedWhenTextBoxesAreLeftEmptyInResourceInfoForm {
+	ResourcesPage resourcesPage;
+	ResourceInfoPage resourceInfoPage;
 	
 	//Reading resource data from an .xls file
 	private ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
@@ -56,15 +56,17 @@ public class AnErrorMessageIsDisplayedWhenTextBoxesAreLeftEmptyInResourceInfoFor
 
 	@Test(groups = "NEGATIVE")
 	public void testAnErrorMessageIsDisplayedWhenNameTextBoxisLeftEmptyInResourceInfoForm()
-			throws InterruptedException {	
-		ResourcesPage resourcesPage = new ResourcesPage();
+			throws InterruptedException {
+		HomeAdminPage homeAdminPage = new HomeAdminPage();
+		ResourcesPage resourcesPage = homeAdminPage.clickResourcesLink();
+		
 		//Cleaning resource name textbox 
-		ResourceInfoPage resourceInfoPage = resourcesPage.openResourceInfoPage(resourceName);		
+		resourceInfoPage = resourcesPage.openResourceInfoPage(resourceName);		
 		resourceInfoPage.clearResourceName()
 		.clickSaveResourceWithErrorBtn();
 
-		//Verify that error is displayed 		
-		Assert.assertTrue(resourceInfoPage.verifyErrorMessage(RESOURCE_NAME_TEXTBOX_EMPTY));	
+		//Assertion for TC43		
+		Assert.assertTrue(resourceInfoPage.isNameTxtBoxEmptyErrorDisplayed());	
 		resourceInfoPage.clickCancelResourceBtn();
 
 		//Cleaning resource display name textbox 		
@@ -74,12 +76,12 @@ public class AnErrorMessageIsDisplayedWhenTextBoxesAreLeftEmptyInResourceInfoFor
 		.clickSaveResourceWithErrorBtn();
 
 		//Assertion for TC42  		
-		Assert.assertTrue(resourceInfoPage
-				.verifyErrorMessage(RESOURCE_DISPLAY_NAME_TEXTBOX_EMPTY));	
+		Assert.assertTrue(resourceInfoPage.isDisplayNameTxtBoxEmptyErrorDisplayed());	
 	}
 
 	@AfterClass(groups = "NEGATIVE")
 	public void postCondition() throws MalformedURLException, IOException {
+		resourcesPage = resourceInfoPage.clickCancelResourceBtn();
 		
 		//Delete resource with API rest method
 		RootRestMethods.deleteResource(resourceName);

@@ -9,13 +9,13 @@
         <classes>
             <class name = "tests.admin.conferenceRoomResourceAssociations.StartTestSuiteRoomResourcesAsociations" />
 			<!--TC05-->
-			<class name = "tests.admin.conferenceRoomResourceAssociations.AllResourcesCreatedAreDisplayedInAvailableGridOfResourceAssociationsOfARoom" />
+			<class name = "tests.admin.conferenceRoomResourceAssociations.AllResourcesCreatedAreDisplayedInAvailableGridOfResourceAssociationsPage" />
 			<!--TC02-->
 			<class name = "tests.admin.conferenceRoomResourceAssociations.AResourceCanBeAssociatedToARoomEnabled" />
 			<!--TC04-->
-			<class name = "tests.admin.conferenceRoomResourceAssociations.AResourceDeletedIsRemovedFromAvailablesGridInARoom" />
+			<class name = "tests.admin.conferenceRoomResourceAssociations.ADeletedResourceIsRemovedFromAvailableGridInARoom" />
 			<!--TC01-->
-			<class name = "tests.admin.conferenceRoomResourceAssociations.AResourceDeletedIsRemovedFromResourcesAssociatedInARoom" />
+			<class name = "tests.admin.conferenceRoomResourceAssociations.ADeletedResourceIsRemovedFromResourcesAssociatedInARoom" />
 			<!--TC03-->
 			<class name = "tests.admin.conferenceRoomResourceAssociations.ResourcesAssociatedToARoomEnabledCanBeRemoved" />
 			<!--TC06-->

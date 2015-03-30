@@ -13,15 +13,15 @@ import framework.pages.admin.conferencerooms.RoomsPage;
 import framework.utils.readers.ExcelReader;
 
 /**
- * TC12: Verify that a room availability can be disable when enable/disable button is clicked in 
+ * TC12: Verify that room availability can be disabled when enable/disable button is clicked in 
  * a conference room window 
- * TC13: Verify that a room availability can be enable when enable/disable button is clicked in 
- * conference room window
+ * TC13: Verify that room availability can be enabled when enable/disable button is clicked in 
+ * a conference room window
  * @author Juan Carlos Guevara
  */
 public class RoomAvailabilityCanBeEnabledOrDisabledWithEnableDisableButton {
 	
-	//Read resource data from an .xls file
+	//Reading resource data from an .xls file
 	private ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
 	private List<Map<String, String>> testData = excelReader.getMapValues("Resources");
 	private String roomName = testData.get(2).get("Room Name");
@@ -31,15 +31,14 @@ public class RoomAvailabilityCanBeEnabledOrDisabledWithEnableDisableButton {
 
 		//Disable a room 
 		HomeAdminPage homeAdminPage = new HomeAdminPage();
-		RoomsPage confRoomsPage = homeAdminPage.clickConferenceRoomsLink();	
-		confRoomsPage.enableDisableIcon(roomName);
+		RoomsPage roomsPage = homeAdminPage.clickConferenceRoomsLink();	
+		roomsPage.enableDisableIcon(roomName);
 
 		//Assertion for TC12 
-		Assert.assertTrue(confRoomsPage.stateEnableDisableBtn(roomName));
-		confRoomsPage.enableDisableIcon(roomName);
+		Assert.assertTrue(roomsPage.isRoomDisabled(roomName));
+		roomsPage.enableDisableIcon(roomName);
 
 		//Assertion for TC13 
-		Assert.assertTrue(confRoomsPage.stateEnableDisableBtn(roomName));
-
+		Assert.assertTrue(roomsPage.isRoomEnabled(roomName));
 	}
 }

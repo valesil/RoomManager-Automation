@@ -7,10 +7,7 @@ import java.net.MalformedURLException;
 import java.util.List;
 import java.util.Map;
 
-import jxl.read.biff.BiffException;
-
 import org.testng.Assert;
-import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
@@ -25,13 +22,11 @@ import framework.utils.readers.ExcelReader;
 import framework.utils.readers.JsonReader;
 
 /**
- * TC04: Verify that a deleted resource is removed from {Availables} grid in a room 
+ * TC04: Verify that a deleted resource is removed from Available grid in a room 
  * @author Juan Carlos Guevara 
  */
-public class AResourceDeletedIsRemovedFromAvailablesGridInARoom {
-	RoomResourceAssociationsPage roomResourceAssociationsPage;
-	RoomsPage roomsPage;
-	
+public class ADeletedResourceIsRemovedFromAvailableGridInARoom {
+
 	//Reading resource data from an .xls file
 	private ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
 	private List<Map<String, String>> testData = excelReader.getMapValues("APIResources");
@@ -45,33 +40,29 @@ public class AResourceDeletedIsRemovedFromAvailablesGridInARoom {
 	private String resourceDisplayName = jsonValue.readJsonFile("customName" , resourceFileJSON);
 
 	@BeforeClass(groups = "FUNCTIONAL")
-	public void createRsource() throws MalformedURLException, IOException {
+	public void createResource() throws MalformedURLException, IOException {
 
 		//Create resource by Rest
 		RootRestMethods.createResource(filePath, "");
 	}
 
 	@Test(groups = "FUNCTIONAL")
-	public void testAResourceDeletedIsRemovedFromAvailablesGridInARoom() 
+	public void testADeletedResourceIsRemovedFromAvailableGridInARoom() 
 			throws MalformedURLException, IOException {
 		HomeAdminPage homeAdminPage = new HomeAdminPage();
 
 		//Delete Resource
 		ResourcesPage resourcesPage = homeAdminPage.clickResourcesLink();
-		roomsPage = resourcesPage.clickConferenceRoomsLink();
+		RoomsPage roomsPage = resourcesPage.clickConferenceRoomsLink();
 		resourcesPage = roomsPage.clickResourcesLink();
 		RootRestMethods.deleteResource(resourceName);
 		UIMethods.refresh();
 		roomsPage = resourcesPage.clickConferenceRoomsLink();
 		RoomInfoPage roomInfoPage = roomsPage.doubleClickOverRoomName(roomName);
-		roomResourceAssociationsPage = roomInfoPage
+		RoomResourceAssociationsPage roomResourceAssociationsPage = roomInfoPage
 				.clickResourceAssociationsLink();
 
 		//Assertion for TC04 
 		Assert.assertFalse(roomResourceAssociationsPage.searchResource(resourceDisplayName));
-	}
-	@AfterClass(groups = "FUNCTIONAL")
-	public void deleteResource() throws InterruptedException, BiffException, IOException {
-		roomsPage = roomResourceAssociationsPage.clickCancelBtn();
 	}
 }

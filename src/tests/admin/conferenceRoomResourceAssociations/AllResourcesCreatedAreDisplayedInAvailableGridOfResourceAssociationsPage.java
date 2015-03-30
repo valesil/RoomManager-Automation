@@ -21,13 +21,11 @@ import framework.rest.RootRestMethods;
 import framework.utils.readers.ExcelReader;
 
 /**
- * TC05: Verify that all resources created are displayed in {Available} grid of {Resource 
- * Associations} of a room
+ * TC05: Verify that all resources created are displayed in Available grid of Resource 
+ * Associations page
  * @author Juan Carlos Guevara
  */
-public class AllResourcesCreatedAreDisplayedInAvailableGridOfResourceAssociationsOfARoom {
-	RoomResourceAssociationsPage roomResourceAssociationsPage;
-	RoomsPage roomsPage;
+public class AllResourcesCreatedAreDisplayedInAvailableGridOfResourceAssociationsPage {
 	
 	//Reading resource data from an .xls file
 	private ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
@@ -35,14 +33,14 @@ public class AllResourcesCreatedAreDisplayedInAvailableGridOfResourceAssociation
 	private String roomName = testData.get(0).get("Room Name");
 
 	@Test(groups = "FUNCTIONAL")
-	public void testAllResourcesCreatedAreDisplayedInAvailableGridOfResourceAssociationsOfARoom() 
+	public void testAllResourcesCreatedAreDisplayedInAvailableGridOfResourceAssociationsPage() 
 			throws MalformedURLException, IOException {
 		
 		for(Map<String, String> resource : testData){
 			HomeAdminPage homeAdminPage = new HomeAdminPage();
 			ResourcesPage resourcesPage = homeAdminPage.clickResourcesLink();
 
-			//Create a resource	
+			//Creating a resource	
 			ResourceCreatePage resourceCreatePage = resourcesPage.clickAddResourceBtn();		
 			resourceCreatePage.clickResourceIcon()
 			.selectResourceIcon(resource.get("Icon"))
@@ -66,7 +64,7 @@ public class AllResourcesCreatedAreDisplayedInAvailableGridOfResourceAssociation
 	@AfterClass(groups = "FUNCTIONAL")
 	public void deleteResource() throws MalformedURLException, IOException {	
 		
-		//Delete resource with API rest method
+		//Deleting resource with API rest method
 		for(Map<String, String> resource : testData){					
 			RootRestMethods.deleteResource(resource.get("ResourceName"));
 		}

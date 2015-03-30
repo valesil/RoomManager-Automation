@@ -26,7 +26,7 @@ import framework.utils.readers.JsonReader;
  */
 public class AResourceCanBeAssociatedToARoomEnabled {
 	
-	//Reade resource data from an .xls file
+	//Reading resource data from an .xls file
 	private ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
 	private List<Map<String, String>> testData = excelReader.getMapValues("APIResources");
 	private String roomName = testData.get(0).get("Room Name");
