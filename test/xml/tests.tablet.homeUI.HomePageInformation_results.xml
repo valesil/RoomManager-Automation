@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="HomePage"
+           tests="7"
+           failures="0"
+           errors="0"
+           skipped="0"
+           time="1.982">
+  <properties />
+  
+  
+            <testcase name="testTimeLeftUntilMidnightWhenRoomIsFreeAfter" time="0.046" classname="tests.tablet.homeUI.HomePageInformation" />
+                <testcase name="testCurrentTimeIsDisplayedInMainWindow" time="0.081" classname="tests.tablet.homeUI.HomePageInformation" />
+                <testcase name="testRoomCodeDisplayedInMainWindow" time="0.134" classname="tests.tablet.homeUI.HomePageInformation" />
+                <testcase name="testEndOfDayMessageIsDisplayedWhenRoomIsFreeEOD" time="0.122" classname="tests.tablet.homeUI.HomePageInformation" />
+                <testcase name="testAvailableMessageDisplayedWhenRoomIsFreeEOD" time="0.140" classname="tests.tablet.homeUI.HomePageInformation" />
+                <testcase name="testAvailableColorIsDisplayedInNowTileWhenAnyMeetingIsInProgress" time="1.346" classname="tests.tablet.homeUI.HomePageInformation" />
+                <testcase name="testRoomNameDisplayedInMainWindow" time="0.113" classname="tests.tablet.homeUI.HomePageInformation" />
+      
+</testsuite>

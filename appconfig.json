@@ -2,9 +2,9 @@
 	"browser":
 	{
 		"navigator":"chrome",
-		"urlAdmin":"http://172.20.208.177:404/admin/#/admin",
-		"urlTablet":"http://172.20.208.177:404/tablet",
-		"urlRest":"http://172.20.208.177:404/"
+		"urlAdmin":"http://172.20.208.177:4043/admin/#/admin",
+		"urlTablet":"http://172.20.208.177:4043/tablet",
+		"urlRest":"http://172.20.208.177:4043/"
 	},
 	"confDriver":
 	{

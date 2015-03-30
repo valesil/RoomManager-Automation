@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="HomePage"
+           tests="4"
+           failures="0"
+           errors="0"
+           skipped="0"
+           time="5.790">
+  <properties />
+  
+  
+            <testcase name="testSearchPageIsDisplayedWhenSearchButtonIsClicked" time="1.258" classname="tests.tablet.homeUI.NavigationFromHomePage" />
+                <testcase name="testSchedulePageIsDisplayedWhenTimeLineIsClicked" time="1.301" classname="tests.tablet.homeUI.NavigationFromHomePage" />
+                <testcase name="testSchedulePageIsDisplayedWhenScheduleButtonIsClicked" time="1.618" classname="tests.tablet.homeUI.NavigationFromHomePage" />
+                <testcase name="testSchedulePageIsDisplayedWhenNowTileIsClickedAndTheRoomIsFreeEOD" time="1.613" classname="tests.tablet.homeUI.NavigationFromHomePage" />
+      
+</testsuite>

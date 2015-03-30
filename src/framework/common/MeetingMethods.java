@@ -14,9 +14,10 @@ import framework.selenium.SeleniumDriverManager;
  *
  */
 public class MeetingMethods {
+	public static SchedulePage schedulePage = new SchedulePage();
+
 	WebDriver driver;
 	HomeTabletPage home;
-
 
 	/**
 	 * [AC] This method initialize the driver

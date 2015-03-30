@@ -1,0 +1,352 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results skipped="0" failed="4" total="23" passed="19">
+  <reporter-output>
+    <line>
+      <![CDATA[<a href="X:\QADEV01\Automation\Tasks\Eliana\RoomManager-Automation\RoomManager-Automation/test-output/html/screenshots/testAvailableColorIsDisplayedOnNextTileWhenAMeetingIsCurrentInTheRoomAndIsFreeEOD.png"><img src="file:///X:\QADEV01\Automation\Tasks\Eliana\RoomManager-Automation\RoomManager-Automation/test-output/html/screenshots/testAvailableColorIsDisplayedOnNextTileWhenAMeetingIsCurrentInTheRoomAndIsFreeEOD.png" alt=""height='100' width='100'/> <br />]]>
+    </line>
+    <line>
+      <![CDATA[<a href="X:\QADEV01\Automation\Tasks\Eliana\RoomManager-Automation\RoomManager-Automation/test-output/html/screenshots/testTimeLeftDisplayTimeUntilNextMeetingWhenRoomIsFreeBeforeInNowTape.png"><img src="file:///X:\QADEV01\Automation\Tasks\Eliana\RoomManager-Automation\RoomManager-Automation/test-output/html/screenshots/testTimeLeftDisplayTimeUntilNextMeetingWhenRoomIsFreeBeforeInNowTape.png" alt=""height='100' width='100'/> <br />]]>
+    </line>
+    <line>
+      <![CDATA[<a href="X:\QADEV01\Automation\Tasks\Eliana\RoomManager-Automation\RoomManager-Automation/test-output/html/screenshots/testNextMeetingInformationIsDeletedWhenItIsRemoved.png"><img src="file:///X:\QADEV01\Automation\Tasks\Eliana\RoomManager-Automation\RoomManager-Automation/test-output/html/screenshots/testNextMeetingInformationIsDeletedWhenItIsRemoved.png" alt=""height='100' width='100'/> <br />]]>
+    </line>
+    <line>
+      <![CDATA[<a href="X:\QADEV01\Automation\Tasks\Eliana\RoomManager-Automation\RoomManager-Automation/test-output/html/screenshots/testTimeLeftUntilNextMeetingWhenRoomIsBussy.png"><img src="file:///X:\QADEV01\Automation\Tasks\Eliana\RoomManager-Automation\RoomManager-Automation/test-output/html/screenshots/testTimeLeftUntilNextMeetingWhenRoomIsBussy.png" alt=""height='100' width='100'/> <br />]]>
+    </line>
+  </reporter-output>
+  <suite name="HomePageSuite" duration-ms="106216" started-at="2015-03-27T16:42:48Z" finished-at="2015-03-27T16:44:34Z">
+    <groups>
+      <group name="UI">
+        <method signature="HomePageInformation.testAvailableColorIsDisplayedInNowTileWhenAnyMeetingIsInProgress()[pri:0, instance:tests.tablet.homeUI.HomePageInformation@28f2a10f]" name="testAvailableColorIsDisplayedInNowTileWhenAnyMeetingIsInProgress" class="tests.tablet.homeUI.HomePageInformation"/>
+        <method signature="HomePageInformation.testAvailableMessageDisplayedWhenRoomIsFreeEOD()[pri:0, instance:tests.tablet.homeUI.HomePageInformation@28f2a10f]" name="testAvailableMessageDisplayedWhenRoomIsFreeEOD" class="tests.tablet.homeUI.HomePageInformation"/>
+        <method signature="HomePageInformation.testCurrentTimeIsDisplayedInMainWindow()[pri:0, instance:tests.tablet.homeUI.HomePageInformation@28f2a10f]" name="testCurrentTimeIsDisplayedInMainWindow" class="tests.tablet.homeUI.HomePageInformation"/>
+        <method signature="HomePageInformation.testEndOfDayMessageIsDisplayedWhenRoomIsFreeEOD()[pri:0, instance:tests.tablet.homeUI.HomePageInformation@28f2a10f]" name="testEndOfDayMessageIsDisplayedWhenRoomIsFreeEOD" class="tests.tablet.homeUI.HomePageInformation"/>
+        <method signature="HomePageInformation.testRoomCodeDisplayedInMainWindow()[pri:0, instance:tests.tablet.homeUI.HomePageInformation@28f2a10f]" name="testRoomCodeDisplayedInMainWindow" class="tests.tablet.homeUI.HomePageInformation"/>
+        <method signature="HomePageInformation.testRoomNameDisplayedInMainWindow()[pri:0, instance:tests.tablet.homeUI.HomePageInformation@28f2a10f]" name="testRoomNameDisplayedInMainWindow" class="tests.tablet.homeUI.HomePageInformation"/>
+        <method signature="HomePageInformation.testTimeLeftUntilMidnightWhenRoomIsFreeAfter()[pri:0, instance:tests.tablet.homeUI.HomePageInformation@28f2a10f]" name="testTimeLeftUntilMidnightWhenRoomIsFreeAfter" class="tests.tablet.homeUI.HomePageInformation"/>
+        <method signature="NavigationFromHomePage.testSchedulePageIsDisplayedWhenNowTileIsClickedAndTheRoomIsFreeEOD()[pri:0, instance:tests.tablet.homeUI.NavigationFromHomePage@6da21078]" name="testSchedulePageIsDisplayedWhenNowTileIsClickedAndTheRoomIsFreeEOD" class="tests.tablet.homeUI.NavigationFromHomePage"/>
+        <method signature="NavigationFromHomePage.testSchedulePageIsDisplayedWhenScheduleButtonIsClicked()[pri:0, instance:tests.tablet.homeUI.NavigationFromHomePage@6da21078]" name="testSchedulePageIsDisplayedWhenScheduleButtonIsClicked" class="tests.tablet.homeUI.NavigationFromHomePage"/>
+        <method signature="NavigationFromHomePage.testSchedulePageIsDisplayedWhenTimeLineIsClicked()[pri:0, instance:tests.tablet.homeUI.NavigationFromHomePage@6da21078]" name="testSchedulePageIsDisplayedWhenTimeLineIsClicked" class="tests.tablet.homeUI.NavigationFromHomePage"/>
+        <method signature="NavigationFromHomePage.testSearchPageIsDisplayedWhenSearchButtonIsClicked()[pri:0, instance:tests.tablet.homeUI.NavigationFromHomePage@6da21078]" name="testSearchPageIsDisplayedWhenSearchButtonIsClicked" class="tests.tablet.homeUI.NavigationFromHomePage"/>
+      </group> <!-- UI -->
+      <group name="ACCEPTANCE">
+        <method signature="CurrentMeetingValuesVerifications.testAvailableColorIsDisplayedOnNextTileWhenAMeetingIsCurrentInTheRoomAndIsFreeEOD()[pri:0, instance:tests.tablet.homeUI.CurrentMeetingValuesVerifications@47faa49c]" name="testAvailableColorIsDisplayedOnNextTileWhenAMeetingIsCurrentInTheRoomAndIsFreeEOD" class="tests.tablet.homeUI.CurrentMeetingValuesVerifications"/>
+        <method signature="CurrentMeetingValuesVerifications.testAvailableMessageDisplayedInNextTileWhenRoomIsFreeAfterAMeeting()[pri:0, instance:tests.tablet.homeUI.CurrentMeetingValuesVerifications@47faa49c]" name="testAvailableMessageDisplayedInNextTileWhenRoomIsFreeAfterAMeeting" class="tests.tablet.homeUI.CurrentMeetingValuesVerifications"/>
+        <method signature="CurrentMeetingValuesVerifications.testBussyColorIsDisplayedOnNowTileWhenAMeetingIsInProgressInTheRoom()[pri:0, instance:tests.tablet.homeUI.CurrentMeetingValuesVerifications@47faa49c]" name="testBussyColorIsDisplayedOnNowTileWhenAMeetingIsInProgressInTheRoom" class="tests.tablet.homeUI.CurrentMeetingValuesVerifications"/>
+        <method signature="CurrentMeetingValuesVerifications.testCurrentMeetingOrganizerIsDisplayedOnNowTile()[pri:0, instance:tests.tablet.homeUI.CurrentMeetingValuesVerifications@47faa49c]" name="testCurrentMeetingOrganizerIsDisplayedOnNowTile" class="tests.tablet.homeUI.CurrentMeetingValuesVerifications"/>
+        <method signature="CurrentMeetingValuesVerifications.testCurrentMeetingSubjectDisplayedOnNowTile()[pri:0, instance:tests.tablet.homeUI.CurrentMeetingValuesVerifications@47faa49c]" name="testCurrentMeetingSubjectDisplayedOnNowTile" class="tests.tablet.homeUI.CurrentMeetingValuesVerifications"/>
+        <method signature="CurrentMeetingValuesVerifications.testIntervalTimeDisplayedForNextMeetingInRoomIsFromEndTimeCurrentMeetingToMidnight()[pri:0, instance:tests.tablet.homeUI.CurrentMeetingValuesVerifications@47faa49c]" name="testIntervalTimeDisplayedForNextMeetingInRoomIsFromEndTimeCurrentMeetingToMidnight" class="tests.tablet.homeUI.CurrentMeetingValuesVerifications"/>
+        <method signature="NextMeetingInformationIsDeletedWhenItIsRemoved.testNextMeetingInformationIsDeletedWhenItIsRemoved()[pri:0, instance:tests.tablet.homeUI.NextMeetingInformationIsDeletedWhenItIsRemoved@73e22a3d]" name="testNextMeetingInformationIsDeletedWhenItIsRemoved" class="tests.tablet.homeUI.NextMeetingInformationIsDeletedWhenItIsRemoved"/>
+        <method signature="NextMeetingValuesVerifications.testBussyColorIsDisplayedOnNextTileWhenAMeetingIsSetInTheRoom()[pri:0, instance:tests.tablet.homeUI.NextMeetingValuesVerifications@16a0ee18]" name="testBussyColorIsDisplayedOnNextTileWhenAMeetingIsSetInTheRoom" class="tests.tablet.homeUI.NextMeetingValuesVerifications"/>
+        <method signature="NextMeetingValuesVerifications.testIntervalTimeDisplayedForNextMeetingInRoom()[pri:0, instance:tests.tablet.homeUI.NextMeetingValuesVerifications@16a0ee18]" name="testIntervalTimeDisplayedForNextMeetingInRoom" class="tests.tablet.homeUI.NextMeetingValuesVerifications"/>
+        <method signature="NextMeetingValuesVerifications.testTimeLeftDisplayTimeUntilNextMeetingWhenRoomIsFreeBeforeInNowTape()[pri:0, instance:tests.tablet.homeUI.NextMeetingValuesVerifications@16a0ee18]" name="testTimeLeftDisplayTimeUntilNextMeetingWhenRoomIsFreeBeforeInNowTape" class="tests.tablet.homeUI.NextMeetingValuesVerifications"/>
+        <method signature="TimeLeftUntilNextMeetingWhenRoomIsBussy.testTimeLeftUntilNextMeetingWhenRoomIsBussy()[pri:0, instance:tests.tablet.homeUI.TimeLeftUntilNextMeetingWhenRoomIsBussy@7fee8714]" name="testTimeLeftUntilNextMeetingWhenRoomIsBussy" class="tests.tablet.homeUI.TimeLeftUntilNextMeetingWhenRoomIsBussy"/>
+        <method signature="UpdateOfNextMeetingSubjetWhenItIsChanged.testRefreshOfNextMeetingNameWhenItIsUpdated()[pri:0, instance:tests.tablet.homeUI.UpdateOfNextMeetingSubjetWhenItIsChanged@f736069]" name="testRefreshOfNextMeetingNameWhenItIsUpdated" class="tests.tablet.homeUI.UpdateOfNextMeetingSubjetWhenItIsChanged"/>
+      </group> <!-- ACCEPTANCE -->
+    </groups>
+    <test name="HomePage" duration-ms="106216" started-at="2015-03-27T16:42:48Z" finished-at="2015-03-27T16:44:34Z">
+      <class name="tests.tablet.homeUI.CurrentMeetingValuesVerifications">
+        <test-method status="PASS" signature="init()[pri:0, instance:tests.tablet.homeUI.CurrentMeetingValuesVerifications@47faa49c]" name="init" is-config="true" duration-ms="8851" started-at="2015-03-27T12:42:56Z" finished-at="2015-03-27T12:43:04Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- init -->
+        <test-method status="FAIL" signature="testAvailableColorIsDisplayedOnNextTileWhenAMeetingIsCurrentInTheRoomAndIsFreeEOD()[pri:0, instance:tests.tablet.homeUI.CurrentMeetingValuesVerifications@47faa49c]" name="testAvailableColorIsDisplayedOnNextTileWhenAMeetingIsCurrentInTheRoomAndIsFreeEOD" duration-ms="39" started-at="2015-03-27T12:43:04Z" finished-at="2015-03-27T12:43:04Z">
+          <exception class="java.lang.AssertionError">
+            <message>
+              <![CDATA[expected [null] but found [rgba(0, 128, 0, 1)]]]>
+            </message>
+            <full-stacktrace>
+              <![CDATA[java.lang.AssertionError: expected [null] but found [rgba(0, 128, 0, 1)]
+	at org.testng.Assert.fail(Assert.java:94)
+	at org.testng.Assert.failNotEquals(Assert.java:494)
+	at org.testng.Assert.assertEquals(Assert.java:123)
+	at org.testng.Assert.assertEquals(Assert.java:176)
+	at org.testng.Assert.assertEquals(Assert.java:186)
+	at tests.tablet.homeUI.CurrentMeetingValuesVerifications.testAvailableColorIsDisplayedOnNextTileWhenAMeetingIsCurrentInTheRoomAndIsFreeEOD(Unknown Source)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:84)
+	at org.testng.internal.Invoker.invokeMethod(Invoker.java:714)
+	at org.testng.internal.Invoker.invokeTestMethod(Invoker.java:901)
+	at org.testng.internal.Invoker.invokeTestMethods(Invoker.java:1231)
+	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:127)
+	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:111)
+	at org.testng.TestRunner.privateRun(TestRunner.java:767)
+	at org.testng.TestRunner.run(TestRunner.java:617)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:334)
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:329)
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:291)
+	at org.testng.SuiteRunner.run(SuiteRunner.java:240)
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:86)
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1224)
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1149)
+	at org.testng.TestNG.run(TestNG.java:1057)
+	at org.testng.TestNG.privateMain(TestNG.java:1364)
+	at org.testng.TestNG.main(TestNG.java:1333)
+]]>
+            </full-stacktrace>
+          </exception> <!-- java.lang.AssertionError -->
+          <reporter-output>
+            <line>
+              <![CDATA[<a href="X:\QADEV01\Automation\Tasks\Eliana\RoomManager-Automation\RoomManager-Automation/test-output/html/screenshots/testAvailableColorIsDisplayedOnNextTileWhenAMeetingIsCurrentInTheRoomAndIsFreeEOD.png"><img src="file:///X:\QADEV01\Automation\Tasks\Eliana\RoomManager-Automation\RoomManager-Automation/test-output/html/screenshots/testAvailableColorIsDisplayedOnNextTileWhenAMeetingIsCurrentInTheRoomAndIsFreeEOD.png" alt=""height='100' width='100'/> <br />]]>
+            </line>
+          </reporter-output>
+        </test-method> <!-- testAvailableColorIsDisplayedOnNextTileWhenAMeetingIsCurrentInTheRoomAndIsFreeEOD -->
+        <test-method status="PASS" signature="testAvailableMessageDisplayedInNextTileWhenRoomIsFreeAfterAMeeting()[pri:0, instance:tests.tablet.homeUI.CurrentMeetingValuesVerifications@47faa49c]" name="testAvailableMessageDisplayedInNextTileWhenRoomIsFreeAfterAMeeting" duration-ms="141" started-at="2015-03-27T12:43:06Z" finished-at="2015-03-27T12:43:06Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testAvailableMessageDisplayedInNextTileWhenRoomIsFreeAfterAMeeting -->
+        <test-method status="PASS" signature="testBussyColorIsDisplayedOnNowTileWhenAMeetingIsInProgressInTheRoom()[pri:0, instance:tests.tablet.homeUI.CurrentMeetingValuesVerifications@47faa49c]" name="testBussyColorIsDisplayedOnNowTileWhenAMeetingIsInProgressInTheRoom" duration-ms="31" started-at="2015-03-27T12:43:06Z" finished-at="2015-03-27T12:43:06Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testBussyColorIsDisplayedOnNowTileWhenAMeetingIsInProgressInTheRoom -->
+        <test-method status="PASS" signature="testCurrentMeetingOrganizerIsDisplayedOnNowTile()[pri:0, instance:tests.tablet.homeUI.CurrentMeetingValuesVerifications@47faa49c]" name="testCurrentMeetingOrganizerIsDisplayedOnNowTile" duration-ms="53" started-at="2015-03-27T12:43:06Z" finished-at="2015-03-27T12:43:06Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testCurrentMeetingOrganizerIsDisplayedOnNowTile -->
+        <test-method status="PASS" signature="testCurrentMeetingSubjectDisplayedOnNowTile()[pri:0, instance:tests.tablet.homeUI.CurrentMeetingValuesVerifications@47faa49c]" name="testCurrentMeetingSubjectDisplayedOnNowTile" duration-ms="130" started-at="2015-03-27T12:43:06Z" finished-at="2015-03-27T12:43:06Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testCurrentMeetingSubjectDisplayedOnNowTile -->
+        <test-method status="PASS" signature="testIntervalTimeDisplayedForNextMeetingInRoomIsFromEndTimeCurrentMeetingToMidnight()[pri:0, instance:tests.tablet.homeUI.CurrentMeetingValuesVerifications@47faa49c]" name="testIntervalTimeDisplayedForNextMeetingInRoomIsFromEndTimeCurrentMeetingToMidnight" duration-ms="107" started-at="2015-03-27T12:43:06Z" finished-at="2015-03-27T12:43:06Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testIntervalTimeDisplayedForNextMeetingInRoomIsFromEndTimeCurrentMeetingToMidnight -->
+        <test-method status="PASS" signature="end()[pri:0, instance:tests.tablet.homeUI.CurrentMeetingValuesVerifications@47faa49c]" name="end" is-config="true" duration-ms="1662" started-at="2015-03-27T12:43:06Z" finished-at="2015-03-27T12:43:08Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- end -->
+      </class> <!-- tests.tablet.homeUI.CurrentMeetingValuesVerifications -->
+      <class name="tests.tablet.homeUI.NextMeetingInformationIsDeletedWhenItIsRemoved">
+        <test-method status="FAIL" signature="testNextMeetingInformationIsDeletedWhenItIsRemoved()[pri:0, instance:tests.tablet.homeUI.NextMeetingInformationIsDeletedWhenItIsRemoved@73e22a3d]" name="testNextMeetingInformationIsDeletedWhenItIsRemoved" duration-ms="6187" started-at="2015-03-27T12:43:18Z" finished-at="2015-03-27T12:43:24Z">
+          <exception class="java.lang.AssertionError">
+            <message>
+              <![CDATA[expected [Next meeting] but found [Current meeting]]]>
+            </message>
+            <full-stacktrace>
+              <![CDATA[java.lang.AssertionError: expected [Next meeting] but found [Current meeting]
+	at org.testng.Assert.fail(Assert.java:94)
+	at org.testng.Assert.failNotEquals(Assert.java:494)
+	at org.testng.Assert.assertEquals(Assert.java:123)
+	at org.testng.Assert.assertEquals(Assert.java:176)
+	at org.testng.Assert.assertEquals(Assert.java:186)
+	at tests.tablet.homeUI.NextMeetingInformationIsDeletedWhenItIsRemoved.testNextMeetingInformationIsDeletedWhenItIsRemoved(Unknown Source)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:84)
+	at org.testng.internal.Invoker.invokeMethod(Invoker.java:714)
+	at org.testng.internal.Invoker.invokeTestMethod(Invoker.java:901)
+	at org.testng.internal.Invoker.invokeTestMethods(Invoker.java:1231)
+	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:127)
+	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:111)
+	at org.testng.TestRunner.privateRun(TestRunner.java:767)
+	at org.testng.TestRunner.run(TestRunner.java:617)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:334)
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:329)
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:291)
+	at org.testng.SuiteRunner.run(SuiteRunner.java:240)
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:86)
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1224)
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1149)
+	at org.testng.TestNG.run(TestNG.java:1057)
+	at org.testng.TestNG.privateMain(TestNG.java:1364)
+	at org.testng.TestNG.main(TestNG.java:1333)
+]]>
+            </full-stacktrace>
+          </exception> <!-- java.lang.AssertionError -->
+          <reporter-output>
+            <line>
+              <![CDATA[<a href="X:\QADEV01\Automation\Tasks\Eliana\RoomManager-Automation\RoomManager-Automation/test-output/html/screenshots/testNextMeetingInformationIsDeletedWhenItIsRemoved.png"><img src="file:///X:\QADEV01\Automation\Tasks\Eliana\RoomManager-Automation\RoomManager-Automation/test-output/html/screenshots/testNextMeetingInformationIsDeletedWhenItIsRemoved.png" alt=""height='100' width='100'/> <br />]]>
+            </line>
+          </reporter-output>
+        </test-method> <!-- testNextMeetingInformationIsDeletedWhenItIsRemoved -->
+      </class> <!-- tests.tablet.homeUI.NextMeetingInformationIsDeletedWhenItIsRemoved -->
+      <class name="tests.tablet.homeUI.NextMeetingValuesVerifications">
+        <test-method status="PASS" signature="init()[pri:0, instance:tests.tablet.homeUI.NextMeetingValuesVerifications@16a0ee18]" name="init" is-config="true" duration-ms="8465" started-at="2015-03-27T12:43:08Z" finished-at="2015-03-27T12:43:16Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- init -->
+        <test-method status="PASS" signature="testBussyColorIsDisplayedOnNextTileWhenAMeetingIsSetInTheRoom()[pri:0, instance:tests.tablet.homeUI.NextMeetingValuesVerifications@16a0ee18]" name="testBussyColorIsDisplayedOnNextTileWhenAMeetingIsSetInTheRoom" duration-ms="43" started-at="2015-03-27T12:43:16Z" finished-at="2015-03-27T12:43:16Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testBussyColorIsDisplayedOnNextTileWhenAMeetingIsSetInTheRoom -->
+        <test-method status="PASS" signature="testIntervalTimeDisplayedForNextMeetingInRoom()[pri:0, instance:tests.tablet.homeUI.NextMeetingValuesVerifications@16a0ee18]" name="testIntervalTimeDisplayedForNextMeetingInRoom" duration-ms="141" started-at="2015-03-27T12:43:16Z" finished-at="2015-03-27T12:43:16Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testIntervalTimeDisplayedForNextMeetingInRoom -->
+        <test-method status="FAIL" signature="testTimeLeftDisplayTimeUntilNextMeetingWhenRoomIsFreeBeforeInNowTape()[pri:0, instance:tests.tablet.homeUI.NextMeetingValuesVerifications@16a0ee18]" name="testTimeLeftDisplayTimeUntilNextMeetingWhenRoomIsFreeBeforeInNowTape" duration-ms="49" started-at="2015-03-27T12:43:16Z" finished-at="2015-03-27T12:43:16Z">
+          <exception class="java.lang.AssertionError">
+            <message>
+              <![CDATA[expected [00:20] but found [00:19]]]>
+            </message>
+            <full-stacktrace>
+              <![CDATA[java.lang.AssertionError: expected [00:20] but found [00:19]
+	at org.testng.Assert.fail(Assert.java:94)
+	at org.testng.Assert.failNotEquals(Assert.java:494)
+	at org.testng.Assert.assertEquals(Assert.java:123)
+	at org.testng.Assert.assertEquals(Assert.java:176)
+	at org.testng.Assert.assertEquals(Assert.java:186)
+	at tests.tablet.homeUI.NextMeetingValuesVerifications.testTimeLeftDisplayTimeUntilNextMeetingWhenRoomIsFreeBeforeInNowTape(Unknown Source)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:84)
+	at org.testng.internal.Invoker.invokeMethod(Invoker.java:714)
+	at org.testng.internal.Invoker.invokeTestMethod(Invoker.java:901)
+	at org.testng.internal.Invoker.invokeTestMethods(Invoker.java:1231)
+	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:127)
+	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:111)
+	at org.testng.TestRunner.privateRun(TestRunner.java:767)
+	at org.testng.TestRunner.run(TestRunner.java:617)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:334)
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:329)
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:291)
+	at org.testng.SuiteRunner.run(SuiteRunner.java:240)
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:86)
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1224)
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1149)
+	at org.testng.TestNG.run(TestNG.java:1057)
+	at org.testng.TestNG.privateMain(TestNG.java:1364)
+	at org.testng.TestNG.main(TestNG.java:1333)
+]]>
+            </full-stacktrace>
+          </exception> <!-- java.lang.AssertionError -->
+          <reporter-output>
+            <line>
+              <![CDATA[<a href="X:\QADEV01\Automation\Tasks\Eliana\RoomManager-Automation\RoomManager-Automation/test-output/html/screenshots/testTimeLeftDisplayTimeUntilNextMeetingWhenRoomIsFreeBeforeInNowTape.png"><img src="file:///X:\QADEV01\Automation\Tasks\Eliana\RoomManager-Automation\RoomManager-Automation/test-output/html/screenshots/testTimeLeftDisplayTimeUntilNextMeetingWhenRoomIsFreeBeforeInNowTape.png" alt=""height='100' width='100'/> <br />]]>
+            </line>
+          </reporter-output>
+        </test-method> <!-- testTimeLeftDisplayTimeUntilNextMeetingWhenRoomIsFreeBeforeInNowTape -->
+        <test-method status="PASS" signature="end()[pri:0, instance:tests.tablet.homeUI.NextMeetingValuesVerifications@16a0ee18]" name="end" is-config="true" duration-ms="1494" started-at="2015-03-27T12:43:17Z" finished-at="2015-03-27T12:43:18Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- end -->
+      </class> <!-- tests.tablet.homeUI.NextMeetingValuesVerifications -->
+      <class name="tests.tablet.homeUI.NavigationFromHomePage">
+        <test-method status="PASS" signature="testSchedulePageIsDisplayedWhenNowTileIsClickedAndTheRoomIsFreeEOD()[pri:0, instance:tests.tablet.homeUI.NavigationFromHomePage@6da21078]" name="testSchedulePageIsDisplayedWhenNowTileIsClickedAndTheRoomIsFreeEOD" duration-ms="1613" started-at="2015-03-27T12:42:48Z" finished-at="2015-03-27T12:42:49Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testSchedulePageIsDisplayedWhenNowTileIsClickedAndTheRoomIsFreeEOD -->
+        <test-method status="PASS" signature="testSchedulePageIsDisplayedWhenScheduleButtonIsClicked()[pri:0, instance:tests.tablet.homeUI.NavigationFromHomePage@6da21078]" name="testSchedulePageIsDisplayedWhenScheduleButtonIsClicked" duration-ms="1618" started-at="2015-03-27T12:42:49Z" finished-at="2015-03-27T12:42:51Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testSchedulePageIsDisplayedWhenScheduleButtonIsClicked -->
+        <test-method status="PASS" signature="testSchedulePageIsDisplayedWhenTimeLineIsClicked()[pri:0, instance:tests.tablet.homeUI.NavigationFromHomePage@6da21078]" name="testSchedulePageIsDisplayedWhenTimeLineIsClicked" duration-ms="1301" started-at="2015-03-27T12:42:51Z" finished-at="2015-03-27T12:42:52Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testSchedulePageIsDisplayedWhenTimeLineIsClicked -->
+        <test-method status="PASS" signature="testSearchPageIsDisplayedWhenSearchButtonIsClicked()[pri:0, instance:tests.tablet.homeUI.NavigationFromHomePage@6da21078]" name="testSearchPageIsDisplayedWhenSearchButtonIsClicked" duration-ms="1258" started-at="2015-03-27T12:42:52Z" finished-at="2015-03-27T12:42:54Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testSearchPageIsDisplayedWhenSearchButtonIsClicked -->
+      </class> <!-- tests.tablet.homeUI.NavigationFromHomePage -->
+      <class name="tests.tablet.homeUI.TimeLeftUntilNextMeetingWhenRoomIsBussy">
+        <test-method status="PASS" signature="preconditions()[pri:0, instance:tests.tablet.homeUI.TimeLeftUntilNextMeetingWhenRoomIsBussy@7fee8714]" name="preconditions" is-config="true" duration-ms="48838" started-at="2015-03-27T12:43:35Z" finished-at="2015-03-27T12:44:24Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- preconditions -->
+        <test-method status="FAIL" signature="testTimeLeftUntilNextMeetingWhenRoomIsBussy()[pri:0, instance:tests.tablet.homeUI.TimeLeftUntilNextMeetingWhenRoomIsBussy@7fee8714]" name="testTimeLeftUntilNextMeetingWhenRoomIsBussy" duration-ms="989" started-at="2015-03-27T12:44:24Z" finished-at="2015-03-27T12:44:25Z">
+          <exception class="java.lang.AssertionError">
+            <message>
+              <![CDATA[expected [00:19] but found [00:08]]]>
+            </message>
+            <full-stacktrace>
+              <![CDATA[java.lang.AssertionError: expected [00:19] but found [00:08]
+	at org.testng.Assert.fail(Assert.java:94)
+	at org.testng.Assert.failNotEquals(Assert.java:494)
+	at org.testng.Assert.assertEquals(Assert.java:123)
+	at org.testng.Assert.assertEquals(Assert.java:176)
+	at org.testng.Assert.assertEquals(Assert.java:186)
+	at tests.tablet.homeUI.TimeLeftUntilNextMeetingWhenRoomIsBussy.testTimeLeftUntilNextMeetingWhenRoomIsBussy(Unknown Source)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:84)
+	at org.testng.internal.Invoker.invokeMethod(Invoker.java:714)
+	at org.testng.internal.Invoker.invokeTestMethod(Invoker.java:901)
+	at org.testng.internal.Invoker.invokeTestMethods(Invoker.java:1231)
+	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:127)
+	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:111)
+	at org.testng.TestRunner.privateRun(TestRunner.java:767)
+	at org.testng.TestRunner.run(TestRunner.java:617)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:334)
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:329)
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:291)
+	at org.testng.SuiteRunner.run(SuiteRunner.java:240)
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:86)
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1224)
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1149)
+	at org.testng.TestNG.run(TestNG.java:1057)
+	at org.testng.TestNG.privateMain(TestNG.java:1364)
+	at org.testng.TestNG.main(TestNG.java:1333)
+]]>
+            </full-stacktrace>
+          </exception> <!-- java.lang.AssertionError -->
+          <reporter-output>
+            <line>
+              <![CDATA[<a href="X:\QADEV01\Automation\Tasks\Eliana\RoomManager-Automation\RoomManager-Automation/test-output/html/screenshots/testTimeLeftUntilNextMeetingWhenRoomIsBussy.png"><img src="file:///X:\QADEV01\Automation\Tasks\Eliana\RoomManager-Automation\RoomManager-Automation/test-output/html/screenshots/testTimeLeftUntilNextMeetingWhenRoomIsBussy.png" alt=""height='100' width='100'/> <br />]]>
+            </line>
+          </reporter-output>
+        </test-method> <!-- testTimeLeftUntilNextMeetingWhenRoomIsBussy -->
+        <test-method status="PASS" signature="end()[pri:0, instance:tests.tablet.homeUI.TimeLeftUntilNextMeetingWhenRoomIsBussy@7fee8714]" name="end" is-config="true" duration-ms="8474" started-at="2015-03-27T12:44:25Z" finished-at="2015-03-27T12:44:34Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- end -->
+      </class> <!-- tests.tablet.homeUI.TimeLeftUntilNextMeetingWhenRoomIsBussy -->
+      <class name="tests.tablet.homeUI.UpdateOfNextMeetingSubjetWhenItIsChanged">
+        <test-method status="PASS" signature="init()[pri:0, instance:tests.tablet.homeUI.UpdateOfNextMeetingSubjetWhenItIsChanged@f736069]" name="init" is-config="true" duration-ms="5412" started-at="2015-03-27T12:43:25Z" finished-at="2015-03-27T12:43:30Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- init -->
+        <test-method status="PASS" signature="testRefreshOfNextMeetingNameWhenItIsUpdated()[pri:0, instance:tests.tablet.homeUI.UpdateOfNextMeetingSubjetWhenItIsChanged@f736069]" name="testRefreshOfNextMeetingNameWhenItIsUpdated" duration-ms="3404" started-at="2015-03-27T12:43:30Z" finished-at="2015-03-27T12:43:34Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testRefreshOfNextMeetingNameWhenItIsUpdated -->
+        <test-method status="PASS" signature="end()[pri:0, instance:tests.tablet.homeUI.UpdateOfNextMeetingSubjetWhenItIsChanged@f736069]" name="end" is-config="true" duration-ms="1475" started-at="2015-03-27T12:43:34Z" finished-at="2015-03-27T12:43:35Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- end -->
+      </class> <!-- tests.tablet.homeUI.UpdateOfNextMeetingSubjetWhenItIsChanged -->
+      <class name="tests.tablet.homeUI.HomePageInformation">
+        <test-method status="PASS" signature="testAvailableColorIsDisplayedInNowTileWhenAnyMeetingIsInProgress()[pri:0, instance:tests.tablet.homeUI.HomePageInformation@28f2a10f]" name="testAvailableColorIsDisplayedInNowTileWhenAnyMeetingIsInProgress" duration-ms="1346" started-at="2015-03-27T12:42:54Z" finished-at="2015-03-27T12:42:55Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testAvailableColorIsDisplayedInNowTileWhenAnyMeetingIsInProgress -->
+        <test-method status="PASS" signature="testAvailableMessageDisplayedWhenRoomIsFreeEOD()[pri:0, instance:tests.tablet.homeUI.HomePageInformation@28f2a10f]" name="testAvailableMessageDisplayedWhenRoomIsFreeEOD" duration-ms="140" started-at="2015-03-27T12:42:55Z" finished-at="2015-03-27T12:42:55Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testAvailableMessageDisplayedWhenRoomIsFreeEOD -->
+        <test-method status="PASS" signature="testCurrentTimeIsDisplayedInMainWindow()[pri:0, instance:tests.tablet.homeUI.HomePageInformation@28f2a10f]" name="testCurrentTimeIsDisplayedInMainWindow" duration-ms="81" started-at="2015-03-27T12:42:55Z" finished-at="2015-03-27T12:42:55Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testCurrentTimeIsDisplayedInMainWindow -->
+        <test-method status="PASS" signature="testEndOfDayMessageIsDisplayedWhenRoomIsFreeEOD()[pri:0, instance:tests.tablet.homeUI.HomePageInformation@28f2a10f]" name="testEndOfDayMessageIsDisplayedWhenRoomIsFreeEOD" duration-ms="122" started-at="2015-03-27T12:42:55Z" finished-at="2015-03-27T12:42:55Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testEndOfDayMessageIsDisplayedWhenRoomIsFreeEOD -->
+        <test-method status="PASS" signature="testRoomCodeDisplayedInMainWindow()[pri:0, instance:tests.tablet.homeUI.HomePageInformation@28f2a10f]" name="testRoomCodeDisplayedInMainWindow" duration-ms="134" started-at="2015-03-27T12:42:55Z" finished-at="2015-03-27T12:42:55Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testRoomCodeDisplayedInMainWindow -->
+        <test-method status="PASS" signature="testRoomNameDisplayedInMainWindow()[pri:0, instance:tests.tablet.homeUI.HomePageInformation@28f2a10f]" name="testRoomNameDisplayedInMainWindow" duration-ms="113" started-at="2015-03-27T12:42:55Z" finished-at="2015-03-27T12:42:55Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testRoomNameDisplayedInMainWindow -->
+        <test-method status="PASS" signature="testTimeLeftUntilMidnightWhenRoomIsFreeAfter()[pri:0, instance:tests.tablet.homeUI.HomePageInformation@28f2a10f]" name="testTimeLeftUntilMidnightWhenRoomIsFreeAfter" duration-ms="46" started-at="2015-03-27T12:42:55Z" finished-at="2015-03-27T12:42:56Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testTimeLeftUntilMidnightWhenRoomIsFreeAfter -->
+      </class> <!-- tests.tablet.homeUI.HomePageInformation -->
+    </test> <!-- HomePage -->
+  </suite> <!-- HomePageSuite -->
+</testng-results>
