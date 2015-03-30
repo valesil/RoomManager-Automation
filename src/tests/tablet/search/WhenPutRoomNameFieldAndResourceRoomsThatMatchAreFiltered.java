@@ -24,7 +24,7 @@ import framework.utils.readers.ExcelReader;
  */
 public class WhenPutRoomNameFieldAndResourceRoomsThatMatchAreFiltered {
 	private SearchPage searchPage;
-	
+
 
 	@Test(groups = "FUNCTIONAL")
 	public void testRoomNameFieldAndResourceRoomsThatMatchAreFiltered() 
@@ -36,7 +36,8 @@ public class WhenPutRoomNameFieldAndResourceRoomsThatMatchAreFiltered {
 		HomeTabletPage homeTabletPage = new HomeTabletPage();
 		LinkedList<String> resCond = RootRestMethods.getRoomNamesByResource(resourceName);
 		LinkedList<String> roomCond = RootRestMethods.getRoomsByName(roomName);
-		searchPage = homeTabletPage.clickSearchBtn()
+		searchPage = homeTabletPage
+				.clickSearchBtn()
 				.clickCollapseAdvancedBtn()
 				.setName(roomName)
 				.selectResource(resourceName);

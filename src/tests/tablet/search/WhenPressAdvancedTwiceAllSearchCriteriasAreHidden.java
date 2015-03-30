@@ -14,11 +14,12 @@ import framework.pages.tablet.SearchPage;
  */
 public class WhenPressAdvancedTwiceAllSearchCriteriasAreHidden {
 	private SearchPage searchPage;
-	
+
 	@Test(groups = "UI")
 	public void testPressAdvancedTwiceAllSearchCriteriasAreHidden() {
 		HomeTabletPage homeTabletPage = new HomeTabletPage();
-		searchPage = homeTabletPage.clickSearchBtn()
+		searchPage = homeTabletPage
+				.clickSearchBtn()
 				.clickCollapseAdvancedBtn()
 				.clickHiddenAdvancedBtn();
 		Assert.assertFalse(searchPage.filtersArePresent());

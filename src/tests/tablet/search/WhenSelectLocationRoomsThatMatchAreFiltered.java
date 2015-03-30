@@ -18,13 +18,13 @@ import framework.rest.RootRestMethods;
 import framework.utils.readers.ExcelReader;
 
 /**
- * TC5: Verify on search page that can filter by location, 
+ * TC05: Verify on search page that can filter by location, 
  * 		   just the rooms that be part of that location are displayed
  * @author Jose Cabrera
  */
 public class WhenSelectLocationRoomsThatMatchAreFiltered {
 	private SearchPage searchPage;
-	
+
 	@Test(groups = "UI")
 	public void testSelectLocationRoomsThatMatchAreFiltered () throws BiffException, IOException {
 		ExcelReader excelReader = new ExcelReader(AppConfigConstants.EXCEL_INPUT_DATA);
@@ -33,12 +33,13 @@ public class WhenSelectLocationRoomsThatMatchAreFiltered {
 		HomeTabletPage homeTabletPage = new HomeTabletPage();
 		LinkedList<String> locationCond = RootRestMethods
 				.getListByNumeric("rooms", "location", location, "displayName");
-		searchPage = homeTabletPage.clickSearchBtn()
+		searchPage = homeTabletPage
+				.clickSearchBtn()
 				.clickCollapseAdvancedBtn()
 				.setLocation(location);
 		Assert.assertTrue(searchPage.roomsInList(locationCond));
 	}
-	
+
 	@AfterMethod(groups = "UI")
 	public void toHome() {
 		searchPage.clickBackBtn();

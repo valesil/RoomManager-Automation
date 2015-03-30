@@ -24,7 +24,7 @@ import framework.utils.readers.ExcelReader;
  */
 public class WhenSelectResourceRoomsThatMatchAreFiltered {
 	private SearchPage searchPage;
-	
+
 	@Test(groups = "FUNCTIONAL")
 	public void testWhenSelectResourceRoomsThatMatchAreFiltered() throws BiffException, IOException {
 		ExcelReader excelReader = new ExcelReader(AppConfigConstants.EXCEL_INPUT_DATA);
@@ -32,12 +32,13 @@ public class WhenSelectResourceRoomsThatMatchAreFiltered {
 		String resourceName = testData.get(1).get("Resource");
 		HomeTabletPage homeTabletPage = new HomeTabletPage();
 		LinkedList<String> resCond = RootRestMethods.getRoomNamesByResource(resourceName);
-		searchPage = homeTabletPage.clickSearchBtn()
+		searchPage = homeTabletPage
+				.clickSearchBtn()
 				.clickCollapseAdvancedBtn()
-			    .selectResource(resourceName);
+				.selectResource(resourceName);
 		Assert.assertTrue(searchPage.roomsInList(resCond));
 	}
-	
+
 	@AfterMethod(groups = "FUNCTIONAL")
 	public void toHome() {
 		searchPage.clickBackBtn();

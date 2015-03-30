@@ -18,13 +18,13 @@ import framework.rest.RootRestMethods;
 import framework.utils.readers.ExcelReader;
 
 /**
- * TC9: Verify on search page if filter by "location" and "Minimum capacity", 
+ * TC09: Verify on search page if filter by "location" and "Minimum capacity", 
  * only the rooms that contains that especifications are displayed
  * @author Jose Cabrera
  */
 public class WhenPutMinimumCapFieldAndLocationRoomsThatMatchAreFiltered {
 	private SearchPage searchPage;
-	
+
 	@Test(groups = "FUNCTIONAL")
 	public void testPutMinimumCapFieldAndLocationRoomsAreFiltered () throws BiffException, IOException {
 		ExcelReader excelReader = new ExcelReader(AppConfigConstants.EXCEL_INPUT_DATA);
@@ -36,10 +36,11 @@ public class WhenPutMinimumCapFieldAndLocationRoomsThatMatchAreFiltered {
 				.getListByNumeric("rooms", "location", location, "displayName");
 		LinkedList<String> capacityCond = RootRestMethods
 				.getListByNumeric("rooms", "capacity", capacity, "displayName");
-		searchPage = homeTabletPage.clickSearchBtn()
-				  .clickCollapseAdvancedBtn()
-				  .setMinimumCap(capacity)
-				  .setLocation(location);
+		searchPage = homeTabletPage
+				.clickSearchBtn()
+				.clickCollapseAdvancedBtn()
+				.setMinimumCap(capacity)
+				.setLocation(location);
 		Assert.assertTrue(searchPage.roomsInList(
 				RootRestMethods.mergeLists(locationCond, capacityCond)));
 	}

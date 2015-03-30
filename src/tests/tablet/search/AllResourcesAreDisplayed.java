@@ -14,22 +14,23 @@ import framework.pages.tablet.SearchPage;
 import framework.rest.RootRestMethods;
 
 /**
- * TC2: Verify that all resources are displayed on search page 
+ * TC02: Verify that all resources are displayed on search page 
  * on "filter by resource" field 
  * @author Jose Cabrera
  */
 public class AllResourcesAreDisplayed {
 	private SearchPage searchPage;
-	
+
 	@Test(groups = "ACCEPTANCE")
 	public void testAllResourcesAreDisplayed () throws JSONException, MalformedURLException, IOException {
 		HomeTabletPage homeTabletPage = new HomeTabletPage();
 		LinkedList<String> condition = RootRestMethods.getAllNameResources();
-		searchPage = homeTabletPage.clickSearchBtn()
+		searchPage = homeTabletPage
+				.clickSearchBtn()
 				.clickCollapseAdvancedBtn();
 		Assert.assertTrue(searchPage.resourcesInList(condition));
 	}
-	
+
 	@AfterMethod(groups = "ACCEPTANCE")
 	public void toHome() {
 		searchPage.clickBackBtn();

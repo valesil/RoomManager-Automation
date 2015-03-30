@@ -24,7 +24,7 @@ import framework.utils.readers.ExcelReader;
  */
 public class WhenPutRoomNameMinimumCapFieldRoomsThatMatchAreFiltered {
 	private SearchPage searchPage;
-	
+
 	@Test(groups = "FUNCTIONAL")
 	public void verifyPutRoomNameMinimumCapFieldRoomsThatMatchAreFiltered () 
 			throws BiffException, IOException {
@@ -36,7 +36,8 @@ public class WhenPutRoomNameMinimumCapFieldRoomsThatMatchAreFiltered {
 		LinkedList<String> roomNameCond = RootRestMethods.getRoomsByName(roomName);
 		LinkedList<String> capacityCond = RootRestMethods
 				.getListByNumeric("rooms", "capacity", capacity, "displayName");
-		searchPage = homeTabletPage.clickSearchBtn()
+		searchPage = homeTabletPage
+				.clickSearchBtn()
 				.clickCollapseAdvancedBtn()
 				.setMinimumCap(capacity)
 				.setName(roomName);

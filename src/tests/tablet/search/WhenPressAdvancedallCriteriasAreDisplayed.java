@@ -18,7 +18,8 @@ public class WhenPressAdvancedallCriteriasAreDisplayed {
 	@Test(groups = "UI")
 	public void testPressAdvancedallCriteriasAreDisplayed () {
 		HomeTabletPage homeTabletPage = new HomeTabletPage();
-		searchPage = homeTabletPage.clickSearchBtn()
+		searchPage = homeTabletPage
+				.clickSearchBtn()
 				.clickCollapseAdvancedBtn();
 		Assert.assertTrue(searchPage.filtersArePresent());
 	}

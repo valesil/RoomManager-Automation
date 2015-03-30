@@ -18,7 +18,7 @@ import framework.rest.RootRestMethods;
 import framework.utils.readers.ExcelReader;
 
 /**
- * TC8: Verify on search page if filter by "location" and "Room Name", 
+ * TC08: Verify on search page if filter by "location" and "Room Name", 
  * only the rooms that contains that especifications are displayed
  * @author Jose Cabrera
  */
@@ -36,7 +36,8 @@ public class WhenPutRoomNameFieldAndLocationRoomsThatMatchAreFiltered {
 		String location = testData.get(1).get("Location");
 		LinkedList<String> locationCond = RootRestMethods
 				.getListByNumeric("rooms", "location", location, "displayName");
-		searchPage = homeTabletPage.clickSearchBtn()
+		searchPage = homeTabletPage
+				.clickSearchBtn()
 				.clickCollapseAdvancedBtn()
 				.setName(roomName)
 				.setLocation(location);

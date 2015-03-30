@@ -18,15 +18,16 @@ import framework.selenium.SeleniumDriverManager;
 import framework.utils.readers.ExcelReader;
 
 /**
- * 
- * @author administrator
+ * This class is to select a some room to work on this
+ * and create a new resource
+ * @author Jose Cabrera
  *
  */
 public class StartSuite {
-	WebDriver driver = SeleniumDriverManager.getManager().getDriver();
-	ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
-	List<Map<String, String>> meetingData = excelReader.getMapValues("MeetingData");
-	String roomName = meetingData.get(2).get("Room");
+	private WebDriver driver = SeleniumDriverManager.getManager().getDriver();
+	private ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
+	private List<Map<String, String>> meetingData = excelReader.getMapValues("MeetingData");
+	private String roomName = meetingData.get(2).get("Room");
 	
 	@BeforeSuite(groups = {"ACCEPTANCE", "UI", "NEGATIVE", "FUNCTIONAL"})
 	public void start() throws InterruptedException, MalformedURLException, IOException {

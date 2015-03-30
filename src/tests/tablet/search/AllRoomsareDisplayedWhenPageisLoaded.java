@@ -14,7 +14,7 @@ import framework.pages.tablet.SearchPage;
 import framework.rest.RootRestMethods;
 
 /**
- * TC6:Verify on search page that all rooms are displayed when search 
+ * TC06:Verify on search page that all rooms are displayed when search 
  * page is loaded
  * @author Jose Cabrera
  */

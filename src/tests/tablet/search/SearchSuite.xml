@@ -7,9 +7,9 @@
 	<test name = "Search test" >
 		<classes>
 			<class name = "tests.tablet.search.StartSuite"/>
-			<!--TC2-->
+			<!--TC02-->
 			<class name = "tests.tablet.search.AllResourcesAreDisplayed"/>
-			<!--TC6-->
+			<!--TC06-->
 			<class name = "tests.tablet.search.AllRoomsareDisplayedWhenPageisLoaded"/>
 			<!--TC18-->
 			<class name = "tests.tablet.search.DateDisplayedIsTheCurrent"/>
@@ -25,13 +25,13 @@
 			<class name = "tests.tablet.search.WhenPressAdvancedTwiceAllSearchCriteriasAreHidden"/>
 			<!--TC15-->
 			<class name = "tests.tablet.search.WhenPressClearAllCriteriasAreCleaned"/>
-			<!--TC3-->
+			<!--TC03-->
 			<class name = "tests.tablet.search.WhenPutLetterOnRoomNameFieldRoomsThatMatchAreFiltered"/>
-			<!--TC9-->
+			<!--TC09-->
 			<class name = "tests.tablet.search.WhenPutMinimumCapFieldAndLocationRoomsThatMatchAreFiltered"/>
-			<!--TC4-->
+			<!--TC04-->
 			<class name = "tests.tablet.search.WhenPutMinimumCapFieldRoomsThatMatchAreFiltered"/>
-			<!--TC8-->
+			<!--TC08-->
 			<class name = "tests.tablet.search.WhenPutRoomNameFieldAndLocationRoomsThatMatchAreFiltered"/>
 			<!--TC10-->
 			<class name = "tests.tablet.search.WhenPutRoomNameFieldAndResourceRoomsThatMatchAreFiltered"/>
@@ -39,11 +39,11 @@
 			<class name = "tests.tablet.search.WhenPutRoomNameMinimumCapFieldRoomsThatMatchAreFiltered"/>
 			<!--TC17-->
 			<class name = "tests.tablet.search.WhenSelectBackButtonHomePageAreDisplayed"/>
-			<!--TC5-->
+			<!--TC05-->
 			<class name = "tests.tablet.search.WhenSelectLocationRoomsThatMatchAreFiltered"/>
 			<!--TC20-->
 			<class name = "tests.tablet.search.WhenSelectResourceRoomsThatMatchAreFiltered"/>
-			<!--TC7-->
+			<!--TC07-->
 			<class name = "tests.tablet.search.WhenSelectRoomSchedulerofThisAreDisplayed"/>
 		</classes>
 	</test>

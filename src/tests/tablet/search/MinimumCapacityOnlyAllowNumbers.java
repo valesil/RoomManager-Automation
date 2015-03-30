@@ -22,14 +22,15 @@ import framework.utils.readers.ExcelReader;
  */
 public class MinimumCapacityOnlyAllowNumbers {
 	private SearchPage searchPage;
-	
+
 	@Test(groups = "NEGATIVE")
 	public void testMinimumCapacityOnlyAllowNumbers () throws BiffException, IOException {
 		ExcelReader excelReader = new ExcelReader(AppConfigConstants.EXCEL_INPUT_DATA);
 		List<Map<String, String>> testData = excelReader.getMapValues("Search");
 		String capacity = testData.get(0).get("Capacity");
 		HomeTabletPage homeTabletPage = new HomeTabletPage();		
-		searchPage = homeTabletPage.clickSearchBtn()
+		searchPage = homeTabletPage
+				.clickSearchBtn()
 				.clickCollapseAdvancedBtn()
 				.setMinimumCap(capacity);
 		Assert.assertFalse(searchPage.isEmptyMinimumCap());

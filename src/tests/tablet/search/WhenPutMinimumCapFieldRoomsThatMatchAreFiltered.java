@@ -18,13 +18,13 @@ import framework.rest.RootRestMethods;
 import framework.utils.readers.ExcelReader;
 
 /**
- * TC4: Verify on search page if put a number on "Minimum Capacity" field, 
+ * TC04: Verify on search page if put a number on "Minimum Capacity" field, 
  * 		   the rooms are filtered by the capacity of the room
  * @author Jose Cabrera
  */
 public class WhenPutMinimumCapFieldRoomsThatMatchAreFiltered {
 	private SearchPage searchPage;
-	
+
 	@Test(groups = "ACCEPTANCE")
 	public void testPutMinimumCapFieldRoomsAreFiltered ()throws BiffException, IOException {
 		ExcelReader excelReader = new ExcelReader(AppConfigConstants.EXCEL_INPUT_DATA);
@@ -33,7 +33,8 @@ public class WhenPutMinimumCapFieldRoomsThatMatchAreFiltered {
 		HomeTabletPage homeTabletPage = new HomeTabletPage();
 		LinkedList<String> capacityCond = RootRestMethods
 				.getListByNumeric("rooms", "capacity", capacity, "displayName");
-		searchPage = homeTabletPage.clickSearchBtn()
+		searchPage = homeTabletPage
+				.clickSearchBtn()
 				.clickCollapseAdvancedBtn()
 				.setMinimumCap(capacity);
 		Assert.assertTrue(searchPage.roomsInList(capacityCond));

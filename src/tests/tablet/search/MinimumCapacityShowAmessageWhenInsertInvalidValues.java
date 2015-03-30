@@ -22,7 +22,7 @@ import framework.utils.readers.ExcelReader;
  */
 public class MinimumCapacityShowAmessageWhenInsertInvalidValues { 
 	private SearchPage searchPage;
-	
+
 	@Test(groups = "NEGATIVE")
 	public void testMinimumCapacityShowAmessageifInsertInvalidValues () 
 			throws BiffException, IOException {
@@ -30,7 +30,8 @@ public class MinimumCapacityShowAmessageWhenInsertInvalidValues {
 		List<Map<String, String>> testData = excelReader.getMapValues("Search");
 		String capacity = testData.get(0).get("Capacity");
 		HomeTabletPage homeTabletPage = new HomeTabletPage();
-		searchPage = homeTabletPage.clickSearchBtn()
+		searchPage = homeTabletPage
+				.clickSearchBtn()
 				.clickCollapseAdvancedBtn()
 				.setMinimumCap(capacity);
 		Assert.assertFalse(searchPage.isEmptyMinimumCap());

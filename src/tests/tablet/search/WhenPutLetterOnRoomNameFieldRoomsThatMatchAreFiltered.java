@@ -18,13 +18,13 @@ import framework.rest.RootRestMethods;
 import framework.utils.readers.ExcelReader;
 
 /**
- * TC3: Verify when put a letter on "Room Name" field, 
+ * TC03: Verify when put a letter on "Room Name" field, 
  * the rooms that match with that criteria is filtered
  * @author Jose Cabrera
  */
 public class WhenPutLetterOnRoomNameFieldRoomsThatMatchAreFiltered {
 	private SearchPage searchPage;
-	
+
 	@Test(groups = "ACCEPTANCE")
 	public void testPutLetterOnRoomNameFieldRoomsAreFiltered ()throws BiffException, IOException {
 		ExcelReader excelReader = new ExcelReader(AppConfigConstants.EXCEL_INPUT_DATA);
@@ -32,12 +32,13 @@ public class WhenPutLetterOnRoomNameFieldRoomsThatMatchAreFiltered {
 		String roomName = testData.get(1).get("Room Name");
 		HomeTabletPage homeTabletPage = new HomeTabletPage();
 		LinkedList<String> condition = RootRestMethods.getRoomsByName(roomName);
-		searchPage = homeTabletPage.clickSearchBtn()
-			  .clickCollapseAdvancedBtn()
-			  .setName(roomName);
+		searchPage = homeTabletPage
+				.clickSearchBtn()
+				.clickCollapseAdvancedBtn()
+				.setName(roomName);
 		Assert.assertTrue(searchPage.roomsInList(condition));
 	}
-	
+
 	@AfterMethod(groups = "ACCEPTANCE")
 	public void toHome() {
 		searchPage.clickBackBtn();

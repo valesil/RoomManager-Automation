@@ -36,7 +36,8 @@ public class WhenPressClearAllCriteriasAreCleaned {
 		String resourceName = testData.get(1).get("Resource");
 		HomeTabletPage homeTabletPage = new HomeTabletPage();
 		LinkedList<String> condition = RootRestMethods.getAllNameResources();
-		searchPage = homeTabletPage.clickSearchBtn()
+		searchPage = homeTabletPage
+				.clickSearchBtn()
 				.clickCollapseAdvancedBtn()
 				.selectResource(resourceName)
 				.setName(roomName)
