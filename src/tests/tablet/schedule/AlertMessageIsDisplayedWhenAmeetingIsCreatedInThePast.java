@@ -31,7 +31,7 @@ public class AlertMessageIsDisplayedWhenAmeetingIsCreatedInThePast {
 	private String organizer = meetingData.get(11).get("Organizer");
 	private String subject = meetingData.get(11).get("Subject");
 	private String password = meetingData.get(11).get("Password");
-	private String room = meetingData.get(0).get("Room");
+	private String room = meetingData.get(1).get("Room");
 	private String authentication = organizer + ":" + password;
 
 	@Test (groups = "FUNCTIONAL")
@@ -43,7 +43,7 @@ public class AlertMessageIsDisplayedWhenAmeetingIsCreatedInThePast {
 				meetingData.get(11).get("End time (minutes to add)"), 
 				meetingData.get(11).get("Attendee"), password);
 
-		//Assert.assertTrue(schedulePage.isMessageInformationOfPastMeetingDisplayed());
+		Assert.assertTrue(schedulePage.isMessageInformationOfPastMeetingDisplayed());
 	}
 
 	/**
