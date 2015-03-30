@@ -16,7 +16,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.Wait;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import framework.common.UIMethods;
 import framework.selenium.SeleniumDriverManager;
@@ -29,8 +29,7 @@ import framework.selenium.SeleniumDriverManager;
 public class SearchPage {
 
 	private WebDriver driver;
-	@SuppressWarnings("rawtypes")
-	private Wait wait;
+	private WebDriverWait wait;
 
 	@FindBy(xpath = "//span[@ng-click='goBack()']")
 	WebElement backBtn;
@@ -90,7 +89,6 @@ public class SearchPage {
 	 * [JC] This method click on Advanced button
 	 * @return
 	 */
-	@SuppressWarnings("unchecked")
 	public SearchPage clickCollapseAdvancedBtn() {
 		advancedBtn.click();
 		wait.until(ExpectedConditions.visibilityOf(locationCmbBox));
@@ -101,7 +99,6 @@ public class SearchPage {
 	 * [JC] This method click on Advanced button
 	 * @return
 	 */
-	@SuppressWarnings("unchecked")
 	public SearchPage clickHiddenAdvancedBtn() {
 		advancedBtn.click();
 		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("txtRoomName")));
