@@ -18,7 +18,7 @@ import framework.rest.RootRestMethods;
 import framework.utils.readers.ExcelReader;
 
 /**
- * TC10: Verify on search page if filter by "room name" and "resource", 
+ * TC10: Verify on search page that filter by "room name" and "resource", 
  * only the rooms that contains that especifications are displayed
  * @author Jose Cabrera
  */

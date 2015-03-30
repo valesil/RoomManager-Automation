@@ -18,7 +18,7 @@ import framework.rest.RootRestMethods;
 import framework.utils.readers.ExcelReader;
 
 /**
- * TC11: Verify on search page if put a number on "Room Name" and "Minimum Capacity" field, 
+ * TC11: Verify on search page that put a number on "Room Name" and "Minimum Capacity" field, 
  * 		   the rooms are filtered by the capacity of the room
  * @author Jose Cabrera
  */

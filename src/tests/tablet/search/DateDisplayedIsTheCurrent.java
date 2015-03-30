@@ -8,7 +8,7 @@ import framework.pages.tablet.HomeTabletPage;
 import framework.pages.tablet.SearchPage;
 
 /**
- * TC18: Verify if the date displayed on search page is 
+ * TC18: Verify that the date displayed on search page is 
  * the current date
  * @author Jose Cabrera
  */
