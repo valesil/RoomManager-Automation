@@ -14,7 +14,6 @@ import framework.pages.tablet.SchedulePage;
 import framework.utils.DataProviders;
 import framework.utils.readers.ExcelReader;
 
-
 /**
  * Data provider to verify that {next} tile displays correctly the meeting subject
  * and they are stored correctly in the data base.
@@ -30,7 +29,7 @@ public class MeetingSubjectIsCorrectlyDisplayedInNextTile {
 	private String password = meetingData.get(0).get("Password");
 
 	/**
-	 * All this case fail because they are stored incorrectly in the data base.
+	 * All cases the TCs fails because they are stored incorrectly in the data base.
 	 * @param organizer
 	 * @param subject 1.special characters, 2. ASCII characters, 3. HTML tags, 
 	 * 4. space in the beginning, 5. Angular format, 6. JavaScript alert,  
