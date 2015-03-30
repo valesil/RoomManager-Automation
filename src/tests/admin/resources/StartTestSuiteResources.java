@@ -2,8 +2,6 @@ package tests.admin.resources;
 
 import static framework.common.AppConfigConstants.EXCEL_INPUT_DATA;
 
-
-
 import java.util.List;
 import java.util.Map;
 
@@ -24,6 +22,8 @@ public class StartTestSuiteResources {
 
 	@BeforeSuite(groups = {"FUNCTIONAL","NEGATIVE","ACCEPTANCE"})
 	public void init() {
+		
+		//Go to tablet to select a room
 		HomeTabletPage homeTabletPage =  new HomeTabletPage();
 		SettingsPage settingsPage = homeTabletPage.clickSettingsBtn(); 
 

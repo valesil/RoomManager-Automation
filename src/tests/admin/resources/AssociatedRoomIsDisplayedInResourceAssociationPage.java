@@ -43,6 +43,7 @@ public class AssociatedRoomIsDisplayedInResourceAssociationPage {
 
 	@BeforeMethod(groups = "FUNCTIONAL")
 	public void beforeMethod() {		
+		homeAdminPage = new HomeAdminPage();
 		resourcesPage = homeAdminPage.clickResourcesLink();		
 
 		//Variables declaration and initialize		
