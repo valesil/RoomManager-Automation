@@ -25,5 +25,6 @@ public final class AppConfigConstants {
 	public static final String EXCEL_PATH = value.readJsonFile("ExternalFile", "excelPath", appconfigPath);
 	public static final String EXCEL_INPUT_DATA = value.readJsonFile("ExternalFile", "excelInputData", appconfigPath);
 	public static final String EXCEL_DATA_PROVIDER = value.readJsonFile("ExternalFile", "dataProviderData", appconfigPath);
-
+	public static final String RESOURCE1_PATH = "\\src\\tests\\Resource1.json";
+	public static final String ROOM1_PATH = "\\src\\tests\\Room1.json";
 }

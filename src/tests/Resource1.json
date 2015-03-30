@@ -1,7 +1,6 @@
 {
-	"name":"TV", 
-	"customName":"TV",
-	"fontIcon":"fa fa-desktop",
-	"from":"",
-	"description":"TV with DVD ready"		 	
-}
+ 	"name":"TV", 
+ 	"customName":"TV",
+ 	"fontIcon":"fa fa-desktop",
+ 	"description":"TV with DVD ready" 	
+}	 	

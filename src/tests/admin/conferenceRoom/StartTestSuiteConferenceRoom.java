@@ -1,20 +1,19 @@
 package tests.admin.conferenceRoom;
 
-import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
 
-import framework.selenium.SeleniumDriverManager;
+import framework.pages.admin.LoginPage;
 
 public class StartTestSuiteConferenceRoom {
-	private WebDriver driver = SeleniumDriverManager.getManager().getDriver();
-
-	@BeforeSuite(groups = {"NEGATIVE","ACCEPTANCE","FUNCTIONAL"})
+	LoginPage loginPage = new LoginPage();
+	
+	@BeforeSuite(groups = {"FUNCTIONAL","NEGATIVE","ACCEPTANCE"})
 	public void init() {
 	}
-
-	@AfterSuite(groups = {"NEGATIVE","ACCEPTANCE","FUNCTIONAL"})
+	
+	@AfterSuite(groups = {"FUNCTIONAL","NEGATIVE","ACCEPTANCE"})
 	public void afterSuite() {
-		driver.quit();
+		loginPage.CloseWindow();
 	}
 }
