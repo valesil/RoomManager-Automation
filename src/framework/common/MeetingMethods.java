@@ -17,7 +17,6 @@ public class MeetingMethods {
 	WebDriver driver;
 	HomeTabletPage home;
 
-
 	/**
 	 * [AC] This method initialize the driver
 	 */
