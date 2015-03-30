@@ -49,7 +49,7 @@ public class AlertMessageIsDisplayedWhenAmeetingIsCreatedInThePast {
 	/**
 	 * Delete meeting by rest API.
 	 */
-	@AfterClass
+	@AfterClass (groups = "FUNCTIONAL")
 	public void end() {
 		PropertyConfigurator.configure("log4j.properties");
 		try {

@@ -23,7 +23,7 @@ import framework.utils.readers.ExcelReader;
  * @author Asael Calizaya
  *
  */
-public class AUserCannotUpdateWhenDoesnotClickUpdate {
+public class MeetingInformationIsNotUpdatedWhenUpdateButtonIsNotClickedAfterEditItsValues {
 	private ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
 	private List<Map<String, String>> meetingData = excelReader.getMapValues("MeetingData");
 
@@ -40,14 +40,14 @@ public class AUserCannotUpdateWhenDoesnotClickUpdate {
 	private String authentication = organizer + ":" + password;
 
 	@BeforeMethod(groups = "UI")
-	public void creationMeetingPreCondition() {
+	public void createMeetingPreCondition() {
 		MeetingMethods meeting = new MeetingMethods();
 		meeting.createMeetingFromHome(organizer, subject, startTime, endTime, 
 				attendee, body, password);
 	}
 
 	@Test(groups = "UI")
-	public void testAUserCannotUpdateWhenDoesnotClickUpdate() {
+	public void testMeetingInformationIsNotUpdatedWhenUpdateButtonIsNotClickedAfterEditItsValues() {
 		String newSubject = meetingData.get(0).get("Subject");
 		String newStartTime = meetingData.get(0).get("Start time");
 		String newEndTime = meetingData.get(0).get("End time");

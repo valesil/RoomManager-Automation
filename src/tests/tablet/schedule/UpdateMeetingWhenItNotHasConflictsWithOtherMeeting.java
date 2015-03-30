@@ -19,7 +19,7 @@ import framework.rest.RootRestMethods;
 import framework.utils.readers.ExcelReader;
 
 /**
- * TC11: Verify an existing meeting can be updated if it doesn't have a 
+ * TC11: Verify that an existing meeting can be updated if it doesn't have a 
  * conflict with another meeting
  * @author Asael Calizaya
  *
@@ -36,7 +36,7 @@ public class UpdateMeetingWhenItNotHasConflictsWithOtherMeeting {
 	private String newSubject;
 
 	@BeforeMethod(groups = "ACCEPTANCE")
-	public void creationMeetingsPrecondition() {
+	public void createMeetingsPrecondition() {
 		subject = meetingData.get(1).get("Subject");
 		String startTime = meetingData.get(1).get("Start time");
 		String endTime = meetingData.get(1).get("End time");

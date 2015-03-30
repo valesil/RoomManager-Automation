@@ -10,7 +10,7 @@
 			<!--TC07-->
 			<class name = "tests.tablet.schedule.CreateMeetingWhenRoomIsAvailable"/>
 			<!--TC18, TC28, TC29-->
-			<class name = "tests.tablet.schedule.CreateMeetingWhenNotHasBody"/>			
+			<class name = "tests.tablet.schedule.CreateMeetingWhenNotHasBodyAndConfirmsAttendeePressingEnterOrSemicolon"/>			
 			<!--TC10-->
 			<class name = "tests.tablet.schedule.AMeetingCannotBeCreatedWithoutAttendees"/>
 			<!--TC08-->
@@ -34,7 +34,7 @@
 			<!--TC41-->
 			<class name = "tests.tablet.schedule.HomePageIsDisplayedWhenBackButtonIsClicked"/>
 			<!--TC45-->
-			<class name = "tests.tablet.schedule.AUserCannotUpdateWhenDoesnotClickUpdate"/>	
+			<class name = "tests.tablet.schedule.MeetingInformationIsNotUpdatedWhenUpdateButtonIsNotClickedAfterEditItsValues"/>	
 			<!--TC48-->
 			<class name = "tests.tablet.schedule.AnErrorMessageIsDisplayedWhenStartTimeIsLaterThanEndTime"/>	
 			<!--TC35-->

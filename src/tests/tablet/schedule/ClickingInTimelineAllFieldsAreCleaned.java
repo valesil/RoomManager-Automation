@@ -19,7 +19,7 @@ import framework.rest.RootRestMethods;
 import framework.utils.readers.ExcelReader;
 
 /**
- * TC35: Verify that Clicking in the timeline erases all the content in 
+ * TC35: Verify that clicking in the timeline erases all the content in 
  * Organizer, Subject, Attendees and body textboxes
  * @author Asael Calizaya
  *
@@ -37,7 +37,7 @@ public class ClickingInTimelineAllFieldsAreCleaned {
 	private String authentication = organizer + ":" + password;
 
 	@BeforeMethod(groups = "UI")
-	public void creationMeetingPreCondition() {
+	public void createMeetingPreCondition() {
 		String startTime = meetingData.get(1).get("Start time");
 		String endTime = meetingData.get(1).get("End time");
 		String attendee = meetingData.get(1).get("Attendee");

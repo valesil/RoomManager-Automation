@@ -19,7 +19,7 @@ import framework.rest.RootRestMethods;
 import framework.utils.readers.ExcelReader;
 
 /**
- * TC12: Verify an existing meeting cannot be updated if it has conflicts with another meeting
+ * TC12: Verify that an existing meeting cannot be updated if it has conflicts with another meeting
  * with another meeting
  * @author Asael Calizaya
  *
@@ -40,7 +40,7 @@ public class AMeetingCannotBeUpdatedWhenItHasConflictsWithOtherMeeting {
 	private String authentication2 = organizer2 + ":" + password2;
 
 	@BeforeMethod(groups = "ACCEPTANCE")
-	public void creationMeetingsPreCondition() {
+	public void createMeetingsPreCondition() {
 		MeetingMethods preCondition = new MeetingMethods();
 
 		//Meeting 01

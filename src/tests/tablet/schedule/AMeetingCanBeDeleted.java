@@ -15,7 +15,7 @@ import framework.pages.tablet.SchedulePage;
 import framework.utils.readers.ExcelReader;
 
 /**
- * TC13: Verify meetings can be removed by the organizer
+ * TC13: Verify that meetings can be removed by the organizer
  * @author Asael Calizaya
  *
  */
@@ -26,7 +26,7 @@ public class AMeetingCanBeDeleted {
 	private String subject;
 	
 	@BeforeMethod(groups = "ACCEPTANCE")
-	public void creationMeetingPreCondition() {
+	public void createMeetingPreCondition() {
 		MeetingMethods meeting = new MeetingMethods();
 		subject = meetingData.get(1).get("Subject");
 		String startTime = meetingData.get(1).get("Start time");

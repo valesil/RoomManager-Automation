@@ -39,7 +39,7 @@ public class InformationOfMeetingIsDisplayed {
 	private String authentication = organizer + ":" + password;
 
 	@BeforeMethod(groups = "FUNCTIONAL")
-	public void creationMeetingPreCondition() {
+	public void createMeetingPreCondition() {
 		MeetingMethods meeting = new MeetingMethods();
 		meeting.createMeetingFromHome(organizer, subject, startTime, endTime, 
 				attendee, body, password);

@@ -17,7 +17,7 @@ import framework.rest.RootRestMethods;
 import framework.utils.readers.ExcelReader;
 
 /**
- * TC07: Verify a meeting can be created when the room is available
+ * TC07: Verify that a meeting can be created when the room is available
  * @author Asael Calizaya
  *
  */

@@ -19,11 +19,11 @@ import framework.utils.readers.ExcelReader;
 /**
  * TC18: Verify that a meeting can be created when the body is empty
  * TC28: Verify that pressing enter confirms the name of an attendee
- * TC29: Verify that Pressing semicolon confirms the name of an attendee
+ * TC29: Verify that pressing semicolon confirms the name of an attendee
  * @author Asael Calizaya
  *
  */
-public class CreateMeetingWhenNotHasBody {
+public class CreateMeetingWhenNotHasBodyAndConfirmsAttendeePressingEnterOrSemicolon {
 	private ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
 	private List<Map<String, String>> meetingData = excelReader.getMapValues("MeetingData");
 
@@ -34,7 +34,7 @@ public class CreateMeetingWhenNotHasBody {
 	private String authentication = organizer + ":" + password;
 
 	@Test(groups = {"FUNCTIONAL", "UI"})
-	public void testCreateMeetingWhenNotHasBody() {
+	public void testCreateMeetingWhenNotHasBodyAndConfirmsAttendeePressingEnterOrSemicolon() {
 		String startTime = meetingData.get(0).get("Start time");
 		String endTime = meetingData.get(0).get("End time");
 		String attendee1 = meetingData.get(0).get("Attendee");

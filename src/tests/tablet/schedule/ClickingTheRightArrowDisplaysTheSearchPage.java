@@ -8,7 +8,7 @@ import framework.pages.tablet.HomeTabletPage;
 import framework.pages.tablet.SearchPage;
 
 /**
- * TC43: Verify that Clicking the right arrow displays the search page
+ * TC43: Verify that clicking the right arrow displays the search page
  * @author Jose Cabrera
  */
 public class ClickingTheRightArrowDisplaysTheSearchPage {

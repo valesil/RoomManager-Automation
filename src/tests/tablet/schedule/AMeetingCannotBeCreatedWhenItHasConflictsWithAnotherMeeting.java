@@ -19,8 +19,8 @@ import framework.rest.RootRestMethods;
 import framework.utils.readers.ExcelReader;
 
 /**
- * TC15: Verify a meeting cannot be created when it has conflicts with the schedule of another meeting
- * the schedule of another meeting
+ * TC15: Verify that a meeting cannot be created when it has conflicts with the 
+ * schedule of another meeting the schedule of another meeting
  * @author Asael Calizaya
  *
  */
@@ -37,7 +37,7 @@ public class AMeetingCannotBeCreatedWhenItHasConflictsWithAnotherMeeting {
 	private String authentication = organizer + ":" + password;
 
 	@BeforeMethod(groups = "FUNCTIONAL")
-	public void creationMeetingPreCondition() {
+	public void createMeetingPreCondition() {
 		String startTime = meetingData.get(1).get("Start time");
 		String endTime = meetingData.get(1).get("End time");
 		String attendee = meetingData.get(1).get("Attendee");

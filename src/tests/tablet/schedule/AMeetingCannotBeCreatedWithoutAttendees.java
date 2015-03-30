@@ -13,7 +13,7 @@ import framework.pages.tablet.SchedulePage;
 import framework.utils.readers.ExcelReader;
 
 /**
- * TC10: Verify a meeting cannot be created if the attendees are not specified
+ * TC10: Verify that a meeting cannot be created if the attendees are not specified
  * @author Asael Calizaya
  *
  */
@@ -25,16 +25,13 @@ public class AMeetingCannotBeCreatedWithoutAttendees {
 		List<Map<String, String>> meetingData  = excelReader.getMapValues("MeetingData");
 		String organizer = meetingData.get(0).get("Organizer");
 		String subject = meetingData.get(0).get("Subject");
-		String startTime = meetingData.get(0).get("Start time");
-		String endTime = meetingData.get(0).get("End time");
 		String body = meetingData.get(0).get("Body");
 
 		HomeTabletPage homeTabletPage = new HomeTabletPage();
 		SchedulePage schedulePage = homeTabletPage.clickScheduleBtn();
-		schedulePage.setOrganizerTxtBox(organizer)
+		schedulePage
+		.setOrganizerTxtBox(organizer)
 		.setSubjectTxtBox(subject)
-		.setStartTimeDate(startTime)
-		.setEndTimeDate(endTime)
 		.setBodyTxtBox(body)
 		.clickCreateBtn()
 		.clickCancelButton();

@@ -18,7 +18,7 @@ import framework.rest.RootRestMethods;
 import framework.utils.readers.ExcelReader;
 
 /**
- * TC22: Verify the schedule of a meeting can be changed by moving it inside the timeline
+ * TC22: Verify that the schedule of a meeting can be changed by moving it inside the timeline
  * and click update
  * @author Jose Cabrera
  */

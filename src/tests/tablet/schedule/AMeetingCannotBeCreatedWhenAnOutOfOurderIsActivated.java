@@ -19,7 +19,7 @@ import framework.rest.RootRestMethods;
 import framework.utils.readers.ExcelReader;
 
 /**
- * TC23: Verify a meeting cannot be created when an Out Of Order is active
+ * TC23: Verify that a meeting cannot be created when an Out Of Order is activated
  * @author Asael Calizaya
  *
  */

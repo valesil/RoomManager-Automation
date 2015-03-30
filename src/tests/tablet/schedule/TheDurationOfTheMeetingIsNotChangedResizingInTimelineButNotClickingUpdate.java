@@ -18,7 +18,7 @@ import framework.rest.RootRestMethods;
 import framework.utils.readers.ExcelReader;
 
 /**
- * TC18: Verify the duration of the meeting cannot be changed by resizing the box in 
+ * TC18: Verify that the duration of the meeting cannot be changed by resizing the box in 
  * the timeline if update button is not clicked
  * @author Jose Cabrera
  */
