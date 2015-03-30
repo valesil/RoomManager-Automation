@@ -13,14 +13,14 @@ import framework.pages.tablet.SchedulePage;
 import framework.utils.readers.ExcelReader;
 
 /**
- * TC48: Verify when put a startTime less to endTime a error message is displayed
+ * TC48: Verify that a message is displayed if the start time is later than end time
  * @author Asael Calizaya
  *
  */
-public class AnErrorMessageIsDisplayedWhenStartTimeIsLessToEndTime {
+public class AnErrorMessageIsDisplayedWhenStartTimeIsLaterThanEndTime {
 
 	@Test(groups = "FUNCTIONAL")
-	public void testAnErrorMessageIsDisplayedWhenStartTimeIsLessToEndTime() {
+	public void testAnErrorMessageIsDisplayedWhenStartTimeIsLaterThanEndTime() {
 		ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
 		List<Map<String, String>> meetingData = excelReader.getMapValues("MeetingData");
 		String organizer = meetingData.get(8).get("Organizer");

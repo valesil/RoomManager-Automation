@@ -1,4 +1,9 @@
 <suite name = "RoomManager">
+	<listeners>
+        <listener class-name = "org.uncommons.reportng.HTMLReporter"/>
+        <listener class-name = "org.uncommons.reportng.JUnitXMLReporter"/>
+        <listener class-name = "framework.utils.ReportNGListener"/>
+	</listeners>
 	<test name = "Schedule test" >
 		<classes>
 			<class name = "tests.tablet.schedule.StartTest"/>
@@ -31,7 +36,7 @@
 			<!--TC45-->
 			<class name = "tests.tablet.schedule.AUserCannotUpdateWhenDoesnotClickUpdate"/>	
 			<!--TC48-->
-			<class name = "tests.tablet.schedule.AnErrorMessageIsDisplayedWhenStartTimeIsLessToEndTime"/>	
+			<class name = "tests.tablet.schedule.AnErrorMessageIsDisplayedWhenStartTimeIsLaterThanEndTime"/>	
 			<!--TC35-->
 			<class name = "tests.tablet.schedule.ClickingInTimelineAllFieldsAreCleaned"/>
 			<!--TC34-->
@@ -39,7 +44,27 @@
 			<!--TC30-->
 			<class name = "tests.tablet.schedule.DefaultTimeOfMeetingIs30Minutes"/>
 			<!--TC23-->
-			<class name = "tests.tablet.schedule.AMeetingCannotBeCreatedWhenAnOutOfOurderIsActivated"/>		
+			<class name = "tests.tablet.schedule.AMeetingCannotBeCreatedWhenAnOutOfOurderIsActivated"/>	
+			<!--TC44-->
+			<class name = "tests.tablet.schedule.ClickingBackButtonGoesToThePreviousPage"/>
+			<!--TC43-->
+			<class name = "tests.tablet.schedule.ClickingTheRightArrowDisplaysTheSearchPage"/>
+			<!--TC22-->
+			<class name = "tests.tablet.schedule.ScheduleOfAMeetingIsChangedByMovingItInsideTheTimeLineIfUpdateButtonIsClicked"/>
+			<!--TC17-->
+			<class name = "tests.tablet.schedule.ScheduleOfAMeetingIsNotChangedByMovingItInsideTheTimeLineIfUpdateButtonIsNotClicked"/>
+			<!--TC23-->
+			<class name = "tests.tablet.schedule.TheDurationOfTheMeetingIsChangedResizingInTimelineAndClickingUpdate"/>			
+			<!--TC18-->
+			<class name = "tests.tablet.schedule.TheDurationOfTheMeetingIsNotChangedResizingInTimelineButNotClickingUpdate"/>	
+			<!--TC38-->
+			<class name = "tests.tablet.schedule.TheRedLineInTheTimelineIsInTheCurrentTime"/>
+			<!---TC24  -->
+            <class name = "tests.tablet.schedule.DoubleClickingATimelinePeriodCreatesAMeetingBoxAndSetNewMeetingTime"/>
+            <!---TC32, TC44 -->
+            <class name = "tests.tablet.schedule.TimeTextDisplayedInTimeLine"/>    
+            <!---TC46 -->
+            <class name = "tests.tablet.schedule.AlertMessageIsDisplayedWhenAmeetingIsCreatedInThePast"/> 			
 		</classes>
 	</test>
 </suite>

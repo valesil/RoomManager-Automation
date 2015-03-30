@@ -34,8 +34,8 @@ public class AMeetingCannotBeCreatedWhenAnOutOfOurderIsActivated {
 
 	@BeforeMethod(groups = "FUNCTIONAL")
 	public void createOutOfOrderPrecondition() {
-		String startDate = outOfOrderData.get(11).get("Start date");
-		String endDate = outOfOrderData.get(11).get("End date");
+		String startDate = outOfOrderData.get(11).get("Start date (days to add)");
+		String endDate = outOfOrderData.get(11).get("End date (days to add)");
 		String startTime = outOfOrderData.get(11).get("Start time (minutes to add)");
 		String endTime = outOfOrderData.get(11).get("End time (minutes to add)");
 		String description = outOfOrderData.get(11).get("Description");	
