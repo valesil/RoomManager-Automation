@@ -19,8 +19,8 @@ import framework.rest.RootRestMethods;
 import framework.utils.readers.ExcelReader;
 
 /**
- * TC35: Verify that Clicking in the timeline erases all the content in Organizer, 
- * Subject, Attendees and body textboxes
+ * TC35: Verify that Clicking in the timeline erases all the content in 
+ * Organizer, Subject, Attendees and body textboxes
  * @author Asael Calizaya
  *
  */

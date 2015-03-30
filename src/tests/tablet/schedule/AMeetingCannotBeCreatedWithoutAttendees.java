@@ -13,7 +13,7 @@ import framework.pages.tablet.SchedulePage;
 import framework.utils.readers.ExcelReader;
 
 /**
- * TC10: Verify that a user cannot create a meeting if the attendees are not specified
+ * TC10: Verify a meeting cannot be created if the attendees are not specified
  * @author Asael Calizaya
  *
  */

@@ -19,7 +19,7 @@ import framework.rest.RootRestMethods;
 import framework.utils.readers.ExcelReader;
 
 /**
- * TC11: Verify that an existing meeting can be updated if it doesn't have a 
+ * TC11: Verify an existing meeting can be updated if it doesn't have a 
  * conflict with another meeting
  * @author Asael Calizaya
  *

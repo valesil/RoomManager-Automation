@@ -15,7 +15,7 @@ import framework.pages.tablet.SchedulePage;
 import framework.utils.readers.ExcelReader;
 
 /**
- * TC13: Verify that a user can remove meetings
+ * TC13: Verify meetings can be removed by the organizer
  * @author Asael Calizaya
  *
  */

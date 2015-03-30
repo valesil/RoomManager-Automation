@@ -13,7 +13,7 @@ import framework.pages.tablet.SchedulePage;
 import framework.utils.readers.ExcelReader;
 
 /**
- * TC09: Verify that a user cannot create a meeting if the subject is not specified
+ * TC09: Verify a meeting cannot be created if the subject is not specified
  * @author Asael Calizaya
  *
  */

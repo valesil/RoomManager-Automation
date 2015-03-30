@@ -13,7 +13,7 @@ import framework.pages.tablet.SchedulePage;
 import framework.utils.readers.ExcelReader;
 
 /**
- * TC34: Verify that Attendees text box doesn't allow a different format than email
+ * TC34: Verify that attendees text box doesn't allow a different format than email
  * @author Asael Calizaya
  *
  */

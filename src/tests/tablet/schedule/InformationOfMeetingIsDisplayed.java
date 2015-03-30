@@ -19,7 +19,7 @@ import framework.rest.RootRestMethods;
 import framework.utils.readers.ExcelReader;
 
 /**
- * TC19: Verify by clicking in the TimeLine the information of the meeting is displayed
+ * TC19: Verify by clicking the meeting in the timeLine the information of the meeting is displayed
  * TC20: Verify the body content is saved in the meeting information
  * @author Asael Calizaya
  *

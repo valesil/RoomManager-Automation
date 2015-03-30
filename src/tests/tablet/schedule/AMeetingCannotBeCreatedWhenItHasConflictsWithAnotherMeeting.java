@@ -19,7 +19,7 @@ import framework.rest.RootRestMethods;
 import framework.utils.readers.ExcelReader;
 
 /**
- * TC15: Verify that a user cannot create a meeting that has conflicts with 
+ * TC15: Verify a meeting cannot be created when it has conflicts with the schedule of another meeting
  * the schedule of another meeting
  * @author Asael Calizaya
  *

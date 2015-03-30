@@ -17,7 +17,7 @@ import framework.rest.RootRestMethods;
 import framework.utils.readers.ExcelReader;
 
 /**
- * TC18: Verify that a meeting can be created if the body is empty
+ * TC18: Verify that a meeting can be created when the body is empty
  * TC28: Verify that pressing enter confirms the name of an attendee
  * TC29: Verify that Pressing semicolon confirms the name of an attendee
  * @author Asael Calizaya

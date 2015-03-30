@@ -19,7 +19,7 @@ import framework.rest.RootRestMethods;
 import framework.utils.readers.ExcelReader;
 
 /**
- * TC45: Verify if the user doesn't click update button the information is not updated
+ * TC45: Verify when the user doesn't click update button the information is not updated
  * @author Asael Calizaya
  *
  */

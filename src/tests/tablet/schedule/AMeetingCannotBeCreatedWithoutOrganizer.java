@@ -13,7 +13,7 @@ import framework.pages.tablet.SchedulePage;
 import framework.utils.readers.ExcelReader;
 
 /**
- * TC08: Verify that a user cannot create a meeting if the organizer is not specified
+ * TC08: Verify a meeting cannot be created if the organizer is not specified
  * @author Asael Calizaya
  *
  */

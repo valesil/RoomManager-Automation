@@ -15,7 +15,7 @@ import framework.selenium.SeleniumDriverManager;
 import framework.utils.readers.ExcelReader;
 
 /**
- * This class is to select a some room to work on that
+ * This class is to select some room to work on that
  * @author Asael Calizaya
  *
  */
