@@ -36,7 +36,7 @@ public class AMeetingCannotBeCreatedWithoutAttendees {
 		.clickCreateBtn()
 		.clickCancelButton();
 
-		//Fails because allows create meeting without attendees
+		//Fails because the tool allows create meeting without attendees
 		Assert.assertTrue(schedulePage.isErrorAttendeeLblDisplayed());
 	}
 }

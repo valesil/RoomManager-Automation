@@ -12,7 +12,7 @@ import framework.pages.tablet.HomeTabletPage;
 import framework.utils.readers.ExcelReader;
 
 /**
- * TC41: Verify that Clicking the left arrow displays the home page
+ * TC41: Verify that clicking the left arrow displays the home page
  * @author Asael Calizaya
  *
  */
