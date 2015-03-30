@@ -36,6 +36,7 @@ public class ResourceCanBeUpdatedInResourceInfo {
 	private List<Map<String, String>> resourcesDataList = excelReader.getMapValues("Resources");
 	private String iconTitle = resourcesDataList.get(0).get("Icon");
 	private String resourceName = resourcesDataList.get(0).get("ResourceName");
+	private String newResourceName = resourcesDataList.get(1).get("ResourceName");
 	private String resourceDisplayName = resourcesDataList.get(0).get("ResourceDisplayName");
 	private String resourceDescription = resourcesDataList.get(0).get("Description");
 
@@ -58,7 +59,6 @@ public class ResourceCanBeUpdatedInResourceInfo {
 
 		//Variables declaration and initialize		
 		String newIconTitle = resourcesDataList.get(1).get("Icon");
-		String newResourceName = resourcesDataList.get(1).get("ResourceName");
 		String newResourceDisplayName = resourcesDataList.get(1).get("ResourceDisplayName");
 		String newResourceDescription = resourcesDataList.get(1).get("Description");		
 
@@ -88,6 +88,6 @@ public class ResourceCanBeUpdatedInResourceInfo {
 	@AfterMethod(groups = "FUNCTIONAL")
 	public void afterMethod() throws MalformedURLException, IOException {	
 		resourcesPage = resourceInfoPage.clickCancelResourceBtn();		
-		RootRestMethods.deleteResource(resourcesDataList.get(1).get("ResourceName"));
+		RootRestMethods.deleteResource(newResourceName);
 	}
 }

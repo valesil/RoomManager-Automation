@@ -31,14 +31,14 @@ public class ResourceCreatedUpdatesAdvancedSearchPageInTablet {
 	//ExcelReader is used to read rooms data
 	private ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
 	private List<Map<String, String>> resourcesDataList = excelReader.getMapValues("Resources");
+	private String resourceName = resourcesDataList.get(0).get("ResourceName");
 
 	@Test(groups = "FUNCTIONAL")
 	public void testResourceCreatedUpdatesAdvancedSearchPageInTablet() {
 		HomeAdminPage homeAdminPage = new HomeAdminPage();
 		ResourcesPage resourcesPage = homeAdminPage.clickResourcesLink();
 
-		//Variables declaration and initialize
-		String resourceName = resourcesDataList.get(0).get("ResourceName");
+		//Variables declaration and initialize		
 		String resourceDisplayName = resourcesDataList.get(0).get("ResourceDisplayName");
 		String quantity = resourcesDataList.get(0).get("Value");
 		String roomDisplayName = resourcesDataList.get(0).get("Room Name");
@@ -68,6 +68,6 @@ public class ResourceCreatedUpdatesAdvancedSearchPageInTablet {
 
 	@AfterMethod(groups = "FUNCTIONAL")
 	public void afterMethod() throws MalformedURLException, IOException {			
-		RootRestMethods.deleteResource(resourcesDataList.get(0).get("ResourceName"));
+		RootRestMethods.deleteResource(resourceName);
 	}
 }

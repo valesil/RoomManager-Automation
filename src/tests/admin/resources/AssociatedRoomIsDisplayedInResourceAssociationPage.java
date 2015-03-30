@@ -33,7 +33,7 @@ import framework.utils.readers.ExcelReader;
 public class AssociatedRoomIsDisplayedInResourceAssociationPage {
 	private ResourceAssociationsPage resourceAssociationsPage;
 	private ResourcesPage resourcesPage;
-	private HomeAdminPage homeAdminPage = new HomeAdminPage();
+	private HomeAdminPage homeAdminPage;
 
 	//ExcelReader is used to read rooms data
 	private ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
@@ -101,7 +101,6 @@ public class AssociatedRoomIsDisplayedInResourceAssociationPage {
 
 	@AfterMethod(groups = "FUNCTIONAL")
 	public void afterMethod() throws MalformedURLException, IOException {	
-		resourcesPage = resourceAssociationsPage.clickCloseBtn();		
-		RootRestMethods.deleteResource(testData.get(0).get("ResourceName"));
+		RootRestMethods.deleteResource(resourceName);
 	}
 }

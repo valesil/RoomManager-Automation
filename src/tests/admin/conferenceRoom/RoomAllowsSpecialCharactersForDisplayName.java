@@ -1,6 +1,7 @@
 package tests.admin.conferenceRoom;
 
 import static framework.common.AppConfigConstants.EXCEL_INPUT_DATA;
+import static framework.common.AppConfigConstants.ROOM1_PATH;
 
 import java.util.List;
 import java.util.Map;
@@ -34,9 +35,8 @@ public class RoomAllowsSpecialCharactersForDisplayName {
 		roomsPage = homeAdminPage.clickConferenceRoomsLink();
 		
 		//JsonReader is used to read data (specialCharacters) from .json file (Room1.json)
-		JsonReader jsonReader = new JsonReader();
-		String roomJsonFilePath = "\\src\\tests\\Room1.json";		
-		String specialCharacters = jsonReader.readJsonFile("customName" , roomJsonFilePath);
+		JsonReader jsonReader = new JsonReader();	
+		String specialCharacters = jsonReader.readJsonFile("customName" , ROOM1_PATH);
 
 		//Set room capacity to blank text
 		roomsPage.clickConferenceRoomsLink();

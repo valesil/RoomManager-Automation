@@ -1,6 +1,7 @@
 package tests.admin.resources;
 
 import static framework.common.AppConfigConstants.EXCEL_INPUT_DATA;
+import static framework.common.AppConfigConstants.RESOURCE1_PATH;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -38,14 +39,13 @@ public class ResourceDeletedUpdatesAdvancedSearchPageInTablet {
 
 	//JsonReader is used to read resources data
 	private JsonReader value = new JsonReader();
-	private String resourceJsonFilePath = "\\src\\tests\\Resource1.json";
-	private String resourceDisplayName = value.readJsonFile("name" , resourceJsonFilePath);	
+	private String resourceDisplayName = value.readJsonFile("name" , RESOURCE1_PATH);	
 
 	@BeforeMethod(groups = "FUNCTIONAL")
 	public void beforeMethod() throws MalformedURLException, IOException {
 
 		//Create resource by Rest
-		String resourceFilePath = System.getProperty("user.dir") + "\\src\\tests\\Resource1.json";
+		String resourceFilePath = System.getProperty("user.dir") + RESOURCE1_PATH;
 		RootRestMethods.createResource(resourceFilePath, "");
 		UIMethods.refresh();
 

@@ -68,6 +68,6 @@ public class ResourceCanNotBeUpdatedInResourceInfo {
 	@AfterMethod(groups = "FUNCTIONAL")
 	public void afterMethod() throws MalformedURLException, IOException {	
 		resourcesPage = resourceInfoPage.clickCancelResourceBtn();		
-		RootRestMethods.deleteResource(resourcesDataList.get(0).get("ResourceName"));
+		RootRestMethods.deleteResource(resourceName);
 	}
 }

@@ -30,6 +30,7 @@ public class ResourceNameAndDisplayNameCanBeUpdatedInResourcesPage {
 	//ExcelReader is used to read resources data from excel
 	private ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
 	private List<Map<String, String>> resourceDataList = excelReader.getMapValues("Resources");
+	private String resourceName = resourceDataList.get(1).get("ResourceName");
 
 	@Test(groups = "FUNCTIONAL")
 	public void testResourceDisplayNameCanBeUpdatedInResourcePage() throws InterruptedException {
@@ -37,7 +38,6 @@ public class ResourceNameAndDisplayNameCanBeUpdatedInResourcesPage {
 		ResourcesPage resourcesPage = homeAdminPage.clickResourcesLink();
 
 		//Variable declaration and initialize
-		String resourceName = resourceDataList.get(1).get("ResourceName");
 		String resourceDisplayName = resourceDataList.get(1).get("ResourceDisplayName");
 		String newResourceDisplayName = resourceDataList.get(2).get("ResourceDisplayName");
 
@@ -61,6 +61,6 @@ public class ResourceNameAndDisplayNameCanBeUpdatedInResourcesPage {
 
 	@AfterMethod(groups = "FUNCTIONAL")
 	public void afterMethod() throws MalformedURLException, IOException {	
-		RootRestMethods.deleteResource(resourceDataList.get(1).get("ResourceName"));
+		RootRestMethods.deleteResource(resourceName);
 	}
 }

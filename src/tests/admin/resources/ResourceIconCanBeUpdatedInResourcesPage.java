@@ -29,6 +29,7 @@ public class ResourceIconCanBeUpdatedInResourcesPage {
 	//ExcelReader is used to read resources data from excel
 	private ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
 	private List<Map<String, String>> resourceDataList = excelReader.getMapValues("Resources");
+	private String resourceName = resourceDataList.get(2).get("ResourceName");
 
 	@Test(groups = "FUNCTIONAL")
 	public void testResourceIconCanBeUpdatedInResourcesPage() throws InterruptedException {		
@@ -36,7 +37,6 @@ public class ResourceIconCanBeUpdatedInResourcesPage {
 		ResourcesPage resourcesPage = homeAdminPage.clickResourcesLink();
 
 		//Variables declaration and initialize
-		String resourceName = resourceDataList.get(2).get("ResourceName");
 		String resourceDisplayName = resourceDataList.get(2).get("ResourceDisplayName");
 		String resourceIconTitle = resourceDataList.get(2).get("Icon");
 		String newIconTitle = resourceDataList.get(1).get("Icon");
@@ -64,6 +64,6 @@ public class ResourceIconCanBeUpdatedInResourcesPage {
 
 	@AfterMethod(groups = "FUNCTIONAL")
 	public void afterMethod() throws MalformedURLException, IOException {		
-		RootRestMethods.deleteResource(resourceDataList.get(2).get("ResourceName"));
+		RootRestMethods.deleteResource(resourceName);
 	}
 }

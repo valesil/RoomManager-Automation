@@ -34,6 +34,7 @@ public class ResourceQuantityIsDisplayedInResourceAssociationPage {
 	//ExcelReader is used to read resources data from excel
 	private ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
 	private List<Map<String, String>> resourceDataList = excelReader.getMapValues("Resources");
+	private String resourceName = resourceDataList.get(2).get("ResourceName");
 
 	@Test(groups = "FUNCTIONAL")
 	public void testResourceQuantityIsDisplayedInResourceAssociationPage() throws InterruptedException {
@@ -41,7 +42,6 @@ public class ResourceQuantityIsDisplayedInResourceAssociationPage {
 		resourcesPage = homeAdminPage.clickResourcesLink();
 
 		//Variables declaration and initialize
-		String resourceName = resourceDataList.get(2).get("ResourceName");
 		String resourceDisplayName = resourceDataList.get(2).get("ResourceDisplayName");
 		String resourceDescription = resourceDataList.get(2).get("Description");
 		String iconTitle = resourceDataList.get(2).get("Icon");
@@ -76,6 +76,6 @@ public class ResourceQuantityIsDisplayedInResourceAssociationPage {
 	@AfterMethod(groups = "FUNCTIONAL")
 	public void afterMethod() throws MalformedURLException, IOException {	
 		resourcesPage = resourceAssociationsPage.clickCloseBtn();		
-		RootRestMethods.deleteResource(resourceDataList.get(2).get("ResourceName"));
+		RootRestMethods.deleteResource(resourceName);
 	}
 }

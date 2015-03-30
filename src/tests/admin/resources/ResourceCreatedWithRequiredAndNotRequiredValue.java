@@ -30,6 +30,7 @@ public class ResourceCreatedWithRequiredAndNotRequiredValue {
 	//ExcelReader is used to read rooms data
 	private ExcelReader excelReader = new ExcelReader(EXCEL_INPUT_DATA);
 	private List<Map<String, String>> resourcesDataList = excelReader.getMapValues("Resources");
+	private String resourceName = resourcesDataList.get(1).get("ResourceName");
 
 	@Test(groups = "ACCEPTANCE")
 	public void testResourceCreatedWithRequiredValue() throws InterruptedException {
@@ -37,8 +38,7 @@ public class ResourceCreatedWithRequiredAndNotRequiredValue {
 		resourcesPage = homeAdminPage.clickResourcesLink();
 
 		//Variable declaration and initialize
-		String iconTitle = resourcesDataList.get(1).get("Icon");
-		String resourceName = resourcesDataList.get(1).get("ResourceName");
+		String iconTitle = resourcesDataList.get(1).get("Icon");		
 		String resourceDisplayName = resourcesDataList.get(1).get("ResourceDisplayName");
 		String resourceDescription = resourcesDataList.get(1).get("Description");
 
@@ -62,8 +62,7 @@ public class ResourceCreatedWithRequiredAndNotRequiredValue {
 	}
 
 	@AfterMethod(groups = "ACCEPTANCE")
-	public void afterMethod() throws MalformedURLException, IOException {
-		resourcesPage = resourceInfoPage.clickCancelResourceBtn();		
-		RootRestMethods.deleteResource(resourcesDataList.get(1).get("ResourceName"));
+	public void afterMethod() throws MalformedURLException, IOException {			
+		RootRestMethods.deleteResource(resourceName);	
 	}
 }
