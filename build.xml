@@ -1,4 +1,4 @@
- <project name="TestNGTest" default="test" basedir=".">
+<project name="TestNGTest" default="test" basedir=".">
 
    <!-- Define <testng> task -->
    <property name="src" value="./src"/>
@@ -38,7 +38,7 @@
       </taskdef>
 
       <testng outputdir="${testng.output.dir}" useDefaultListeners="false"
-                listeners="framework.utils.ReportNGListener"
+                listeners="framework.utils.ReportNGListener" 
 	  groups="${groups}" verbose="2" >
          <classpath  refid="libraries"/>
 		   <xmlfileset dir="./src/tests/" includes="${suites}"/>
@@ -48,5 +48,5 @@
          <sysproperty key="BUILD_NUMBER" value="${BUILD_NUMBER}"/>
       </testng>
    </target>
-   
+  
 </project>

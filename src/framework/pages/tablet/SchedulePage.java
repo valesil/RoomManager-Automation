@@ -571,7 +571,7 @@ public class SchedulePage {
 	 * @param attendees
 	 * @return SchedulePage
 	 */
-	private SchedulePage setMeetingInformation(String organizer, String subject, String startTime, 
+	public SchedulePage setMeetingInformation(String organizer, String subject, String startTime, 
 			String endTime, String attendees) {
 		setOrganizerTxtBox(organizer);
 		setSubjectTxtBox(subject);
@@ -695,7 +695,7 @@ public class SchedulePage {
 	 * when a meeting is created with past time values.
 	 * @return boolean
 	 */
-	public boolean isInformationMessageOfPastMeetingDisplayed() {
+	public boolean isMessageInformationOfPastMeetingDisplayed() {
 		return UIMethods.isElementPresent(By.xpath("//small[contains(text(),'" 
 				+ MEETING_PAST_CREATED_INFORMATION + "')]"));
 	}

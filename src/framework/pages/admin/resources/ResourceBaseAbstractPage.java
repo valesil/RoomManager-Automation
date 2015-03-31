@@ -1,5 +1,9 @@
 package framework.pages.admin.resources;
 
+import static framework.common.MessageConstants.RESOURCE_DISPLAY_NAME_TEXTBOX_EMPTY;
+import static framework.common.MessageConstants.RESOURCE_NAME_DUPLICATED;
+import static framework.common.MessageConstants.RESOURCE_NAME_TEXTBOX_EMPTY;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -200,5 +204,41 @@ public class ResourceBaseAbstractPage {
 	public ResourceAssociationsPage clickResourceAssociationLink() {
 		resourceAssociationsLink.click();
 		return new ResourceAssociationsPage();
+	}
+	
+	/**
+	 * [CG]This method verifies if an error message is correct
+	 * @return boolean
+	 */
+	public static boolean isErrorMessageCorrect(String errorMessage) {
+		return UIMethods.isElementPresent(By.xpath("//small[contains(text(),'" 
+				+ errorMessage + "')]"));
+	}
+	
+	/**
+	 * [CG]This method verifies that a message that says: "Cannot establish out of order as a past event"
+	 * is displayed
+	 * @return boolean
+	 */
+	public boolean isNameDuplicatedErrorDisplayed() {
+		return isErrorMessageCorrect(RESOURCE_NAME_DUPLICATED);
+	}
+	
+	/**
+	 * [CG]This method verifies that a message that says: "Cannot establish out of order as a past event"
+	 * is displayed
+	 * @return boolean
+	 */
+	public boolean isNameTxtBoxEmptyErrorDisplayed() {
+		return isErrorMessageCorrect(RESOURCE_NAME_TEXTBOX_EMPTY);
+	}
+	
+	/**
+	 * [CG]This method verifies that a message that says: "Cannot establish out of order as a past event"
+	 * is displayed
+	 * @return boolean
+	 */
+	public boolean isDisplayNameTxtBoxEmptyErrorDisplayed() {
+		return isErrorMessageCorrect(RESOURCE_DISPLAY_NAME_TEXTBOX_EMPTY);
 	}
 }

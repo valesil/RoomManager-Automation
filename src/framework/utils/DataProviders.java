@@ -40,7 +40,7 @@ public class DataProviders {
 	 * @return Object[][] where the column contain the following values: 
 	 * Organizer, Subject, minutesFrom, minutesTo, Attendee, Password
 	 */
-	@DataProvider(name="CurrentMeetingDataprovider")
+	@DataProvider(name = "CurrentMeetingDataProvider")
 	public static Object[][] getCurrentMeetingDataProvider() {
 		ExcelReader excelFile = new ExcelReader(EXCEL_DATA_PROVIDER);
 		return excelFile.getObjectValues("CurrentMeetingProvider");
@@ -51,7 +51,7 @@ public class DataProviders {
 	 * @return Object[][] Object[][] where the column contain the following values: 
 	 * Organizer, Subject, minutesFrom, minutesTo, Attendee, Password
 	 */
-	@DataProvider(name="NextMeetingDataprovider")
+	@DataProvider(name = "NextMeetingDataProvider")
 	public static Object[][] getNextMeetingDataProvider() {
 		ExcelReader excelFile = new ExcelReader(EXCEL_DATA_PROVIDER);
 		return excelFile.getObjectValues("NextMeetingProvider");
