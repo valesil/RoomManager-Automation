@@ -44,7 +44,8 @@ public class QuantityOfCharactersToSubjectIsLimited {
 		.createMeeting(organizer, subject, startTime, endTime, attendee, body, password)
 		.clickOkButton();
 
-		//Fails, it should be displays an error message
+		/*Fails, an error message should be displayed when more than expected 
+		quantity of characters is inserted in Subject text box*/
 		Assert.assertTrue(schedulePage.isMessageErrorPopUpDisplayed());
 	}
 
