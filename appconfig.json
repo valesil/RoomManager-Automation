@@ -2,9 +2,9 @@
 	"browser":
 	{
 		"navigator":"chrome",
-		"urlAdmin":"http://172.20.208.177:404/admin/#/admin",
-		"urlTablet":"http://172.20.208.177:404/tablet",
-		"urlRest":"http://172.20.208.177:404/"
+		"urlAdmin":"http://172.20.208.177:4046/admin/#/admin",
+		"urlTablet":"http://172.20.208.177:4046/tablet",
+		"urlRest":"http://172.20.208.177:4046/"
 	},
 	"confDriver":
 	{
@@ -16,7 +16,7 @@
 	},
 	"ExternalFile":
 	{
-		"excelPath": "\\src\\tests",
+		"excelPath": "\\src\\test\\resources",
 		"excelInputData": "\\RoomManagerData.xls",
 		"dataProviderData":"\\DataForDataProvider.xls"
 	}

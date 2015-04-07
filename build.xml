@@ -38,15 +38,14 @@
       </taskdef>
 
       <testng outputdir="${testng.output.dir}" useDefaultListeners="false"
-                listeners="framework.utils.ReportNGListener" 
+                listeners="main.java.utils.ReportNGListener" 
 	  groups="${groups}" verbose="2" >
          <classpath  refid="libraries"/>
-		   <xmlfileset dir="./src/tests/" includes="${suites}"/>
+		   <xmlfileset dir="./src/test/java/" includes="${suites}"/>
          <sysproperty key="browser" value="${browser}"/>
          <sysproperty key="groups" value="${groups}"/>
          <sysproperty key="JOB_NAME" value="${JOB_NAME}"/>
          <sysproperty key="BUILD_NUMBER" value="${BUILD_NUMBER}"/>
       </testng>
    </target>
-  
-</project>
+  </project>
