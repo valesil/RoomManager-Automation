@@ -4882,3 +4882,4 @@ java.io.FileNotFoundException: C:\Users\Administrator\Desktop\Automation\RoomMan
 2015-04-04 18:29:04 INFO  ExcelReader: Set the path of excel file - > \RoomManagerData.xls
 2015-04-04 18:29:04 INFO  SeleniumDriverManager: Initialization of Google Chrome driver.
 2015-04-04 18:29:08 INFO  SeleniumDriverManager: Set values of implicit and explicit waits.
+sdf
